@@ -17,7 +17,7 @@
 (function () {
   'use strict';
 
-  var API = 'https://cybercheck-api-database.vercel.app';
+  var API = 'https://gcr-api-gules.vercel.app';
 
   var styles = `
     .gcr-ride { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 480px; }

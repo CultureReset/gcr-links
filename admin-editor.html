@@ -2740,7 +2740,7 @@
   <div id="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;"></div>
 
   <script>
-    var API_BASE = window.CC_API_BASE || 'https://cybercheck-api-database.vercel.app';
+    var API_BASE = window.CC_API_BASE || 'https://gcr-api-gules.vercel.app';
 
     function getAuthToken() {
       try {
@@ -7740,7 +7740,7 @@
       el.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Loading restaurants...</p>';
 
       // Load all entities from public API
-      var r = await fetch('https://cybercheck-api-database.vercel.app/api/gcr/entities?limit=500').catch(function(){ return null; });
+      var r = await fetch('https://gcr-api-gules.vercel.app/api/gcr/entities?limit=500').catch(function(){ return null; });
       if (!r || !r.ok) {
         el.innerHTML = '<p style="color:var(--text-muted);font-size:14px;">Could not load restaurants.</p>';
         return;

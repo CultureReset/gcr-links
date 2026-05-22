@@ -4,7 +4,7 @@
    If the API is unavailable, defaults are used silently.
    ──────────────────────────────────────────────────────────────────────── */
 
-const SALES_API = 'https://cybercheck-api-database.vercel.app';
+const SALES_API = 'https://gcr-api-gules.vercel.app';
 
 const SalesConfig = {
 

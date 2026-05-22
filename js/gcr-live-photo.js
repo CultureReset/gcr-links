@@ -21,7 +21,7 @@
 
 const GCRLivePhoto = (function() {
 
-  const API = 'https://cybercheck-api-database.vercel.app';
+  const API = 'https://gcr-api-gules.vercel.app';
 
   // ── Inject styles ──────────────────────────────────────────
   const style = document.createElement('style');

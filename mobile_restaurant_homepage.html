@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harbor House Grill — Mobile Homepage</title>
+  <style>
+    :root{
+      --bg:#0b0f14;
+      --panel:#121923;
+      --panel-2:#182230;
+      --card:#101722;
+      --soft:#1f2b3a;
+      --line:rgba(255,255,255,.08);
+      --text:#f4f7fb;
+      --muted:#96a4b8;
+      --green:#22c55e;
+      --teal:#14b8a6;
+      --gold:#f5b942;
+      --red:#ef4444;
+      --pill:#0f1722;
+      --shadow:0 14px 34px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:linear-gradient(180deg,#081018 0%, #0b0f14 100%);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+    }
+    .phone{
+      width:100%;
+      max-width:430px;
+      margin:0 auto;
+      min-height:100vh;
+      background:var(--bg);
+      position:relative;
+      overflow:hidden;
+      box-shadow:0 0 0 1px rgba(255,255,255,.03);
+    }
+    .hero{
+      position:relative;
+      padding:18px 18px 22px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.7)),
+        url('https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=1200&q=80') center/cover;
+      min-height:250px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .logo{
+      width:46px;height:46px;border-radius:14px;
+      background:linear-gradient(135deg,var(--teal),var(--green));
+      display:grid;place-items:center;font-weight:800;color:white;
+      box-shadow:var(--shadow);
+    }
+    .brand h1{margin:0;font-size:1.08rem;line-height:1.1}
+    .brand p{margin:3px 0 0;color:#d7e1ed;font-size:.78rem}
+    .icon-btn{
+      width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.18);
+      background:rgba(11,15,20,.42);color:white;display:grid;place-items:center;font-size:1.1rem;
+      backdrop-filter: blur(10px);
+    }
+    .status-row{
+      display:flex;flex-wrap:wrap;gap:8px;margin-top:12px;
+    }
+    .pill{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(8,12,18,.58);border:1px solid rgba(255,255,255,.12);
+      color:#fff;padding:8px 12px;border-radius:999px;font-size:.78rem;font-weight:700;
+      backdrop-filter: blur(8px);
+    }
+    .live-strip{
+      margin:14px 18px 0;
+      background:linear-gradient(135deg,#1b2534 0%,#14202d 100%);
+      border:1px solid rgba(34,197,94,.24);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:var(--shadow);
+    }
+    .live-label{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#7ee0b1;font-weight:800}
+    .live-main{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
+    .live-main h2{font-size:1rem;margin:0 0 4px}
+    .live-main p{margin:0;color:var(--muted);font-size:.84rem}
+    .mini-artist{
+      width:52px;height:52px;border-radius:16px;overflow:hidden;flex:0 0 auto;border:1px solid rgba(255,255,255,.08)
+    }
+    .mini-artist img{width:100%;height:100%;object-fit:cover;display:block}
+    .cta-row{
+      display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 18px 0;
+    }
+    .cta{
+      text-decoration:none;color:white;background:var(--panel);border:1px solid var(--line);
+      border-radius:18px;padding:14px 14px;font-weight:800;text-align:center;box-shadow:var(--shadow);
+    }
+    .cta.primary{background:linear-gradient(135deg,var(--green),#16a34a);color:#06110a;border:none}
+    .sticky-nav{
+      position:sticky;top:0;z-index:30;
+      display:flex;gap:10px;overflow:auto;padding:14px 18px 12px;background:rgba(11,15,20,.92);
+      backdrop-filter: blur(10px);border-bottom:1px solid rgba(255,255,255,.05);margin-top:18px;
+    }
+    .sticky-nav::-webkit-scrollbar{display:none}
+    .nav-pill{
+      white-space:nowrap;padding:10px 14px;border-radius:999px;background:var(--pill);border:1px solid var(--line);
+      color:#d9e2ef;text-decoration:none;font-size:.82rem;font-weight:700;
+    }
+    .section{padding:18px}
+    .section-header{display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:12px}
+    .section h3{margin:0;font-size:1.08rem}
+    .section small{color:var(--muted)}
+    .cards{display:grid;gap:12px}
+    .menu-preview{
+      display:grid;grid-template-columns:88px 1fr;gap:12px;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:12px;
+    }
+    .menu-preview img{width:88px;height:88px;border-radius:14px;object-fit:cover}
+    .menu-preview h4{margin:0 0 5px;font-size:.95rem}
+    .desc{color:var(--muted);font-size:.82rem;line-height:1.45;margin:0 0 8px}
+    .price-row{display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .price{font-weight:900;color:var(--gold)}
+    .tag{font-size:.7rem;padding:6px 8px;border-radius:999px;background:#16202d;border:1px solid rgba(255,255,255,.06);color:#cfe0f5;font-weight:700}
+    .special-card,.booking-card,.artist-card,.lineup-item,.info-card{
+      background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:14px;box-shadow:var(--shadow);
+    }
+    .special-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:8px}
+    .special-top h4,.booking-card h4,.artist-card h4,.info-card h4{margin:0}
+    .special-price{font-weight:900;color:var(--gold)}
+    .muted{color:var(--muted);font-size:.84rem;line-height:1.5}
+    .booking-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .booking-btn{
+      text-decoration:none;background:var(--panel-2);border:1px solid var(--line);color:white;padding:12px;border-radius:14px;text-align:center;font-weight:800
+    }
+    .booking-btn.primary{background:linear-gradient(135deg,var(--teal),#0f9f90);border:none}
+    .lineup-item{display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .lineup-item strong{display:block;font-size:.92rem}
+    .lineup-item span{display:block;color:var(--muted);font-size:.8rem;margin-top:3px}
+    .artist-card{display:grid;grid-template-columns:76px 1fr;gap:12px;align-items:start}
+    .artist-card img{width:76px;height:76px;border-radius:16px;object-fit:cover}
+    .artist-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+    .artist-links a,.tiny-btn{
+      text-decoration:none;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:var(--panel-2);color:#e9f2ff;font-size:.76rem;font-weight:800
+    }
+    .tiny-btn{display:inline-block}
+    .rentals-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .rental-card{background:var(--panel);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+    .rental-card img{width:100%;height:112px;object-fit:cover;display:block}
+    .rental-card .pad{padding:12px}
+    .rental-card h4{margin:0 0 6px;font-size:.92rem}
+    .bottom-space{height:32px}
+  </style>
+</head>
+<body>
+  <div class="phone">
+    <section class="hero" id="top">
+      <div class="topbar">
+        <div class="brand">
+          <div class="logo">HH</div>
+          <div>
+            <h1>Harbor House Grill</h1>
+            <p>Seafood • Marina • Live Music</p>
+          </div>
+        </div>
+        <div class="icon-btn">☰</div>
+      </div>
+
+      <div>
+        <div class="status-row">
+          <div class="pill">🟢 Open Now</div>
+          <div class="pill">🎵 Music Tonight</div>
+          <div class="pill">📍 Marina Deck</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="live-strip">
+      <div class="live-label">Tonight on the deck</div>
+      <div class="live-main">
+        <div>
+          <h2>Jake Rivers Live • 7:00 PM – 10:00 PM</h2>
+          <p>Acoustic coastal country • Tap to view artist profile and full weekly lineup</p>
+        </div>
+        <div class="mini-artist">
+          <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=300&q=80" alt="Artist">
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-row">
+      <a class="cta primary" href="#menu">View Menu</a>
+      <a class="cta" href="#booking">Book Table</a>
+    </div>
+
+    <nav class="sticky-nav">
+      <a class="nav-pill" href="#menu">Menu</a>
+      <a class="nav-pill" href="#specials">Specials</a>
+      <a class="nav-pill" href="#music">Music</a>
+      <a class="nav-pill" href="#booking">Booking</a>
+      <a class="nav-pill" href="#marina">Marina</a>
+      <a class="nav-pill" href="#loyalty">Loyalty</a>
+    </nav>
+
+    <section class="section" id="menu">
+      <div class="section-header">
+        <h3>Menu Preview</h3>
+        <small>Swipe-style layout can expand into full menu</small>
+      </div>
+      <div class="cards">
+        <div class="menu-preview">
+          <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?auto=format&fit=crop&w=600&q=80" alt="Crab cakes">
+          <div>
+            <h4>Gulf Crab Cakes</h4>
+            <p class="desc">Pan-seared lump crab, citrus slaw, roasted corn remoulade.</p>
+            <div class="price-row">
+              <span class="tag">Best Seller</span>
+              <span class="price">$18</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-preview">
+          <img src="https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=600&q=80" alt="Snapper">
+          <div>
+            <h4>Blackened Red Snapper</h4>
+            <p class="desc">Local snapper, garlic butter rice, grilled asparagus, lemon finish.</p>
+            <div class="price-row">
+              <span class="tag">Dinner Feature</span>
+              <span class="price">$32</span>
+            </div>
+          </div>
+        </div>
+        <div class="menu-preview">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80" alt="Shrimp tacos">
+          <div>
+            <h4>Dockside Shrimp Tacos</h4>
+            <p class="desc">Grilled Gulf shrimp, mango salsa, jalapeño crema, flour tortillas.</p>
+            <div class="price-row">
+              <span class="tag">Lunch Favorite</span>
+              <span class="price">$17</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="specials">
+      <div class="section-header">
+        <h3>Happy Hour + Specials</h3>
+        <small>Time-based items update automatically</small>
+      </div>
+      <div class="cards">
+        <div class="special-card">
+          <div class="special-top">
+            <h4>Happy Hour • 3 PM – 6 PM</h4>
+            <span class="special-price">$6 Margaritas</span>
+          </div>
+          <div class="muted">Half-price oysters, $2 off draft beer, and discounted appetizers on the marina deck.</div>
+        </div>
+        <div class="special-card">
+          <div class="special-top">
+            <h4>Tonight’s Chef Feature</h4>
+            <span class="special-price">$29</span>
+          </div>
+          <div class="muted">Cajun mahi over dirty rice with grilled shrimp and a smoked tomato cream sauce.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="music">
+      <div class="section-header">
+        <h3>Live Music</h3>
+        <small>Weekly lineup pushed from one update</small>
+      </div>
+      <div class="cards">
+        <div class="artist-card">
+          <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=400&q=80" alt="Jake Rivers">
+          <div>
+            <h4>Jake Rivers</h4>
+            <div class="muted">Coastal acoustic country and crowd favorites. Playing tonight on the main deck.</div>
+            <div class="artist-links">
+              <a href="#">Artist Profile</a>
+              <a href="#">Request a Song</a>
+              <a href="#">Tip Artist</a>
+            </div>
+          </div>
+        </div>
+        <div class="lineup-item">
+          <div>
+            <strong>Monday • Sunset Sessions</strong>
+            <span>Emma Reed • 6:00 PM</span>
+          </div>
+          <span class="tiny-btn">View</span>
+        </div>
+        <div class="lineup-item">
+          <div>
+            <strong>Wednesday • Marina Nights</strong>
+            <span>The Drift Duo • 7:00 PM</span>
+          </div>
+          <span class="tiny-btn">View</span>
+        </div>
+        <div class="lineup-item">
+          <div>
+            <strong>Friday • Dock Party</strong>
+            <span>Jake Rivers • 7:00 PM</span>
+          </div>
+          <span class="tiny-btn">View</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="booking">
+      <div class="section-header">
+        <h3>Reservations + Bookings</h3>
+        <small>Restaurant, dockside, and experience booking in one place</small>
+      </div>
+      <div class="booking-card">
+        <h4>Reserve your table or book an experience</h4>
+        <div class="muted">Guests can book dinner, reserve marina seating, or lock in a rental/charter without leaving the page.</div>
+        <div class="booking-grid">
+          <a class="booking-btn primary" href="#">Reserve Table</a>
+          <a class="booking-btn" href="#">Marina Seating</a>
+          <a class="booking-btn" href="#">Boat Rental</a>
+          <a class="booking-btn" href="#">Sunset Charter</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="marina">
+      <div class="section-header">
+        <h3>Marina + Rentals</h3>
+        <small>Works for restaurants connected to other services</small>
+      </div>
+      <div class="rentals-grid">
+        <div class="rental-card">
+          <img src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=800&q=80" alt="Boat rental">
+          <div class="pad">
+            <h4>Half-Day Pontoon</h4>
+            <div class="muted">Seats 10 • Fuel options • Easy checkout</div>
+          </div>
+        </div>
+        <div class="rental-card">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Sunset charter">
+          <div class="pad">
+            <h4>Sunset Cruise</h4>
+            <div class="muted">2-hour harbor trip • Drinks available</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="loyalty">
+      <div class="section-header">
+        <h3>Loyalty + Return Visits</h3>
+        <small>Capture the customer before they leave</small>
+      </div>
+      <div class="info-card">
+        <h4>Join Harbor Rewards</h4>
+        <div class="muted">Get points for every visit, birthday offers, last-minute music alerts, and weekly specials by text.</div>
+        <div class="booking-grid">
+          <a class="booking-btn primary" href="#">Join Loyalty</a>
+          <a class="booking-btn" href="#">Text Specials</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="bottom-space"></div>
+  </div>
+</body>
+</html>

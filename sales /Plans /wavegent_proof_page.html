@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>aWavegent Proof / Comparison</title>
+<style>
+:root{
+  --sand:#f7f0e6;
+  --sea:#0f766e;
+  --deep:#0f172a;
+  --sky:#ecfeff;
+  --coral:#f97316;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --card:#ffffff;
+  --border:#dbe4ea;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  color:var(--text);
+  background:linear-gradient(180deg,var(--sand),#fff 240px);
+  line-height:1.5;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.site-header{
+  position:sticky; top:0; z-index:50;
+  background:rgba(255,255,255,.9); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{
+  min-height:74px; display:flex; align-items:center; justify-content:space-between; gap:18px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--deep); font-weight:800;
+}
+.brand-mark{
+  width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,var(--sea),var(--deep));color:#fff;font-size:14px;
+}
+.main-nav{display:flex;gap:8px;flex-wrap:wrap}
+.nav-link{
+  text-decoration:none;color:var(--muted);font-weight:700;padding:10px 12px;border-radius:12px;
+}
+.nav-link.active,.nav-link:hover{background:var(--sky);color:var(--sea)}
+.header-cta{
+  text-decoration:none;background:var(--sea);color:#fff;font-weight:800;padding:12px 16px;border-radius:14px;
+}
+.hero{
+  background:
+    radial-gradient(circle at top right, rgba(15,118,110,.14), transparent 28%),
+    radial-gradient(circle at top left, rgba(249,115,22,.10), transparent 24%),
+    linear-gradient(135deg, rgba(15,118,110,.08), rgba(249,115,22,.06));
+  padding:72px 0 54px;
+  border-bottom:1px solid var(--border);
+}
+.eyebrow{
+  text-transform:uppercase; letter-spacing:.08em; font-size:12px; font-weight:800; color:var(--sea); margin-bottom:10px;
+}
+h1{font-size:52px;line-height:1.03;margin:0 0 16px;color:var(--deep)}
+h2{font-size:38px;line-height:1.06;margin:0 0 14px;color:var(--deep)}
+.sub{font-size:20px;color:#334155;max-width:760px;margin-bottom:24px}
+.section{padding:62px 0;border-bottom:1px solid var(--border)}
+.lead{font-size:18px;color:var(--muted);max-width:820px;margin-bottom:26px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;align-items:start}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px;
+  box-shadow:0 8px 28px rgba(15,23,42,.05);
+}
+.card h3{margin:0 0 10px;font-size:24px;color:var(--deep)}
+.btn{
+  display:inline-block;text-decoration:none;padding:14px 20px;border-radius:14px;font-weight:700;border:2px solid transparent;
+}
+.btn-primary{background:var(--sea);color:#fff}
+.btn-secondary{background:#fff;border-color:var(--sea);color:var(--sea)}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+form{display:grid;gap:14px}
+label{font-weight:700;font-size:14px;color:var(--deep)}
+input,select,textarea{
+  width:100%;padding:13px 14px;border:1px solid var(--border);border-radius:14px;font:inherit;background:#fff;
+}
+textarea{min-height:130px;resize:vertical}
+.inline-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.note{font-size:13px;color:var(--muted)}
+.pricing{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:18px;
+}
+.price-card{
+  background:#fff;border:1px solid var(--border);border-radius:22px;padding:24px;box-shadow:0 8px 28px rgba(15,23,42,.05);
+}
+.price-top{font-size:14px;font-weight:800;color:var(--sea);text-transform:uppercase;letter-spacing:.06em}
+.price{font-size:42px;font-weight:900;color:var(--deep);margin:10px 0 4px}
+.price-sub{color:var(--muted);margin-bottom:16px}
+.badge{
+  display:inline-block;font-size:12px;font-weight:800;color:var(--sea);background:var(--sky);
+  padding:6px 10px;border-radius:999px;margin-bottom:10px;
+}
+.compare{
+  width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--border);border-radius:20px;overflow:hidden;
+}
+.compare th,.compare td{padding:14px 16px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top}
+.compare th{background:#f8fafc;color:var(--deep)}
+.cta{
+  background:linear-gradient(135deg,var(--deep),#134e4a); color:#fff; padding:62px 0;
+}
+.cta h2,.cta h3{color:#fff}
+.cta .card{
+  background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);color:#fff;
+}
+.site-footer{
+  padding:32px 0;background:#fff;color:var(--muted);font-size:14px;
+}
+.footer-grid{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap}
+.footer-links a{text-decoration:none;color:var(--muted);font-weight:700}
+.checklist{padding-left:18px}
+.checklist li{margin:8px 0}
+@media (max-width: 900px){
+  .header-inner{flex-direction:column;align-items:flex-start;padding:14px 0}
+  .main-nav{justify-content:flex-start}
+  .header-cta{width:100%;text-align:center}
+  .grid-2,.grid-3,.pricing,.inline-2{grid-template-columns:1fr}
+  h1{font-size:40px}
+  h2{font-size:30px}
+  .sub,.lead{font-size:17px}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="wavegent_homepage_fixed.html">
+      <span class="brand-mark">aW</span>
+      <span>aWavegent</span>
+    </a>
+    <nav class="main-nav">
+      <a class="nav-link" href="wavegent_homepage_fixed.html">Home</a>
+      <a class="nav-link" href="wavegent_restaurants_sales_page_fixed.html">Restaurants</a>
+      <a class="nav-link" href="wavegent_charters_sales_page_fixed.html">Charters</a>
+      <a class="nav-link" href="wavegent_activities_sales_page_fixed.html">Activities</a>
+      <a class="nav-link" href="wavegent_services_sales_page_fixed.html">Services</a>
+      <a class="nav-link" href="wavegent_pricing_page.html">Pricing</a>
+      <a class="nav-link" href="wavegent_proof_page.html">Proof</a>
+    </nav>
+    <a class="header-cta" href="wavegent_lead_form_page.html">Get Started</a>
+  </div>
+</header>
+
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Proof / Comparison</div>
+    <h1>Why this is different.</h1>
+    <div class="sub">This page helps close people who are comparing you to Linktree, basic booking tools, Facebook, or scattered software.</div>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap">
+    <div class="card" style="margin-bottom:24px;">
+      <h3>Core positioning</h3>
+      <p>aWavegent is not just a page builder. It is a connected business system that combines smart pages, booking or lead flow, SMS automation, verified reviews, and Gulf Coast Radar visibility in one stack.</p>
+    </div>
+    <table class="compare">
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>aWavegent</th>
+          <th>Linktree / basic page</th>
+          <th>Disconnected tools</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Smart business page</td>
+          <td>Yes — niche-specific</td>
+          <td>Basic links only</td>
+          <td>Depends</td>
+        </tr>
+        <tr>
+          <td>Bookings / lead flow</td>
+          <td>Yes</td>
+          <td>No real system</td>
+          <td>Separate tool</td>
+        </tr>
+        <tr>
+          <td>SMS automations</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>Usually separate</td>
+        </tr>
+        <tr>
+          <td>Verified reviews</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>Usually open/public only</td>
+        </tr>
+        <tr>
+          <td>Source tracking</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>Often weak</td>
+        </tr>
+        <tr>
+          <td>GCR visibility</td>
+          <td>Yes</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<section class="section">
+  <div class="wrap grid-3">
+    <div class="card">
+      <h3>Better than just a website</h3>
+      <p>Because the page is tied to workflow, follow-up, reviews, and public visibility.</p>
+    </div>
+    <div class="card">
+      <h3>Better than just a booking tool</h3>
+      <p>Because it also handles page quality, tracking, and post-customer follow-up.</p>
+    </div>
+    <div class="card">
+      <h3>Better than scattered tools</h3>
+      <p>Because the system is structured around one source of truth instead of five disconnected logins.</p>
+    </div>
+  </div>
+</section>
+
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <div style="font-weight:800;color:#0f172a;margin-bottom:8px;font-size:18px;">aWavegent</div>
+      <div>Smart pages, bookings, SMS automations, verified reviews, and Gulf Coast Radar visibility.</div>
+    </div>
+    <div class="footer-links">
+      <a href="wavegent_homepage_fixed.html">Home</a>
+      <a href="wavegent_lead_form_page.html">Lead Form</a>
+      <a href="wavegent_pricing_page.html">Pricing</a>
+      <a href="wavegent_demo_booking_page.html">Book Demo</a>
+      <a href="wavegent_proof_page.html">Proof</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

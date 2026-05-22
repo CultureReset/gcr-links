@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gulf Coast Radar — More Bookings Without Replacing Your Current System</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#111a2b;
+      --muted:#8ea0bd;
+      --text:#eef4ff;
+      --accent:#38bdf8;
+      --accent2:#22c55e;
+      --line:#24324a;
+      --soft:#0f172a;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:linear-gradient(180deg,#08101d 0%, #0b1220 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+    .wrap{max-width:1120px;margin:0 auto;padding:24px}
+    .hero{
+      padding:48px 0 28px;
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:28px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:8px 12px;
+      border:1px solid rgba(56,189,248,.35);
+      border-radius:999px;
+      color:#bfeaff;
+      background:rgba(56,189,248,.08);
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.3px;
+      margin-bottom:18px;
+    }
+    h1{
+      font-size:52px;
+      line-height:1.03;
+      margin:0 0 16px;
+      letter-spacing:-1.5px;
+    }
+    .sub{
+      font-size:20px;
+      color:#d6e3fb;
+      max-width:680px;
+      margin:0 0 24px;
+    }
+    .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:20px}
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:14px 20px;
+      border-radius:12px;
+      font-weight:700;
+      transition:.18s ease;
+      border:1px solid transparent;
+    }
+    .btn.primary{background:var(--accent);color:#062033}
+    .btn.secondary{background:transparent;color:var(--text);border-color:#3b4f72}
+    .btn:hover{transform:translateY(-1px)}
+    .hero-card,.card{
+      background:rgba(17,26,43,.92);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 16px 40px rgba(0,0,0,.28);
+    }
+    .hero-card{padding:22px}
+    .stat{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    .mini{
+      background:#0b1424;
+      border:1px solid #20304a;
+      border-radius:14px;
+      padding:16px;
+    }
+    .mini strong{display:block;font-size:26px;margin-bottom:6px}
+    section{padding:24px 0}
+    h2{
+      font-size:34px;
+      margin:0 0 10px;
+      letter-spacing:-.8px;
+    }
+    .lead{color:var(--muted);font-size:18px;margin:0 0 24px}
+    .grid-3,.grid-2{
+      display:grid;
+      gap:18px;
+    }
+    .grid-3{grid-template-columns:repeat(3,1fr)}
+    .grid-2{grid-template-columns:repeat(2,1fr)}
+    .card{padding:22px}
+    .card h3{margin:0 0 10px;font-size:22px}
+    .card p{margin:0;color:#d8e3f8}
+    ul{
+      margin:12px 0 0 18px;
+      padding:0;
+      color:#dce7fa;
+    }
+    li{margin:8px 0}
+    .steps{
+      counter-reset:step;
+      display:grid;
+      gap:16px;
+    }
+    .step{
+      position:relative;
+      padding:20px 20px 20px 76px;
+      background:rgba(17,26,43,.92);
+      border:1px solid var(--line);
+      border-radius:16px;
+    }
+    .step:before{
+      counter-increment:step;
+      content:counter(step);
+      position:absolute;
+      left:20px; top:18px;
+      width:40px; height:40px;
+      display:grid; place-items:center;
+      border-radius:50%;
+      background:var(--accent);
+      color:#062033;
+      font-weight:800;
+    }
+    .pricing{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .price-card{
+      background:rgba(17,26,43,.92);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:22px;
+      position:relative;
+    }
+    .tag{
+      position:absolute;
+      right:16px; top:16px;
+      background:rgba(34,197,94,.14);
+      color:#b8f7cd;
+      border:1px solid rgba(34,197,94,.35);
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      padding:6px 10px;
+    }
+    .price-card h3{margin:0 0 6px}
+    .price{
+      font-size:38px;
+      font-weight:800;
+      margin:10px 0 14px;
+    }
+    .muted{color:var(--muted)}
+    .band{
+      margin-top:20px;
+      background:linear-gradient(135deg, rgba(56,189,248,.12), rgba(34,197,94,.08));
+      border:1px solid #284763;
+      border-radius:18px;
+      padding:22px;
+    }
+    .faq details{
+      background:rgba(17,26,43,.92);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px 18px;
+      margin-bottom:12px;
+    }
+    .faq summary{cursor:pointer;font-weight:700}
+    .faq p{color:#d8e3f8;margin:12px 0 0}
+    .form-card{
+      background:rgba(17,26,43,.96);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:24px;
+    }
+    form{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:16px;
+    }
+    input, select, textarea{
+      width:100%;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px solid #2a3b58;
+      background:#0b1424;
+      color:var(--text);
+      font-size:16px;
+    }
+    textarea{min-height:130px;grid-column:1/-1;resize:vertical}
+    .full{grid-column:1/-1}
+    .fine{font-size:13px;color:var(--muted);margin-top:12px}
+    footer{
+      padding:30px 0 50px;
+      color:var(--muted);
+      text-align:center;
+      font-size:14px;
+    }
+    @media (max-width: 920px){
+      .hero,.grid-3,.grid-2,.pricing,form{grid-template-columns:1fr}
+      h1{font-size:40px}
+      .sub{font-size:18px}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Gulf Coast Radar for Local Businesses</div>
+        <h1>Get More Bookings Without Replacing Your Current Booking System</h1>
+        <p class="sub">
+          We help local businesses get discovered, track referrals, verify bookings,
+          and measure which promotions, posts, and influencers actually make money.
+        </p>
+        <div class="cta-row">
+          <a class="btn primary" href="#lead-form">Request a Demo</a>
+          <a class="btn secondary" href="#how-it-works">See How It Works</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <h3 style="margin-top:0;font-size:24px;">What You Keep</h3>
+        <ul>
+          <li>Your current booking system</li>
+          <li>Your current website and workflow</li>
+          <li>Your current payment setup if you want</li>
+        </ul>
+        <h3 style="margin-top:18px;font-size:24px;">What We Add</h3>
+        <ul>
+          <li>More visibility and traffic</li>
+          <li>Tracked referral and influencer campaigns</li>
+          <li>Verified booking attribution</li>
+          <li>Optional Stripe / Square connected tracking</li>
+          <li>Lead capture, reviews, and follow-up opportunities</li>
+        </ul>
+        <div class="stat">
+          <div class="mini">
+            <strong>2 Ways</strong>
+            <span class="muted">Work with us: keep your current system or use our tracked booking flow</span>
+          </div>
+          <div class="mini">
+            <strong>1 Goal</strong>
+            <span class="muted">Show you exactly what content and promotions are producing revenue</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>What We Actually Do</h2>
+      <p class="lead">
+        We are not trying to force you to rebuild your whole operation. We add a growth and tracking layer on top of what you already use.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Drive More Traffic</h3>
+          <p>Your business gets exposure through Gulf Coast Radar, referral links, promo pages, influencer content, and targeted campaigns.</p>
+        </div>
+        <div class="card">
+          <h3>Track the Source</h3>
+          <p>We show where the customer came from, which campaign or post produced the lead, and which bookings were influenced by our platform.</p>
+        </div>
+        <div class="card">
+          <h3>Verify Real Results</h3>
+          <p>For businesses using our tracked booking flow, we connect the click, booking, payment, and referral payout so reporting is accurate.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="how-it-works">
+      <h2>How It Works</h2>
+      <p class="lead">Simple on the front end. Powerful on the back end.</p>
+      <div class="steps">
+        <div class="step">
+          <h3 style="margin:0 0 8px;">Keep Your Current Setup</h3>
+          <p style="margin:0;">You do not have to replace your current booking platform to get started. We can send traffic to what you already use.</p>
+        </div>
+        <div class="step">
+          <h3 style="margin:0 0 8px;">Add Referral and Promotion Tracking</h3>
+          <p style="margin:0;">We create tracked links, campaign sources, and referral paths so you can see what is working instead of guessing.</p>
+        </div>
+        <div class="step">
+          <h3 style="margin:0 0 8px;">Use Our Booking Flow When Attribution Matters</h3>
+          <p style="margin:0;">For influencer campaigns, promos, featured listings, and trackable offers, bookings can run through our tracked system for full visibility.</p>
+        </div>
+        <div class="step">
+          <h3 style="margin:0 0 8px;">Connect Payment for Accurate Reporting</h3>
+          <p style="margin:0;">Stripe or Square can be connected so we can verify whether a booking was paid, completed, refunded, or canceled.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="band">
+        <h2 style="margin-top:0;">Why Stripe or Square Matters</h2>
+        <p style="margin:0;font-size:18px;color:#e5f0ff;">
+          If we are tracking referral bookings, the payment side needs to be connected. That lets us verify that the booking really happened, how much was paid, whether it was canceled or refunded, and what commission is owed.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Two Ways to Work With Us</h2>
+      <p class="lead">Start simple. Add deeper tracking when you want better attribution.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Option 1: Keep Your Current Booking Platform</h3>
+          <ul>
+            <li>We send traffic to your existing system</li>
+            <li>You get added visibility and promotion</li>
+            <li>We track clicks, leads, and campaign source where possible</li>
+            <li>Lower friction for businesses that want to start fast</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Option 2: Use Our Tracked Booking Flow</h3>
+          <ul>
+            <li>Best for promos, influencer campaigns, and featured offers</li>
+            <li>Connects the source, click, booking, payment, and payout</li>
+            <li>Gives better reporting and cleaner commission logic</li>
+            <li>Turns bookings into verified reviews and remarketing opportunities</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Why Businesses Like This</h2>
+      <p class="lead">Because it gives them more upside without forcing a messy switch.</p>
+      <div class="grid-3">
+        <div class="card">
+          <h3>No Forced Platform Change</h3>
+          <p>They can keep using what already works while adding a better traffic and referral layer on top.</p>
+        </div>
+        <div class="card">
+          <h3>Clear ROI</h3>
+          <p>They stop guessing which ad, post, influencer, or promotion actually brought in the customer.</p>
+        </div>
+        <div class="card">
+          <h3>Built for Growth</h3>
+          <p>Once the tracking layer is in place, it becomes easier to scale promos, reviews, loyalty, and repeat business.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Packages</h2>
+      <p class="lead">You can customize this section later with exact pricing.</p>
+      <div class="pricing">
+        <div class="price-card">
+          <h3>Visibility</h3>
+          <div class="price">Starter</div>
+          <ul>
+            <li>Business listing</li>
+            <li>Exposure through Gulf Coast Radar</li>
+            <li>Basic lead capture</li>
+            <li>Simple tracked links</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <div class="tag">Most Popular</div>
+          <h3>Referral Tracking</h3>
+          <div class="price">Growth</div>
+          <ul>
+            <li>Everything in Starter</li>
+            <li>Referral and influencer links</li>
+            <li>Promotion attribution</li>
+            <li>Tracked campaign flows</li>
+            <li>Better booking visibility</li>
+          </ul>
+        </div>
+        <div class="price-card">
+          <h3>Booking + Payment Tracking</h3>
+          <div class="price">Pro</div>
+          <ul>
+            <li>Everything in Growth</li>
+            <li>Tracked booking flow</li>
+            <li>Stripe / Square connection</li>
+            <li>Verified payouts and commissions</li>
+            <li>Review and follow-up automation</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq">
+      <h2>Common Questions</h2>
+      <details open>
+        <summary>Do I have to replace my current booking system?</summary>
+        <p>No. You can keep your current setup. We add the promotion, referral, and tracking layer on top.</p>
+      </details>
+      <details>
+        <summary>Why would I use your booking flow if I already have one?</summary>
+        <p>Because for certain campaigns, offers, and referrals, our booking flow gives cleaner tracking from source to payment. That means better attribution and fewer disputes over what converted.</p>
+      </details>
+      <details>
+        <summary>Why do you need Stripe or Square connected?</summary>
+        <p>Because if referral payouts or verified bookings matter, the payment side has to be connected so we can confirm what actually happened.</p>
+      </details>
+      <details>
+        <summary>Is this complicated to set up?</summary>
+        <p>It should not feel complicated on your side. We keep the front-end offer simple and connect only the parts needed to track results properly.</p>
+      </details>
+    </section>
+
+    <section id="lead-form">
+      <div class="form-card">
+        <h2 style="margin-top:0;">Request a Demo</h2>
+        <p class="lead" style="margin-bottom:0;">
+          Want more bookings, cleaner tracking, and a better way to measure what actually drives revenue? Fill this out and we will reach out.
+        </p>
+        <form>
+          <input type="text" placeholder="Business Name" required />
+          <input type="text" placeholder="Contact Name" required />
+          <input type="email" placeholder="Email Address" required />
+          <input type="tel" placeholder="Phone Number" />
+          <input type="text" placeholder="Current Booking Platform (optional)" />
+          <select>
+            <option>What are you interested in?</option>
+            <option>More visibility</option>
+            <option>Referral tracking</option>
+            <option>Tracked booking flow</option>
+            <option>Stripe / Square connection</option>
+            <option>All of the above</option>
+          </select>
+          <textarea placeholder="Tell us what you want help with"></textarea>
+          <div class="full">
+            <button class="btn primary" type="submit">Submit Request</button>
+          </div>
+        </form>
+        <p class="fine">
+          Replace this form action later with your CRM, email form handler, Supabase, Airtable, or lead capture system.
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      Gulf Coast Radar — Promotion, referral tracking, and booking attribution for local businesses.
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Loading...</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+:root {
+  --bg: #0f172a; --surface: #1e293b; --border: #334155;
+  --primary: #38bdf8; --accent: #f59e0b;
+  --text: #f1f5f9; --muted: #94a3b8;
+  --green: #4ade80; --red: #f87171;
+  --radius: 16px; --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+
+.loader { text-align: center; }
+.spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; width: 100%; max-width: 420px; }
+
+.seq-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.3); color: var(--primary); font-size: 12px; font-weight: 600; padding: 4px 10px; border-radius: 20px; margin-bottom: 20px; letter-spacing: 0.5px; text-transform: uppercase; }
+.seq-badge svg { width: 12px; height: 12px; }
+
+.label { font-size: 22px; font-weight: 700; line-height: 1.3; margin-bottom: 6px; }
+.type-tag { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* Contact card */
+.contact-avatar { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #818cf8); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 16px; }
+.contact-name { font-size: 24px; font-weight: 700; text-align: center; }
+.contact-title { font-size: 14px; color: var(--muted); text-align: center; margin-top: 4px; margin-bottom: 20px; }
+.contact-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+.contact-link { display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; color: var(--text); text-decoration: none; font-size: 14px; font-weight: 500; }
+.contact-link svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--primary); }
+
+/* Action buttons */
+.btn { display: block; width: 100%; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 600; text-align: center; cursor: pointer; border: none; margin-bottom: 10px; transition: opacity 0.15s; text-decoration: none; }
+.btn:active { opacity: 0.8; }
+.btn-primary { background: var(--primary); color: #0f172a; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-green { background: var(--green); color: #052e16; }
+
+/* Phone capture */
+.divider { display: flex; align-items: center; gap: 10px; margin: 20px 0; color: var(--muted); font-size: 13px; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.connect-box { background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.connect-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.connect-sub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.input-row { display: flex; gap: 8px; }
+input[type="tel"], input[type="text"] {
+  flex: 1; padding: 12px 14px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; color: var(--text); font-size: 14px; outline: none;
+}
+input::placeholder { color: var(--muted); }
+input:focus { border-color: var(--primary); }
+.submit-btn { padding: 12px 18px; background: var(--primary); color: #0f172a; border: none; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; flex-shrink: 0; }
+.success-msg { color: var(--green); font-size: 14px; text-align: center; margin-top: 10px; display: none; }
+
+.scan-meta { font-size: 12px; color: var(--muted); text-align: center; margin-top: 16px; }
+
+/* Error */
+.error-card { text-align: center; }
+.error-icon { font-size: 48px; margin-bottom: 12px; }
+.error-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+.error-sub { font-size: 14px; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <div class="spinner"></div>
+  <div style="color:var(--muted);font-size:14px;">Loading...</div>
+</div>
+
+<div id="main" style="display:none;width:100%;max-width:420px;"></div>
+
+<script>
+const API  = 'https://cybercheck-api-database.vercel.app';
+const code = new URLSearchParams(window.location.search).get('c');
+
+async function init() {
+  if (!code) { showError('Missing QR code', 'This link appears to be incomplete.'); return; }
+
+  try {
+    const r = await fetch(`${API}/api/qr/scan/${code}`, { method: 'POST' });
+    if (!r.ok) { showError('QR Code Not Found', 'This code may be inactive or invalid.'); return; }
+    const d = await r.json();
+    document.getElementById('loader').style.display = 'none';
+    render(d);
+  } catch (e) {
+    showError('Connection Error', 'Could not reach the server. Check your connection.');
+  }
+}
+
+function render(d) {
+  _scanId = d.scan_id || null;
+  const main = document.getElementById('main');
+  main.style.display = '';
+  document.title = d.label || 'CyberCheck';
+
+  // If custom destination — show brief card then redirect
+  if (d.destination_url) {
+    main.innerHTML = buildRedirectCard(d);
+    // Append QR tracking params so destination pages can log post-scan behavior
+    const destUrl = new URL(d.destination_url);
+    destUrl.searchParams.set('_qr', code);
+    if (d.scan_id) destUrl.searchParams.set('_sid', d.scan_id);
+    setTimeout(() => { window.location.href = destUrl.toString(); }, 2200);
+    return;
+  }
+
+  // No destination — show contact card or info card based on type
+  if (d.type === 'card') {
+    main.innerHTML = buildContactCard(d);
+  } else {
+    main.innerHTML = buildInfoCard(d);
+  }
+
+  // Attach phone capture handler
+  const form = document.getElementById('connect-form');
+  if (form) form.addEventListener('submit', capturePhone);
+}
+
+function seqBadge(seq) {
+  if (!seq) return '';
+  return `<div class="seq-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    #${seq}
+  </div>`;
+}
+
+function buildRedirectCard(d) {
+  return `<div class="card">
+    ${seqBadge(d.seq_number)}
+    <div class="label">${esc(d.label)}</div>
+    <div class="type-tag">${typeLabel(d.type)}</div>
+    <div style="text-align:center;padding:20px 0;">
+      <div class="spinner" style="margin:0 auto 12px;"></div>
+      <div style="font-size:14px;color:var(--muted);">Redirecting you now…</div>
+    </div>
+    <a href="${esc(d.destination_url)}" class="btn btn-primary">Go Now →</a>
+    ${captureSection()}
+  </div>`;
+}
+
+function buildContactCard(d) {
+  const m = d.metadata || {};
+  const initials = (m.name || d.label || '?').split(' ').map(w => w[0]).slice(0,2).join('').toUpperCase();
+  const links = [];
+  if (m.phone)    links.push(`<a href="tel:${m.phone}" class="contact-link">${phoneIcon()} ${esc(m.phone)}</a>`);
+  if (m.email)    links.push(`<a href="mailto:${m.email}" class="contact-link">${emailIcon()} ${esc(m.email)}</a>`);
+  if (m.website)  links.push(`<a href="${esc(m.website)}" target="_blank" class="contact-link">${webIcon()} ${esc(m.website.replace(/^https?:\/\//, ''))}</a>`);
+  if (m.instagram) links.push(`<a href="https://instagram.com/${m.instagram.replace('@','')}" target="_blank" class="contact-link">${igIcon()} @${esc(m.instagram.replace('@',''))}</a>`);
+  if (m.linkedin) links.push(`<a href="${esc(m.linkedin)}" target="_blank" class="contact-link">${liIcon()} LinkedIn</a>`);
+
+  const vcard = makeVCard(m);
+  return `<div class="card">
+    ${seqBadge(d.seq_number)}
+    <div class="contact-avatar">${initials}</div>
+    <div class="contact-name">${esc(m.name || d.label)}</div>
+    <div class="contact-title">${esc(m.title || '')}${m.company ? (m.title ? ' · ' : '') + esc(m.company) : ''}</div>
+    <div class="contact-links">${links.join('')}</div>
+    <a href="${vcard}" download="${(m.name||'contact').replace(/\s+/g,'_')}.vcf" class="btn btn-green">Save Contact</a>
+    ${captureSection('Share your info with ' + esc(m.name ? m.name.split(' ')[0] : 'them'))}
+    <div class="scan-meta">Powered by CyberCheck</div>
+  </div>`;
+}
+
+function buildInfoCard(d) {
+  return `<div class="card">
+    ${seqBadge(d.seq_number)}
+    <div class="label">${esc(d.label)}</div>
+    <div class="type-tag">${typeLabel(d.type)}</div>
+    <div style="padding:20px 0;text-align:center;color:var(--muted);font-size:14px;">
+      Scan registered. ${d.metadata && d.metadata.message ? esc(d.metadata.message) : 'Thank you!'}
+    </div>
+    ${captureSection()}
+    <div class="scan-meta">Powered by CyberCheck</div>
+  </div>`;
+}
+
+function captureSection(title) {
+  return `<div class="divider">or</div>
+  <div class="connect-box">
+    <div class="connect-title">${title || 'Drop your number'}</div>
+    <div class="connect-sub">Get loyalty rewards & updates. No spam.</div>
+    <form id="connect-form">
+      <input type="text" id="cap-name" placeholder="Your name (optional)" style="width:100%;margin-bottom:8px;">
+      <div class="input-row">
+        <input type="tel" id="cap-phone" placeholder="Your phone number" required>
+        <button type="submit" class="submit-btn">Go</button>
+      </div>
+    </form>
+    <div class="success-msg" id="cap-success">Got it! You're connected.</div>
+  </div>`;
+}
+
+async function capturePhone(e) {
+  e.preventDefault();
+  const phone = document.getElementById('cap-phone').value.trim();
+  const name  = document.getElementById('cap-name').value.trim();
+  if (!phone) return;
+
+  try {
+    await fetch(`${API}/api/qr/capture/${code}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ phone, name })
+    });
+    document.getElementById('connect-form').style.display = 'none';
+    document.getElementById('cap-success').style.display = 'block';
+  } catch (e) {}
+}
+
+function makeVCard(m) {
+  const lines = ['BEGIN:VCARD','VERSION:3.0'];
+  if (m.name)    lines.push('FN:' + m.name);
+  if (m.company) lines.push('ORG:' + m.company);
+  if (m.title)   lines.push('TITLE:' + m.title);
+  if (m.phone)   lines.push('TEL:' + m.phone);
+  if (m.email)   lines.push('EMAIL:' + m.email);
+  if (m.website) lines.push('URL:' + m.website);
+  lines.push('END:VCARD');
+  return 'data:text/vcard;charset=utf-8,' + encodeURIComponent(lines.join('\r\n'));
+}
+
+function typeLabel(t) {
+  return { card:'Business Card', table:'Table', menu:'Menu', ad:'Advertisement', event:'Event', location:'Location', general:'QR Code' }[t] || t;
+}
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+function phoneIcon() { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>`; }
+function emailIcon() { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`; }
+function webIcon()   { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>`; }
+function igIcon()    { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>`; }
+function liIcon()    { return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`; }
+
+function showError(title, sub) {
+  document.getElementById('loader').style.display = 'none';
+  const main = document.getElementById('main');
+  main.style.display = '';
+  main.innerHTML = `<div class="card error-card">
+    <div class="error-icon">⚠️</div>
+    <div class="error-title">${title}</div>
+    <div class="error-sub">${sub}</div>
+  </div>`;
+}
+
+let _scanId   = null;
+let _scanStart = Date.now();
+let _pageViews = 1;
+
+function trackEvent(type, extra) {
+  if (!_scanId) return;
+  const payload = { scan_id: _scanId, qr_code: code, event_type: type, page_url: location.href, ...extra };
+  navigator.sendBeacon(`${API}/api/qr/track`, JSON.stringify(payload));
+}
+
+function flushTime() {
+  if (!_scanId) return;
+  const secs = Math.round((Date.now() - _scanStart) / 1000);
+  if (secs < 1) return;
+  trackEvent('time_on_page', { duration_seconds: secs, page_views: _pageViews });
+}
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'hidden') flushTime();
+  if (document.visibilityState === 'visible') { _scanStart = Date.now(); _pageViews++; }
+});
+window.addEventListener('pagehide', flushTime);
+
+init();
+</script>
+</body>
+</html>

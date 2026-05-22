@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CyberMate | Verified Trust Layer</title>
+<style>
+:root {
+  --bg: #0b1220;
+  --panel: #111a2c;
+  --panel-2: #162238;
+  --soft: #22314c;
+  --line: rgba(255,255,255,0.08);
+  --text: #e9eef7;
+  --muted: #9dadc4;
+  --accent: #8ea4c8;
+  --accent-2: #aab6c8;
+  --accent-3: #8fb8b2;
+  --shadow: 0 20px 60px rgba(0,0,0,0.35);
+  --radius: 24px;
+  --max: 1240px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#0a111d 0%,#0b1220 100%);line-height:1.62}
+a{text-decoration:none;color:inherit}
+.container{width:min(var(--max),calc(100% - 28px));margin:0 auto}
+.topbar{position:sticky;top:0;z-index:100;background:rgba(10,17,29,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.topbar-inner{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:72px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}
+.logo{width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#7488ab,#8fb8b2);color:#08111b;font-weight:900;box-shadow:var(--shadow)}
+.nav{display:flex;flex-wrap:wrap;gap:10px}
+.nav a{padding:10px 14px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:14px}
+.nav a:hover{color:var(--text);border-color:rgba(170,182,200,.35)}
+.hero{padding:72px 0 34px}
+.hero-grid{display:grid;grid-template-columns:1.18fr .82fr;gap:22px}
+.hero-card,.card,.panel{background:linear-gradient(180deg,rgba(17,26,44,.96),rgba(12,18,31,.98));border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow)}
+.hero-card{padding:34px}
+.stack{padding:22px;display:grid;gap:14px}
+.stack-item{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.stack-item small{display:block;margin-bottom:8px;color:var(--accent-3);font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(143,184,178,.09);border:1px solid rgba(143,184,178,.18);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#d5ece8;font-weight:800}
+h1,h2,h3{line-height:1.1;margin:0 0 14px}
+h1{font-size:clamp(2.2rem,4vw,4.7rem);letter-spacing:-.03em}
+h2{font-size:clamp(1.55rem,2.2vw,2.55rem);letter-spacing:-.02em}
+h3{font-size:clamp(1.08rem,1.4vw,1.38rem)}
+p{margin:0 0 14px;color:#d8e0ee}.lead{font-size:clamp(1rem,1.35vw,1.16rem);max-width:850px}.muted{color:var(--muted)}
+.hero-actions,.pill-row{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border-radius:14px;border:1px solid transparent;font-weight:700}
+.btn-primary{background:linear-gradient(135deg,#8ea4c8,#8fb8b2);color:#09121f}.btn-secondary{background:rgba(255,255,255,.03);border-color:rgba(170,182,200,.22);color:var(--text)}
+.section{padding:28px 0}.section-head{display:flex;justify-content:space-between;gap:18px;align-items:end;margin-bottom:18px}.section-head p{max-width:720px;margin:0;color:var(--muted)}
+.grid-4,.grid-3,.grid-2{display:grid;gap:18px}.grid-4{grid-template-columns:repeat(4,1fr)}.grid-3{grid-template-columns:repeat(3,1fr)}.grid-2{grid-template-columns:repeat(2,1fr)}
+.card{padding:22px}.icon{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-size:22px;margin-bottom:16px;background:linear-gradient(135deg,rgba(142,164,200,.16),rgba(143,184,178,.16));border:1px solid rgba(170,182,200,.16)}
+.pill{padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700;color:#dde6f4;background:rgba(142,164,200,.08);border:1px solid rgba(142,164,200,.18)}
+ul.clean{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px} ul.clean li{position:relative;padding-left:18px;color:#d6ddea} ul.clean li::before{content:"•";position:absolute;left:0;color:#8fb8b2;font-weight:900}
+.brand-block{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin-bottom:22px}.split-box{padding:18px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.footer{padding:42px 0 60px;color:var(--muted)}
+.anchor-offset{scroll-margin-top:92px}
+.table-wrap{overflow:auto;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.03)}
+table{width:100%;border-collapse:collapse;min-width:740px}th,td{padding:14px 16px;border-bottom:1px solid var(--line);vertical-align:top;text-align:left}th{color:#dfe7f2;font-size:13px;letter-spacing:.08em;text-transform:uppercase;background:rgba(255,255,255,.03)}td{color:#cfdae8}
+.note{padding:16px 18px;border-radius:16px;background:rgba(143,184,178,.08);border:1px solid rgba(143,184,178,.18);color:#d8efeb}
+@media (max-width:1100px){.hero-grid,.grid-4,.grid-3,.grid-2,.brand-block{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.topbar-inner,.section-head{flex-direction:column;align-items:stretch}.nav{justify-content:flex-start}.hero{padding-top:34px}.hero-grid,.grid-4,.grid-3,.grid-2,.brand-block{grid-template-columns:1fr}.hero-card,.card{padding:20px}h1{font-size:2.25rem}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="container topbar-inner">
+    <a class="brand" href="index.html"><span class="logo">C</span><span>CyberMate</span></a>
+    <nav class="nav"><a href="index.html">Ecosystem</a><a href="cybercheck.html">CyberCheck</a><a href="gulf-coast-radar.html">Gulf Coast Radar</a><a href="cybermate.html">CyberMate</a><a href="influencers.html">Influencers</a></nav>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-card">
+        <span class="eyebrow">Muted ecosystem pages</span>
+        <h1>CyberMate proves trust.</h1>
+        <p class="lead">This page covers the full CyberMate concept in detail: how reviews are verified, what makes them more valuable, how the trust layer works, and why it matters to the whole ecosystem.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="#overview">See CyberMate parts</a><a class="btn btn-secondary" href="index.html">Back to ecosystem</a></div>
+      </div>
+      <div class="panel stack">
+        <div class="stack-item"><small>Position</small><strong>CyberMate | Verified Trust Layer</strong><div class="muted">One focused page inside the full CyberCheck ecosystem.</div></div>
+        <div class="stack-item"><small>Use this page for</small><div class="muted">Explaining the brand clearly without mixing it with the other layers.</div></div>
+        <div class="stack-item"><small>Design direction</small><div class="muted">Muted, premium, readable, and easy to expand into a live marketing site later.</div></div>
+      </div>
+    </div>
+  </section>
+  
+<section class="section"><div class="container brand-block"><div class="card"><h2>What CyberMate is</h2><p>CyberMate is the trust and review verification layer. It is built around the idea that reviews should be tied to real transactions instead of open anonymous posting with no proof.</p><p>That makes it more than a review tool. It becomes a credibility system and a structured data layer that can improve reputation, recommendations, and future discovery.</p></div><div class="card"><h3>Best way to explain it</h3><div class="note">CyberMate turns real purchases or completed services into verified trust.</div><div class="pill-row"><span class="pill">Trust layer</span><span class="pill">Verified reviews</span><span class="pill">Structured data</span></div></div></div></section>
+<section class="section"><div class="container"><div class="section-head"><div><h2>Main parts inside CyberMate</h2><p>These are the core components of the verification and trust system.</p></div></div><div class="grid-3"><div class="card"><div class="icon">🧾</div><h3>Transaction verification</h3><ul class="clean"><li>Connect a payment, order, reservation, or completed service event</li><li>Create proof that a customer actually paid or used the business</li><li>Use that event as the trigger for a review request</li></ul></div><div class="card"><div class="icon">✉️</div><h3>Review request flow</h3><ul class="clean"><li>Send secure review requests by SMS or email</li><li>Use one-time links or controlled prompts</li><li>Reduce fake or duplicate review behavior</li></ul></div><div class="card"><div class="icon">🏅</div><h3>Verified badge</h3><ul class="clean"><li>Show that the review came from a verified interaction</li><li>Make authenticity visible on the profile or listing</li><li>Differentiate from open public review systems</li></ul></div><div class="card"><div class="icon">🍤</div><h3>Item and service reviews</h3><ul class="clean"><li>Go deeper than one overall star rating</li><li>Review specific dishes, services, packages, or experiences</li><li>Create more useful reputation signals</li></ul></div><div class="card"><div class="icon">👥</div><h3>Staff and operational insight</h3><ul class="clean"><li>Optionally review service staff or quality areas</li><li>Turn feedback into operational insight for the business</li><li>Support stronger reputation management</li></ul></div><div class="card"><div class="icon">🤖</div><h3>Recommendation potential</h3><ul class="clean"><li>Use verified preference data to improve recommendations later</li><li>Help discovery feel more credible and specific</li><li>Create a long-term data moat if built correctly</li></ul></div></div></div></section>
+<section class="section"><div class="container grid-2"><div class="card"><h3>Who it serves</h3><ul class="clean"><li>Businesses that want more credible reviews</li><li>Consumers who need more trustworthy signals</li><li>The larger ecosystem because better trust strengthens discovery and conversion</li></ul></div><div class="card"><h3>Why it matters</h3><ul class="clean"><li>It is potentially the most defensible long-term moat.</li><li>It can make the business pages and Gulf Coast Radar more trustworthy.</li><li>It turns normal reviews into structured and useful business intelligence.</li></ul></div></div></section>
+
+</main>
+<footer class="footer"><div class="container">Built as a multi-page ecosystem overview. Edit text, links, forms, pricing, and CTAs however you want.</div></footer>
+</body>
+</html>

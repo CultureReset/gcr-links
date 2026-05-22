@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Editors - All Sites</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .header {
+      max-width: 1200px;
+      margin: 0 auto 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #334155;
+    }
+    .header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .search-box {
+      margin-bottom: 24px;
+    }
+    .search-box input {
+      width: 100%;
+      max-width: 400px;
+      padding: 12px 16px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      color: #f1f5f9;
+      font-size: 14px;
+    }
+    .search-box input::placeholder {
+      color: #64748b;
+    }
+    .sites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 16px;
+    }
+    .site-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+    .site-card:hover {
+      border-color: #0b7a75;
+      box-shadow: 0 8px 24px rgba(11, 122, 117, 0.12);
+    }
+    .site-name {
+      font-size: 18px;
+      font-weight: 800;
+      color: #f1f5f9;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .site-type {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 16px;
+      text-transform: capitalize;
+    }
+    .editor-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .editor-btn {
+      padding: 10px 14px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      text-align: center;
+      justify-content: center;
+    }
+    .btn-quick {
+      background: #0b7a75;
+      color: #fff;
+    }
+    .btn-quick:hover {
+      background: #065f5b;
+    }
+    .btn-ads {
+      background: #7c3aed;
+      color: #fff;
+    }
+    .btn-ads:hover {
+      background: #6d28d9;
+    }
+    .btn-token {
+      background: #3b82f6;
+      color: #fff;
+    }
+    .btn-token:hover {
+      background: #2563eb;
+    }
+    .btn-choose {
+      background: #f59e0b;
+      color: #111;
+    }
+    .btn-choose:hover {
+      background: #d97706;
+    }
+    .empty {
+      text-align: center;
+      padding: 60px 20px;
+      color: #64748b;
+    }
+    .empty-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #94a3b8;
+    }
+    .spinner {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      border: 3px solid #334155;
+      border-top-color: #0b7a75;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .copy-btn {
+      padding: 4px 8px;
+      background: #334155;
+      color: #94a3b8;
+      border: none;
+      border-radius: 6px;
+      font-size: 11px;
+      cursor: pointer;
+      margin-left: auto;
+    }
+    .copy-btn:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>📋 Menu Editors</h1>
+  <p>Quick access to daily menu editors for all restaurants</p>
+</div>
+
+<div class="container">
+  <div class="search-box">
+    <input type="text" id="search" placeholder="Search restaurants..." onkeyup="filterSites()">
+  </div>
+
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p style="margin-top: 12px;">Loading restaurants...</p>
+  </div>
+
+  <div id="sites-grid" class="sites-grid" style="display: none;"></div>
+
+  <div id="empty" class="empty" style="display: none;">
+    <div class="empty-icon">🏪</div>
+    <p>No restaurants found</p>
+  </div>
+</div>
+
+<script>
+const API = 'https://cybercheck-api-database.vercel.app';
+let _allSites = [];
+
+async function loadSites() {
+  try {
+    const r = await fetch(`${API}/api/gcr/entities?limit=500`);
+    if (!r.ok) throw new Error('Failed to load');
+    const data = await r.json();
+    _allSites = (data.entities || data || []).filter(e => e.name && e.slug);
+
+    document.getElementById('loading').style.display = 'none';
+
+    if (_allSites.length === 0) {
+      document.getElementById('empty').style.display = 'block';
+    } else {
+      document.getElementById('sites-grid').style.display = 'grid';
+      renderSites(_allSites);
+    }
+  } catch (e) {
+    console.error(e);
+    document.getElementById('loading').innerHTML = '<p style="color:#ef4444;">Failed to load restaurants</p>';
+  }
+}
+
+function renderSites(sites) {
+  const grid = document.getElementById('sites-grid');
+  const origin = window.location.origin;
+  grid.innerHTML = sites.map(site => {
+    const icon = site.emoji || '🍽️';
+    const type = site.entity_subtype || site.entity_type || 'business';
+    const slug = encodeURIComponent(site.slug);
+
+    return `<div class="site-card">
+      <div class="site-name">${icon} ${site.name}</div>
+      <div class="site-type">${type}</div>
+
+      <div class="editor-options">
+        <!-- PIN Row -->
+        <div style="display: flex; gap: 6px; align-items: center; margin-bottom: 8px;">
+          <input type="text" placeholder="PIN for edits" id="pin-${site.slug}" style="padding: 6px 10px; background: #0f172a; border: 1px solid #334155; border-radius: 6px; color: #f1f5f9; font-size: 13px; width: 100px;">
+          <button class="btn btn-outline" style="font-size: 12px; padding: 6px 12px;" onclick="generateEditLinkWithPin('${slug}', '${site.name}')">🔗 Edit Link</button>
+        </div>
+        <div id="edit-result-${slug}" style="margin-bottom: 8px;"></div>
+
+        <!-- Raw Editor Links (without PIN) -->
+        <div style="display: flex; gap: 6px;">
+          <a href="${origin}/menu-editor-choose.html?slug=${slug}" class="editor-btn btn-choose" style="flex:1" target="_blank">
+            🎯 Choose
+          </a>
+          <button class="copy-btn" onclick="copyLink('menu-editor-choose.html?slug=${slug}')">📋</button>
+          <button class="copy-btn" onclick="showQR('menu-editor-choose.html?slug=${slug}')">📱</button>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <a href="${origin}/daily-menu.html?slug=${slug}" class="editor-btn btn-quick" style="flex:1" target="_blank">
+            📱 Quick
+          </a>
+          <button class="copy-btn" onclick="copyLink('daily-menu.html?slug=${slug}')">📋</button>
+          <button class="copy-btn" onclick="showQR('daily-menu.html?slug=${slug}')">📱</button>
+        </div>
+        <div style="display: flex; gap: 6px;">
+          <a href="${origin}/daily-menu-ads.html?slug=${slug}" class="editor-btn btn-ads" style="flex:1" target="_blank">
+            📢 With Ads
+          </a>
+          <button class="copy-btn" onclick="copyLink('daily-menu-ads.html?slug=${slug}')">📋</button>
+          <button class="copy-btn" onclick="showQR('daily-menu-ads.html?slug=${slug}')">📱</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterSites() {
+  const query = document.getElementById('search').value.toLowerCase();
+  const filtered = _allSites.filter(site =>
+    (site.name || '').toLowerCase().includes(query) ||
+    (site.slug || '').toLowerCase().includes(query)
+  );
+
+  if (filtered.length === 0) {
+    document.getElementById('sites-grid').style.display = 'none';
+    document.getElementById('empty').style.display = 'block';
+  } else {
+    document.getElementById('sites-grid').style.display = 'grid';
+    document.getElementById('empty').style.display = 'none';
+    renderSites(filtered);
+  }
+}
+
+// Copy link to clipboard
+function copyLink(path) {
+  const fullUrl = window.location.origin + '/' + path;
+  navigator.clipboard.writeText(fullUrl).then(() => {
+    showToast('Link copied! ✅');
+  }).catch(() => {
+    alert('Failed to copy: ' + fullUrl);
+  });
+}
+
+// Show QR code
+function showQR(path) {
+  const fullUrl = window.location.origin + '/' + path;
+  const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(fullUrl)}`;
+
+  const modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px;';
+  modal.innerHTML = `
+    <div style="background:#1e293b;border-radius:16px;padding:24px;max-width:400px;text-align:center;">
+      <h3 style="color:#f1f5f9;margin-bottom:16px;font-size:18px;">Scan QR Code</h3>
+      <img src="${qrUrl}" alt="QR Code" style="width:100%;max-width:300px;border-radius:12px;margin-bottom:16px;">
+      <p style="color:#94a3b8;font-size:12px;margin-bottom:16px;word-break:break-all;">${fullUrl}</p>
+      <button onclick="this.parentElement.parentElement.remove()" style="width:100%;padding:12px;background:#0b7a75;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;">Close</button>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+}
+
+// Toast notification
+function showToast(msg) {
+  const toast = document.createElement('div');
+  toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#0b7a75;color:#fff;padding:12px 20px;border-radius:8px;font-weight:700;z-index:10000;animation:slideInUp .3s;';
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(() => toast.remove(), 2000);
+}
+
+// Generate edit link with PIN
+function generateEditLinkWithPin(slug, businessName) {
+  const pinInput = document.getElementById('pin-' + slug);
+  const pin = pinInput ? pinInput.value : '';
+  const resultEl = document.getElementById('edit-result-' + slug);
+
+  if (!pin) {
+    resultEl.innerHTML = '<p style="color:#dc2626;font-size:12px;">Please enter a PIN</p>';
+    return;
+  }
+
+  // Save PIN to database
+  resultEl.innerHTML = '<p style="color:#64748b;font-size:12px;">Saving PIN...</p>';
+
+  fetch(`${API}/api/gcr/entity/${encodeURIComponent(slug)}/set-pin`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ pin: pin })
+  })
+  .then(r => r.json())
+  .then(d => {
+    if (d.success) {
+      const editUrl = window.location.origin + '/daily-menu.html?slug=' + encodeURIComponent(slug) + '&pin=' + encodeURIComponent(pin);
+
+      resultEl.innerHTML = '<div style="background:#dcfce7;border:1px solid #86efac;border-radius:4px;padding:12px;font-size:12px;">' +
+        '<div style="font-weight:600;color:#166534;margin-bottom:8px;">✅ Edit Link Ready!</div>' +
+        '<div style="background:#fff;border:1px solid #86efac;border-radius:4px;padding:8px 10px;font-family:monospace;font-size:11px;word-break:break-all;margin-bottom:8px;line-height:1.4;">' + editUrl + '</div>' +
+        '<div style="display:flex;gap:6px;">' +
+          '<button style="flex:1;padding:6px 10px;background:#16a34a;color:#fff;border:none;border-radius:4px;font-weight:600;font-size:11px;cursor:pointer;" onclick="navigator.clipboard.writeText(\'' + editUrl.replace(/'/g, "\\'") + '\');showToast(\'Link copied!\');">📋 Copy Link</button>' +
+          '<button style="flex:1;padding:6px 10px;background:#0ea5e9;color:#fff;border:none;border-radius:4px;font-weight:600;font-size:11px;cursor:pointer;" onclick="window.open(\'' + editUrl.replace(/'/g, "\\'") + '\',\'_blank\');">🌐 Test Link</button>' +
+        '</div>' +
+      '</div>';
+      showToast('✅ PIN saved & link ready!');
+    } else {
+      resultEl.innerHTML = '<p style="color:#dc2626;font-size:12px;">Failed: ' + (d.error || 'Unknown error') + '</p>';
+    }
+  })
+  .catch(e => {
+    resultEl.innerHTML = '<p style="color:#dc2626;font-size:12px;">Error: ' + e.message + '</p>';
+  });
+}
+
+// Load on start
+loadSites();
+</script>
+
+</body>
+</html>

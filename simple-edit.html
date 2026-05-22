@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Menu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; padding: 20px; }
+    .container { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    h1 { font-size: 28px; margin-bottom: 8px; }
+    .subtitle { color: #666; margin-bottom: 24px; }
+    .tabs { display: flex; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid #eee; }
+    .tab { padding: 12px 16px; border: none; background: none; font-size: 16px; cursor: pointer; color: #666; border-bottom: 3px solid transparent; }
+    .tab.active { color: #0b7a75; border-bottom-color: #0b7a75; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .item { background: #f9f9f9; padding: 16px; border-radius: 8px; margin-bottom: 12px; }
+    .item-name { font-weight: 600; font-size: 16px; margin-bottom: 4px; }
+    .item-price { color: #0b7a75; font-weight: 700; }
+    .item-desc { color: #666; font-size: 14px; margin: 8px 0; }
+    .item-actions { display: flex; gap: 8px; margin-top: 12px; }
+    button { padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+    .btn-primary { background: #0b7a75; color: white; }
+    .btn-primary:hover { background: #065f5b; }
+    .btn-danger { background: #ef4444; color: white; }
+    .btn-danger:hover { background: #dc2626; }
+    .btn-secondary { background: #e5e7eb; color: #333; }
+    .btn-secondary:hover { background: #d1d5db; }
+    input, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; font-size: 14px; margin-bottom: 12px; }
+    textarea { resize: vertical; min-height: 80px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-weight: 600; }
+    .photo-upload { border: 2px dashed #ddd; border-radius: 8px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.2s; }
+    .photo-upload:hover { border-color: #0b7a75; background: #f0fffe; }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; margin-top: 12px; }
+    .photo { position: relative; border-radius: 8px; overflow: hidden; }
+    .photo img { width: 100%; height: 150px; object-fit: cover; }
+    .photo-delete { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6); color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; }
+    .toast { position: fixed; bottom: 20px; right: 20px; background: #0b7a75; color: white; padding: 16px 24px; border-radius: 6px; }
+    .loading { opacity: 0.6; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="biz-name">Loading...</h1>
+    <p class="subtitle" id="biz-desc"></p>
+
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('items')">Menu Items</button>
+      <button class="tab" onclick="switchTab('specials')">Specials</button>
+      <button class="tab" onclick="switchTab('photos')">Photos</button>
+    </div>
+
+    <!-- ITEMS TAB -->
+    <div id="items" class="tab-content active">
+      <div id="items-list"></div>
+      <button class="btn-primary" onclick="showAddItem()" style="width:100%; margin-top: 12px;">+ Add Item</button>
+
+      <div id="add-item-form" style="display:none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+        <h3>Add Menu Item</h3>
+        <div class="form-group">
+          <label>Item Name</label>
+          <input type="text" id="item-name" placeholder="e.g., Caesar Salad">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="item-desc" placeholder="e.g., Fresh romaine, croutons, parmesan"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input type="number" id="item-price" placeholder="12.99" step="0.01">
+        </div>
+        <button class="btn-primary" onclick="saveItem()">Save Item</button>
+        <button class="btn-secondary" onclick="hideAddItem()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- SPECIALS TAB -->
+    <div id="specials" class="tab-content">
+      <div id="specials-list"></div>
+      <button class="btn-primary" onclick="showAddSpecial()" style="width:100%; margin-top: 12px;">+ Add Special</button>
+
+      <div id="add-special-form" style="display:none; margin-top: 20px; padding: 20px; background: #f9f9f9; border-radius: 8px;">
+        <h3>Add Special</h3>
+        <div class="form-group">
+          <label>Special Name</label>
+          <input type="text" id="special-name" placeholder="e.g., Happy Hour">
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="special-desc" placeholder="e.g., 50% off appetizers"></textarea>
+        </div>
+        <button class="btn-primary" onclick="saveSpecial()">Save Special</button>
+        <button class="btn-secondary" onclick="hideAddSpecial()">Cancel</button>
+      </div>
+    </div>
+
+    <!-- PHOTOS TAB -->
+    <div id="photos" class="tab-content">
+      <div class="photo-upload" onclick="document.getElementById('photo-file').click()">
+        <div style="font-size: 32px; margin-bottom: 8px;">📸</div>
+        <div style="font-weight: 600;">Upload Photo</div>
+        <div style="font-size: 14px; color: #666;">Click to add menu photo</div>
+      </div>
+      <input type="file" id="photo-file" style="display:none;" accept="image/*" onchange="uploadPhoto()">
+      <div class="photo-grid" id="photos-list"></div>
+    </div>
+  </div>
+
+  <script>
+    const API_BASE = 'https://cybercheck-api-database.vercel.app/api/simple';
+    let slug = '';
+    let data = {};
+
+    // Get slug from URL
+    const parts = window.location.pathname.split('/');
+    slug = parts[parts.length - 2]; // /business-slug/edit → business-slug
+
+    async function loadData() {
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/data`);
+        data = await res.json();
+        render();
+      } catch (e) {
+        toast('Error loading menu: ' + e.message);
+      }
+    }
+
+    function render() {
+      document.getElementById('biz-name').textContent = data.entity?.name || 'Menu';
+      document.getElementById('biz-desc').textContent = data.entity?.description || '';
+      renderItems();
+      renderSpecials();
+      renderPhotos();
+    }
+
+    function renderItems() {
+      const html = (data.items || []).map(item => `
+        <div class="item">
+          <div class="item-name">${item.item_name}</div>
+          ${item.item_description ? `<div class="item-desc">${item.item_description}</div>` : ''}
+          <div class="item-price">$${item.item_price || '0.00'}</div>
+          <div class="item-actions">
+            <button class="btn-danger" onclick="deleteItem('${item.id}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('items-list').innerHTML = html || '<p style="color:#999;">No items yet</p>';
+    }
+
+    function renderSpecials() {
+      const html = (data.specials || []).map(s => `
+        <div class="item">
+          <div class="item-name">${s.special_name}</div>
+          ${s.description ? `<div class="item-desc">${s.description}</div>` : ''}
+          <div class="item-actions">
+            <button class="btn-danger" onclick="deleteSpecial('${s.id}')">Delete</button>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('specials-list').innerHTML = html || '<p style="color:#999;">No specials yet</p>';
+    }
+
+    function renderPhotos() {
+      const html = (data.photos || []).map(p => `
+        <div class="photo">
+          <img src="${p.image_url}" alt="Photo">
+          <button class="photo-delete" onclick="deletePhoto('${p.id}')">×</button>
+        </div>
+      `).join('');
+      document.getElementById('photos-list').innerHTML = html;
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    function showAddItem() { document.getElementById('add-item-form').style.display = 'block'; }
+    function hideAddItem() { document.getElementById('add-item-form').style.display = 'none'; }
+    function showAddSpecial() { document.getElementById('add-special-form').style.display = 'block'; }
+    function hideAddSpecial() { document.getElementById('add-special-form').style.display = 'none'; }
+
+    async function saveItem() {
+      const name = document.getElementById('item-name').value;
+      const desc = document.getElementById('item-desc').value;
+      const price = document.getElementById('item-price').value;
+
+      if (!name) { toast('Item name required'); return; }
+
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/items`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ item_name: name, item_description: desc, item_price: price })
+        });
+        const result = await res.json();
+        if (result.success) {
+          data.items = data.items || [];
+          data.items.push(result.item);
+          renderItems();
+          hideAddItem();
+          document.getElementById('item-name').value = '';
+          document.getElementById('item-desc').value = '';
+          document.getElementById('item-price').value = '';
+          toast('Item added!');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    async function deleteItem(id) {
+      if (!confirm('Delete this item?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/items/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+          data.items = data.items.filter(i => i.id !== id);
+          renderItems();
+          toast('Item deleted');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    async function saveSpecial() {
+      const name = document.getElementById('special-name').value;
+      const desc = document.getElementById('special-desc').value;
+
+      if (!name) { toast('Special name required'); return; }
+
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/specials`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ special_name: name, description: desc })
+        });
+        const result = await res.json();
+        if (result.success) {
+          data.specials = data.specials || [];
+          data.specials.push(result.item);
+          renderSpecials();
+          hideAddSpecial();
+          document.getElementById('special-name').value = '';
+          document.getElementById('special-desc').value = '';
+          toast('Special added!');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    async function deleteSpecial(id) {
+      if (!confirm('Delete this special?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/specials/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+          data.specials = data.specials.filter(s => s.id !== id);
+          renderSpecials();
+          toast('Special deleted');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    async function uploadPhoto() {
+      const file = document.getElementById('photo-file').files[0];
+      if (!file) return;
+
+      const fd = new FormData();
+      fd.append('image', file);
+
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/upload`, { method: 'POST', body: fd });
+        const result = await res.json();
+        if (result.success) {
+          data.photos = data.photos || [];
+          data.photos.push(result.photo);
+          renderPhotos();
+          document.getElementById('photo-file').value = '';
+          toast('Photo uploaded!');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    async function deletePhoto(id) {
+      if (!confirm('Delete this photo?')) return;
+      try {
+        const res = await fetch(`${API_BASE}/${slug}/photos/${id}`, { method: 'DELETE' });
+        const result = await res.json();
+        if (result.success) {
+          data.photos = data.photos.filter(p => p.id !== id);
+          renderPhotos();
+          toast('Photo deleted');
+        }
+      } catch (e) {
+        toast('Error: ' + e.message);
+      }
+    }
+
+    function toast(msg) {
+      const el = document.createElement('div');
+      el.className = 'toast';
+      el.textContent = msg;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }
+
+    // Load on page load
+    loadData();
+  </script>
+</body>
+</html>

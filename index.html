@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberCheck — The All-in-One Platform for Gulf Coast Businesses</title>
+<meta name="description" content="Booking, menus, reviews, artists, and automations — one QR code, one platform. Built for Gulf Coast restaurants, rentals, charters, and more.">
+<link rel="stylesheet" href="/css/sales.css">
+<style>
+/* ── Homepage-specific styles ── */
+
+/* hero */
+.hp-hero{background:linear-gradient(155deg,#060a14 0%,#0c1630 45%,#08121e 100%);padding:130px 24px 100px;text-align:center;position:relative;overflow:hidden;}
+.hp-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 900px 500px at 50% 60%,rgba(0,150,199,0.08),transparent);pointer-events:none;}
+.hp-tagline-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+.hp-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(0,150,199,0.1);border:1px solid rgba(0,150,199,0.25);color:var(--accent);font-size:0.7rem;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;padding:5px 12px;border-radius:20px;}
+.hp-hero h1{font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:900;line-height:1.08;max-width:820px;margin:0 auto 24px;letter-spacing:-0.6px;}
+.hp-hero h1 em{font-style:normal;color:var(--accent);}
+.hp-hero h1 strong{color:var(--primary2);}
+.hp-hero-sub{font-size:clamp(1rem,2.5vw,1.22rem);color:var(--text2);max-width:580px;margin:0 auto 40px;line-height:1.7;}
+.hp-hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+
+/* product grid */
+.hp-product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px;margin-top:48px;}
+.hp-product-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:26px;text-decoration:none;color:var(--text);transition:border-color .2s,transform .2s,box-shadow .2s;display:flex;flex-direction:column;}
+.hp-product-card:hover{border-color:var(--primary2);transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.3);}
+.hp-product-card .pc-icon{font-size:2rem;margin-bottom:14px;}
+.hp-product-card h3{font-size:1rem;font-weight:800;margin-bottom:8px;}
+.hp-product-card p{font-size:0.83rem;color:var(--text2);line-height:1.55;flex:1;}
+.hp-product-card .pc-link{display:inline-block;margin-top:16px;font-size:0.72rem;font-weight:700;color:var(--primary2);letter-spacing:0.3px;}
+.hp-product-card .pc-link::after{content:" →";}
+
+/* demo phones section */
+.hp-demo-bg{background:var(--bg2);padding:88px 24px;}
+.hp-demo-inner{max-width:1100px;margin:0 auto;}
+.hp-demo-intro{text-align:center;margin-bottom:0;}
+
+/* booking flow */
+.hp-flow-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;}
+.hp-flow-step{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;}
+.hp-flow-num{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;font-size:1.3rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;}
+.hp-flow-step h3{font-size:1rem;font-weight:800;margin-bottom:8px;}
+.hp-flow-step p{font-size:0.83rem;color:var(--text2);line-height:1.5;}
+.hp-flow-step .flow-img{width:100%;border-radius:10px;margin-top:16px;aspect-ratio:9/16;object-fit:cover;background:var(--bg3);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:0.75rem;}
+
+/* industries */
+.hp-industry-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-top:40px;}
+.hp-industry-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px 16px;text-align:center;cursor:default;}
+.hp-industry-icon{font-size:2.2rem;margin-bottom:10px;}
+.hp-industry-card h3{font-size:0.9rem;font-weight:700;margin-bottom:4px;}
+.hp-industry-card p{font-size:0.76rem;color:var(--text2);line-height:1.4;}
+
+/* comparison table wrapper */
+.hp-compare-wrap{overflow-x:auto;margin-top:40px;}
+
+/* cta band */
+.hp-cta-band{background:linear-gradient(135deg,#0b1e38 0%,var(--teal) 100%);padding:88px 24px;text-align:center;}
+.hp-cta-band h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;margin-bottom:16px;}
+.hp-cta-band p{font-size:1rem;color:rgba(255,255,255,0.78);margin-bottom:36px;max-width:520px;margin-left:auto;margin-right:auto;}
+
+/* platform pitch bar */
+.hp-platform-bar{background:var(--bg3);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px 24px;}
+.hp-platform-bar-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;}
+.hp-platform-bar-text h3{font-size:1.4rem;font-weight:900;margin-bottom:6px;}
+.hp-platform-bar-text p{font-size:0.9rem;color:var(--text2);}
+.hp-platform-nums{display:flex;gap:32px;flex-wrap:wrap;}
+.hp-pnum{text-align:center;}
+.hp-pnum-n{font-size:1.8rem;font-weight:900;color:var(--accent);}
+.hp-pnum-l{font-size:0.72rem;color:var(--text3);margin-top:2px;}
+
+@media(max-width:640px){
+  .hp-hero{padding:110px 20px 80px;}
+  .hp-platform-bar-inner{flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<!-- Shared nav -->
+<nav class="s-nav" id="s-nav"></nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+<section class="hp-hero">
+  <div class="hp-tagline-row">
+    <span class="hp-tag">Gulf Coast Radar</span>
+    <span class="hp-tag">aWavegent Booking</span>
+    <span class="hp-tag">CyberCheck Platform</span>
+  </div>
+  <h1>One QR code.<br><em>Your whole business.</em></h1>
+  <p class="hp-hero-sub">Booking, menus, reviews, artists, and automations — all connected. Built for the Gulf Coast. No extra apps. No monthly surprises.</p>
+  <div class="hp-hero-btns">
+    <button class="s-btn s-btn-primary" onclick="openSalesModal()">Get Your Business Set Up</button>
+    <a href="#products" class="s-btn s-btn-outline">See Everything We Offer</a>
+  </div>
+</section>
+
+<!-- ── Platform bar ──────────────────────────────────────────────────────── -->
+<div class="hp-platform-bar">
+  <div class="hp-platform-bar-inner">
+    <div class="hp-platform-bar-text">
+      <h3>Powerful like WordPress. Simple like Wix.</h3>
+      <p>Buy only the modules your business needs — swap them in and out as you grow.</p>
+    </div>
+    <div class="hp-platform-nums">
+      <div class="hp-pnum"><div class="hp-pnum-n">500+</div><div class="hp-pnum-l">Platform tools</div></div>
+      <div class="hp-pnum"><div class="hp-pnum-n">20+</div><div class="hp-pnum-l">Transaction types</div></div>
+      <div class="hp-pnum"><div class="hp-pnum-n">1</div><div class="hp-pnum-l">QR code</div></div>
+      <div class="hp-pnum"><div class="hp-pnum-n">0</div><div class="hp-pnum-l">Extra apps needed</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Products grid ─────────────────────────────────────────────────────── -->
+<section class="s-section" id="products">
+  <div class="s-container">
+    <div class="s-label">Everything We Offer</div>
+    <h2 class="s-h2">One platform. Every product your business needs.</h2>
+    <p class="s-sub">Each product works on its own — or together. Link them up and one update syncs everything.</p>
+    <div class="hp-product-grid" id="product-grid">
+
+      <a href="/gcr.html" class="hp-product-card">
+        <div class="pc-icon">🗺️</div>
+        <h3>Gulf Coast Radar</h3>
+        <p>The local discovery engine for tourists and locals. Get found on the map, keep your hours and menus updated, and collect real verified reviews.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/booking.html" class="hp-product-card">
+        <div class="pc-icon">📅</div>
+        <h3>aWavegent Booking</h3>
+        <p>Real-time booking for rentals, charters, activities, and services. Zero platform fees. Live availability, secure payments, instant confirmations.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/menu-updates.html" class="hp-product-card">
+        <div class="pc-icon">📲</div>
+        <h3>Daily Menu Updates</h3>
+        <p>One SMS link. Manager taps it. Today's catch, prices, and specials update everywhere in 60 seconds — no app, no login, no CMS.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/menu-updates.html#qr" class="hp-product-card">
+        <div class="pc-icon">📷</div>
+        <h3>QR Menu</h3>
+        <p>Customers scan the QR at the table and see real prices, today's catch, tonight's specials, happy hour countdown, and live music — not last year's PDF.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/artists.html" class="hp-product-card">
+        <div class="pc-icon">🎸</div>
+        <h3>Artist Platform</h3>
+        <p>Give every musician their own live page. Show tonight's lineup, let fans follow, and connect the artist directly to the restaurant's QR menu.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/automations.html" class="hp-product-card">
+        <div class="pc-icon">⚡</div>
+        <h3>Automations</h3>
+        <p>One action triggers a chain: reply to a text → website updates, QR updates, Gulf Coast Radar updates — all at once. No manual steps.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/reviews.html" class="hp-product-card">
+        <div class="pc-icon">✅</div>
+        <h3>Verified Reviews</h3>
+        <p>Patent pending. Real purchase → secure review link → verified badge. Connects to Square, Toast, Clover, Stripe, Shopify. No fake reviews, ever.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+      <a href="/booking.html#photographers" class="hp-product-card">
+        <div class="pc-icon">📸</div>
+        <h3>Photographer Pages</h3>
+        <p>Portfolio + bookings in one QR code. Show your best work, let tourists book sessions directly, and collect verified reviews after every shoot.</p>
+        <span class="pc-link">Learn more</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Live demo phones ───────────────────────────────────────────────────── -->
+<section class="hp-demo-bg" id="live-demo">
+  <div class="hp-demo-inner">
+    <div class="hp-demo-intro">
+      <div class="s-label" style="text-align:center;">Live Demo</div>
+      <h2 class="s-h2" style="text-align:center;">See it working right now.</h2>
+      <p class="s-sub" style="margin:14px auto 0;text-align:center;">These are live pages for Beachside Circle Boats — a real business running on the platform today.</p>
+    </div>
+
+    <div class="phone-pair">
+      <div>
+        <div class="phone-label-top">Main Website</div>
+        <div class="phone-shell featured">
+          <div class="phone-btn-l"></div><div class="phone-btn-l2"></div><div class="phone-btn-r"></div>
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <iframe id="demo-phone-1" src="about:blank" title="Beachside Circle Boats" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="phone-label-top">Links / Bio Page</div>
+        <div class="phone-shell featured">
+          <div class="phone-btn-l"></div><div class="phone-btn-l2"></div><div class="phone-btn-r"></div>
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <iframe id="demo-phone-2" src="about:blank" title="Beachside Circle Boats Links" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:32px;">
+      <p style="font-size:0.85rem;color:var(--text3);">
+        <a href="https://beachsidecircleboats.com" target="_blank" rel="noopener" style="color:var(--primary2);text-decoration:none;">beachsidecircleboats.com</a>
+        &nbsp;·&nbsp;
+        <a href="https://beachsidecircleboats.com/links.html" target="_blank" rel="noopener" style="color:var(--primary2);text-decoration:none;">beachsidecircleboats.com/links.html</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Booking flow ───────────────────────────────────────────────────────── -->
+<section class="s-section" id="booking-flow">
+  <div class="s-container">
+    <div class="s-label">How Booking Works</div>
+    <h2 class="s-h2">4 steps. Customer books in under 2 minutes.</h2>
+    <p class="s-sub">From QR scan to confirmed booking — no phone tag, no back-and-forth. Real-time availability, instant confirmation.</p>
+    <div class="hp-flow-grid" id="flow-grid">
+
+      <div class="hp-flow-step">
+        <div class="hp-flow-num">1</div>
+        <h3>Scan QR or tap link</h3>
+        <p>Customer scans the business QR code or clicks a link. Their booking page opens instantly in their phone browser.</p>
+      </div>
+
+      <div class="hp-flow-step">
+        <div class="hp-flow-num">2</div>
+        <h3>Pick a date &amp; service</h3>
+        <p>Real-time availability calendar. Choose the rental, charter, tour, or session they want. Prices shown upfront.</p>
+      </div>
+
+      <div class="hp-flow-step">
+        <div class="hp-flow-num">3</div>
+        <h3>Enter details &amp; pay</h3>
+        <p>Name, contact, party size, special requests. Secure payment through Stripe. No redirect, no account required.</p>
+      </div>
+
+      <div class="hp-flow-step">
+        <div class="hp-flow-num">4</div>
+        <h3>Instant confirmation</h3>
+        <p>Customer gets a confirmation SMS + email. Business dashboard updates in real time. Zero platform fees taken.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── Industries ─────────────────────────────────────────────────────────── -->
+<section class="s-section s-section-alt" id="industries">
+  <div class="s-container">
+    <div class="s-label">Who It's Built For</div>
+    <h2 class="s-h2">Every business on the Gulf Coast.</h2>
+    <p class="s-sub">One platform built from the ground up for the businesses that make the Gulf Coast run.</p>
+    <div class="hp-industry-grid">
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">🍽️</div>
+        <h3>Restaurants &amp; Bars</h3>
+        <p>QR menu, daily updates, happy hour, live music, booking</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">⛵</div>
+        <h3>Boat Rentals</h3>
+        <p>Live availability, zero-fee booking, waivers, photos</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">🎣</div>
+        <h3>Fishing Charters</h3>
+        <p>Free GCR listing, FareHarbor affiliate, real-time slots</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">🎸</div>
+        <h3>Musicians &amp; Artists</h3>
+        <p>Live page, venue schedule, fan follows, booking requests</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">📸</div>
+        <h3>Photographers</h3>
+        <p>Portfolio + bookings. No more DM chaos or double-bookings</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">🏄</div>
+        <h3>Activities &amp; Tours</h3>
+        <p>Multi-slot booking, group sizes, add-ons, instant confirm</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">🛍️</div>
+        <h3>Retail &amp; Shops</h3>
+        <p>QR loyalty, verified reviews, promotions, digital presence</p>
+      </div>
+      <div class="hp-industry-card">
+        <div class="hp-industry-icon">💆</div>
+        <h3>Services &amp; Spas</h3>
+        <p>Appointment booking, reviews, staff pages, social links</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Stats bar ──────────────────────────────────────────────────────────── -->
+<section class="s-section" style="padding-top:0;padding-bottom:0;background:var(--bg);">
+  <div class="s-container">
+    <div class="s-stats-bar" id="stats-bar">
+      <div class="s-stat"><div class="s-stat-num">4.9★</div><div class="s-stat-label">Average review rating</div></div>
+      <div class="s-stat"><div class="s-stat-num">85%</div><div class="s-stat-label">Increase in review trust</div></div>
+      <div class="s-stat"><div class="s-stat-num">2.3×</div><div class="s-stat-label">More likely to rebook</div></div>
+      <div class="s-stat"><div class="s-stat-num">0%</div><div class="s-stat-label">Platform booking fees</div></div>
+      <div class="s-stat"><div class="s-stat-num">60s</div><div class="s-stat-label">Average menu update time</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Comparison table ───────────────────────────────────────────────────── -->
+<section class="s-section s-section-alt" id="compare">
+  <div class="s-container">
+    <div class="s-label">Why CyberCheck</div>
+    <h2 class="s-h2">vs. everything else you're paying for.</h2>
+    <p class="s-sub">Most businesses are running 4–6 separate tools that don't talk to each other. CyberCheck replaces all of them.</p>
+    <div class="hp-compare-wrap">
+      <table class="s-compare">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>CyberCheck</th>
+            <th>FareHarbor</th>
+            <th>Linktree</th>
+            <th>Stacked apps</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td>Zero booking platform fees</td>
+            <td class="yes">✓ Free</td>
+            <td class="no">6% + cc</td>
+            <td class="no">N/A</td>
+            <td class="no">3–6% each</td>
+          </tr>
+          <tr>
+            <td>Live QR menu (real prices daily)</td>
+            <td class="yes">✓ Yes</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td>Separate tool</td>
+          </tr>
+          <tr class="highlight">
+            <td>SMS-based daily menu updates</td>
+            <td class="yes">✓ Yes</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Verified reviews (purchase-linked)</td>
+            <td class="yes">✓ Patent pending</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td>Yelp/Google only</td>
+          </tr>
+          <tr class="highlight">
+            <td>Artist platform (live pages)</td>
+            <td class="yes">✓ Yes</td>
+            <td class="no">✗</td>
+            <td>Basic links</td>
+            <td>Separate tool</td>
+          </tr>
+          <tr>
+            <td>One-tap automation (update everywhere)</td>
+            <td class="yes">✓ Yes</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr class="highlight">
+            <td>GCR discovery map listing</td>
+            <td class="yes">✓ Included</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+            <td class="no">✗</td>
+          </tr>
+          <tr>
+            <td>Monthly cost (typical business)</td>
+            <td class="yes">$49–99/mo</td>
+            <td class="no">% of revenue</td>
+            <td>$9/mo + booking tools</td>
+            <td class="no">$200–400+/mo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA band ───────────────────────────────────────────────────────────── -->
+<section class="hp-cta-band">
+  <div class="s-container-sm">
+    <h2>Ready to put your business on the map?</h2>
+    <p>Get your booking page, QR menu, and Gulf Coast Radar listing live — usually same day. No contracts, no setup fees.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <button class="s-btn s-btn-white" onclick="openSalesModal()">Get Set Up Today</button>
+      <a href="https://beachsidecircleboats.com" target="_blank" rel="noopener" class="s-btn s-btn-outline">See a Live Example</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Shared footer ──────────────────────────────────────────────────────── -->
+<footer class="s-footer" id="s-footer"></footer>
+
+<script src="/js/sales-config.js"></script>
+<script>
+// Init shared nav, modal, footer
+initSalesPage('index', 'Home');
+
+// Lazy load demo phones
+lazyPhone('demo-phone-1', 'https://beachsidecircleboats.com');
+lazyPhone('demo-phone-2', 'https://beachsidecircleboats.com/links.html');
+
+// Load API config overlay (sections can be overridden from admin)
+SalesConfig.load('index', null, function(config) {
+  if (!config) return;
+  // Future: apply config overrides to hero, products grid, stats, etc.
+});
+</script>
+</body>
+</html>

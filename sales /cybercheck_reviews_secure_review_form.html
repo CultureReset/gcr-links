@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leave a Verified Review | CyberCheck Reviews</title>
+  <style>
+    :root{
+      --bg:#08111d;
+      --panel:#0f1c30;
+      --panel2:#13243b;
+      --line:rgba(255,255,255,.10);
+      --text:#eef5ff;
+      --muted:#a6b8cf;
+      --accent:#1ce5b0;
+      --accent2:#5fc8ff;
+      --danger:#ff7b7b;
+      --warning:#ffcc66;
+      --shadow:0 24px 70px rgba(0,0,0,.35);
+      --radius:24px;
+      --max:920px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(95,200,255,.09), transparent 25%),
+        radial-gradient(circle at top left, rgba(28,229,176,.09), transparent 20%),
+        linear-gradient(180deg,#06101b 0%, #0a1524 100%);
+      line-height:1.55;
+    }
+    .container{width:min(var(--max), calc(100% - 24px)); margin:0 auto}
+    .topbar{
+      padding:18px 0;
+      border-bottom:1px solid var(--line);
+      background:rgba(6,16,27,.72);
+      backdrop-filter:blur(12px);
+      position:sticky;top:0;z-index:10;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.02em;
+    }
+    .mark{
+      width:40px;height:40px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent2),var(--accent));
+      color:#04111a;font-weight:900;box-shadow:var(--shadow);
+    }
+    .hero{
+      padding:34px 0 22px;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(28,229,176,.08);
+      border:1px solid rgba(28,229,176,.18);
+      color:#d3fff4;
+      font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+      margin-bottom:16px;
+    }
+    h1,h2,h3,p{margin:0}
+    h1{
+      font-size:clamp(2rem,4vw,3.8rem);
+      line-height:.96;letter-spacing:-.05em;
+      margin-bottom:12px;
+    }
+    .sub{
+      color:#d8e5f7;
+      font-size:clamp(1rem,1.5vw,1.12rem);
+      max-width:760px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:20px;
+      padding:18px 0 34px;
+      align-items:start;
+    }
+    .card{
+      background:linear-gradient(180deg,rgba(15,28,48,.96),rgba(10,20,34,.99));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:24px;
+    }
+    .mini{
+      padding:16px;
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+    }
+    .business-head{
+      display:flex;gap:14px;align-items:center;margin-bottom:18px;
+    }
+    .avatar{
+      width:62px;height:62px;border-radius:18px;
+      background:linear-gradient(135deg,#0e4060,#0a8d76);
+      display:grid;place-items:center;
+      font-weight:900;font-size:22px;
+      color:white;
+    }
+    .badge{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(28,229,176,.10);
+      border:1px solid rgba(28,229,176,.18);
+      color:#d9fff5;
+      font-size:12px;font-weight:800;
+      margin-top:8px;
+    }
+    .detail-list{
+      display:grid;gap:12px;margin-top:16px;
+    }
+    .detail{
+      display:flex;justify-content:space-between;gap:14px;
+      padding:12px 0;border-bottom:1px solid rgba(255,255,255,.08);
+      color:#d8e4f2;
+      font-size:14px;
+    }
+    .detail:last-child{border-bottom:none}
+    .detail strong{color:#fff}
+    .form-wrap{
+      background:#f8fbff;
+      color:#17253a;
+      border-radius:24px;
+      padding:18px;
+      border:1px solid #dbe7f1;
+      box-shadow:0 18px 40px rgba(10,20,40,.14);
+    }
+    .form-wrap h2{
+      font-size:1.45rem;
+      line-height:1.05;
+      letter-spacing:-.03em;
+      margin-bottom:8px;
+      color:#13243b;
+    }
+    .form-wrap p{
+      color:#51657d;
+      margin-bottom:16px;
+      font-size:14px;
+    }
+    .field{
+      margin-bottom:14px;
+    }
+    .field label{
+      display:block;
+      font-weight:800;
+      font-size:14px;
+      color:#21344b;
+      margin-bottom:8px;
+    }
+    .input, select, textarea{
+      width:100%;
+      padding:13px 14px;
+      border-radius:14px;
+      border:1px solid #d6e2ec;
+      background:#fff;
+      color:#1d3048;
+      font:inherit;
+      outline:none;
+    }
+    textarea{min-height:110px;resize:vertical}
+    .stars{
+      display:flex;gap:10px;flex-wrap:wrap;
+      margin-bottom:4px;
+    }
+    .star-btn{
+      width:48px;height:48px;border-radius:14px;
+      border:1px solid #d6e2ec;background:#fff;color:#f5b301;
+      font-size:24px;cursor:pointer;
+      transition:.15s ease;
+    }
+    .star-btn:hover,.star-btn.active{
+      transform:translateY(-1px);
+      border-color:#f5b301;
+      box-shadow:0 8px 18px rgba(245,179,1,.18);
+    }
+    .choice-row{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    }
+    .choice{
+      padding:12px;border-radius:14px;border:1px solid #d6e2ec;background:#fff;cursor:pointer;
+      font-weight:700;color:#25394f;text-align:center;
+    }
+    .choice.active{
+      border-color:#19b389;background:#ecfff8;color:#0f6d58;
+      box-shadow:0 8px 18px rgba(25,179,137,.14);
+    }
+    .submit{
+      width:100%;min-height:54px;border:none;border-radius:16px;
+      background:linear-gradient(135deg,var(--accent),#22c55e);
+      color:#06131a;font-weight:900;font-size:16px;cursor:pointer;
+      box-shadow:0 18px 35px rgba(28,229,176,.24);
+      margin-top:8px;
+    }
+    .small{
+      margin-top:12px;font-size:12px;color:#66798e;line-height:1.5;
+    }
+    .side-grid{
+      display:grid;gap:16px;
+    }
+    .check{
+      display:grid;gap:10px;margin-top:14px;
+    }
+    .check div{
+      padding-left:20px;position:relative;color:#dce7f5;
+    }
+    .check div::before{
+      content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:900;
+    }
+    .success{
+      display:none;
+      margin-top:16px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(28,229,176,.10);
+      border:1px solid rgba(28,229,176,.20);
+      color:#dbfff5;
+    }
+    .review-preview{
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+    }
+    .review-preview .name{
+      font-weight:900;
+      margin-bottom:6px;
+    }
+    .verified{
+      display:inline-flex;gap:8px;align-items:center;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(28,229,176,.10);
+      border:1px solid rgba(28,229,176,.18);
+      color:#d9fff5;font-size:12px;font-weight:800;
+      margin-top:10px;
+    }
+    @media (max-width: 860px){
+      .grid{grid-template-columns:1fr}
+      .choice-row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container">
+      <div class="brand">
+        <div class="mark">✓</div>
+        <div>CyberCheck Reviews</div>
+      </div>
+    </div>
+  </div>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">Secure one-time review link</div>
+      <h1>Leave your verified review.</h1>
+      <p class="sub">This review link was sent after a real booking, purchase, or completed service. Your feedback helps the business improve and gives future customers a more trustworthy experience.</p>
+    </section>
+
+    <section class="grid">
+      <div class="card">
+        <div class="business-head">
+          <div class="avatar">RC</div>
+          <div>
+            <h3>Reel Coastal Charters</h3>
+            <p class="muted">Half Day Inshore Trip</p>
+            <div class="badge">🛡 Verified by Real Booking</div>
+          </div>
+        </div>
+
+        <div class="detail-list">
+          <div class="detail"><span>Booking ID</span><strong>#RC-48291</strong></div>
+          <div class="detail"><span>Guest</span><strong>Alex Carter</strong></div>
+          <div class="detail"><span>Date</span><strong>May 23, 2025</strong></div>
+          <div class="detail"><span>Captain</span><strong>Captain Jordan</strong></div>
+          <div class="detail"><span>Verified trip</span><strong>Half Day Inshore Trip</strong></div>
+        </div>
+
+        <div class="mini" style="margin-top:18px">
+          <h3 style="margin-bottom:8px">Why this review counts more</h3>
+          <p class="muted" style="font-size:14px">This review is tied to a real booking record. That means it is more trustworthy than an open public review with no proof.</p>
+          <div class="check">
+            <div>Real booking or purchase behind the review</div>
+            <div>Custom business questions</div>
+            <div>Stronger trust for future customers</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="form-wrap">
+          <h2>How was your trip?</h2>
+          <p>Please leave a rating and answer the questions below.</p>
+
+          <form id="reviewForm">
+            <div class="field">
+              <label>Overall rating</label>
+              <div class="stars" id="stars">
+                <button type="button" class="star-btn" data-value="1">★</button>
+                <button type="button" class="star-btn" data-value="2">★</button>
+                <button type="button" class="star-btn" data-value="3">★</button>
+                <button type="button" class="star-btn" data-value="4">★</button>
+                <button type="button" class="star-btn active" data-value="5">★</button>
+              </div>
+              <input type="hidden" id="rating" value="5" />
+            </div>
+
+            <div class="field">
+              <label>Verified booking</label>
+              <div class="input" style="background:#eef8ff;font-weight:700;">
+                Half Day Inshore Trip · May 23, 2025 · Captain Jordan
+              </div>
+            </div>
+
+            <div class="field">
+              <label>How was your captain?</label>
+              <div class="choice-row" id="captainChoices">
+                <button type="button" class="choice">Excellent</button>
+                <button type="button" class="choice active">Great</button>
+                <button type="button" class="choice">Average</button>
+              </div>
+              <input type="hidden" id="captainRating" value="Great" />
+            </div>
+
+            <div class="field">
+              <label for="highlight">What was the highlight of your trip?</label>
+              <textarea id="highlight" placeholder="Caught lots of fish and had a great time..."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="details">Anything the business should improve?</label>
+              <textarea id="details" placeholder="Optional feedback for the business..."></textarea>
+            </div>
+
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input class="input" id="firstName" value="Alex" />
+            </div>
+
+            <button class="submit" type="submit">Submit Verified Review</button>
+            <div class="small">This secure review link is tied to a real transaction and can only be used once.</div>
+          </form>
+
+          <div id="successBox" class="success">
+            <strong style="display:block;margin-bottom:6px">Review submitted</strong>
+            Your verified review was saved successfully.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" style="padding-top:0">
+      <div class="side-grid">
+        <div class="card">
+          <h3>What this page is for</h3>
+          <p class="muted">This is the actual customer-facing page opened from the secure SMS or email link. It already knows the confirmed booking details, so the customer only needs to leave feedback instead of re-entering what was booked.</p>
+        </div>
+        <div class="card">
+          <h3>What you can customize</h3>
+          <div class="check">
+            <div>Business name and branding</div>
+            <div>Custom questions</div>
+            <div>Booking, order, or service details</div>
+            <div>Verified badge wording</div>
+            <div>Post-submit thank-you message</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin-bottom:14px">Example verified review output</h3>
+        <div class="review-preview">
+          <div class="name">Alex C.</div>
+          <div style="color:#f5b301;font-size:18px;letter-spacing:2px">★★★★★</div>
+          <p style="margin-top:10px;color:#dce7f4">“Caught lots of fish and had a great time. Captain Jordan was awesome and made the trip easy for everyone.”</p>
+          <div style="margin-top:10px;color:#b8c9dc;font-size:14px">Verified booking: Half Day Inshore Trip · Captain: Great</div>
+          <div class="verified">🛡 Verified by Real Booking</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const starButtons = document.querySelectorAll('.star-btn');
+    const ratingInput = document.getElementById('rating');
+    starButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const value = Number(btn.dataset.value);
+        ratingInput.value = value;
+        starButtons.forEach(b => {
+          b.classList.toggle('active', Number(b.dataset.value) <= value);
+        });
+      });
+    });
+
+    const choices = document.querySelectorAll('#captainChoices .choice');
+    const captainInput = document.getElementById('captainRating');
+    choices.forEach(choice => {
+      choice.addEventListener('click', () => {
+        choices.forEach(c => c.classList.remove('active'));
+        choice.classList.add('active');
+        captainInput.value = choice.textContent.trim();
+      });
+    });
+
+    const form = document.getElementById('reviewForm');
+    const successBox = document.getElementById('successBox');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.style.display = 'none';
+      successBox.style.display = 'block';
+    });
+  </script>
+</body>
+</html>

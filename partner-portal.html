@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partner Dashboard — Gulf Coast Radar</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#0f172a;color:#f1f5f9;min-height:100vh;}
+.header{background:linear-gradient(135deg,#0b7a75,#0369a1);padding:24px 20px;text-align:center;}
+.header h1{font-size:22px;font-weight:800;margin-bottom:4px;}
+.header .sub{font-size:14px;opacity:.8;}
+.content{max-width:600px;margin:0 auto;padding:24px 16px;}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.stat-card{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:18px;text-align:center;}
+.stat-num{font-size:32px;font-weight:800;margin-bottom:4px;}
+.stat-label{font-size:12px;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em;}
+.section{background:#1e293b;border:1px solid #334155;border-radius:14px;padding:20px;margin-bottom:16px;}
+.section h3{font-size:15px;font-weight:700;margin-bottom:14px;color:#818cf8;}
+.event-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid #334155;font-size:13px;}
+.event-row:last-child{border-bottom:none;}
+.badge{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;}
+.badge-signup{background:#dcfce7;color:#166534;}
+.badge-booking{background:#fef3c7;color:#92400e;}
+.badge-scan{background:#e0f2fe;color:#0369a1;}
+.incentive-box{background:#0f2233;border:1px dashed #0b7a75;border-radius:10px;padding:16px;margin-bottom:20px;font-size:14px;color:#7dd3fc;line-height:1.6;}
+.incentive-box strong{color:#38bdf8;display:block;margin-bottom:4px;}
+.qr-box{text-align:center;padding:24px;background:#0f2233;border-radius:14px;margin-bottom:20px;}
+.qr-box img{border-radius:10px;border:4px solid #334155;}
+.qr-box p{font-size:12px;color:#94a3b8;margin-top:10px;}
+.owed-banner{background:#fef3c7;border:1px solid #d97706;border-radius:10px;padding:14px 18px;margin-bottom:16px;color:#92400e;font-weight:700;display:flex;align-items:center;gap:10px;}
+.empty{text-align:center;padding:32px;color:#475569;font-size:14px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div style="font-size:28px;margin-bottom:6px;">🏖️</div>
+  <h1 id="partner-name">Loading…</h1>
+  <div class="sub">Gulf Coast Radar — Referral Partner Dashboard</div>
+</div>
+
+<div class="content">
+
+  <div id="owed-banner" style="display:none;" class="owed-banner">
+    💰 <span id="owed-text"></span> — we'll pay out monthly via your preferred method.
+  </div>
+
+  <!-- Stats -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-num" style="color:#22c55e;" id="stat-signups">—</div>
+      <div class="stat-label">Guests Signed Up</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#f59e0b;" id="stat-bookings">—</div>
+      <div class="stat-label">Bookings Made</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#a78bfa;" id="stat-earned">—</div>
+      <div class="stat-label">Total Earned</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" style="color:#38bdf8;" id="stat-month">—</div>
+      <div class="stat-label">This Month</div>
+    </div>
+  </div>
+
+  <!-- This month breakdown -->
+  <div class="section">
+    <h3>📅 This Month</h3>
+    <div class="event-row">
+      <span>Guests who scanned your QR</span>
+      <span id="month-signups" style="font-weight:700;color:#22c55e;">—</span>
+    </div>
+    <div class="event-row">
+      <span>Bookings from your guests</span>
+      <span id="month-bookings" style="font-weight:700;color:#f59e0b;">—</span>
+    </div>
+    <div class="event-row">
+      <span>Commission earned</span>
+      <span id="month-earned" style="font-weight:700;color:#a78bfa;">—</span>
+    </div>
+  </div>
+
+  <!-- Incentive message -->
+  <div class="incentive-box">
+    <strong>🎁 Your Guest Welcome Message:</strong>
+    <span id="incentive-text">Loading…</span>
+  </div>
+
+  <!-- QR Code -->
+  <div class="qr-box">
+    <div style="font-size:14px;font-weight:700;margin-bottom:14px;">Your Referral QR Code</div>
+    <img id="qr-img" src="" width="180" height="180" alt="QR Code">
+    <p>Place this magnet in your rental. Every guest who scans and signs up earns you a referral commission on their bookings.</p>
+  </div>
+
+  <!-- Recent Activity -->
+  <div class="section">
+    <h3>📋 Recent Activity</h3>
+    <div id="activity-list"><div class="empty">No activity yet</div></div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0;font-size:12px;color:#475569;">
+    Questions? Contact <a href="mailto:info@cybercheckinc.com" style="color:#38bdf8;">info@cybercheckinc.com</a>
+  </div>
+</div>
+
+<script>
+const API = 'https://cybercheck-api-database.vercel.app';
+const params = new URLSearchParams(location.search);
+const QR_CODE = params.get('qr') || params.get('code') || params.get('ref');
+
+async function load() {
+  if (!QR_CODE) {
+    document.getElementById('partner-name').textContent = 'Invalid link';
+    return;
+  }
+
+  const r = await fetch(`${API}/api/qr/partner-portal/${QR_CODE}`).catch(() => null);
+  if (!r || !r.ok) {
+    document.getElementById('partner-name').textContent = 'Partner not found';
+    return;
+  }
+
+  const d = await r.json();
+  const p = d.partner;
+  const m = d.this_month;
+
+  document.getElementById('partner-name').textContent = p.name;
+  document.getElementById('stat-signups').textContent = p.total_signups || 0;
+  document.getElementById('stat-bookings').textContent = p.total_bookings || 0;
+  document.getElementById('stat-earned').textContent = '$' + parseFloat(p.total_earned || 0).toFixed(2);
+  document.getElementById('stat-month').textContent = '$' + parseFloat(m.earned || 0).toFixed(2);
+
+  document.getElementById('month-signups').textContent = m.signups || 0;
+  document.getElementById('month-bookings').textContent = m.bookings || 0;
+  document.getElementById('month-earned').textContent = '$' + parseFloat(m.earned || 0).toFixed(2);
+
+  const owed = parseFloat(p.total_earned || 0) - parseFloat(p.total_paid || 0);
+  if (owed > 0.01) {
+    document.getElementById('owed-banner').style.display = 'flex';
+    document.getElementById('owed-text').textContent = `$${owed.toFixed(2)} commission ready for payout`;
+  }
+
+  const scanUrl = `https://cybercheck-links.vercel.app/q.html?c=${QR_CODE}`;
+  document.getElementById('qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(scanUrl)}`;
+  document.getElementById('incentive-text').textContent = p.incentive_text || 'Welcome to the Gulf Coast!';
+
+  const activity = d.recent_activity || [];
+  if (!activity.length) return;
+
+  const typeMap = { signup: ['🙋 New Signup', 'badge-signup'], booking: ['📅 Booking', 'badge-booking'], scan: ['📱 QR Scan', 'badge-scan'], review: ['⭐ Review', 'badge-signup'] };
+  document.getElementById('activity-list').innerHTML = activity.map(e => {
+    const [label, cls] = typeMap[e.event_type] || [e.event_type, 'badge-scan'];
+    const date = new Date(e.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    const commission = parseFloat(e.commission || 0);
+    return `<div class="event-row">
+      <div><span class="badge ${cls}">${label}</span></div>
+      <div style="color:#94a3b8;font-size:12px;">${date}</div>
+      ${commission > 0 ? `<div style="color:#a78bfa;font-weight:700;">+$${commission.toFixed(2)}</div>` : '<div></div>'}
+    </div>`;
+  }).join('');
+}
+
+load();
+</script>
+</body>
+</html>

@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grow Your Gulf Coast Business — Gulf Coast Radar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ───────────────────────────────────── */
+    :root {
+      --bg:        #f5f0e8;
+      --bg2:       #eaf4f8;
+      --bg3:       #ffffff;
+      --card:      #ffffff;
+      --border:    rgba(0, 70, 100, 0.12);
+      --teal:      #0096c7;
+      --teal2:     #48cae4;
+      --gold:      #e07b39;
+      --coral:     #e76f51;
+      --green:     #2a9d5c;
+      --purple:    #7b2d8b;
+      --text:      #0d2233;
+      --muted:     #3a5f72;
+      --dim:       #7a9aaa;
+      --nav-bg:    #0a2233;
+      --radius:    16px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(10,34,51,0.97); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo {
+      font-size: 20px; font-weight: 800; letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #48cae4, #f4a261);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 4px; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.6); font-size: 13px; font-weight: 500;
+      padding: 7px 14px; border-radius: 50px; transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .nav-cta {
+      background: linear-gradient(135deg, #0096c7, #48cae4);
+      color: #000; padding: 10px 22px; border-radius: 50px;
+      font-size: 13px; font-weight: 700; transition: opacity 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.88; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: rgba(255,255,255,0.5); border-radius: 2px; }
+    .mobile-menu {
+      display: none; position: fixed; top: 61px; left: 0; right: 0; z-index: 199;
+      background: rgba(10,34,51,0.99); backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.08); padding: 20px 24px 28px;
+      flex-direction: column; gap: 4px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      color: rgba(255,255,255,0.65); font-size: 16px; font-weight: 500;
+      padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.08); transition: color 0.2s;
+    }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover { color: #fff; }
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ── SHARED UTILITIES ────────────────────────── */
+    .section-outer { padding: 96px 24px; }
+    .section-outer.bg2 { background: var(--bg2); }
+    .section-outer.bg3 { background: #fff; }
+    .section-outer.dark { background: var(--nav-bg); }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; padding: 5px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      background: rgba(0,150,199,0.1); border: 1px solid rgba(0,150,199,0.25); color: var(--teal);
+      margin-bottom: 16px;
+    }
+    .section-label.gold-tag { background: rgba(224,123,57,0.1); border-color: rgba(224,123,57,0.25); color: var(--gold); }
+    .section-label.purple-tag { background: rgba(123,45,139,0.1); border-color: rgba(123,45,139,0.25); color: var(--purple); }
+    .section-header { text-align: center; margin-bottom: 64px; }
+    .section-header h2 { font-size: clamp(28px, 5vw, 46px); font-weight: 900; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 14px; }
+    .section-header p { font-size: 17px; color: var(--muted); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+    .section-divider { height: 1px; background: var(--border); max-width: 1100px; margin: 0 auto; }
+    .btn-teal {
+      display: inline-block; background: linear-gradient(135deg, var(--teal), var(--teal2));
+      color: #000; padding: 14px 30px; border-radius: 50px;
+      font-size: 15px; font-weight: 700; transition: opacity 0.2s;
+    }
+    .btn-teal:hover { opacity: 0.88; }
+    .btn-outline {
+      display: inline-block; border: 1.5px solid rgba(255,255,255,0.3); color: #fff;
+      padding: 14px 30px; border-radius: 50px; font-size: 15px; font-weight: 600; transition: border-color 0.2s;
+    }
+    .btn-outline:hover { border-color: #fff; }
+    .check { color: var(--green); font-weight: 700; }
+    .cross { color: #ef4444; font-weight: 700; }
+
+    /* ── HERO ────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 140px 24px 100px; position: relative; overflow: hidden;
+      background: linear-gradient(180deg, #0a2233 0%, #0e3a54 35%, #1a6e8a 65%, #6dd4e8 88%, #f5f0e8 100%);
+    }
+    .hero-sun {
+      position: absolute; top: 12%; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 120px; border-radius: 50%;
+      background: radial-gradient(circle, #fff7a0 0%, #ffd166 40%, #f4a261 80%, transparent 100%);
+      box-shadow: 0 0 80px 40px rgba(255,200,80,0.25), 0 0 160px 80px rgba(255,180,60,0.1);
+      pointer-events: none;
+    }
+    .hero-glow {
+      position: absolute; top: 55%; left: 50%; transform: translateX(-50%);
+      width: 1200px; height: 300px;
+      background: radial-gradient(ellipse, rgba(245,240,232,0.6) 0%, rgba(245,240,232,0.1) 50%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-block; padding: 5px 14px; border-radius: 100px;
+      font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+      background: rgba(0,212,204,0.15); border: 1px solid rgba(0,212,204,0.3); color: #7eedf8;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7.5vw, 80px); font-weight: 900;
+      line-height: 1.04; letter-spacing: -3px; margin-bottom: 24px; color: #fff;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(135deg, #ffe8b0, #ffd166, #f4a261);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub { font-size: clamp(16px, 2vw, 19px); color: rgba(255,255,255,0.8); max-width: 620px; margin: 0 auto 40px; line-height: 1.7; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 56px; }
+    .hero-stats { display: flex; gap: 56px; justify-content: center; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 30px; font-weight: 800; color: #fff; }
+    .stat-num.teal  { color: #7eedf8; }
+    .stat-num.gold  { color: #ffd166; }
+    .stat-num.green { color: #7be8a0; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.55); margin-top: 4px; font-weight: 500; }
+
+    /* ── WAVE DIVIDER ────────────────────────────── */
+    .wave-divider { width: 100%; overflow: hidden; line-height: 0; background: var(--teal2); }
+    .wave-divider svg { display: block; width: 100%; height: 48px; }
+
+    /* ── INDUSTRIES ──────────────────────────────── */
+    .industries-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 14px; margin-top: 56px;
+    }
+    .industry-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 22px 14px; text-align: center; transition: all 0.25s; cursor: default;
+    }
+    .industry-card:hover { border-color: var(--teal); transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,150,199,0.12); }
+    .industry-icon { font-size: 30px; margin-bottom: 8px; }
+    .industry-name { font-size: 12px; font-weight: 600; color: var(--muted); }
+    .industry-card:hover .industry-name { color: var(--teal); }
+
+    /* ── BENEFITS ────────────────────────────────── */
+    .benefits-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 56px; }
+    .benefit-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 20px;
+      padding: 36px 28px; position: relative; overflow: hidden; transition: all 0.25s;
+    }
+    .benefit-card:hover { border-color: rgba(0,150,199,0.35); transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,70,100,0.1); }
+    .benefit-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .benefit-card.found::before { background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+    .benefit-card.book::before  { background: linear-gradient(90deg, var(--gold), var(--coral)); }
+    .benefit-card.grow::before  { background: linear-gradient(90deg, var(--purple), var(--teal)); }
+    .benefit-number { font-size: 52px; font-weight: 900; opacity: 0.05; position: absolute; top: 12px; right: 18px; }
+    .benefit-icon  { font-size: 36px; margin-bottom: 14px; }
+    .benefit-title { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .benefit-desc  { font-size: 15px; color: var(--muted); line-height: 1.65; }
+
+    /* ── DEMO SECTION ────────────────────────────── */
+    .demo-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 56px;
+    }
+    .demo-featured-wrap { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+    .demo-label-above {
+      font-size: 13px; font-weight: 700; color: var(--teal);
+      letter-spacing: 0.5px; text-align: center;
+    }
+    .phone-shell {
+      width: 200px; height: 400px; border-radius: 36px; overflow: hidden;
+      background: #111; position: relative;
+      box-shadow: 0 0 0 2px rgba(255,255,255,0.1), 0 24px 56px rgba(0,0,0,0.45);
+    }
+    .phone-shell.featured {
+      width: 280px; height: 560px; border-radius: 40px;
+      box-shadow: 0 0 0 2.5px rgba(0,150,199,0.4), 0 0 0 5px rgba(0,150,199,0.12), 0 32px 72px rgba(0,0,0,0.5);
+    }
+    .phone-notch {
+      height: 22px; width: 110px; background: #111;
+      border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 2;
+    }
+    .phone-shell.featured .phone-notch { width: 130px; height: 26px; }
+    .phone-screen {
+      position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+      border-radius: 36px; overflow: hidden;
+    }
+    .phone-shell.featured .phone-screen { border-radius: 40px; }
+    .phone-screen iframe {
+      width: 100%; height: 100%; border: none; pointer-events: none; display: block;
+    }
+    .phone-shell.featured .phone-screen iframe {
+      width: 375px; height: 750px;
+      transform: scale(0.747); transform-origin: top left;
+    }
+    .demo-caption { font-size: 13px; color: var(--muted); text-align: center; line-height: 1.6; max-width: 280px; }
+    .demo-view-link { font-size: 13px; font-weight: 700; color: var(--teal); }
+    .demo-view-link:hover { text-decoration: underline; }
+    .demo-right-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .demo-card-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .demo-card-label { font-size: 12px; font-weight: 700; color: var(--muted); text-align: center; }
+    .phone-inner { width: 100%; height: 100%; overflow-y: auto; padding: 10px; font-family: 'Inter', sans-serif; font-size: 10.5px; color: var(--text); }
+    .phone-inner::-webkit-scrollbar { display: none; }
+    .phone-mock-header {
+      text-align: center; padding: 10px 6px; border-radius: 10px; margin-bottom: 8px;
+    }
+    .phone-mock-name { font-weight: 800; font-size: 12px; margin-bottom: 2px; }
+    .phone-mock-sub  { color: var(--muted); font-size: 9px; }
+    .phone-mock-pill-row { display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 8px; }
+    .phone-mock-pill { font-size: 8.5px; font-weight: 700; padding: 2px 6px; border-radius: 100px; }
+    .phone-mock-btn {
+      width: 100%; padding: 7px; border-radius: 8px; text-align: center;
+      font-size: 10px; font-weight: 700; margin-bottom: 6px; color: #fff;
+    }
+    .phone-mock-block { background: #f0f5f8; border-radius: 8px; padding: 7px; margin-bottom: 6px; }
+    .phone-mock-block-title { font-size: 8px; font-weight: 700; color: var(--dim); letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 5px; }
+    .phone-mock-row { display: flex; justify-content: space-between; padding: 2.5px 0; border-bottom: 1px solid rgba(0,70,100,0.08); }
+    .phone-mock-row:last-child { border-bottom: none; }
+    .phone-mock-row-val { font-weight: 700; }
+
+    /* ── HOW IT WORKS (5 STEPS) ──────────────────── */
+    .steps-timeline { display: flex; justify-content: center; gap: 0; margin-top: 56px; position: relative; flex-wrap: wrap; }
+    .steps-timeline::before {
+      content: ''; position: absolute; top: 28px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--gold)); z-index: 0;
+    }
+    .step-item { text-align: center; flex: 1; min-width: 150px; padding: 0 12px; position: relative; z-index: 1; }
+    .step-circle {
+      width: 56px; height: 56px; border-radius: 50%; margin: 0 auto 14px;
+      background: #fff; border: 2px solid var(--teal);
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+      box-shadow: 0 4px 16px rgba(0,150,199,0.15);
+    }
+    .step-num { display: none; }
+    .step-title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .step-desc  { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    /* ── FEATURES ────────────────────────────────── */
+    .features-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-top: 56px; }
+    .feature-card {
+      background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px 22px; transition: all 0.25s;
+    }
+    .feature-card:hover { border-color: rgba(0,150,199,0.35); transform: translateY(-3px); box-shadow: 0 10px 28px rgba(0,70,100,0.1); }
+    .feature-icon  { font-size: 26px; margin-bottom: 12px; }
+    .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-desc  { font-size: 13px; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+    .feature-list  { list-style: none; }
+    .feature-list li { font-size: 12px; color: var(--muted); padding: 3px 0; display: flex; align-items: flex-start; gap: 6px; }
+    .feature-list li::before { content: '✓'; color: var(--teal); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── VS LINKTREE ─────────────────────────────── */
+    .vs-compare {
+      display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; margin-top: 48px;
+      background: #fff; border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+    }
+    .vs-col { padding: 0; }
+    .vs-col-name {
+      font-size: 15px; font-weight: 800; padding: 20px 24px 6px;
+    }
+    .vs-col-sub { font-size: 12px; color: var(--dim); padding: 0 24px 16px; border-bottom: 1px solid var(--border); }
+    .vs-row { font-size: 13px; color: var(--muted); padding: 11px 24px; border-bottom: 1px solid var(--border); line-height: 1.4; display: flex; align-items: center; gap: 8px; }
+    .vs-row:last-child { border-bottom: none; }
+    .vs-row.bad::before  { content: '✗'; color: #ef4444; font-weight: 700; flex-shrink: 0; }
+    .vs-row.good::before { content: '✓'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .vs-row.good { color: var(--text); }
+    .vs-col.us { background: rgba(0,150,199,0.03); }
+    .vs-col.us .vs-col-name { color: var(--teal); }
+    .vs-divider {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 800; letter-spacing: 1px; color: var(--dim);
+      padding: 0 16px; background: var(--bg); border-left: 1px solid var(--border); border-right: 1px solid var(--border);
+      writing-mode: vertical-rl;
+    }
+
+    /* ── GCR NETWORK ─────────────────────────────── */
+    .network-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+    .network-points { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+    .network-point { display: flex; gap: 16px; align-items: flex-start; }
+    .network-icon {
+      width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      background: rgba(0,150,199,0.1); border: 1px solid rgba(0,150,199,0.2);
+    }
+    .network-point h4 { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .network-point p  { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .network-visual {
+      background: #fff; border: 1px solid var(--border); border-radius: 24px;
+      padding: 32px; position: relative; overflow: hidden;
+    }
+    .network-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .network-stat {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 14px;
+      padding: 18px; text-align: center;
+    }
+    .network-stat-num   { font-size: 26px; font-weight: 800; color: var(--teal); }
+    .network-stat-label { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .trip-pass-badge {
+      margin-top: 16px; padding: 18px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(123,45,139,0.08), rgba(0,150,199,0.08));
+      border: 1px solid rgba(123,45,139,0.2); text-align: center;
+    }
+    .trip-pass-badge .badge-title { font-size: 15px; font-weight: 800; margin-bottom: 5px; }
+    .trip-pass-badge .badge-sub   { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+    /* ── PRICING ─────────────────────────────────── */
+    .pricing-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 56px; margin-bottom: 32px; }
+    .pricing-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 32px 28px;
+      display: flex; flex-direction: column; transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .pricing-card:hover { border-color: rgba(0,150,199,0.4); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,70,100,0.1); }
+    .pricing-card.featured { border: 2px solid rgba(0,150,199,0.35); background: linear-gradient(150deg, rgba(0,150,199,0.04), rgba(224,123,57,0.03)); }
+    .pricing-badge {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 100px; display: inline-block; width: fit-content; margin-bottom: 12px;
+    }
+    .pricing-badge.founder { background: rgba(0,150,199,0.1); color: var(--teal); }
+    .pricing-badge.popular { background: rgba(224,123,57,0.1); color: var(--gold); }
+    .pricing-badge.platform { background: rgba(123,45,139,0.1); color: var(--purple); }
+    .pricing-plan  { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 6px; }
+    .pricing-price { font-size: 44px; font-weight: 900; letter-spacing: -2px; line-height: 1; margin: 12px 0 4px; }
+    .pricing-price span { font-size: 18px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+    .pricing-sub  { font-size: 12px; color: var(--teal); font-weight: 700; margin-bottom: 8px; }
+    .pricing-desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+    .pricing-features { list-style: none; flex: 1; margin-bottom: 24px; display: flex; flex-direction: column; gap: 9px; }
+    .pricing-features li { font-size: 13px; color: var(--muted); padding-left: 20px; position: relative; line-height: 1.4; }
+    .pricing-features li::before { content: '✓'; position: absolute; left: 0; color: var(--teal); font-weight: 700; }
+    .pricing-features li.dim::before { color: var(--dim); }
+    .pricing-features li.dim { color: var(--dim); }
+    .pricing-cta {
+      display: block; text-align: center; padding: 13px; border-radius: 50px;
+      font-size: 14px; font-weight: 700; transition: all 0.2s;
+    }
+    .pricing-cta.cta-teal { background: linear-gradient(135deg, var(--teal), var(--teal2)); color: #000; }
+    .pricing-cta.cta-teal:hover { opacity: 0.88; }
+    .pricing-cta.cta-outline { border: 1.5px solid var(--border); color: var(--muted); }
+    .pricing-cta.cta-outline:hover { border-color: var(--teal); color: var(--text); }
+    .pricing-note { text-align: center; font-size: 13px; color: var(--dim); line-height: 1.7; }
+    .pricing-note strong { color: var(--muted); }
+
+    /* ── COMPARISON TABLE ────────────────────────── */
+    .compare-wrap { overflow-x: auto; margin-top: 48px; border-radius: 16px; }
+    .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 640px; }
+    .comparison-table th {
+      padding: 16px 18px; font-size: 14px; font-weight: 700;
+      background: var(--bg2); border-bottom: 1px solid var(--border);
+    }
+    .comparison-table th:first-child { text-align: left; color: var(--muted); }
+    .comparison-table th:nth-child(2) { color: var(--teal); background: rgba(0,150,199,0.07); }
+    .comparison-table td {
+      padding: 14px 18px; font-size: 13px; color: var(--muted);
+      border-bottom: 1px solid var(--border); vertical-align: top; background: #fff;
+    }
+    .comparison-table td:first-child { font-weight: 600; color: var(--text); }
+    .comparison-table td:nth-child(2) { color: var(--text); background: rgba(0,150,199,0.03); }
+    .comparison-table tr:last-child td { border-bottom: none; }
+
+    /* ── CONTACT ─────────────────────────────────── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+    .contact-perks { list-style: none; margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .contact-perk  { display: flex; gap: 12px; align-items: center; font-size: 15px; font-weight: 500; }
+    .contact-perk::before { content: '✓'; color: var(--green); font-weight: 800; font-size: 16px; flex-shrink: 0; }
+    .contact-form  { background: #fff; border: 1px solid var(--border); border-radius: 24px; padding: 40px; }
+    .form-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; }
+    .form-sub   { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 6px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 11px 14px;
+      background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+      color: var(--text); font-size: 14px; font-family: 'Inter', sans-serif;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--teal); }
+    .form-group textarea { resize: vertical; min-height: 90px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-submit {
+      width: 100%; padding: 14px; background: linear-gradient(135deg, var(--teal), var(--teal2));
+      color: #000; border: none; border-radius: 50px; font-size: 15px; font-weight: 700;
+      cursor: pointer; transition: all 0.2s; margin-top: 8px; font-family: 'Inter', sans-serif;
+    }
+    .form-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+    .form-note { font-size: 12px; color: var(--dim); text-align: center; margin-top: 12px; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    footer { background: var(--nav-bg); border-top: 1px solid rgba(255,255,255,0.07); padding: 56px 24px 32px; }
+    .footer-grid {
+      max-width: 1100px; margin: 0 auto 40px;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    }
+    .footer-logo { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; background: linear-gradient(135deg, #4cc9f0, #f4a261); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 10px; }
+    .footer-desc { font-size: 13px; color: rgba(255,255,255,0.35); line-height: 1.7; max-width: 200px; }
+    .footer-col h5 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
+    .footer-col a  { display: block; font-size: 13px; color: rgba(255,255,255,0.35); margin-bottom: 10px; transition: color 0.2s; }
+    .footer-col a:hover { color: rgba(255,255,255,0.7); }
+    .footer-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); max-width: 1100px; margin: 0 auto 24px; }
+    .footer-bottom { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.28); }
+    .footer-bottom-links { display: flex; gap: 20px; }
+    .footer-bottom-links a { font-size: 13px; color: rgba(255,255,255,0.28); transition: color 0.2s; }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.6); }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 960px) {
+      .demo-layout    { grid-template-columns: 1fr; }
+      .demo-featured-wrap { max-width: 320px; margin: 0 auto; }
+      .demo-right-grid { grid-template-columns: repeat(3, 1fr); }
+      .benefits-grid  { grid-template-columns: 1fr; }
+      .features-grid  { grid-template-columns: repeat(2,1fr); }
+      .network-grid   { grid-template-columns: 1fr; }
+      .pricing-grid   { grid-template-columns: 1fr; max-width: 420px; margin-left: auto; margin-right: auto; }
+      .contact-grid   { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid    { grid-template-columns: 1fr 1fr; gap: 28px; }
+      .steps-timeline::before { display: none; }
+      .vs-compare { grid-template-columns: 1fr; }
+      .vs-divider { writing-mode: unset; padding: 12px 24px; border-left: none; border-right: none; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    }
+    @media (max-width: 640px) {
+      .section-outer { padding: 72px 16px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 32px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .steps-timeline { flex-direction: column; align-items: center; gap: 24px; }
+      .demo-right-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav>
+  <div class="nav-logo">Gulf Coast Radar</div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#demo">Live Demo</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#compare">Compare</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get Listed →</a>
+  <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#features"  onclick="closeMobileMenu()">⚙️ Features</a>
+  <a href="#demo"      onclick="closeMobileMenu()">📱 Live Demo</a>
+  <a href="#pricing"   onclick="closeMobileMenu()">💰 Pricing</a>
+  <a href="#compare"   onclick="closeMobileMenu()">📊 Compare</a>
+  <a href="#contact"   onclick="closeMobileMenu()" style="color:#7eedf8;font-weight:700;">Get Listed Free →</a>
+</div>
+
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<div class="hero">
+  <div class="hero-sun"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Built for Gulf Coast Businesses</div>
+    <h1>Book More. Manage Less.<br><span class="grad">Grow with GCR.</span></h1>
+    <p class="hero-sub">One platform — custom link page, 4-step booking, GCR directory listing, AI concierge. We build it. You own it. Zero booking fees.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-teal">Get My Page Built Free →</a>
+      <a href="#demo"    class="btn-outline">See Live Demo ↓</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num teal">0%</div>
+        <div class="stat-label">Booking Fees Taken</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num gold">24/7</div>
+        <div class="stat-label">AI Answers Customers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num green">Days</div>
+        <div class="stat-label">To Go Live</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wave-divider">
+  <svg viewBox="0 0 1200 56" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,28 C200,8 450,52 700,24 C900,4 1050,44 1200,28 L1200,56 L0,56 Z" fill="#f5f0e8"/>
+  </svg>
+</div>
+
+
+<!-- ══════════════════════ INDUSTRIES ══════════════════════ -->
+<div class="section-outer">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Who It's Built For</div>
+      <h2>Every Kind of Gulf Coast Business</h2>
+      <p>Charters, rentals, restaurants, photographers — GCR has a platform built for your specific industry.</p>
+    </div>
+    <div class="industries-grid">
+      <div class="industry-card"><div class="industry-icon">⛵</div><div class="industry-name">Boat Rentals</div></div>
+      <div class="industry-card"><div class="industry-icon">🎣</div><div class="industry-name">Fishing Charters</div></div>
+      <div class="industry-card"><div class="industry-icon">🍽️</div><div class="industry-name">Restaurants</div></div>
+      <div class="industry-card"><div class="industry-icon">🎶</div><div class="industry-name">Bars & Nightlife</div></div>
+      <div class="industry-card"><div class="industry-icon">🗺️</div><div class="industry-name">Tours & Dolphin</div></div>
+      <div class="industry-card"><div class="industry-icon">🏨</div><div class="industry-name">Hotels & Lodging</div></div>
+      <div class="industry-card"><div class="industry-icon">☕</div><div class="industry-name">Coffee & Sweets</div></div>
+      <div class="industry-card"><div class="industry-icon">🛍️</div><div class="industry-name">Shopping & Retail</div></div>
+      <div class="industry-card"><div class="industry-icon">📸</div><div class="industry-name">Photographers</div></div>
+      <div class="industry-card"><div class="industry-icon">🎨</div><div class="industry-name">Artists & Musicians</div></div>
+      <div class="industry-card"><div class="industry-icon">🛥️</div><div class="industry-name">Jet Ski Rentals</div></div>
+      <div class="industry-card"><div class="industry-icon">💆</div><div class="industry-name">Spas & Wellness</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ 3 CORE BENEFITS ══════════════════════ -->
+<div class="section-outer bg2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Why GCR</div>
+      <h2>Three Things Every Local Business Needs</h2>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-card found">
+        <div class="benefit-number">01</div>
+        <div class="benefit-icon">🔍</div>
+        <div class="benefit-title">Get Found</div>
+        <div class="benefit-desc">Your business gets a custom public page built in — so it shows up in search engines automatically. You're also listed in the GCR tourist directory where visitors search by category and interest to find exactly what you offer.</div>
+      </div>
+      <div class="benefit-card book">
+        <div class="benefit-number">02</div>
+        <div class="benefit-icon">📅</div>
+        <div class="benefit-title">Take Bookings</div>
+        <div class="benefit-desc">Real-time availability, service packages, add-ons, deposits, and secure payments — all built in. Customers book directly from your page. Automated SMS confirmations, 24-hour reminders, and post-visit review requests go out automatically. Zero phone tag.</div>
+      </div>
+      <div class="benefit-card grow">
+        <div class="benefit-number">03</div>
+        <div class="benefit-icon">📈</div>
+        <div class="benefit-title">Grow with GCR</div>
+        <div class="benefit-desc">Every customer who books gets invited into Trip Pass — a cross-business loyalty co-op where tourists earn points at any GCR business and redeem them anywhere. Send last-minute deal blasts to tourists in town right now who match your ideal customer profile.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ LIVE DEMO ══════════════════════ -->
+<div class="section-outer" id="demo">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">See It In Action</div>
+      <h2>Real Pages. Real Bookings.</h2>
+      <p>The featured demo below is a live business. One dashboard update — website, link page, and GCR directory all update instantly.</p>
+    </div>
+
+    <div class="demo-layout">
+      <!-- Featured — Circle Boats live iframe -->
+      <div class="demo-featured-wrap">
+        <div class="demo-label-above">⛵ Beachside Circle Boats — Live Example</div>
+        <div class="phone-shell featured">
+          <div class="phone-notch"></div>
+          <div class="phone-screen">
+            <iframe
+              src="https://circle-boats-main-.vercel.app/links.html"
+              title="Circle Boats live demo"
+              loading="lazy">
+            </iframe>
+          </div>
+        </div>
+        <p class="demo-caption">Book Now opens a 4-step checkout. Gallery, packages, hours — all from one dashboard update.</p>
+        <a href="https://circle-boats-main-.vercel.app/links.html" target="_blank" class="demo-view-link">View Live Page →</a>
+      </div>
+
+      <!-- 3 styled mock phones -->
+      <div>
+        <p style="font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6;">The same platform works for every industry below — each business gets its own page built specifically for how they operate.</p>
+        <div class="demo-right-grid">
+
+          <!-- Restaurant -->
+          <div class="demo-card-wrap">
+            <div class="demo-card-label">🍽️ Restaurant</div>
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-inner">
+                  <div class="phone-mock-header" style="background:linear-gradient(135deg,rgba(224,123,57,0.15),rgba(224,123,57,0.04));">
+                    <div style="font-size:18px;margin-bottom:3px;">🍽️</div>
+                    <div class="phone-mock-name">The Hangout</div>
+                    <div class="phone-mock-sub">Gulf Shores, AL · Seafood</div>
+                  </div>
+                  <div class="phone-mock-pill-row">
+                    <span class="phone-mock-pill" style="background:rgba(224,123,57,0.12);color:#e07b39;">Happy Hour 3–6pm</span>
+                    <span class="phone-mock-pill" style="background:rgba(0,150,199,0.12);color:#0096c7;">Live Music Fri</span>
+                  </div>
+                  <div class="phone-mock-btn" style="background:#e07b39;">Reserve a Table</div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">Tonight's Specials</div>
+                    <div class="phone-mock-row"><span>Gulf Shrimp Basket</span><span class="phone-mock-row-val" style="color:#e07b39;">$2 off</span></div>
+                    <div class="phone-mock-row"><span>Draft Beers</span><span class="phone-mock-row-val" style="color:#e07b39;">$1 off</span></div>
+                  </div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">View Full Menu</div>
+                    <div style="color:var(--muted);">Seafood · Burgers · Apps · Drinks</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Fishing Charter -->
+          <div class="demo-card-wrap">
+            <div class="demo-card-label">🎣 Charter</div>
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-inner">
+                  <div class="phone-mock-header" style="background:linear-gradient(135deg,rgba(0,150,199,0.15),rgba(0,150,199,0.04));">
+                    <div style="font-size:18px;margin-bottom:3px;">🎣</div>
+                    <div class="phone-mock-name">Reel Easy Charters</div>
+                    <div class="phone-mock-sub">Gulf Shores · Fishing</div>
+                  </div>
+                  <div class="phone-mock-btn" style="background:#0096c7;">Check Availability</div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">Packages</div>
+                    <div class="phone-mock-row"><span>4hr Inshore</span><span class="phone-mock-row-val" style="color:#0096c7;">$250 / 4 pax</span></div>
+                    <div class="phone-mock-row"><span>8hr Offshore</span><span class="phone-mock-row-val" style="color:#0096c7;">$650 / 6 pax</span></div>
+                    <div class="phone-mock-row"><span>Full Day</span><span class="phone-mock-row-val" style="color:#0096c7;">$850</span></div>
+                  </div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">Today Open</div>
+                    <div class="phone-mock-row"><span>6:00am Offshore</span><span class="phone-mock-row-val" style="color:#2a9d5c;">✓ Open</span></div>
+                    <div class="phone-mock-row"><span>7:00am Inshore</span><span class="phone-mock-row-val" style="color:#ef4444;">Booked</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Photographer -->
+          <div class="demo-card-wrap">
+            <div class="demo-card-label">📸 Photographer</div>
+            <div class="phone-shell">
+              <div class="phone-notch"></div>
+              <div class="phone-screen">
+                <div class="phone-inner">
+                  <div class="phone-mock-header" style="background:linear-gradient(135deg,rgba(123,45,139,0.15),rgba(123,45,139,0.04));">
+                    <div style="font-size:18px;margin-bottom:3px;">📸</div>
+                    <div class="phone-mock-name">Golden Hour Photos</div>
+                    <div class="phone-mock-sub">Orange Beach · Photos</div>
+                  </div>
+                  <div class="phone-mock-pill-row">
+                    <span class="phone-mock-pill" style="background:rgba(123,45,139,0.12);color:#7b2d8b;">Beach Sessions</span>
+                    <span class="phone-mock-pill" style="background:rgba(123,45,139,0.12);color:#7b2d8b;">Same-Day Edits</span>
+                  </div>
+                  <div class="phone-mock-btn" style="background:#7b2d8b;">Book a Session</div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">Sessions</div>
+                    <div class="phone-mock-row"><span>Mini (30 min)</span><span class="phone-mock-row-val" style="color:#7b2d8b;">$150</span></div>
+                    <div class="phone-mock-row"><span>Standard (1hr)</span><span class="phone-mock-row-val" style="color:#7b2d8b;">$250</span></div>
+                    <div class="phone-mock-row"><span>Full Day</span><span class="phone-mock-row-val" style="color:#7b2d8b;">$650</span></div>
+                  </div>
+                  <div class="phone-mock-block">
+                    <div class="phone-mock-block-title">⭐ 4.9 · 47 Reviews</div>
+                    <div style="color:var(--muted);font-style:italic;">"Best vacation photos ever!"</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
+<div class="section-outer bg2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How It Works</div>
+      <h2>From Click to Confirmed Booking</h2>
+      <p>Five simple steps — automated from start to finish. Real-time availability means no double-bookings, ever.</p>
+    </div>
+    <div class="steps-timeline">
+      <div class="step-item">
+        <div class="step-circle">📅</div>
+        <div class="step-title">Customer Views Page</div>
+        <div class="step-desc">They tap your booking button on your GCR link page</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">🗓️</div>
+        <div class="step-title">Picks Date & Service</div>
+        <div class="step-desc">Live availability shown — date, service, guests, add-ons</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">📋</div>
+        <div class="step-title">Fills Info & Books</div>
+        <div class="step-desc">Name, phone, notes — one form, instant submission</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">📲</div>
+        <div class="step-title">SMS Sent Instantly</div>
+        <div class="step-desc">Confirmation to customer + you. Reminder 24hrs before.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">⭐</div>
+        <div class="step-title">Review Requested</div>
+        <div class="step-desc">Post-visit review request fires automatically — no manual work</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ FEATURES ══════════════════════ -->
+<div class="section-outer" id="features">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What's Included</div>
+      <h2>Everything in One Platform</h2>
+      <p>No more juggling separate tools. Booking, SMS, menus, waivers, AI — all here, all connected, one dashboard.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <div class="feature-title">Smart Link Page</div>
+        <div class="feature-desc">Not just a link page — a live business hub. Everything opens in a pop-up so customers never leave your page.</div>
+        <ul class="feature-list">
+          <li>Booking, gallery, menu, hours — all in one link</li>
+          <li>One dashboard update syncs everything instantly</li>
+          <li>Industry-specific layouts &amp; buttons</li>
+          <li>QR-code friendly, SEO-optimized</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <div class="feature-title">Booking Engine</div>
+        <div class="feature-desc">Real-time availability so customers book directly — no phone calls, no double-bookings.</div>
+        <ul class="feature-list">
+          <li>Live availability calendar — slots held during checkout</li>
+          <li>Fill last-minute openings with automated SMS blasts</li>
+          <li>4-step checkout: date → service → details → confirm</li>
+          <li>Payments go directly to your Stripe, Square, or Clover</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <div class="feature-title">Two-Way SMS</div>
+        <div class="feature-desc">Full SMS platform built in — automated confirmations and real conversations from one branded number.</div>
+        <ul class="feature-list">
+          <li>Booking confirmations &amp; 24-hr reminders</li>
+          <li>Post-visit review requests (automated)</li>
+          <li>Full two-way inbox for real conversations</li>
+          <li>Promo blasts to opted-in tourists</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <div class="feature-title">CRM & Dashboard</div>
+        <div class="feature-desc">Every booking, customer, and piece of content managed from one clean dashboard.</div>
+        <ul class="feature-list">
+          <li>Full customer records &amp; booking history</li>
+          <li>Staff &amp; inventory management</li>
+          <li>Revenue analytics &amp; reporting</li>
+          <li>Multi-location support</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-title">Digital Menus</div>
+        <div class="feature-desc">Build QR-friendly digital menus that live on your GCR page — no third-party tool needed.</div>
+        <ul class="feature-list">
+          <li>Organized categories, items &amp; prices</li>
+          <li>Dietary tags (gluten-free, vegan, etc.)</li>
+          <li>Time-based visibility (lunch vs. dinner)</li>
+          <li>For restaurants, bars, food trucks</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">✍️</div>
+        <div class="feature-title">Digital Waivers</div>
+        <div class="feature-desc">Send waivers before the booking. Signatures stored per customer record automatically.</div>
+        <ul class="feature-list">
+          <li>Sent via SMS before the booking date</li>
+          <li>Signatures stored in CRM</li>
+          <li>For charters, rentals, tours, photographers</li>
+          <li>No paper, no clipboards</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⭐</div>
+        <div class="feature-title">Reviews & Galleries</div>
+        <div class="feature-desc">Automatically collect reviews after every visit and showcase your best photos on your page.</div>
+        <ul class="feature-list">
+          <li>Auto review requests via SMS post-visit</li>
+          <li>Stars, comments &amp; customer photos</li>
+          <li>Moderation tools before publishing</li>
+          <li>Photo galleries organized by category</li>
+        </ul>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-title">AI Concierge</div>
+        <div class="feature-desc">A customer-facing AI on your page — trained on your business data — that answers questions and books 24/7.</div>
+        <ul class="feature-list">
+          <li>Answers hours, pricing &amp; availability questions</li>
+          <li>Creates bookings through chat</li>
+          <li>Trained on your specific services &amp; prices</li>
+          <li>Works while you're out on the water</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ VS LINKTREE ══════════════════════ -->
+<div class="section-outer bg2">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Not Just a Link Page</div>
+      <h2>Linktree Is a List of Links.<br>This Is a Business.</h2>
+      <p>Linktree sends your customers somewhere else. Gulf Coast Radar keeps them right where you want them — on your page, booking, exploring, engaging.</p>
+    </div>
+    <div class="vs-compare">
+      <div class="vs-col">
+        <div class="vs-col-name">🔗 Linktree</div>
+        <div class="vs-col-sub">Just a list of links</div>
+        <div class="vs-row bad">Static links to other websites</div>
+        <div class="vs-row bad">No booking built in</div>
+        <div class="vs-row bad">No menu, no pricing, no packages</div>
+        <div class="vs-row bad">No reviews or gallery</div>
+        <div class="vs-row bad">No hours or location info</div>
+        <div class="vs-row bad">No events or specials</div>
+        <div class="vs-row bad">No SMS or customer follow-up</div>
+        <div class="vs-row bad">Not built for any specific industry</div>
+        <div class="vs-row bad">Customers click away — you lose them</div>
+        <div class="vs-row bad">Generic — same for every business</div>
+      </div>
+      <div class="vs-divider">VS</div>
+      <div class="vs-col us">
+        <div class="vs-col-name">🌊 GCR Smart Link Page</div>
+        <div class="vs-col-sub">A complete live business hub</div>
+        <div class="vs-row good">Everything opens in a pop-up — stays on your page</div>
+        <div class="vs-row good">Real booking system with live availability built in</div>
+        <div class="vs-row good">Full menu, packages, pricing, rentals, services</div>
+        <div class="vs-row good">Reviews, gallery, photo grid all inside</div>
+        <div class="vs-row good">Hours, location, directions, weather policy</div>
+        <div class="vs-row good">Events calendar, live music, specials, happy hour</div>
+        <div class="vs-row good">SMS confirmations, reminders, review requests</div>
+        <div class="vs-row good">Custom built for your specific industry</div>
+        <div class="vs-row good">Customers never leave — they book right there</div>
+        <div class="vs-row good">Connected to the GCR tourist discovery network</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ GCR NETWORK + TRIP PASS ══════════════════════ -->
+<div class="section-outer">
+  <div class="container">
+    <div class="network-grid">
+      <div>
+        <div class="section-label">The GCR Network</div>
+        <h2 style="font-size:clamp(26px,4vw,40px);font-weight:900;letter-spacing:-1.2px;line-height:1.1;margin:12px 0 0;">Your Business, Seen by Every Tourist on the Gulf Coast</h2>
+        <ul class="network-points">
+          <li class="network-point">
+            <div class="network-icon">🗺️</div>
+            <div>
+              <h4>GCR Tourist Directory</h4>
+              <p>Tourists search GCR by category and location to find things to do, eat, and book. Your business appears the moment you're on the platform.</p>
+            </div>
+          </li>
+          <li class="network-point">
+            <div class="network-icon">🎁</div>
+            <div>
+              <h4>Trip Pass Loyalty Co-Op</h4>
+              <p>Customers earn points at any GCR business and redeem them anywhere. A tourist who books your charter comes back for dinner because they can use their points.</p>
+            </div>
+          </li>
+          <li class="network-point">
+            <div class="network-icon">📲</div>
+            <div>
+              <h4>Last-Minute Deal Blasts</h4>
+              <p>Have openings Saturday? Send a deal blast to tourists in town right now who match your customer type. Targeted, opted-in, and instant.</p>
+            </div>
+          </li>
+          <li class="network-point">
+            <div class="network-icon">🤖</div>
+            <div>
+              <h4>GCR AI Concierge</h4>
+              <p>Tourists text the GCR number and the AI recommends your business, answers questions, and creates the booking — even while you're out on the water.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="network-visual">
+        <div class="network-stat-grid">
+          <div class="network-stat">
+            <div class="network-stat-num">1 Platform</div>
+            <div class="network-stat-label">booking + SMS + CRM + AI</div>
+          </div>
+          <div class="network-stat">
+            <div class="network-stat-num">0% Fees</div>
+            <div class="network-stat-label">your payment processor, your money</div>
+          </div>
+          <div class="network-stat">
+            <div class="network-stat-num">24/7</div>
+            <div class="network-stat-label">AI answers &amp; takes bookings</div>
+          </div>
+          <div class="network-stat">
+            <div class="network-stat-num">Days</div>
+            <div class="network-stat-label">to go live — we build it for you</div>
+          </div>
+        </div>
+        <div class="trip-pass-badge">
+          <div class="badge-title">🎁 Trip Pass — Cross-Business Loyalty</div>
+          <div class="badge-sub">Tourists earn points at your business and spend them across the entire GCR network — driving repeat visits and cross-referrals between local businesses.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ PRICING ══════════════════════ -->
+<div class="section-outer bg2" id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label gold-tag">Pricing</div>
+      <h2>Founding Member Pricing.<br>Limited Spots.</h2>
+      <p>We're building the Gulf Coast's local business network with founding members first. Get in early, lock in the lowest rate, and be part of building something that benefits the whole coast.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <div class="pricing-card">
+        <span class="pricing-badge founder">Founding Member</span>
+        <div class="pricing-plan">Get Listed</div>
+        <div class="pricing-price">Free<span> for 90 days</span></div>
+        <div class="pricing-sub">Then $29/mo — lock it in forever</div>
+        <p class="pricing-desc">Everything you need to get in front of tourists and start taking bookings today.</p>
+        <ul class="pricing-features">
+          <li>Your own GCR business page (smart link page)</li>
+          <li>Online booking + payment via Stripe</li>
+          <li>SMS confirmations — customer + you</li>
+          <li>GCR tourist directory listing</li>
+          <li>Co-op loyalty program access</li>
+          <li>1 staff seat</li>
+          <li class="dim">Targeted SMS campaigns</li>
+          <li class="dim">Advanced analytics</li>
+        </ul>
+        <a href="#contact" class="pricing-cta cta-teal">Claim Your Spot</a>
+      </div>
+
+      <div class="pricing-card featured">
+        <span class="pricing-badge popular">Most Popular</span>
+        <div class="pricing-plan">Growth</div>
+        <div class="pricing-price">$59<span>/mo</span></div>
+        <div class="pricing-sub">Founding rate — locked for life</div>
+        <p class="pricing-desc">For businesses ready to use SMS campaigns, analytics, and fill last-minute bookings from the full tourist network.</p>
+        <ul class="pricing-features">
+          <li>Everything in Get Listed</li>
+          <li>Targeted SMS blasts to tourists in town</li>
+          <li>Custom loyalty perk offers</li>
+          <li>Revenue + booking analytics dashboard</li>
+          <li>Digital menus &amp; waivers</li>
+          <li>Up to 5 staff seats</li>
+          <li>Priority placement in GCR search</li>
+          <li>AI concierge trained on your business</li>
+        </ul>
+        <a href="#contact" class="pricing-cta cta-teal">Start Free Trial</a>
+      </div>
+
+      <div class="pricing-card">
+        <span class="pricing-badge platform">Full Platform</span>
+        <div class="pricing-plan">Platform</div>
+        <div class="pricing-price">$99<span>/mo</span></div>
+        <div class="pricing-sub">White-label website included</div>
+        <p class="pricing-desc">Everything in Growth plus a full custom website, white-label branding, and dedicated support.</p>
+        <ul class="pricing-features">
+          <li>Everything in Growth</li>
+          <li>Full custom website (not just a link page)</li>
+          <li>White-label — your brand, your domain</li>
+          <li>Photo galleries &amp; reviews system</li>
+          <li>Unlimited staff seats</li>
+          <li>Multi-location support</li>
+          <li>Dedicated onboarding &amp; priority support</li>
+          <li>Early access to new features</li>
+        </ul>
+        <a href="#contact" class="pricing-cta cta-outline">Contact Us</a>
+      </div>
+
+    </div>
+    <p class="pricing-note"><strong>Zero booking fees.</strong> Your payments go directly to your own Stripe, Square, or Clover account.<br>SMS sends billed at a low per-message rate after your free monthly allotment.</p>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ GCR vs FareHarbor ══════════════════════ -->
+<div class="section-outer bg3" id="compare">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">How We Compare</div>
+      <h2>GCR vs. FareHarbor vs. Peek Pro</h2>
+      <p>FareHarbor and Peek Pro are booking widgets. We're an entire platform — with a directory, loyalty network, and AI — built specifically for Gulf Coast businesses.</p>
+    </div>
+    <div class="compare-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>⚡ GCR / CyberCheck</th>
+            <th>FareHarbor</th>
+            <th>Peek Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Custom public page</td>
+            <td><span class="check">✓</span> Your own mobile page — menus, trips, gallery, reviews, booking all in one place</td>
+            <td><span class="cross">✗</span> Widget on your existing site only</td>
+            <td><span class="cross">✗</span> Widget only, no standalone page</td>
+          </tr>
+          <tr>
+            <td>Regional tourist directory</td>
+            <td><span class="check">✓</span> Auto-listed in GCR where tourists search by category &amp; location</td>
+            <td><span class="cross">✗</span> No directory — rely on own marketing</td>
+            <td><span class="cross">✗</span> No directory</td>
+          </tr>
+          <tr>
+            <td>Two-way SMS + marketing</td>
+            <td><span class="check">✓</span> Confirmations, reminders, review requests, deal blasts — all built in</td>
+            <td><span class="cross">✗</span> Basic notifications only</td>
+            <td>⚠️ Limited promo tools, no cross-business</td>
+          </tr>
+          <tr>
+            <td>Digital menus</td>
+            <td><span class="check">✓</span> QR menus with categories, dietary tags, time-based visibility</td>
+            <td><span class="cross">✗</span> Third-party integration required</td>
+            <td><span class="cross">✗</span> Not available</td>
+          </tr>
+          <tr>
+            <td>Digital waivers</td>
+            <td><span class="check">✓</span> Sent via SMS, stored per customer record</td>
+            <td><span class="cross">✗</span> Third-party integration required</td>
+            <td><span class="cross">✗</span> Not available</td>
+          </tr>
+          <tr>
+            <td>AI concierge</td>
+            <td><span class="check">✓</span> Business AI answers questions + books for you 24/7</td>
+            <td><span class="cross">✗</span> No AI</td>
+            <td><span class="cross">✗</span> No AI</td>
+          </tr>
+          <tr>
+            <td>Loyalty program</td>
+            <td><span class="check">✓</span> Trip Pass co-op — earn &amp; spend points across all GCR businesses</td>
+            <td><span class="cross">✗</span> No loyalty</td>
+            <td><span class="cross">✗</span> No cross-business loyalty</td>
+          </tr>
+          <tr>
+            <td>Industry coverage</td>
+            <td><span class="check">✓</span> Restaurants, rentals, charters, tours, photographers, bars, spas, hotels &amp; more</td>
+            <td>⚠️ Primarily tours &amp; activities</td>
+            <td>⚠️ Primarily tours &amp; activities</td>
+          </tr>
+          <tr>
+            <td>Booking fees</td>
+            <td><span class="check">✓</span> Zero — flat subscription, businesses keep 100%</td>
+            <td><span class="cross">✗</span> Up to 6% booking fee + card fees</td>
+            <td><span class="cross">✗</span> Percentage per booking</td>
+          </tr>
+          <tr>
+            <td>Payment processor</td>
+            <td><span class="check">✓</span> Use your own Stripe, Square, or Clover — money goes straight to you</td>
+            <td><span class="cross">✗</span> FareHarbor's own gateway</td>
+            <td>⚠️ Varies by plan</td>
+          </tr>
+          <tr>
+            <td>Reviews &amp; gallery</td>
+            <td><span class="check">✓</span> Auto-collect via SMS, moderate, display on your page</td>
+            <td>⚠️ Third-party platforms only</td>
+            <td>⚠️ Basic review collection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<div class="section-outer" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label">Get Started</div>
+        <h2 style="font-size:clamp(26px,4vw,38px);font-weight:900;letter-spacing:-1.2px;line-height:1.1;margin:12px 0 14px;">We'll Build Your Page.<br><span style="color:var(--teal);">You'll Be Live in Days.</span></h2>
+        <p style="font-size:15px;color:var(--muted);line-height:1.65;">Fill out the form and our team builds your entire GCR page for you — free. You show up in the directory, take bookings, and start growing. No tech skills needed.</p>
+        <ul class="contact-perks">
+          <li class="contact-perk">Custom page built by our team at no cost</li>
+          <li class="contact-perk">Listed in GCR tourist directory immediately</li>
+          <li class="contact-perk">Booking engine live and ready for customers</li>
+          <li class="contact-perk">SMS platform configured and tested</li>
+          <li class="contact-perk">AI concierge trained on your business</li>
+          <li class="contact-perk">Zero booking fees — use your own payment processor</li>
+          <li class="contact-perk">No long-term contract required</li>
+        </ul>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Claim Your GCR Listing</div>
+        <div class="form-sub">Tell us about your business and we'll be in touch within 24 hours.</div>
+        <form>
+          <div class="form-group">
+            <label>Business Name *</label>
+            <input type="text" placeholder="e.g. Sunset Charters" required>
+          </div>
+          <div class="form-group">
+            <label>Business Type *</label>
+            <select required>
+              <option value="" disabled selected>Select your industry</option>
+              <option>Restaurant</option>
+              <option>Fishing Charter</option>
+              <option>Boat Rental</option>
+              <option>Dolphin / Wildlife Tour</option>
+              <option>Photographer</option>
+              <option>Artist or Musician</option>
+              <option>Bar or Nightlife</option>
+              <option>Spa or Wellness</option>
+              <option>Hotel or Lodging</option>
+              <option>Jet Ski Rental</option>
+              <option>Beach Gear / Retail</option>
+              <option>Family Attraction</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number *</label>
+              <input type="tel" placeholder="(850) 555-0100" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address *</label>
+              <input type="email" placeholder="you@yourbusiness.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tell us about your business</label>
+            <textarea placeholder="Location, what you offer, busy season, anything helpful..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Get My Page Built Free →</button>
+          <div class="form-note">No contracts. No setup fees. We build it, you own it.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">Gulf Coast Radar</div>
+      <p class="footer-desc">The all-in-one platform for Gulf Coast businesses — booking, SMS, AI, loyalty, and directory. All connected.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Platform</h5>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#demo">Live Demo</a>
+      <a href="#compare">Comparison</a>
+    </div>
+    <div class="footer-col">
+      <h5>Industries</h5>
+      <a href="#contact">Boat Rentals</a>
+      <a href="#contact">Fishing Charters</a>
+      <a href="#contact">Restaurants</a>
+      <a href="#contact">Photographers</a>
+      <a href="#contact">Hotels &amp; Tours</a>
+    </div>
+    <div class="footer-col">
+      <h5>Support</h5>
+      <a href="#contact">Get Listed Free</a>
+      <a href="#contact">Contact Us</a>
+      <a href="https://gulfcoastradar.com" target="_blank">Visit GCR</a>
+    </div>
+  </div>
+  <hr class="footer-divider">
+  <div class="footer-bottom">
+    <p>© 2026 Gulf Coast Radar · Powered by <span style="color:rgba(255,255,255,0.5);">CyberCheck</span></p>
+    <div class="footer-bottom-links">
+      <a href="#contact">Privacy</a>
+      <a href="#contact">Terms</a>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  document.getElementById('hamburgerBtn').addEventListener('click', () => {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  });
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('mobileMenu');
+    const btn  = document.getElementById('hamburgerBtn');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>

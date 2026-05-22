@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Menu Debug</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #f0f0f0; }
+    pre { background: white; padding: 15px; border-radius: 8px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+
+<h1>Menu Debug Test</h1>
+<p>Testing: cobalt-the-restaurant-Bx1gX8</p>
+
+<h2>API Response:</h2>
+<pre id="response">Loading...</pre>
+
+<h2>Menu Data:</h2>
+<pre id="menu">Checking...</pre>
+
+<script>
+async function test() {
+  try {
+    const API = 'https://cybercheck-api-database.vercel.app';
+    const url = API + '/api/gcr/entity/cobalt-the-restaurant-Bx1gX8';
+
+    console.log('Fetching:', url);
+    const res = await fetch(url);
+    const data = await res.json();
+
+    const fullText = JSON.stringify(data, null, 2);
+    document.getElementById('response').textContent = fullText.substring(0, 2000) + '...';
+
+    console.log('Full data:', data);
+    console.log('Has menu?', !!data.menu);
+    console.log('Menu:', data.menu);
+
+    if (data.menu && data.menu.categories) {
+      document.getElementById('menu').textContent =
+        '✓ Categories found: ' + data.menu.categories.length + '\n\n' +
+        JSON.stringify(data.menu.categories, null, 2).substring(0, 1000);
+    } else if (data.menu) {
+      document.getElementById('menu').textContent = 'Menu exists but NO categories:\n' + JSON.stringify(data.menu, null, 2);
+    } else {
+      document.getElementById('menu').textContent = 'NO MENU FIELD AT ALL';
+    }
+  } catch (err) {
+    document.getElementById('response').textContent = 'ERROR: ' + err.message;
+    document.getElementById('menu').textContent = 'FAILED TO LOAD';
+  }
+}
+
+test();
+</script>
+
+</body>
+</html>

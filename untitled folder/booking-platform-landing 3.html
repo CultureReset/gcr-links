@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gulf Coast Radar — Booking Platform for Gulf Coast Businesses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --sky:    #e8f4fd;
+      --ocean:  #1a6fb5;
+      --ocean2: #0e4f8a;
+      --teal:   #14b8a6;
+      --teal2:  #0d9488;
+      --sand:   #fef3c7;
+      --gold:   #f59e0b;
+      --coral:  #f97316;
+      --coral2: #ea6a0a;
+      --white:  #ffffff;
+      --text:   #1e293b;
+      --muted:  #64748b;
+      --light:  #f1f9ff;
+      --border: #dbeafe;
+      --card:   #ffffff;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--white); color:var(--text); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+
+    /* ── NAV ── */
+    nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      padding:14px 48px; display:flex; align-items:center; justify-content:space-between;
+      background:rgba(255,255,255,0.95); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+      box-shadow:0 2px 16px rgba(26,111,181,0.08);
+    }
+    .nav-logo { font-size:20px; font-weight:900; color:var(--ocean); display:flex; align-items:center; gap:8px; }
+    .nav-logo .wave { font-size:22px; }
+    .nav-links { display:flex; gap:8px; align-items:center; }
+    .nav-link { font-size:14px; color:var(--muted); padding:7px 16px; border-radius:50px; transition:all .2s; font-weight:500; }
+    .nav-link:hover { color:var(--ocean); background:var(--light); }
+    .nav-cta { padding:10px 24px; background:var(--coral); color:#fff; border-radius:50px; font-weight:700; font-size:14px; transition:all .2s; box-shadow:0 4px 14px rgba(249,115,22,.3); }
+    .nav-cta:hover { background:var(--coral2); transform:translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      padding:140px 48px 80px;
+      background:linear-gradient(180deg, #e0f2fe 0%, #f0f9ff 40%, #fff 100%);
+      position:relative; overflow:hidden;
+    }
+    .hero::before {
+      content:''; position:absolute; bottom:0; left:0; right:0; height:120px;
+      background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120'%3E%3Cpath fill='%23ffffff' d='M0,64 C360,120 1080,0 1440,80 L1440,120 L0,120 Z'/%3E%3C/svg%3E") no-repeat bottom;
+      background-size:cover;
+    }
+    .hero-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:center; }
+    .hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--teal); color:#fff; border-radius:50px; padding:6px 16px; font-size:12px; font-weight:700; margin-bottom:24px; }
+    .hero h1 { font-size:clamp(2.2rem,4.5vw,3.4rem); font-weight:900; line-height:1.12; color:var(--ocean2); margin-bottom:20px; }
+    .hero h1 em { font-style:normal; color:var(--coral); }
+    .hero p { font-size:18px; color:var(--muted); line-height:1.7; margin-bottom:36px; }
+    .hero-btns { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-coral { padding:14px 32px; background:var(--coral); color:#fff; border-radius:50px; font-weight:700; font-size:15px; transition:all .2s; box-shadow:0 6px 20px rgba(249,115,22,.3); }
+    .btn-coral:hover { background:var(--coral2); transform:translateY(-2px); box-shadow:0 10px 28px rgba(249,115,22,.35); }
+    .btn-ghost { padding:14px 32px; border:2px solid var(--ocean); color:var(--ocean); border-radius:50px; font-weight:700; font-size:15px; transition:all .2s; }
+    .btn-ghost:hover { background:var(--ocean); color:#fff; }
+    .hero-stats { display:flex; gap:32px; margin-top:48px; padding-top:36px; border-top:2px solid var(--border); }
+    .stat-num { font-size:30px; font-weight:900; color:var(--ocean); }
+    .stat-label { font-size:12px; color:var(--muted); font-weight:500; margin-top:2px; }
+
+    /* hero visual */
+    .hero-visual { position:relative; }
+    .hero-cards { display:flex; flex-direction:column; gap:14px; }
+    .hero-card {
+      background:#fff; border-radius:18px; padding:20px 22px;
+      box-shadow:0 4px 24px rgba(26,111,181,.1); border:1px solid var(--border);
+      display:flex; align-items:flex-start; gap:14px;
+    }
+    .hero-card-icon { font-size:28px; flex-shrink:0; }
+    .hero-card-title { font-size:15px; font-weight:700; color:var(--text); }
+    .hero-card-sub { font-size:13px; color:var(--muted); margin-top:3px; line-height:1.5; }
+    .pulse-dot { width:8px; height:8px; border-radius:50%; background:var(--teal); display:inline-block; margin-right:6px; animation:pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
+
+    /* ── SECTION STYLES ── */
+    .section { padding:90px 48px; max-width:1100px; margin:0 auto; }
+    .section-full { padding:90px 48px; }
+    .section-label { display:inline-flex; align-items:center; gap:7px; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--teal2); background:rgba(20,184,166,.1); border:1px solid rgba(20,184,166,.25); border-radius:50px; padding:5px 14px; margin-bottom:18px; }
+    .section-title { font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:900; color:var(--ocean2); line-height:1.2; margin-bottom:14px; }
+    .section-sub { font-size:17px; color:var(--muted); line-height:1.65; max-width:600px; }
+    .text-center { text-align:center; }
+    .text-center .section-sub { margin:0 auto; }
+
+    /* ── THREE PILLARS ── */
+    .pillars-bg { background:linear-gradient(135deg, #0e4f8a 0%, #1a6fb5 50%, #14b8a6 100%); padding:90px 48px; }
+    .pillars-inner { max-width:1100px; margin:0 auto; }
+    .pillars-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:28px; margin-top:56px; }
+    .pillar {
+      background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2);
+      border-radius:24px; padding:40px 30px; color:#fff;
+      backdrop-filter:blur(8px); transition:all .25s; position:relative; overflow:hidden;
+    }
+    .pillar:hover { background:rgba(255,255,255,0.18); transform:translateY(-5px); }
+    .pillar-number { position:absolute; top:16px; right:20px; font-size:56px; font-weight:900; opacity:.08; }
+    .pillar-icon { font-size:48px; margin-bottom:20px; }
+    .pillar-title { font-size:22px; font-weight:800; margin-bottom:12px; }
+    .pillar-desc { font-size:15px; opacity:.85; line-height:1.65; }
+    .pillar-tag { display:inline-block; margin-top:20px; font-size:11px; font-weight:700; padding:5px 14px; border-radius:50px; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.3); }
+
+    /* ── HOW IT WORKS ── */
+    .steps-bg { background:var(--light); padding:90px 48px; }
+    .steps-inner { max-width:1100px; margin:0 auto; }
+    .steps-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:80px; margin-top:60px; align-items:start; }
+    .steps-block h3 { font-size:22px; font-weight:800; color:var(--ocean2); margin-bottom:28px; display:flex; align-items:center; gap:10px; }
+    .step { display:flex; gap:18px; margin-bottom:28px; align-items:flex-start; }
+    .step-num { width:40px; height:40px; border-radius:50%; background:var(--ocean); color:#fff; font-size:15px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .step-num.teal { background:var(--teal); }
+    .step-content h4 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .step-content p { font-size:14px; color:var(--muted); line-height:1.6; }
+    .step-arrow { text-align:center; font-size:20px; color:var(--border); margin:4px 0 4px 18px; }
+
+    /* ── GET NOTICED ── */
+    .noticed-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; margin-top:0; }
+    .noticed-points { list-style:none; margin-top:32px; display:flex; flex-direction:column; gap:22px; }
+    .noticed-point { display:flex; gap:16px; }
+    .noticed-icon { width:48px; height:48px; border-radius:14px; background:var(--light); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:22px; flex-shrink:0; }
+    .noticed-text h4 { font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .noticed-text p { font-size:14px; color:var(--muted); line-height:1.6; }
+    .noticed-visual { background:var(--light); border:1.5px solid var(--border); border-radius:24px; padding:32px; }
+    .stat-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .stat-card { background:#fff; border:1.5px solid var(--border); border-radius:14px; padding:20px; text-align:center; }
+    .stat-card-num { font-size:26px; font-weight:900; color:var(--ocean); }
+    .stat-card-label { font-size:12px; color:var(--muted); margin-top:4px; }
+    .trip-pass-box { margin-top:16px; padding:20px; border-radius:14px; background:linear-gradient(135deg, rgba(20,184,166,.1), rgba(26,111,181,.1)); border:1.5px solid rgba(20,184,166,.3); text-align:center; }
+    .trip-pass-box strong { font-size:15px; color:var(--ocean2); display:block; margin-bottom:6px; }
+    .trip-pass-box span { font-size:13px; color:var(--muted); }
+
+    /* ── FEATURES ── */
+    .features-bg { background:var(--ocean2); padding:90px 48px; }
+    .features-inner { max-width:1100px; margin:0 auto; }
+    .features-inner .section-label { color:var(--teal); background:rgba(20,184,166,.15); border-color:rgba(20,184,166,.3); }
+    .features-inner .section-title { color:#fff; }
+    .features-inner .section-sub { color:rgba(255,255,255,.7); }
+    .features-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:52px; }
+    .feat-card { background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); border-radius:16px; padding:26px 20px; color:#fff; transition:all .22s; }
+    .feat-card:hover { background:rgba(255,255,255,.14); transform:translateY(-3px); }
+    .feat-icon { font-size:28px; margin-bottom:12px; }
+    .feat-title { font-size:16px; font-weight:700; margin-bottom:8px; }
+    .feat-desc { font-size:13px; opacity:.75; line-height:1.6; }
+
+    /* ── INDUSTRIES ── */
+    .industries-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:14px; margin-top:52px; }
+    .ind-card { background:var(--white); border:1.5px solid var(--border); border-radius:16px; padding:22px 14px; text-align:center; transition:all .22s; cursor:default; }
+    .ind-card:hover { border-color:var(--teal); background:var(--light); transform:translateY(-3px); }
+    .ind-icon { font-size:30px; margin-bottom:8px; }
+    .ind-name { font-size:12px; font-weight:600; color:var(--muted); }
+    .ind-card:hover .ind-name { color:var(--ocean); }
+
+    /* ── CONTACT ── */
+    .contact-bg { background:linear-gradient(135deg, #e0f2fe, #f0fdf4); padding:90px 48px; }
+    .contact-inner { max-width:1000px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+    .contact-left .section-title { font-size:clamp(1.6rem,3vw,2.2rem); }
+    .contact-perks { list-style:none; margin-top:28px; display:flex; flex-direction:column; gap:14px; }
+    .contact-perk { display:flex; align-items:center; gap:10px; font-size:15px; font-weight:500; color:var(--text); }
+    .contact-perk::before { content:'✓'; color:var(--teal2); font-weight:900; font-size:16px; }
+    .contact-form { background:#fff; border-radius:24px; padding:38px; box-shadow:0 8px 40px rgba(26,111,181,.1); border:1.5px solid var(--border); }
+    .form-title { font-size:20px; font-weight:800; color:var(--ocean2); margin-bottom:6px; }
+    .form-sub { font-size:14px; color:var(--muted); margin-bottom:26px; }
+    .form-group { margin-bottom:14px; }
+    .form-group label { display:block; font-size:13px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+    .form-group input, .form-group select, .form-group textarea {
+      width:100%; padding:11px 14px; background:#f8fafc; border:1.5px solid var(--border);
+      border-radius:10px; color:var(--text); font-size:14px; font-family:'Inter',sans-serif;
+      outline:none; transition:border-color .2s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--teal); }
+    .form-group textarea { resize:vertical; min-height:90px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .form-submit {
+      width:100%; padding:14px; background:var(--coral); color:#fff; border:none;
+      border-radius:50px; font-size:15px; font-weight:700; cursor:pointer;
+      font-family:'Inter',sans-serif; margin-top:6px; transition:all .2s;
+      box-shadow:0 6px 20px rgba(249,115,22,.3);
+    }
+    .form-submit:hover { background:var(--coral2); transform:translateY(-2px); }
+    .form-note { font-size:12px; color:var(--muted); text-align:center; margin-top:12px; }
+
+    /* ── WAVE DIVIDER ── */
+    .wave-down { line-height:0; }
+    .wave-down svg { display:block; width:100%; }
+    .wave-up { line-height:0; }
+    .wave-up svg { display:block; width:100%; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--ocean2); color:rgba(255,255,255,.7); text-align:center; padding:44px 48px; }
+    .footer-logo { font-size:20px; font-weight:900; color:#fff; margin-bottom:10px; }
+    .footer-sub { font-size:13px; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px) {
+      .features-grid { grid-template-columns:repeat(2,1fr); }
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-visual { display:none; }
+      .noticed-grid { grid-template-columns:1fr; }
+      .contact-inner { grid-template-columns:1fr; }
+      .steps-grid { grid-template-columns:1fr; gap:48px; }
+    }
+    @media(max-width:768px) {
+      nav { padding:14px 20px; }
+      .nav-links { display:none; }
+      .hero { padding:110px 20px 60px; }
+      .section { padding:70px 20px; }
+      .section-full, .pillars-bg, .steps-bg, .features-bg, .contact-bg { padding:70px 20px; }
+      .pillars-grid { grid-template-columns:1fr; }
+      .features-grid { grid-template-columns:1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><span class="wave">🌊</span> Gulf Coast Radar</div>
+  <div class="nav-links">
+    <a href="#how-it-works" class="nav-link">How It Works</a>
+    <a href="#features" class="nav-link">Features</a>
+    <a href="#industries" class="nav-link">Industries</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Get Started →</a>
+</nav>
+
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">🌴 Built for Gulf Coast Businesses</div>
+      <h1>We Don't Just Handle Booking.<br>We <em>Fill Your Calendar.</em></h1>
+      <p>Last-minute openings filled automatically. Reviews collected without lifting a finger. Your business in front of every tourist looking for exactly what you offer. All from one platform.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-coral">Get My Business Listed →</a>
+        <a href="#how-it-works" class="btn-ghost">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">24/7</div><div class="stat-label">AI answers for your business</div></div>
+        <div><div class="stat-num">0%</div><div class="stat-label">booking fees taken</div></div>
+        <div><div class="stat-num">Auto</div><div class="stat-label">reviews after every visit</div></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-cards">
+        <div class="hero-card">
+          <div class="hero-card-icon">📅</div>
+          <div>
+            <div class="hero-card-title">New booking received</div>
+            <div class="hero-card-sub">Saturday 10am — Fishing Charter (6 guests) · Confirmed via SMS</div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">⭐</div>
+          <div>
+            <div class="hero-card-title"><span class="pulse-dot"></span>Review just collected</div>
+            <div class="hero-card-sub">"Best charter on the Gulf Coast!" — 5 stars · Auto-posted to your page</div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">📲</div>
+          <div>
+            <div class="hero-card-title">Last-minute spot filled</div>
+            <div class="hero-card-sub">GCR texted 14 nearby tourists · 1 booked in 8 minutes</div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="hero-card-icon">🗺️</div>
+          <div>
+            <div class="hero-card-title">Tourist found you on GCR</div>
+            <div class="hero-card-sub">Searched "dolphin tour" → your page → booked instantly</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- THREE PILLARS -->
+<div class="pillars-bg">
+  <div class="pillars-inner">
+    <div class="text-center">
+      <div class="section-label" style="color:#fff;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3);">More Than Just Booking</div>
+      <h2 class="section-title" style="color:#fff;">Three Things Other Platforms Can't Do</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,.75);">FareHarbor takes bookings. Peek Pro takes bookings. GCR fills your calendar, builds your reputation, and drives new customers to you — automatically.</p>
+    </div>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-number">01</div>
+        <div class="pillar-icon">📅</div>
+        <div class="pillar-title">Fill Last-Minute Spots</div>
+        <div class="pillar-desc">Have an opening tomorrow? GCR instantly texts tourists in the area who have opted in and match your business type. They book. You fill the spot. No discounting required.</div>
+        <div class="pillar-tag">Automated availability blasts</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">02</div>
+        <div class="pillar-icon">⭐</div>
+        <div class="pillar-title">Automate Your Reviews</div>
+        <div class="pillar-desc">Every time a booking ends, an SMS fires automatically asking for a review. The review posts directly to your GCR page. No chasing customers. Your reputation grows on autopilot.</div>
+        <div class="pillar-tag">Zero manual effort required</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-number">03</div>
+        <div class="pillar-icon">🗺️</div>
+        <div class="pillar-title">Get Noticed by Tourists</div>
+        <div class="pillar-desc">Your business appears in the GCR tourist directory the moment you join. Tourists search by category, location, and interest. Your AI concierge answers their questions 24/7 and books for you.</div>
+        <div class="pillar-tag">GCR directory + AI concierge</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- WAVE -->
+<div class="wave-down"><svg viewBox="0 0 1440 60" xmlns="http://www.w3.org/2000/svg"><path fill="#0e4f8a" d="M0,0 C360,60 1080,0 1440,40 L1440,0 Z"/></svg></div>
+
+
+<!-- HOW IT WORKS -->
+<div class="steps-bg" id="how-it-works">
+  <div class="steps-inner">
+    <div class="text-center">
+      <div class="section-label">How It Works</div>
+      <h2 class="section-title">Simple. Automatic. Powerful.</h2>
+      <p class="section-sub">Both systems run in the background. You just show up and do what you do best.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="steps-block">
+        <h3>📅 How Last-Minute Spots Get Filled</h3>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <h4>You have an opening</h4>
+            <p>A cancellation, a slow day, or extra capacity you want to fill fast.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <h4>GCR blasts nearby tourists</h4>
+            <p>We text every opted-in tourist currently in the area who matches your business type and interests.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <h4>They click and book instantly</h4>
+            <p>The SMS links directly to your booking page. One tap and they're booked.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <h4>You get the confirmation</h4>
+            <p>You see the booking in your dashboard. SMS confirmation goes to both of you. Done.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="steps-block">
+        <h3>⭐ How Reviews Get Automated</h3>
+        <div class="step">
+          <div class="step-num teal">1</div>
+          <div class="step-content">
+            <h4>Booking ends or check-out time passes</h4>
+            <p>The system detects the booking is complete based on your set end time.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num teal">2</div>
+          <div class="step-content">
+            <h4>SMS fires automatically</h4>
+            <p>"Hope you had a great time! Leave us a quick review: [link]" — sent from your GCR number.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num teal">3</div>
+          <div class="step-content">
+            <h4>Customer leaves stars + comment</h4>
+            <p>One-tap star rating, optional comment and photo. Takes 20 seconds.</p>
+          </div>
+        </div>
+        <div class="step-arrow">↓</div>
+        <div class="step">
+          <div class="step-num teal">4</div>
+          <div class="step-content">
+            <h4>Review appears on your GCR page</h4>
+            <p>You can approve before publishing. Your rating climbs. New tourists trust you more.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- GET NOTICED -->
+<section class="section">
+  <div class="noticed-grid">
+    <div>
+      <div class="section-label">Get Noticed</div>
+      <h2 class="section-title">Every Tourist on the Gulf Coast Can Find You</h2>
+      <p class="section-sub">The moment you join GCR, you're visible to every tourist searching for what you offer. No extra work. No SEO agency needed.</p>
+      <ul class="noticed-points">
+        <li class="noticed-point">
+          <div class="noticed-icon">🗺️</div>
+          <div class="noticed-text">
+            <h4>GCR Tourist Directory</h4>
+            <p>Listed in the regional directory tourists actually use to find things to do, eat, and book on the Gulf Coast. Searchable by category, location, and interest.</p>
+          </div>
+        </li>
+        <li class="noticed-point">
+          <div class="noticed-icon">🤖</div>
+          <div class="noticed-text">
+            <h4>AI Concierge Recommends You</h4>
+            <p>Tourists text the GCR number and the AI recommends your business, answers questions about your hours and prices, and creates the booking — 24/7.</p>
+          </div>
+        </li>
+        <li class="noticed-point">
+          <div class="noticed-icon">🔍</div>
+          <div class="noticed-text">
+            <h4>Built-In SEO</h4>
+            <p>Your GCR page is built with structured data so Google surfaces you when tourists search "fishing charter Gulf Shores" or "dolphin tour Orange Beach."</p>
+          </div>
+        </li>
+        <li class="noticed-point">
+          <div class="noticed-icon">🎁</div>
+          <div class="noticed-text">
+            <h4>Trip Pass Brings Tourists Back</h4>
+            <p>Tourists earn loyalty points at your business and every other GCR business. They come back to spend them — and they come back to yours.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="noticed-visual">
+      <div class="stat-cards">
+        <div class="stat-card"><div class="stat-card-num">GCR</div><div class="stat-card-label">Regional tourist directory</div></div>
+        <div class="stat-card"><div class="stat-card-num">24/7</div><div class="stat-card-label">AI answers your questions</div></div>
+        <div class="stat-card"><div class="stat-card-num">SEO</div><div class="stat-card-label">Structured data built in</div></div>
+        <div class="stat-card"><div class="stat-card-num">0%</div><div class="stat-card-label">Booking fees charged</div></div>
+      </div>
+      <div class="trip-pass-box">
+        <strong>🎁 Trip Pass Loyalty Network</strong>
+        <span>Tourists earn points at your business and spend them across the entire GCR network — driving repeat visits and cross-referrals.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EVERYTHING INCLUDED -->
+<div class="features-bg" id="features">
+  <div class="features-inner">
+    <div class="text-center">
+      <div class="section-label">Everything Included</div>
+      <h2 class="section-title">One Platform. No Extra Tools.</h2>
+      <p class="section-sub">Every feature you need to run and grow your Gulf Coast business — booking, SMS, CRM, menus, waivers, reviews, AI — all in one dashboard.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">📱</div>
+        <div class="feat-title">Smart Link Page</div>
+        <div class="feat-desc">Your own mobile-first public page with menus, packages, gallery, reviews and booking. Your brand, your content.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📅</div>
+        <div class="feat-title">Booking Engine</div>
+        <div class="feat-desc">Real-time availability, packages, add-ons, deposits and secure payments. Works for every industry.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💬</div>
+        <div class="feat-title">Two-Way SMS</div>
+        <div class="feat-desc">Automated confirmations, reminders, review requests and a full inbox for real customer conversations.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">📊</div>
+        <div class="feat-title">CRM & Dashboard</div>
+        <div class="feat-desc">All bookings, customers, analytics and content in one clean dashboard. No juggling multiple tools.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🍽️</div>
+        <div class="feat-title">Digital Menus</div>
+        <div class="feat-desc">QR-friendly menus with categories, dietary tags and time-based visibility for restaurants and bars.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">✍️</div>
+        <div class="feat-title">Digital Waivers</div>
+        <div class="feat-desc">Send waivers before the booking via SMS. Signatures stored per customer. No paper, no clipboards.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">⭐</div>
+        <div class="feat-title">Reviews & Gallery</div>
+        <div class="feat-desc">Auto-collect reviews after every visit via SMS. Photo galleries organized by category on your page.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-title">AI Concierge</div>
+        <div class="feat-desc">Customer-facing AI trained on your business — answers questions and takes bookings for you around the clock.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- INDUSTRIES -->
+<section class="section" id="industries">
+  <div class="text-center">
+    <div class="section-label">Who It's Built For</div>
+    <h2 class="section-title">Every Kind of Gulf Coast Business</h2>
+    <p class="section-sub">Industry-specific layouts, booking flows and features for every type of Gulf Coast business.</p>
+  </div>
+  <div class="industries-grid">
+    <div class="ind-card"><div class="ind-icon">🍽️</div><div class="ind-name">Restaurants</div></div>
+    <div class="ind-card"><div class="ind-icon">🎣</div><div class="ind-name">Fishing Charters</div></div>
+    <div class="ind-card"><div class="ind-icon">⛵</div><div class="ind-name">Boat Rentals</div></div>
+    <div class="ind-card"><div class="ind-icon">🐬</div><div class="ind-name">Dolphin Tours</div></div>
+    <div class="ind-card"><div class="ind-icon">📸</div><div class="ind-name">Photographers</div></div>
+    <div class="ind-card"><div class="ind-icon">🎨</div><div class="ind-name">Artists & Musicians</div></div>
+    <div class="ind-card"><div class="ind-icon">🍹</div><div class="ind-name">Bars & Nightlife</div></div>
+    <div class="ind-card"><div class="ind-icon">💆</div><div class="ind-name">Spas & Wellness</div></div>
+    <div class="ind-card"><div class="ind-icon">🏨</div><div class="ind-name">Hotels & Lodging</div></div>
+    <div class="ind-card"><div class="ind-icon">👨‍👩‍👧</div><div class="ind-name">Family Fun</div></div>
+    <div class="ind-card"><div class="ind-icon">🛥️</div><div class="ind-name">Jet Ski Rentals</div></div>
+    <div class="ind-card"><div class="ind-icon">🏖️</div><div class="ind-name">Beach Gear & Shops</div></div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<div class="contact-bg" id="contact">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="section-label">Get Started</div>
+      <h2 class="section-title">We Build Your Page.<br>You're Live in Days.</h2>
+      <p style="font-size:16px;color:var(--muted);line-height:1.65;margin-top:14px;">Tell us about your business and our team sets everything up for you — for free. Your GCR page, booking engine, SMS, and directory listing ready to go.</p>
+      <ul class="contact-perks">
+        <li>Your page built by our team at no cost</li>
+        <li>Listed in the GCR tourist directory immediately</li>
+        <li>Booking engine live and tested</li>
+        <li>SMS platform configured</li>
+        <li>AI concierge trained on your business</li>
+        <li>Last-minute blast system activated</li>
+        <li>Automated review collection turned on</li>
+        <li>Zero booking fees — ever</li>
+      </ul>
+    </div>
+    <div class="contact-form">
+      <div class="form-title">Claim Your Spot on GCR</div>
+      <div class="form-sub">We'll reach out within 24 hours to get you set up.</div>
+      <form>
+        <div class="form-group">
+          <label>Business Name *</label>
+          <input type="text" placeholder="e.g. Sunset Charters" required>
+        </div>
+        <div class="form-group">
+          <label>Business Type *</label>
+          <select required>
+            <option value="" disabled selected>Select your industry</option>
+            <option>Restaurant</option>
+            <option>Fishing Charter</option>
+            <option>Boat Rental</option>
+            <option>Dolphin / Wildlife Tour</option>
+            <option>Photographer</option>
+            <option>Artist or Musician</option>
+            <option>Bar or Nightlife</option>
+            <option>Spa or Wellness</option>
+            <option>Hotel or Lodging</option>
+            <option>Jet Ski Rental</option>
+            <option>Beach Gear / Retail</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Phone *</label>
+            <input type="tel" placeholder="(850) 555-0100" required>
+          </div>
+          <div class="form-group">
+            <label>Email *</label>
+            <input type="email" placeholder="you@business.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tell us about your business</label>
+          <textarea placeholder="Location, what you offer, anything helpful..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Get My Business on GCR →</button>
+        <div class="form-note">No contracts · No setup fees · We build it free</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">🌊 Gulf Coast Radar</div>
+  <div class="footer-sub">© 2026 CyberCheck & Gulf Coast Radar — Empowering Gulf Coast businesses and delighting tourists.</div>
+</footer>
+
+</body>
+</html>

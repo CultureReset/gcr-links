@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Find Activities — Gulf Coast Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f5f0e8;--card:#fff;--border:#e2e8f0;
+  --text:#0d1f2d;--muted:#64748b;--mid:#374151;
+  --primary:#0096c7;--green:#2a9d5c;--gold:#f59e0b;
+  --font:'Inter',sans-serif;--radius:14px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh}
+
+/* HERO SEARCH BAR */
+.search-hero{
+  background:linear-gradient(160deg,#0a2233 0%,#0e3a54 50%,#1a6e8a 80%,var(--bg) 100%);
+  padding:72px 24px 80px;position:relative;overflow:hidden;
+}
+.search-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:48px;background:var(--bg);clip-path:ellipse(55% 100% at 50% 100%)}
+.hero-inner{max-width:860px;margin:0 auto;position:relative;z-index:1}
+.hero-tag{font-size:11px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+.hero-title{font-size:clamp(28px,5vw,48px);font-weight:900;color:#fff;letter-spacing:-1.5px;line-height:1.1;margin-bottom:8px}
+.hero-sub{font-size:15px;color:rgba(255,255,255,0.65);margin-bottom:32px}
+
+/* SEARCH CARD */
+.search-card{background:#fff;border-radius:20px;box-shadow:0 12px 48px rgba(0,0,0,0.15);padding:24px}
+.search-fields{display:grid;grid-template-columns:1fr 1fr 1fr auto auto;gap:12px;align-items:end}
+.sf-group label{display:block;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.sf-group input,.sf-group select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;color:var(--text);outline:none;font-family:var(--font);background:#fff;transition:border-color .2s}
+.sf-group input:focus,.sf-group select:focus{border-color:var(--primary)}
+.search-btn{padding:11px 28px;background:linear-gradient(135deg,var(--primary),#00b4d8);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;font-family:var(--font);transition:opacity .2s;height:46px}
+.search-btn:hover{opacity:.88}
+.clear-btn{padding:11px 16px;background:transparent;border:1.5px solid var(--border);border-radius:10px;font-size:13px;color:var(--muted);cursor:pointer;font-family:var(--font);height:46px;white-space:nowrap}
+.clear-btn:hover{border-color:var(--mid);color:var(--mid)}
+@media(max-width:900px){.search-fields{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.search-fields{grid-template-columns:1fr}}
+
+/* CATEGORY PILLS */
+.categories{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.cat-pill{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:#fff;color:var(--mid);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.cat-pill:hover,.cat-pill.active{background:var(--primary);border-color:var(--primary);color:#fff}
+
+/* RESULTS */
+.results-wrap{max-width:1100px;margin:0 auto;padding:32px 24px 60px}
+.results-meta{font-size:13px;color:var(--muted);margin-bottom:20px}
+.results-meta strong{color:var(--text)}
+.results-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.results-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.results-grid{grid-template-columns:1fr}}
+
+/* RESULT CARD */
+.result-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:box-shadow .2s;cursor:pointer}
+.result-card:hover{box-shadow:0 8px 32px rgba(0,0,0,0.1)}
+.card-img{height:180px;background:#e2e8f0;position:relative;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover}
+.card-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#e0f2fe,#bae6fd)}
+.card-badge{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.6);color:#fff;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+.card-avail{position:absolute;top:12px;right:12px;background:#fff;color:var(--green);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800;border:1.5px solid var(--green)}
+.card-body{padding:16px}
+.card-biz{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.card-name{font-size:16px;font-weight:800;margin-bottom:6px;line-height:1.3}
+.card-desc{font-size:12px;color:var(--muted);line-height:1.5;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;align-items:center;justify-content:space-between}
+.card-price{font-size:15px;font-weight:900;color:var(--text)}
+.card-price span{font-size:11px;font-weight:400;color:var(--muted)}
+.card-cta{padding:8px 16px;background:linear-gradient(135deg,var(--primary),#00b4d8);color:#fff;border-radius:8px;font-size:12px;font-weight:700;text-decoration:none;transition:opacity .15s}
+.card-cta:hover{opacity:.88}
+
+/* STATES */
+.state-box{text-align:center;padding:80px 24px;color:var(--muted)}
+.state-icon{font-size:48px;margin-bottom:16px}
+.state-title{font-size:18px;font-weight:700;color:var(--text);margin-bottom:8px}
+.state-sub{font-size:14px;line-height:1.7}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.no-results-tip{background:#f0f9ff;border:1px solid #bae6fd;border-radius:12px;padding:16px 20px;font-size:13px;color:#0369a1;margin-top:20px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<!-- SEARCH HERO -->
+<div class="search-hero">
+  <div class="hero-inner">
+    <div class="hero-tag">Gulf Coast Radar</div>
+    <div class="hero-title">Find What's Actually Available</div>
+    <div class="hero-sub">Search by dates — only see charters, tours, and rentals with real open spots.</div>
+
+    <div class="search-card">
+      <div class="search-fields">
+        <div class="sf-group">
+          <label>Activity</label>
+          <select id="s-category">
+            <option value="">All Activities</option>
+            <option value="fishing">🎣 Fishing Charter</option>
+            <option value="charter">⛵ Boat Charter</option>
+            <option value="pontoon">🛥️ Pontoon Rental</option>
+            <option value="kayak">🚣 Kayak / Paddleboard</option>
+            <option value="snorkel">🤿 Snorkel / Dive</option>
+            <option value="jetski">🏄 Jet Ski</option>
+            <option value="parasail">🪂 Parasailing</option>
+            <option value="cruise">🚢 Cruise / Tour</option>
+            <option value="surf">🏄 Surf Lesson</option>
+          </select>
+        </div>
+        <div class="sf-group">
+          <label>From Date</label>
+          <input type="date" id="s-from" min="">
+        </div>
+        <div class="sf-group">
+          <label>To Date</label>
+          <input type="date" id="s-to" min="">
+        </div>
+        <div class="sf-group">
+          <label>Party Size</label>
+          <select id="s-pax">
+            <option value="">Any</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="4">4</option>
+            <option value="6">6</option>
+            <option value="8">8+</option>
+          </select>
+        </div>
+        <button class="search-btn" onclick="runSearch()">Search →</button>
+      </div>
+
+      <div class="categories" id="cat-pills">
+        <div class="cat-pill active" onclick="setCat('',this)">All</div>
+        <div class="cat-pill" onclick="setCat('fishing',this)">🎣 Fishing</div>
+        <div class="cat-pill" onclick="setCat('charter',this)">⛵ Charters</div>
+        <div class="cat-pill" onclick="setCat('pontoon',this)">🛥️ Pontoon</div>
+        <div class="cat-pill" onclick="setCat('kayak',this)">🚣 Kayak</div>
+        <div class="cat-pill" onclick="setCat('snorkel',this)">🤿 Snorkel</div>
+        <div class="cat-pill" onclick="setCat('jetski',this)">🏄 Jet Ski</div>
+        <div class="cat-pill" onclick="setCat('parasail',this)">🪂 Parasail</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div class="results-wrap">
+  <div class="results-meta" id="results-meta" style="display:none"></div>
+  <div id="results-container">
+    <div class="state-box">
+      <div class="state-icon">🌊</div>
+      <div class="state-title">Find Your Perfect Day on the Water</div>
+      <div class="state-sub">Pick your dates and party size above to see what's actually available — no guessing, no phone calls.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'https://cybercheck-api-database.vercel.app';
+
+// Set default dates to tomorrow + day after
+(function setDefaults() {
+  const p   = new URLSearchParams(location.search);
+  const tom = new Date(); tom.setDate(tom.getDate() + 1);
+  const end = new Date(); end.setDate(end.getDate() + 2);
+  const fmt = d => d.toISOString().slice(0,10);
+
+  document.getElementById('s-from').min = fmt(new Date());
+  document.getElementById('s-to').min   = fmt(new Date());
+  document.getElementById('s-from').value = p.get('from') || fmt(tom);
+  document.getElementById('s-to').value   = p.get('to')   || fmt(tom);
+
+  if (p.get('category')) {
+    document.getElementById('s-category').value = p.get('category');
+    document.querySelectorAll('.cat-pill').forEach(el => {
+      el.classList.toggle('active', el.dataset.cat === p.get('category'));
+    });
+  }
+  if (p.get('pax')) document.getElementById('s-pax').value = p.get('pax');
+
+  // Auto-search if params in URL
+  if (p.get('from') || p.get('category')) runSearch();
+})();
+
+// Keep date range consistent
+document.getElementById('s-from').addEventListener('change', function() {
+  const to = document.getElementById('s-to');
+  if (to.value && to.value < this.value) to.value = this.value;
+  to.min = this.value;
+});
+
+function setCat(val, el) {
+  document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('s-category').value = val;
+  runSearch();
+}
+
+async function runSearch() {
+  const category  = document.getElementById('s-category').value;
+  const dateFrom  = document.getElementById('s-from').value;
+  const dateTo    = document.getElementById('s-to').value;
+  const partySize = document.getElementById('s-pax').value;
+
+  if (!dateFrom) {
+    showState('📅', 'Pick your dates', 'Choose a start date to see available activities.');
+    return;
+  }
+
+  // Update URL
+  const p = new URLSearchParams();
+  if (category)  p.set('category', category);
+  if (dateFrom)  p.set('from', dateFrom);
+  if (dateTo)    p.set('to', dateTo);
+  if (partySize) p.set('pax', partySize);
+  history.replaceState(null, '', '?' + p.toString());
+
+  showLoading();
+
+  try {
+    const params = new URLSearchParams({ date_from: dateFrom, limit: 60 });
+    if (dateTo && dateTo !== dateFrom) params.set('date_to', dateTo);
+    if (category)  params.set('category', category);
+    if (partySize) params.set('party_size', partySize);
+
+    const r = await fetch(`${API}/api/availability/search?${params}`);
+    const d = await r.json();
+
+    if (!r.ok) throw new Error(d.error || 'Search failed');
+
+    renderResults(d, { dateFrom, dateTo, category, partySize });
+  } catch(e) {
+    showState('⚠️', 'Search failed', e.message);
+  }
+}
+
+function renderResults(data, params) {
+  const { results, total, days_searched, date_from, date_to } = data;
+  const meta = document.getElementById('results-meta');
+  const cont = document.getElementById('results-container');
+
+  const dateLabel = date_from === date_to
+    ? fmtDate(date_from)
+    : fmtDate(date_from) + ' – ' + fmtDate(date_to);
+
+  meta.style.display = '';
+  meta.innerHTML = total > 0
+    ? `<strong>${total}</strong> ${params.category || 'activit'}${total === 1 ? 'y' : 'ies'} available — <strong>${dateLabel}</strong>${days_searched > 1 ? ' · ' + days_searched + ' days' : ''}${params.partySize ? ' · ' + params.partySize + ' pax' : ''}`
+    : '';
+
+  if (!results.length) {
+    cont.innerHTML = `
+      <div class="state-box">
+        <div class="state-icon">😔</div>
+        <div class="state-title">Nothing available for those dates</div>
+        <div class="state-sub">Try different dates, a smaller party size, or a different activity.</div>
+        <div class="no-results-tip">💡 Tip: Try searching a single day instead of a range — some operators have availability on specific days only.</div>
+      </div>`;
+    return;
+  }
+
+  cont.innerHTML = `<div class="results-grid">${results.map(renderCard).join('')}</div>`;
+}
+
+function renderCard(r) {
+  const cat      = catLabel(r.category);
+  const imgHtml  = r.image_url
+    ? `<img src="${esc(r.image_url)}" alt="${esc(r.item_name)}" loading="lazy">`
+    : `<div class="card-img-placeholder">${catEmoji(r.category)}</div>`;
+
+  const price = r.price_min
+    ? `<div class="card-price">From $${Math.round(r.price_min)} <span>/ person</span></div>`
+    : `<div class="card-price" style="color:var(--muted)">Contact for price</div>`;
+
+  const spots = r.available_spots > 0
+    ? `<div class="card-avail">${r.available_spots} spots left</div>`
+    : '';
+
+  return `<div class="result-card" onclick="window.open('${esc(r.booking_url)}','_blank')">
+    <div class="card-img">
+      ${imgHtml}
+      ${cat ? `<div class="card-badge">${cat}</div>` : ''}
+      ${spots}
+    </div>
+    <div class="card-body">
+      <div class="card-biz">${esc(r.biz_name || '')}</div>
+      <div class="card-name">${esc(r.item_name)}</div>
+      ${r.description ? `<div class="card-desc">${esc(r.description)}</div>` : ''}
+      <div class="card-footer">
+        ${price}
+        <a class="card-cta" href="${esc(r.booking_url)}" target="_blank" onclick="event.stopPropagation()">Book →</a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function showLoading() {
+  document.getElementById('results-meta').style.display = 'none';
+  document.getElementById('results-container').innerHTML =
+    `<div class="state-box"><div class="spinner"></div><div style="font-size:14px;color:var(--muted)">Checking availability…</div></div>`;
+}
+
+function showState(icon, title, sub) {
+  document.getElementById('results-meta').style.display = 'none';
+  document.getElementById('results-container').innerHTML =
+    `<div class="state-box"><div class="state-icon">${icon}</div><div class="state-title">${esc(title)}</div><div class="state-sub">${esc(sub)}</div></div>`;
+}
+
+function fmtDate(iso) {
+  if (!iso) return '';
+  return new Date(iso + 'T12:00:00').toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' });
+}
+
+function catLabel(cat) {
+  const m = { fishing:'Fishing',charter:'Charter',pontoon:'Pontoon',kayak:'Kayak',snorkel:'Snorkel',jetski:'Jet Ski',parasail:'Parasail',cruise:'Cruise',surf:'Surf',tour:'Tour',activity:'Activity' };
+  return m[cat] || (cat ? cat.charAt(0).toUpperCase() + cat.slice(1) : '');
+}
+function catEmoji(cat) {
+  const m = { fishing:'🎣',charter:'⛵',pontoon:'🛥️',kayak:'🚣',snorkel:'🤿',jetski:'🏄',parasail:'🪂',cruise:'🚢',surf:'🏄',tour:'🗺️' };
+  return m[cat] || '🌊';
+}
+function esc(s) { if(!s) return ''; const d=document.createElement('div'); d.textContent=String(s); return d.innerHTML; }
+</script>
+</body>
+</html>

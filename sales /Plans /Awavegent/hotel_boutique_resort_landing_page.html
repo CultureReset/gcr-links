@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Guest Concierge for Hotels and Boutique Resorts | aWavegent</title>
+  <style>
+    :root {
+      --navy:#0f2740; --blue:#1672b8; --teal:#1f9bb6; --orange:#f47b20;
+      --text:#1b2a38; --muted:#5a6a78; --line:rgba(15,39,64,0.12);
+      --shadow:0 20px 50px rgba(10,31,52,0.12); --radius:24px; --success:#0f9d75;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text); background:linear-gradient(180deg,#f8fcff 0%, #fffaf4 100%); line-height:1.55;
+    }
+    a { text-decoration:none; color:inherit; }
+    .container { width:min(1180px,calc(100% - 32px)); margin:0 auto; }
+    .topbar {
+      position:sticky; top:0; z-index:60; backdrop-filter:blur(14px);
+      background:rgba(255,255,255,0.88); border-bottom:1px solid rgba(15,39,64,0.08);
+    }
+    .nav { display:flex; align-items:center; justify-content:space-between; padding:16px 0; gap:16px; }
+    .brand { display:flex; align-items:center; gap:12px; font-weight:800; color:var(--navy); letter-spacing:-0.02em; }
+    .brand-badge {
+      width:42px; height:42px; border-radius:14px; background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:white; display:grid; place-items:center; font-size:18px; box-shadow:var(--shadow);
+    }
+    .nav-links { display:flex; gap:20px; align-items:center; flex-wrap:wrap; color:var(--muted); font-size:15px; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:10px; border-radius:999px;
+      padding:14px 22px; font-weight:700; border:0; cursor:pointer; transition:.2s ease;
+    }
+    .btn:hover { transform:translateY(-1px); }
+    .btn-primary { background:linear-gradient(135deg,var(--orange),#ff9750); color:white; box-shadow:0 14px 30px rgba(244,123,32,0.28); }
+    .btn-secondary { background:white; color:var(--navy); border:1px solid rgba(15,39,64,0.12); }
+    .hero {
+      padding:66px 0 40px;
+      background:radial-gradient(circle at top right, rgba(22,114,184,.14), transparent 30%),
+                 radial-gradient(circle at top left, rgba(31,155,182,.10), transparent 28%);
+    }
+    .hero-wrap { display:grid; grid-template-columns:1.1fr .9fr; gap:34px; align-items:center; }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:10px; background:rgba(31,155,182,0.10); color:#0a7185;
+      padding:10px 14px; border-radius:999px; font-size:14px; font-weight:700; margin-bottom:18px;
+    }
+    h1 {
+      margin:0 0 16px; font-size:clamp(40px,6vw,72px); line-height:.96; letter-spacing:-0.05em; color:var(--navy);
+      max-width:780px;
+    }
+    .lead { font-size:clamp(18px,2.4vw,22px); color:var(--muted); margin:0 0 28px; max-width:760px; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:14px; margin-bottom:22px; }
+    .hero-proof { display:flex; flex-wrap:wrap; gap:12px; }
+    .proof-pill {
+      background:rgba(255,255,255,0.94); padding:10px 14px; border-radius:999px; border:1px solid rgba(15,39,64,0.08);
+      box-shadow:0 8px 24px rgba(15,39,64,0.06); font-size:14px; color:var(--muted);
+    }
+    .card {
+      background:rgba(255,255,255,0.96); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+    }
+    .demo-card { padding:18px; max-width:410px; margin-left:auto; }
+    .widget-shell { background:#101822; border-radius:30px; padding:12px; box-shadow:0 30px 70px rgba(7,24,42,0.30); }
+    .widget-screen {
+      background:linear-gradient(180deg,#0b5fa0 0%, #73d0ff 24%, #fff7ef 100%);
+      border-radius:24px; overflow:hidden; min-height:640px;
+    }
+    .widget-top { padding:20px 18px 14px; color:white; }
+    .widget-title { font-size:18px; font-weight:800; }
+    .widget-sub { font-size:12px; opacity:.92; }
+    .chat { display:flex; flex-direction:column; gap:12px; padding:12px 14px 18px; }
+    .bubble {
+      max-width:88%; border-radius:18px; padding:12px 14px; font-size:14px; line-height:1.45;
+      box-shadow:0 8px 24px rgba(10,31,52,0.08);
+    }
+    .bubble.agent { background:rgba(255,255,255,0.96); color:var(--text); align-self:flex-start; border-bottom-left-radius:8px; }
+    .bubble.user { background:#dff3ff; color:#0b3c56; align-self:flex-end; border-bottom-right-radius:8px; }
+    .bubble small { display:block; margin-top:6px; color:#6b7b88; font-size:12px; }
+    section { padding:42px 0; }
+    .section-head { text-align:center; max-width:840px; margin:0 auto 26px; }
+    h2 {
+      margin:0 0 12px; font-size:clamp(32px,4vw,54px); line-height:1.02; letter-spacing:-0.04em; color:var(--navy);
+    }
+    .section-head p { margin:0; color:var(--muted); font-size:18px; }
+    .grid-3 { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .content-card { padding:24px; }
+    .content-card h3 { margin:0 0 10px; font-size:22px; color:var(--navy); }
+    .content-card p { margin:0; color:var(--muted); }
+    ul.clean { list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px; }
+    ul.clean li { position:relative; padding-left:20px; color:var(--text); }
+    ul.clean li::before { content:"✓"; position:absolute; left:0; top:0; color:var(--success); font-weight:900; }
+    .compare-wrap { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+    .compare-bad { border-top:4px solid #e25d5d; }
+    .compare-good { border-top:4px solid var(--success); }
+    .qa-list { display:grid; gap:12px; }
+    .qa-item { border:1px solid var(--line); border-radius:18px; padding:16px; background:rgba(255,255,255,0.92); }
+    .qa-q { font-weight:800; color:var(--navy); margin-bottom:6px; }
+    .qa-a { color:var(--muted); }
+    .cta {
+      margin:44px 0 72px; background:linear-gradient(135deg,var(--navy),#1b567b); color:white;
+      border-radius:32px; padding:34px; box-shadow:0 30px 70px rgba(10,31,52,0.22);
+    }
+    .cta-grid { display:grid; grid-template-columns:1.1fr .9fr; gap:24px; align-items:center; }
+    form { display:grid; gap:12px; }
+    input,select,textarea {
+      width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.16);
+      background:rgba(255,255,255,0.10); color:white; font:inherit;
+    }
+    input::placeholder,textarea::placeholder { color:rgba(255,255,255,.75); }
+    .small { font-size:13px; color:rgba(255,255,255,.78); }
+    footer { padding:30px 0 44px; color:var(--muted); font-size:14px; }
+    @media (max-width: 940px) {
+      .hero-wrap,.grid-3,.grid-2,.compare-wrap,.cta-grid { grid-template-columns:1fr; }
+      .demo-card { margin:0 auto; }
+      .nav { flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="brand"><div class="brand-badge">aW</div><div>aWavegent</div></div>
+      <div class="nav-links"><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#questions">Examples</a><a href="#cta">Get Started</a></div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <div class="eyebrow">Built for hotels and boutique resorts</div>
+        <h1>Give guests answers before they ever reach the front desk.</h1>
+        <p class="lead">We put a smart guest concierge on your hotel or resort website that answers common pre-arrival questions, helps guests plan their stay, reduces repetitive front-desk calls, and makes the experience feel more premium before check-in even starts.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cta">Request Setup</a>
+          <a class="btn btn-secondary" href="#questions">See Example Questions</a>
+        </div>
+        <div class="hero-proof"><div class="proof-pill">Less front-desk friction</div><div class="proof-pill">Better pre-arrival support</div><div class="proof-pill">Premium guest experience</div><div class="proof-pill">Upsell-ready</div></div>
+      </div>
+      <div class="demo-card card">
+        <div class="widget-shell">
+          <div class="widget-screen">
+            <div class="widget-top">
+              <div class="widget-title">Guest / Visitor Concierge</div>
+              <div class="widget-sub">Lives on the site and helps before the visit happens</div>
+            </div>
+            <div class="chat">
+              <div class="bubble user">Can it answer common questions automatically?</div>
+              <div class="bubble agent">Yes — that is the first win. It handles the repetitive stuff before your team or agents have to.<small>Easy value people understand fast</small></div>
+              <div class="bubble user">Can it also recommend local stuff?</div>
+              <div class="bubble agent">Yes — that is where it gets stronger. It can guide people toward useful local recommendations tied to your ecosystem.<small>Makes the site more useful, not just more modern</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="container">
+      <div class="section-head">
+        <h2>What this solves</h2>
+        <p>Lead with the real business problem, not the technology.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card content-card"><h3>What hotels deal with</h3><ul class="clean"><li>Guests calling about parking, check-in, amenities, and policies</li><li>Front desk answering repetitive questions all day</li><li>Website not doing enough before arrival</li><li>Guests arriving underprepared</li><li>Staff time pulled away from service</li></ul></div><div class="card content-card"><h3>Why that hurts</h3><ul class="clean"><li>More repetitive workload</li><li>Slower responses to real issues</li><li>More confusion at check-in</li><li>Lower-value website experience</li><li>Missed upsells and concierge opportunities</li></ul></div><div class="card content-card"><h3>Why this sells</h3><ul class="clean"><li>Feels like a digital concierge</li><li>Improves guest prep before arrival</li><li>Supports a more premium brand experience</li><li>Makes the website more useful</li><li>Can start simple and grow later</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solution">
+    <div class="container">
+      <div class="section-head">
+        <h2>How to frame it</h2>
+        <p>Make the before and after obvious fast.</p>
+      </div>
+      <div class="compare-wrap">
+        <div class="card content-card compare-bad"><h3>The old way</h3><ul class="clean"><li>Static hotel site with booking and FAQ only</li><li>Guests still call the front desk for common info</li><li>No real pre-arrival concierge layer</li><li>Little trip-planning value before arrival</li></ul></div>
+        <div class="card content-card compare-good"><h3>The aWavegent way</h3><ul class="clean"><li>Smart concierge on the website</li><li>Answers common guest questions automatically</li><li>Supports the guest before arrival</li><li>Creates room for upgrades, dining, and local recommendations</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="container">
+      <div class="section-head">
+        <h2>What you can show in the sale</h2>
+        <p>These examples help people picture the product clearly.</p>
+      </div>
+      <div class="grid-2">
+        <div class="qa-list"><div class="qa-item"><div class="qa-q">Front desk relief</div><div class="qa-a">Handles the repetitive pre-arrival questions so staff can focus on guest service that needs a person.</div></div><div class="qa-item"><div class="qa-q">Premium feel</div><div class="qa-a">Makes the hotel feel more modern, more guided, and more helpful before the guest gets there.</div></div><div class="qa-item"><div class="qa-q">Expansion path</div><div class="qa-a">Start as a concierge layer, then connect into deeper guest flows later.</div></div></div>
+        <div class="qa-list"><div class="qa-item"><div class="qa-q">Website concierge layer</div><div class="qa-a">A smart guest helper that lives on the site and supports guests before arrival.</div></div><div class="qa-item"><div class="qa-q">Property knowledge setup</div><div class="qa-a">Answers based on your actual hotel, resort, and amenity details.</div></div><div class="qa-item"><div class="qa-q">Pre-arrival guest guidance</div><div class="qa-a">Helps guests arrive more prepared and with fewer questions.</div></div><div class="qa-item"><div class="qa-q">Upsell and recommendation path</div><div class="qa-a">Supports upgrades, dining, activities, and local experiences.</div></div><div class="qa-item"><div class="qa-q">Front-desk support relief</div><div class="qa-a">Cuts repetitive calls and low-value interruptions.</div></div><div class="qa-item"><div class="qa-q">Future add-ons</div><div class="qa-a">Later you can add deeper booking, messaging, and on-property automation.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>What is included</h2>
+        <p>Start practical. Add more only after the first value is obvious.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card content-card"><h3>Arrival questions</h3><p>Check-in time, valet or parking, early arrival options, lobby hours, amenities, and property details.</p></div><div class="card content-card"><h3>Stay-planning questions</h3><p>Best restaurants nearby, spa info, family activities, weather-friendly options, and local experiences.</p></div><div class="card content-card"><h3>Upgrade potential</h3><p>Room upgrades, dining, spa bookings, late checkout, and on-property add-ons before arrival.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container cta">
+      <div class="cta-grid">
+        <div>
+          <div class="eyebrow" style="background:rgba(255,255,255,.10); color:#fff;">Get started</div>
+          <h2 style="color:white; margin-top:0;">Turn your hotel website into a smarter guest concierge.</h2>
+          <p style="color:rgba(255,255,255,.82); font-size:18px; margin:0;">Best for hotels and boutique resorts that want fewer repetitive guest calls, stronger pre-arrival support, and a more premium digital experience.</p>
+        </div>
+        <div>
+          <form>
+            <input type="text" placeholder="Company name" />
+            <input type="text" placeholder="Contact name" />
+            <input type="tel" placeholder="Phone number" />
+            <input type="email" placeholder="Email address" />
+            <select>
+              <option>Property type</option>
+              <option>Boutique hotel</option><option>Resort</option><option>Independent hotel</option><option>Small hotel group</option>
+            </select>
+            <textarea rows="4" placeholder="What are people asking you most often right now?"></textarea>
+            <button class="btn btn-primary" type="button">Request Setup</button>
+          </form>
+          <div class="small" style="margin-top:12px;">Lead with usefulness first. Expand into deeper automation later.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="container">aWavegent — smarter pre-arrival support and concierge-style guest experience for hotels and resorts.</div></footer>
+</body>
+</html>

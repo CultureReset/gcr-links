@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rent a Boat</title>
+<link rel="stylesheet" href="css/flatpickr.min.css">
+<link rel="stylesheet" href="css/swiper.min.css">
+<link rel="stylesheet" href="css/choices.min.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f9ff; min-height: 100vh; }
+
+  .booking-header {
+    background: linear-gradient(135deg, #164e63 0%, #0e7490 100%);
+    color: #fff;
+    padding: 24px 20px 20px;
+    text-align: center;
+  }
+  .booking-header h1 { font-size: 1.5rem; font-weight: 700; }
+  .booking-header .sub { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
+
+  .steps-bar {
+    display: flex;
+    background: #fff;
+    border-bottom: 1px solid #e0f2fe;
+  }
+  .step-tab {
+    flex: 1;
+    padding: 12px 4px;
+    text-align: center;
+    font-size: 0.72rem;
+    color: #94a3b8;
+    border-bottom: 3px solid transparent;
+  }
+  .step-tab.active { color: #0e7490; border-bottom-color: #0e7490; font-weight: 600; }
+  .step-tab.done { color: #22c55e; }
+  .step-num { display: block; font-size: 1rem; margin-bottom: 2px; }
+
+  .container { max-width: 680px; margin: 0 auto; padding: 20px 16px 60px; }
+  .step-panel { display: none; }
+  .step-panel.active { display: block; }
+
+  /* ── Boat cards ── */
+  .swiper { margin: 0 -16px; padding: 0 16px 24px; overflow: hidden; }
+  .swiper-slide { width: 300px; }
+  .boat-card {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: all 0.2s;
+  }
+  .boat-card.selected { border-color: #0e7490; box-shadow: 0 4px 20px rgba(14,116,144,0.25); }
+  .boat-card .img-wrap { position: relative; }
+  .boat-card img { width: 100%; height: 180px; object-fit: cover; }
+  .boat-card .capacity-badge {
+    position: absolute; top: 10px; right: 10px;
+    background: rgba(0,0,0,0.65); color: #fff;
+    border-radius: 20px; padding: 3px 10px; font-size: 0.75rem; font-weight: 700;
+  }
+  .boat-card .boat-body { padding: 14px; }
+  .boat-card h3 { font-size: 1rem; font-weight: 700; color: #0f172a; }
+  .boat-card .boat-meta { font-size: 0.8rem; color: #64748b; margin-top: 3px; }
+  .boat-card .boat-price { font-size: 1.1rem; font-weight: 800; color: #0e7490; margin-top: 8px; }
+  .boat-card .badge-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+  .badge { background: #e0f2fe; color: #0369a1; border-radius: 20px; padding: 2px 10px; font-size: 0.72rem; }
+  .badge.green { background: #dcfce7; color: #166534; }
+
+  /* ── Rental type tabs ── */
+  .rental-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+  .rental-tab {
+    flex: 1;
+    padding: 14px 8px;
+    text-align: center;
+    border: 2px solid #e0f2fe;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #fff;
+    transition: all 0.2s;
+  }
+  .rental-tab.active { background: #0e7490; border-color: #0e7490; color: #fff; }
+  .rental-tab .tab-icon { font-size: 1.4rem; display: block; margin-bottom: 4px; }
+
+  /* ── Hourly picker ── */
+  .time-range-card { background: #fff; border-radius: 16px; padding: 18px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .time-range-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .time-field label { font-size: 0.8rem; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px; }
+  .time-field select, .time-field input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0f2fe;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+
+  /* ── Daily packages ── */
+  .package-grid { display: grid; gap: 10px; margin-bottom: 20px; }
+  .package-btn {
+    background: #fff;
+    border: 2px solid #e0f2fe;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s;
+  }
+  .package-btn.selected { background: #0e7490; border-color: #0e7490; color: #fff; }
+  .package-btn .pkg-name { font-weight: 700; font-size: 0.95rem; }
+  .package-btn .pkg-desc { font-size: 0.78rem; opacity: 0.7; margin-top: 2px; }
+  .package-btn .pkg-price { font-size: 1.1rem; font-weight: 800; text-align: right; }
+  .package-btn .pkg-price-note { font-size: 0.72rem; opacity: 0.7; }
+
+  /* ── Flatpickr inline ── */
+  .date-card { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .date-card .flatpickr-calendar { box-shadow: none !important; width: 100% !important; }
+
+  /* ── Multi-day range ── */
+  .multi-day-row { display: flex; gap: 12px; }
+  .multi-day-row > div { flex: 1; }
+  .multi-day-row label { font-size: 0.8rem; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px; }
+  .multi-day-row input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e0f2fe;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    background: #fff;
+  }
+
+  /* ── Party size ── */
+  .party-row { display: flex; align-items: center; gap: 12px; background: #fff; border-radius: 12px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .party-row label { flex: 1; font-weight: 600; color: #1e293b; }
+  .counter { display: flex; align-items: center; gap: 12px; }
+  .counter-btn { width: 36px; height: 36px; border-radius: 50%; border: 2px solid #0e7490; background: #fff; color: #0e7490; font-size: 1.2rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .counter-val { font-size: 1.2rem; font-weight: 700; min-width: 24px; text-align: center; }
+
+  /* ── Forms ── */
+  .section-label { font-size: 0.8rem; font-weight: 600; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 10px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 6px; }
+  .form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+  }
+  .form-group textarea { resize: vertical; min-height: 80px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .addons-card { background: #fff; border-radius: 16px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+
+  /* ── Waiver ── */
+  .waiver-text { background: #fff; border-radius: 12px; padding: 16px; max-height: 200px; overflow-y: auto; font-size: 0.82rem; color: #475569; line-height: 1.6; margin-bottom: 16px; border: 1px solid #e2e8f0; }
+  .sig-wrap { background: #fff; border-radius: 12px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 16px; }
+  .sig-label { font-size: 0.85rem; font-weight: 600; color: #374151; margin-bottom: 10px; }
+  #waiver-canvas { width: 100%; height: 160px; border: 2px dashed #cbd5e1; border-radius: 8px; touch-action: none; cursor: crosshair; }
+  .sig-clear { font-size: 0.8rem; color: #ef4444; background: none; border: none; cursor: pointer; margin-top: 8px; }
+  .check-row { display: flex; gap: 10px; align-items: flex-start; background: #fff; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+  .check-row input[type=checkbox] { width: 18px; height: 18px; accent-color: #0e7490; flex-shrink: 0; margin-top: 2px; }
+  .check-row label { font-size: 0.85rem; color: #374151; line-height: 1.4; }
+
+  /* ── Summary & Payment ── */
+  .summary-card { background: linear-gradient(135deg, #164e63, #0e7490); color: #fff; border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+  .summary-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 12px; }
+  .summary-row { display: flex; justify-content: space-between; font-size: 0.88rem; margin-bottom: 8px; opacity: 0.9; }
+  .summary-row.total { font-weight: 700; font-size: 1rem; opacity: 1; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 10px; margin-top: 4px; }
+  .summary-row.deposit { font-size: 1.1rem; font-weight: 800; color: #fde68a; }
+  .payment-card { background: #fff; border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 20px; }
+  .payment-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+  #card-element { border: 2px solid #e2e8f0; border-radius: 10px; padding: 14px; }
+  #card-errors { color: #ef4444; font-size: 0.82rem; margin-top: 8px; min-height: 20px; }
+
+  /* ── Buttons ── */
+  .btn-primary { width: 100%; padding: 16px; background: linear-gradient(135deg, #164e63, #0e7490); color: #fff; border: none; border-radius: 12px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 8px; transition: opacity 0.2s; }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+  .btn-back { background: none; border: none; color: #64748b; font-size: 0.9rem; cursor: pointer; padding: 8px 0; margin-bottom: 8px; }
+
+  /* ── Success ── */
+  .success-screen { display: none; text-align: center; padding: 40px 20px; }
+  .success-screen.show { display: block; }
+  .success-icon { font-size: 4rem; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 1.5rem; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+  .success-screen p { color: #64748b; font-size: 0.95rem; line-height: 1.5; margin-bottom: 20px; }
+  .booking-ref { background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 12px; padding: 16px; margin: 20px 0; }
+  .booking-ref .ref-label { font-size: 0.8rem; color: #0369a1; font-weight: 600; }
+  .booking-ref .ref-val { font-size: 1.1rem; font-weight: 800; color: #0e7490; margin-top: 4px; }
+
+  .info-box { background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 12px 14px; font-size: 0.83rem; color: #0369a1; margin-bottom: 16px; }
+  .loading { text-align: center; padding: 40px; color: #94a3b8; }
+  .spinner { width: 32px; height: 32px; border: 3px solid #e2e8f0; border-top-color: #0e7490; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .rental-note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 10px; padding: 12px 14px; font-size: 0.83rem; color: #92400e; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+
+<div id="booking-app">
+  <div class="booking-header">
+    <h1 id="page-title">Rent a Boat</h1>
+    <div class="sub" id="business-name-header"></div>
+  </div>
+
+  <div class="steps-bar" id="steps-bar">
+    <div class="step-tab active" data-step="1"><span class="step-num">⛵</span>Boat</div>
+    <div class="step-tab" data-step="2"><span class="step-num">📅</span>Dates</div>
+    <div class="step-tab" data-step="3"><span class="step-num">👤</span>Details</div>
+    <div class="step-tab" data-step="4"><span class="step-num">✍️</span>Waiver</div>
+    <div class="step-tab" data-step="5"><span class="step-num">💳</span>Deposit</div>
+  </div>
+
+  <div class="container">
+    <!-- Step 1: Boat Selection -->
+    <div class="step-panel active" id="step-1">
+      <div id="boat-loading" class="loading"><div class="spinner"></div>Loading boats...</div>
+      <div id="boat-list" style="display:none">
+        <p style="font-size:0.85rem;color:#64748b;margin-bottom:14px;">Swipe to browse — tap to select</p>
+        <div class="swiper boat-swiper">
+          <div class="swiper-wrapper" id="boat-slides"></div>
+        </div>
+        <button class="btn-primary" id="btn-step1-next" disabled>Continue →</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Rental Type & Dates -->
+    <div class="step-panel" id="step-2">
+      <button class="btn-back" onclick="goStep(1)">← Back</button>
+      <div class="section-label" style="margin-bottom:12px">Rental Type</div>
+      <div class="rental-tabs">
+        <div class="rental-tab active" onclick="setRentalType('hourly', this)">
+          <span class="tab-icon">⏱️</span>By the Hour
+        </div>
+        <div class="rental-tab" onclick="setRentalType('halfday', this)">
+          <span class="tab-icon">🌅</span>Half Day
+        </div>
+        <div class="rental-tab" onclick="setRentalType('fullday', this)">
+          <span class="tab-icon">☀️</span>Full Day
+        </div>
+        <div class="rental-tab" onclick="setRentalType('multiday', this)">
+          <span class="tab-icon">📆</span>Multi-Day
+        </div>
+      </div>
+
+      <!-- Hourly -->
+      <div id="type-hourly">
+        <div class="section-label">Pick a Date</div>
+        <div class="date-card"><input type="text" id="hourly-date" style="display:none"></div>
+        <div class="time-range-card">
+          <div class="section-label" style="margin-bottom:12px">Select Hours</div>
+          <div class="time-range-grid">
+            <div class="time-field"><label>Start Time</label>
+              <select id="start-time"></select>
+            </div>
+            <div class="time-field"><label>End Time</label>
+              <select id="end-time"></select>
+            </div>
+          </div>
+          <div id="hourly-summary" style="margin-top:12px;font-size:0.9rem;color:#0e7490;font-weight:700;"></div>
+        </div>
+      </div>
+
+      <!-- Half Day -->
+      <div id="type-halfday" style="display:none">
+        <div class="section-label">Pick a Date</div>
+        <div class="date-card"><input type="text" id="halfday-date" style="display:none"></div>
+        <div class="package-grid">
+          <div class="package-btn" onclick="selectPackage('morning', this)">
+            <div><div class="pkg-name">Morning</div><div class="pkg-desc">8:00 AM – 1:00 PM (5 hrs)</div></div>
+            <div class="pkg-price" id="pkg-morning-price">$--<div class="pkg-price-note">per rental</div></div>
+          </div>
+          <div class="package-btn" onclick="selectPackage('afternoon', this)">
+            <div><div class="pkg-name">Afternoon</div><div class="pkg-desc">1:00 PM – 6:00 PM (5 hrs)</div></div>
+            <div class="pkg-price" id="pkg-afternoon-price">$--<div class="pkg-price-note">per rental</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Day -->
+      <div id="type-fullday" style="display:none">
+        <div class="section-label">Pick a Date</div>
+        <div class="date-card"><input type="text" id="fullday-date" style="display:none"></div>
+        <div class="info-box">🌊 Full day rental: 8:00 AM – 6:00 PM (10 hours)</div>
+      </div>
+
+      <!-- Multi-Day -->
+      <div id="type-multiday" style="display:none">
+        <div class="section-label">Date Range</div>
+        <div class="date-card"><input type="text" id="multiday-range" placeholder="Select dates" readonly></div>
+        <div id="multiday-price-display" style="background:#fff;border-radius:12px;padding:14px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);font-size:0.9rem;color:#0e7490;font-weight:700;"></div>
+      </div>
+
+      <div style="margin-top:16px" class="section-label">Passengers</div>
+      <div class="party-row">
+        <label>Number of Passengers</label>
+        <div class="counter">
+          <button class="counter-btn" id="dec-party">−</button>
+          <span class="counter-val" id="party-val">2</span>
+          <button class="counter-btn" id="inc-party">+</button>
+        </div>
+      </div>
+      <button class="btn-primary" id="btn-step2-next" disabled>Continue →</button>
+    </div>
+
+    <!-- Step 3: Customer Details -->
+    <div class="step-panel" id="step-3">
+      <button class="btn-back" onclick="goStep(2)">← Back</button>
+      <div class="form-row">
+        <div class="form-group"><label>First Name *</label><input type="text" id="first-name" placeholder="John"></div>
+        <div class="form-group"><label>Last Name *</label><input type="text" id="last-name" placeholder="Smith"></div>
+      </div>
+      <div class="form-group"><label>Phone *</label><input type="tel" id="phone" placeholder="+1 (555) 000-0000"></div>
+      <div class="form-group"><label>Email</label><input type="email" id="email" placeholder="john@email.com"></div>
+      <div class="form-group"><label>Boating Experience *</label>
+        <select id="experience">
+          <option value="">Select level</option>
+          <option value="none">No experience — need orientation</option>
+          <option value="some">Some experience</option>
+          <option value="intermediate">Intermediate — comfortable on water</option>
+          <option value="experienced">Experienced boater</option>
+          <option value="licensed">Licensed captain</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Boating License # (if applicable)</label><input type="text" id="license-num" placeholder="Optional"></div>
+      <div class="addons-card">
+        <div class="section-label" style="margin-bottom:12px">Add-ons (Optional)</div>
+        <select id="addons-select" multiple>
+          <option value="life_jackets">Extra life jackets</option>
+          <option value="anchor">Anchor & rope</option>
+          <option value="fishing_gear">Fishing gear & tackle</option>
+          <option value="snorkel">Snorkel equipment</option>
+          <option value="paddle_board">Stand-up paddle board</option>
+          <option value="tube">Tube/towable</option>
+          <option value="fuel">Full fuel tank prepaid</option>
+          <option value="cooler">Ice chest & ice</option>
+          <option value="bluetooth">Bluetooth speaker</option>
+          <option value="captain">Captained rental (+crew)</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Planned Destination / Activities</label><textarea id="notes" placeholder="Where are you headed? Any special plans?"></textarea></div>
+      <button class="btn-primary" id="btn-step3-next">Continue →</button>
+    </div>
+
+    <!-- Step 4: Waiver -->
+    <div class="step-panel" id="step-4">
+      <button class="btn-back" onclick="goStep(3)">← Back</button>
+      <div class="rental-note">⛵ All renters must sign the liability waiver. The named renter is responsible for the vessel and all passengers.</div>
+      <div class="waiver-text">
+        <strong>BOAT RENTAL AGREEMENT & LIABILITY WAIVER</strong><br><br>
+        I, the undersigned renter ("Renter"), agree to rent the vessel from <span id="waiver-business"></span> ("Operator")
+        under the following terms and conditions:<br><br>
+        <strong>1. Responsibility.</strong> Renter is solely responsible for the safe operation of the vessel and the safety
+        of all passengers. Renter agrees to operate the vessel in a safe and lawful manner in accordance with all applicable
+        federal, state, and local laws.<br><br>
+        <strong>2. Assumption of Risk.</strong> Renter acknowledges that boating activities involve inherent risks including
+        but not limited to: rough water, inclement weather, mechanical failure, collisions, and personal injury or death.
+        Renter voluntarily assumes all such risks.<br><br>
+        <strong>3. Release of Liability.</strong> Renter releases, waives, and discharges the Operator, its agents, employees,
+        and successors from any and all liability, claims, demands, or damages arising from rental or use of the vessel.<br><br>
+        <strong>4. Damage & Security Deposit.</strong> Renter is responsible for any damage to the vessel beyond normal wear.
+        A security deposit may be charged. Renter agrees to return the vessel in the same condition as received.<br><br>
+        <strong>5. Fuel Policy.</strong> Vessel must be returned with the same fuel level as at departure, or a fuel surcharge applies.<br><br>
+        <strong>6. No Alcohol.</strong> Operating the vessel under the influence of alcohol or drugs is strictly prohibited and constitutes
+        grounds for immediate termination of the rental without refund.
+      </div>
+      <div class="sig-wrap">
+        <div class="sig-label">Renter signature</div>
+        <canvas id="waiver-canvas"></canvas>
+        <button class="sig-clear" onclick="clearWaiver()">✕ Clear</button>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="waiver-check">
+        <label for="waiver-check">I have read, understand, and agree to the Boat Rental Agreement & Liability Waiver above.</label>
+      </div>
+      <div class="check-row">
+        <input type="checkbox" id="age-check">
+        <label for="age-check">I confirm I am 18 years of age or older and legally authorized to enter this agreement.</label>
+      </div>
+      <button class="btn-primary" id="btn-step4-next">Continue to Payment →</button>
+    </div>
+
+    <!-- Step 5: Payment -->
+    <div class="step-panel" id="step-5">
+      <button class="btn-back" onclick="goStep(4)">← Back</button>
+      <div class="summary-card">
+        <h3>Rental Summary</h3>
+        <div class="summary-row"><span id="sum-boat">Boat</span><span></span></div>
+        <div class="summary-row"><span id="sum-dates">Dates</span><span></span></div>
+        <div class="summary-row"><span id="sum-type">Type</span><span id="sum-rate"></span></div>
+        <div class="summary-row"><span id="sum-passengers">Passengers</span><span></span></div>
+        <div class="summary-row total"><span>Total</span><span id="sum-total"></span></div>
+        <div class="summary-row deposit"><span>Deposit Due Now</span><span id="sum-deposit"></span></div>
+      </div>
+      <div class="payment-card">
+        <h3>Card Details</h3>
+        <div id="card-element"></div>
+        <div id="card-errors"></div>
+      </div>
+      <button class="btn-primary" id="btn-pay">Pay Deposit & Reserve</button>
+    </div>
+
+    <!-- Success -->
+    <div class="success-screen" id="success-screen">
+      <div class="success-icon">⛵</div>
+      <h2>Reservation Confirmed!</h2>
+      <p>Check your phone for your confirmation. See you on the water!</p>
+      <div class="booking-ref">
+        <div class="ref-label">Booking Reference</div>
+        <div class="ref-val" id="booking-ref-val"></div>
+      </div>
+      <div id="success-details" style="text-align:left;background:#fff;border-radius:12px;padding:16px;font-size:0.88rem;color:#374151;line-height:1.8;"></div>
+    </div>
+  </div>
+</div>
+
+<script src="js/flatpickr.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/choices.min.js"></script>
+<script src="js/dayjs.min.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:3000/api'
+  : 'https://api.cybercheck.com/api';
+
+const params = new URLSearchParams(window.location.search);
+const SITE_ID = params.get('slug') || params.get('site_id') || '';
+
+const state = {
+  config: null,
+  boat: null,
+  rentalType: 'hourly',
+  date: null,
+  dateEnd: null,
+  startTime: null,
+  endTime: null,
+  package: null,
+  partySize: 2,
+  addons: [],
+  totalPrice: 0,
+  depositAmount: 0,
+  stripe: null,
+  cardElement: null,
+  waiverSigned: false,
+  waiverData: null,
+};
+
+async function init() {
+  try {
+    const r = await fetch(`${API}/boat-rental/config/${SITE_ID}`);
+    const data = await r.json();
+    state.config = data;
+    document.getElementById('page-title').textContent = data.page_title || 'Rent a Boat';
+    document.getElementById('business-name-header').textContent = data.business_name || '';
+    document.getElementById('waiver-business').textContent = data.business_name || 'the rental operator';
+    renderBoats(data.boats || []);
+    initStripe(data.stripe_publishable_key);
+  } catch(e) {
+    document.getElementById('boat-loading').innerHTML = '<p style="color:#ef4444;text-align:center;">Failed to load. Please refresh.</p>';
+  }
+}
+
+function initStripe(pk) {
+  if (!pk) return;
+  state.stripe = Stripe(pk);
+  const elements = state.stripe.elements();
+  state.cardElement = elements.create('card', {
+    style: { base: { fontSize: '16px', color: '#0f172a', '::placeholder': { color: '#94a3b8' } } }
+  });
+  state.cardElement.mount('#card-element');
+  state.cardElement.on('change', e => {
+    document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
+  });
+}
+
+// ── Step 1: Boat ──────────────────────────────────────────────
+function renderBoats(boats) {
+  document.getElementById('boat-loading').style.display = 'none';
+  document.getElementById('boat-list').style.display = 'block';
+  const wrap = document.getElementById('boat-slides');
+  if (!boats.length) { wrap.innerHTML = '<p style="color:#94a3b8;text-align:center;padding:20px">No boats available</p>'; return; }
+  wrap.innerHTML = boats.map(b => `
+    <div class="swiper-slide">
+      <div class="boat-card" onclick="selectBoat('${b.id}', this)" data-id="${b.id}">
+        <div class="img-wrap">
+          <img src="${b.image_url || 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=400&q=80'}" alt="${b.name}" loading="lazy">
+          <div class="capacity-badge">👥 Up to ${b.max_passengers}</div>
+        </div>
+        <div class="boat-body">
+          <h3>${b.name}</h3>
+          <div class="boat-meta">${b.year || ''} ${b.make || ''} ${b.model || ''} · ${b.length_ft || ''}ft</div>
+          <div class="boat-price">$${Number(b.hourly_rate || b.base_price).toFixed(0)}/hr</div>
+          <div class="badge-row">
+            ${(b.features || []).map(f => `<span class="badge ${f === 'GPS' || f === 'Live well' ? 'green' : ''}">${f}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  new Swiper('.boat-swiper', { slidesPerView: 'auto', spaceBetween: 14, freeMode: true });
+}
+
+function selectBoat(id, el) {
+  document.querySelectorAll('.boat-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  state.boat = state.config.boats.find(b => b.id === id);
+  document.getElementById('btn-step1-next').disabled = false;
+  updatePackagePrices();
+}
+
+document.getElementById('btn-step1-next').addEventListener('click', () => goStep(2));
+
+// ── Step 2: Rental Type & Dates ───────────────────────────────
+let datepickers = {};
+let choicesInstance;
+
+function setRentalType(type, el) {
+  document.querySelectorAll('.rental-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  state.rentalType = type;
+  ['hourly','halfday','fullday','multiday'].forEach(t => {
+    document.getElementById(`type-${t}`).style.display = t === type ? 'block' : 'none';
+  });
+  state.date = null; state.dateEnd = null; state.package = null; state.startTime = null; state.endTime = null;
+  checkStep2();
+  if (type !== 'hourly' && !datepickers[type]) initDatePicker(type);
+  if (type === 'hourly' && !datepickers.hourly) initDatePicker('hourly');
+}
+
+function initDatePicker(type) {
+  const inputId = type === 'multiday' ? 'multiday-range' : `${type}-date`;
+  const opts = {
+    minDate: 'today',
+    onChange(dates) {
+      if (type === 'multiday') {
+        if (dates.length === 2) {
+          state.date = dayjs(dates[0]).format('YYYY-MM-DD');
+          state.dateEnd = dayjs(dates[1]).format('YYYY-MM-DD');
+          const days = dayjs(state.dateEnd).diff(dayjs(state.date), 'day') + 1;
+          const rate = state.boat ? (state.boat.daily_rate || state.boat.base_price * 8) : 0;
+          document.getElementById('multiday-price-display').textContent =
+            `${days} day${days > 1 ? 's' : ''} × $${Number(rate).toFixed(0)}/day = $${(days * rate).toFixed(2)}`;
+          state.totalPrice = days * rate;
+          checkStep2();
+        }
+      } else {
+        state.date = dayjs(dates[0]).format('YYYY-MM-DD');
+        if (type === 'hourly') populateTimePickers();
+        checkStep2();
+      }
+    }
+  };
+  if (type === 'multiday') { opts.mode = 'range'; opts.inline = false; }
+  else { opts.inline = true; opts.appendTo = document.getElementById(`type-${type}`).querySelector('.date-card'); }
+  datepickers[type] = flatpickr(`#${inputId}`, opts);
+}
+
+function populateTimePickers() {
+  const startSel = document.getElementById('start-time');
+  const endSel = document.getElementById('end-time');
+  const hours = [];
+  for (let h = 6; h <= 20; h++) {
+    ['00','30'].forEach(m => { if (h < 20 || m === '00') hours.push(`${String(h).padStart(2,'0')}:${m}`); });
+  }
+  startSel.innerHTML = hours.map(t => `<option value="${t}">${formatTime(t)}</option>`).join('');
+  endSel.innerHTML = hours.map(t => `<option value="${t}">${formatTime(t)}</option>`).join('');
+  if (endSel.options.length > 4) endSel.selectedIndex = 4; // default 2hr ahead
+  updateHourlySummary();
+  startSel.addEventListener('change', () => { updateHourlySummary(); checkStep2(); });
+  endSel.addEventListener('change', () => { updateHourlySummary(); checkStep2(); });
+}
+
+function formatTime(t) {
+  const [h, m] = t.split(':').map(Number);
+  const ampm = h >= 12 ? 'PM' : 'AM';
+  return `${h % 12 || 12}:${String(m).padStart(2,'0')} ${ampm}`;
+}
+
+function updateHourlySummary() {
+  const start = document.getElementById('start-time').value;
+  const end = document.getElementById('end-time').value;
+  if (!start || !end || !state.boat) return;
+  const [sh, sm] = start.split(':').map(Number);
+  const [eh, em] = end.split(':').map(Number);
+  const hrs = ((eh * 60 + em) - (sh * 60 + sm)) / 60;
+  if (hrs <= 0) { document.getElementById('hourly-summary').textContent = 'End time must be after start time'; state.totalPrice = 0; return; }
+  const rate = state.boat.hourly_rate || state.boat.base_price;
+  state.totalPrice = hrs * rate;
+  state.startTime = start; state.endTime = end;
+  document.getElementById('hourly-summary').textContent = `${hrs} hour${hrs !== 1 ? 's' : ''} × $${Number(rate).toFixed(0)}/hr = $${state.totalPrice.toFixed(2)}`;
+}
+
+function updatePackagePrices() {
+  if (!state.boat) return;
+  const halfPrice = state.boat.halfday_rate || (state.boat.hourly_rate || state.boat.base_price) * 5;
+  const fullPrice = state.boat.fullday_rate || (state.boat.hourly_rate || state.boat.base_price) * 8;
+  const el1 = document.getElementById('pkg-morning-price');
+  const el2 = document.getElementById('pkg-afternoon-price');
+  if (el1) el1.innerHTML = `$${Number(halfPrice).toFixed(0)}<div class="pkg-price-note">per rental</div>`;
+  if (el2) el2.innerHTML = `$${Number(halfPrice).toFixed(0)}<div class="pkg-price-note">per rental</div>`;
+  document.querySelectorAll('.package-btn .pkg-price:not(#pkg-morning-price):not(#pkg-afternoon-price)').forEach(el => {
+    el.innerHTML = `$${Number(fullPrice).toFixed(0)}<div class="pkg-price-note">per rental</div>`;
+  });
+}
+
+function selectPackage(pkg, el) {
+  document.querySelectorAll('.package-btn').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  state.package = pkg;
+  const halfPrice = state.boat ? (state.boat.halfday_rate || (state.boat.hourly_rate || state.boat.base_price) * 5) : 0;
+  state.totalPrice = halfPrice;
+  checkStep2();
+}
+
+let partyMax = 12;
+document.getElementById('dec-party').addEventListener('click', () => {
+  if (state.partySize > 1) { state.partySize--; document.getElementById('party-val').textContent = state.partySize; }
+});
+document.getElementById('inc-party').addEventListener('click', () => {
+  const max = state.boat ? state.boat.max_passengers : partyMax;
+  if (state.partySize < max) { state.partySize++; document.getElementById('party-val').textContent = state.partySize; }
+});
+
+function checkStep2() {
+  let ready = false;
+  if (state.rentalType === 'hourly') ready = !!(state.date && state.startTime && state.endTime && state.totalPrice > 0);
+  else if (state.rentalType === 'halfday') ready = !!(state.date && state.package);
+  else if (state.rentalType === 'fullday') ready = !!state.date;
+  else if (state.rentalType === 'multiday') ready = !!(state.date && state.dateEnd);
+  document.getElementById('btn-step2-next').disabled = !ready;
+}
+document.getElementById('btn-step2-next').addEventListener('click', () => goStep(3));
+
+// ── Step 3 ────────────────────────────────────────────────────
+document.getElementById('btn-step3-next').addEventListener('click', () => {
+  const first = document.getElementById('first-name').value.trim();
+  const last = document.getElementById('last-name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const exp = document.getElementById('experience').value;
+  if (!first || !last || !phone || !exp) { alert('Please fill in all required fields.'); return; }
+  state.addons = choicesInstance ? choicesInstance.getValue(true) : [];
+  goStep(4);
+});
+
+// ── Step 4: Waiver ────────────────────────────────────────────
+let signaturePad;
+function initWaiver() {
+  if (signaturePad) return;
+  const canvas = document.getElementById('waiver-canvas');
+  canvas.width = canvas.offsetWidth;
+  canvas.height = 160;
+  signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgb(255,255,255)', penColor: '#164e63' });
+}
+function clearWaiver() { if (signaturePad) signaturePad.clear(); }
+
+document.getElementById('btn-step4-next').addEventListener('click', () => {
+  if (!document.getElementById('waiver-check').checked) { alert('Please agree to the waiver.'); return; }
+  if (!document.getElementById('age-check').checked) { alert('Please confirm you are 18+.'); return; }
+  state.waiverSigned = true;
+  state.waiverData = signaturePad && !signaturePad.isEmpty() ? signaturePad.toDataURL() : null;
+  goStep(5);
+});
+
+// ── Step 5: Payment ───────────────────────────────────────────
+function buildSummary() {
+  // Calculate final price if not already done for fullday
+  if (state.rentalType === 'fullday' && state.boat) {
+    state.totalPrice = state.boat.fullday_rate || (state.boat.hourly_rate || state.boat.base_price) * 8;
+  }
+  state.depositAmount = Math.round(state.totalPrice * 0.5);
+
+  let dateDisplay = '';
+  if (state.rentalType === 'hourly') dateDisplay = `${dayjs(state.date).format('MMM D')} · ${formatTime(state.startTime)} – ${formatTime(state.endTime)}`;
+  else if (state.rentalType === 'halfday') dateDisplay = `${dayjs(state.date).format('MMM D')} · ${state.package === 'morning' ? '8am–1pm' : '1pm–6pm'}`;
+  else if (state.rentalType === 'fullday') dateDisplay = `${dayjs(state.date).format('MMMM D, YYYY')} · 8am–6pm`;
+  else if (state.rentalType === 'multiday') dateDisplay = `${dayjs(state.date).format('MMM D')} – ${dayjs(state.dateEnd).format('MMM D, YYYY')}`;
+
+  const typeLabel = { hourly: 'Hourly rental', halfday: 'Half-day rental', fullday: 'Full-day rental', multiday: 'Multi-day rental' }[state.rentalType];
+
+  document.getElementById('sum-boat').textContent = state.boat ? state.boat.name : '';
+  document.getElementById('sum-dates').textContent = dateDisplay;
+  document.getElementById('sum-type').textContent = typeLabel;
+  document.getElementById('sum-rate').textContent = `$${state.totalPrice.toFixed(2)}`;
+  document.getElementById('sum-passengers').textContent = `${state.partySize} passenger${state.partySize > 1 ? 's' : ''}`;
+  document.getElementById('sum-total').textContent = `$${state.totalPrice.toFixed(2)}`;
+  document.getElementById('sum-deposit').textContent = `$${state.depositAmount.toFixed(2)}`;
+}
+
+document.getElementById('btn-pay').addEventListener('click', async () => {
+  const btn = document.getElementById('btn-pay');
+  btn.disabled = true; btn.textContent = 'Processing...';
+  try {
+    const res = await fetch(`${API}/boat-rental/book`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        site_id: SITE_ID,
+        boat_id: state.boat.id,
+        boat_name: state.boat.name,
+        rental_type: state.rentalType,
+        rental_date: state.date,
+        rental_date_end: state.dateEnd,
+        start_time: state.startTime,
+        end_time: state.endTime,
+        package: state.package,
+        party_size: state.partySize,
+        total_price: state.totalPrice,
+        deposit_amount: state.depositAmount,
+        addons: state.addons,
+        customer_name: `${document.getElementById('first-name').value.trim()} ${document.getElementById('last-name').value.trim()}`,
+        customer_phone: document.getElementById('phone').value.trim(),
+        customer_email: document.getElementById('email').value.trim(),
+        experience: document.getElementById('experience').value,
+        license_number: document.getElementById('license-num').value.trim(),
+        notes: document.getElementById('notes').value.trim(),
+        waiver_signed: state.waiverSigned,
+        waiver_signature: state.waiverData || null,
+      })
+    });
+    const { client_secret, booking_id, error } = await res.json();
+    if (error) throw new Error(error);
+    const { error: stripeError } = await state.stripe.confirmCardPayment(client_secret, {
+      payment_method: { card: state.cardElement }
+    });
+    if (stripeError) throw new Error(stripeError.message);
+    showSuccess(booking_id);
+  } catch(e) {
+    document.getElementById('card-errors').textContent = e.message;
+    btn.disabled = false; btn.textContent = 'Pay Deposit & Reserve';
+  }
+});
+
+function showSuccess(bookingId) {
+  document.querySelector('.steps-bar').style.display = 'none';
+  document.querySelectorAll('.step-panel').forEach(p => p.style.display = 'none');
+  document.querySelector('.booking-header').style.background = 'linear-gradient(135deg, #064e3b, #059669)';
+  document.getElementById('page-title').textContent = 'Reservation Confirmed!';
+  document.getElementById('booking-ref-val').textContent = bookingId.slice(-8).toUpperCase();
+  document.getElementById('success-details').innerHTML = `
+    <strong>${state.boat.name}</strong><br>
+    📅 ${state.rentalType} rental<br>
+    👥 ${state.partySize} passenger${state.partySize > 1 ? 's' : ''}<br>
+    💰 Deposit paid: $${state.depositAmount.toFixed(2)}<br>
+    💬 Confirmation sent to ${document.getElementById('phone').value.trim()}
+  `;
+  document.getElementById('success-screen').classList.add('show');
+}
+
+// ── Navigation ────────────────────────────────────────────────
+function goStep(n) {
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.step-tab').forEach(t => {
+    const tn = parseInt(t.dataset.step);
+    t.classList.toggle('active', tn === n);
+    t.classList.toggle('done', tn < n);
+  });
+  document.getElementById(`step-${n}`).classList.add('active');
+  window.scrollTo(0, 0);
+  if (n === 2 && !datepickers.hourly) initDatePicker('hourly');
+  if (n === 3) setTimeout(() => {
+    if (!choicesInstance) choicesInstance = new Choices('#addons-select', { removeItemButton: true, placeholder: true, placeholderValue: 'Select add-ons...' });
+  }, 100);
+  if (n === 4) setTimeout(initWaiver, 100);
+  if (n === 5) buildSummary();
+}
+
+window.SignaturePad = undefined;
+</script>
+<script src="js/signature_pad.min.js"></script>
+<script>init();</script>
+</body>
+</html>

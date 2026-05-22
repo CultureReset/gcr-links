@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; background: white; min-height: 100vh; }
+    .header { background: linear-gradient(135deg, #0b7a75, #13a89f); color: white; padding: 40px 20px 30px; text-align: center; }
+    .business-name { font-size: 28px; font-weight: 700; margin-bottom: 8px; }
+    .business-type { font-size: 13px; opacity: 0.9; }
+    .content { padding: 20px; }
+    .section { margin-bottom: 24px; }
+    .section-title { font-size: 16px; font-weight: 700; color: #0b7a75; margin-bottom: 12px; border-bottom: 2px solid #0b7a75; padding-bottom: 8px; }
+    .section-times { font-size: 12px; color: #666; font-weight: normal; margin-top: 4px; }
+    .item { padding: 14px; background: #f9f9f9; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #0b7a75; }
+    .item-name { font-weight: 600; font-size: 15px; margin-bottom: 4px; }
+    .item-desc { font-size: 13px; color: #666; margin-bottom: 8px; }
+    .item-price { font-weight: 700; color: #0b7a75; font-size: 14px; }
+    .empty { text-align: center; padding: 40px 20px; color: #999; }
+    .loading { text-align: center; padding: 40px 20px; color: #999; }
+    .spinner { display: inline-block; width: 30px; height: 30px; border: 3px solid #e0e0e0; border-top: 3px solid #0b7a75; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 12px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .footer { padding: 20px; text-align: center; font-size: 12px; color: #999; border-top: 1px solid #eee; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="business-name" id="name">Menu</div>
+    <div class="business-type" id="type"></div>
+  </div>
+  <div class="content" id="content">
+    <div class="loading"><div class="spinner"></div>Loading...</div>
+  </div>
+  <div class="footer">Powered by Gulf Coast Radar</div>
+</div>
+
+<script>
+const API = 'https://cybercheck-api-database.vercel.app';
+const params = new URLSearchParams(location.search);
+const SLUG = params.get('slug');
+const PIN = params.get('pin');
+
+async function main() {
+  // PIN validation
+  if (PIN) {
+    const key = 'pin_' + SLUG;
+    if (sessionStorage.getItem(key) !== PIN) {
+      const entered = prompt('Enter PIN to view menu:');
+      if (!entered || entered.toString().trim() !== PIN.toString().trim()) {
+        document.getElementById('content').innerHTML = '<div class="empty">Access denied</div>';
+        return;
+      }
+      sessionStorage.setItem(key, PIN);
+    }
+  }
+
+  if (!SLUG) {
+    document.getElementById('content').innerHTML = '<div class="empty">No menu</div>';
+    return;
+  }
+
+  try {
+    const res = await fetch(API + '/api/gcr/entity/' + SLUG);
+    const data = await res.json();
+    const entity = data.entity || {};
+
+    document.getElementById('name').textContent = entity.name || 'Menu';
+    document.getElementById('type').textContent = entity.entity_subtype || '';
+
+    // API returns sections and items across menu, drinks, and happy_hour categories
+    const menuSections = (data.menu && data.menu.sections) || [];
+    const menuItems = (data.menu && data.menu.items) || [];
+    const drinkSections = (data.drinks && data.drinks.sections) || [];
+    const drinkItems = (data.drinks && data.drinks.items) || [];
+    const hhSections = (data.happy_hour && data.happy_hour.sections) || [];
+    const hhItems = (data.happy_hour && data.happy_hour.items) || [];
+
+    // Combine all sections and items
+    const allSections = menuSections.concat(drinkSections, hhSections);
+    const allItems = menuItems.concat(drinkItems, hhItems);
+
+    if (!allSections.length || !allItems.length) {
+      document.getElementById('content').innerHTML = '<div class="empty">No items</div>';
+      return;
+    }
+
+    let html = '';
+    allSections.forEach((section, idx) => {
+      // Find items linked to this section
+      // For happy hour, include all HH items (they're not individually linked by section_id)
+      let sectionItems;
+      if (section.section_name && section.section_name.includes('Happy')) {
+        sectionItems = hhItems;
+      } else {
+        sectionItems = allItems.filter(i =>
+          i.menu_section_id === section.id ||
+          i.drink_section_id === section.id ||
+          i.section_id === section.id
+        );
+      }
+
+      if (!sectionItems.length) return;
+
+      const sectionName = section.section_name || section.section_label || 'Items';
+      let titleHtml = '<div class="section-title">' + sectionName;
+
+      // Add Happy Hour times if this is the HH section
+      if (section.section_name && section.section_name.includes('Happy') && entity.hh_days) {
+        const formatTime = (t) => {
+          if (!t) return '';
+          const [hours, mins] = t.split(':');
+          const h = parseInt(hours);
+          const m = mins.substring(0, 2);
+          const ampm = h >= 12 ? 'pm' : 'am';
+          const displayH = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+          return displayH + ':' + m + ampm;
+        };
+        const timeStr = formatTime(entity.hh_start) + '–' + formatTime(entity.hh_end);
+        titleHtml += '<div class="section-times">' + entity.hh_days + ' ' + timeStr + '</div>';
+      }
+      titleHtml += '</div>';
+
+      html += '<div class="section">' + titleHtml;
+      sectionItems.forEach(item => {
+        const itemName = item.item_name || item.name || '';
+        const itemDesc = item.description || item.item_description || '';
+        const itemPrice = item.price || item.hh_price || item.price_numeric;
+
+        html += '<div class="item"><div class="item-name">' + itemName + '</div>';
+        if (itemDesc) html += '<div class="item-desc">' + itemDesc + '</div>';
+        if (itemPrice) html += '<div class="item-price">$' + itemPrice.toFixed(2) + '</div>';
+        html += '</div>';
+      });
+      html += '</div>';
+    });
+
+    document.getElementById('content').innerHTML = html || '<div class="empty">No items</div>';
+  } catch (err) {
+    document.getElementById('content').innerHTML = '<div class="empty">Error loading menu</div>';
+  }
+}
+
+main();
+</script>
+</body>
+</html>

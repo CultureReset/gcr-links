@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Guest Concierge for Vacation Rental Owners | aWavegent</title>
+  <style>
+    :root{
+      --navy:#0f2740;--blue:#1672b8;--teal:#1f9bb6;--orange:#f47b20;--text:#1b2a38;
+      --muted:#5a6a78;--line:rgba(15,39,64,0.12);--shadow:0 20px 50px rgba(10,31,52,0.12);
+      --radius:24px;--success:#0f9d75;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;color:var(--text);background:linear-gradient(180deg,#f8fcff 0%, #fffaf4 100%);line-height:1.55}
+    a{text-decoration:none;color:inherit}
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:60;backdrop-filter:blur(14px);background:rgba(255,255,255,0.88);border-bottom:1px solid rgba(15,39,64,0.08)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;gap:16px}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:800;color:var(--navy);letter-spacing:-0.02em}
+    .brand-badge{width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--teal));color:white;display:grid;place-items:center;font-size:18px;box-shadow:var(--shadow)}
+    .nav-links{display:flex;gap:20px;align-items:center;flex-wrap:wrap;color:var(--muted);font-size:15px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;padding:14px 22px;font-weight:700;border:0;cursor:pointer;transition:.2s ease}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:linear-gradient(135deg,var(--orange),#ff9750);color:white;box-shadow:0 14px 30px rgba(244,123,32,0.28)}
+    .btn-secondary{background:white;color:var(--navy);border:1px solid rgba(15,39,64,0.12)}
+    .hero{padding:66px 0 40px;background:radial-gradient(circle at top right, rgba(22,114,184,.14), transparent 30%), radial-gradient(circle at top left, rgba(31,155,182,.10), transparent 28%)}
+    .hero-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(31,155,182,0.10);color:#0a7185;padding:10px 14px;border-radius:999px;font-size:14px;font-weight:700;margin-bottom:18px}
+    h1{margin:0 0 16px;font-size:clamp(40px,6vw,72px);line-height:.96;letter-spacing:-0.05em;color:var(--navy);max-width:780px}
+    .lead{font-size:clamp(18px,2.4vw,22px);color:var(--muted);margin:0 0 28px;max-width:760px}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:22px}
+    .hero-proof{display:flex;flex-wrap:wrap;gap:12px}
+    .proof-pill{background:rgba(255,255,255,0.94);padding:10px 14px;border-radius:999px;border:1px solid rgba(15,39,64,0.08);box-shadow:0 8px 24px rgba(15,39,64,0.06);font-size:14px;color:var(--muted)}
+    .card{background:rgba(255,255,255,0.96);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .demo-card{padding:18px;max-width:410px;margin-left:auto}
+    .widget-shell{background:#101822;border-radius:30px;padding:12px;box-shadow:0 30px 70px rgba(7,24,42,0.30)}
+    .widget-screen{background:linear-gradient(180deg,#0b5fa0 0%, #73d0ff 24%, #fff7ef 100%);border-radius:24px;overflow:hidden;min-height:640px}
+    .widget-top{padding:20px 18px 14px;color:white}
+    .widget-title{font-size:18px;font-weight:800}
+    .widget-sub{font-size:12px;opacity:.92}
+    .chat{display:flex;flex-direction:column;gap:12px;padding:12px 14px 18px}
+    .bubble{max-width:88%;border-radius:18px;padding:12px 14px;font-size:14px;line-height:1.45;box-shadow:0 8px 24px rgba(10,31,52,0.08)}
+    .bubble.agent{background:rgba(255,255,255,0.96);color:var(--text);align-self:flex-start;border-bottom-left-radius:8px}
+    .bubble.user{background:#dff3ff;color:#0b3c56;align-self:flex-end;border-bottom-right-radius:8px}
+    .bubble small{display:block;margin-top:6px;color:#6b7b88;font-size:12px}
+    section{padding:42px 0}
+    .section-head{text-align:center;max-width:840px;margin:0 auto 26px}
+    h2{margin:0 0 12px;font-size:clamp(32px,4vw,54px);line-height:1.02;letter-spacing:-0.04em;color:var(--navy)}
+    .section-head p{margin:0;color:var(--muted);font-size:18px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+    .content-card{padding:24px}
+    .content-card h3{margin:0 0 10px;font-size:22px;color:var(--navy)}
+    .content-card p{margin:0;color:var(--muted)}
+    ul.clean{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+    ul.clean li{position:relative;padding-left:20px;color:var(--text)}
+    ul.clean li::before{content:"✓";position:absolute;left:0;top:0;color:var(--success);font-weight:900}
+    .compare-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .compare-bad{border-top:4px solid #e25d5d}
+    .compare-good{border-top:4px solid var(--success)}
+    .qa-list{display:grid;gap:12px}
+    .qa-item{border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,0.92)}
+    .qa-q{font-weight:800;color:var(--navy);margin-bottom:6px}
+    .qa-a{color:var(--muted)}
+    .cta{margin:44px 0 72px;background:linear-gradient(135deg,var(--navy),#1b567b);color:white;border-radius:32px;padding:34px;box-shadow:0 30px 70px rgba(10,31,52,0.22)}
+    .cta-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:center}
+    form{display:grid;gap:12px}
+    input,select,textarea{width:100%;padding:14px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.16);background:rgba(255,255,255,0.10);color:white;font:inherit}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.75)}
+    .small{font-size:13px;color:rgba(255,255,255,.78)}
+    footer{padding:30px 0 44px;color:var(--muted);font-size:14px}
+    @media (max-width: 940px){.hero-wrap,.grid-3,.grid-2,.compare-wrap,.cta-grid{grid-template-columns:1fr}.demo-card{margin:0 auto}.nav{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container nav">
+      <div class="brand"><div class="brand-badge">aW</div><div>aWavegent</div></div>
+      <div class="nav-links"><a href="#problem">Problem</a><a href="#solution">Solution</a><a href="#questions">Questions</a><a href="#cta">Get Started</a></div>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="container hero-wrap">
+      <div>
+        <div class="eyebrow">Built for single-property owners and small hosts</div>
+        <h1>Make your rental site feel like a personal local concierge.</h1>
+        <p class="lead">We add a smart guest concierge to your website that answers common questions, helps guests plan before arrival, makes your property feel more high-touch, and gives you an easier way to support guests without being on your phone all day.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cta">Request Setup</a>
+          <a class="btn btn-secondary" href="#questions">See Example Questions</a>
+        </div>
+        <div class="hero-proof">
+          <div class="proof-pill">Feels more personal</div><div class="proof-pill">Less back-and-forth</div><div class="proof-pill">Better guest prep</div><div class="proof-pill">More premium experience</div>
+        </div>
+      </div>
+      <div class="demo-card card">
+        <div class="widget-shell">
+          <div class="widget-screen">
+            <div class="widget-top">
+              <div class="widget-title">Guest Concierge</div>
+              <div class="widget-sub">Lives on your website and helps guests before arrival</div>
+            </div>
+            <div class="chat">
+              <div class="bubble user">Can we check in early?</div>
+              <div class="bubble agent">I can tell you your early check-in options, parking details, and where to grab lunch while you wait.<small>Turns questions into smoother arrivals</small></div>
+              <div class="bubble user">What should we do tomorrow?</div>
+              <div class="bubble agent">I can recommend family activities, boat rentals, restaurants, and rainy-day options near your property.<small>Makes your site useful before the trip starts</small></div>
+              <div class="bubble user">Is beach gear included?</div>
+              <div class="bubble agent">I can check this unit’s amenities and also recommend nearby rental options if needed.<small>Reduces repetitive calls to staff</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="container">
+      <div class="section-head">
+        <h2>Why this matters</h2>
+        <p>This works best when the website stops being a static listing page and starts helping guests before they arrive.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card content-card"><h3>What small owners deal with</h3><ul class="clean"><li>Guests text or call with the same questions</li><li>You become the full-time concierge</li><li>Trip-planning questions eat up time</li><li>Guests arrive without key details</li><li>Support spills into nights and weekends</li></ul></div><div class="card content-card"><h3>What that costs</h3><ul class="clean"><li>More interruptions</li><li>More stress managing the property</li><li>Harder to look professional at scale</li><li>More guest confusion</li><li>Less time for higher-value work</li></ul></div><div class="card content-card"><h3>What owners really want</h3><ul class="clean"><li>A website that feels helpful</li><li>Fewer repetitive messages</li><li>A more premium guest experience</li><li>A better way to answer questions 24/7</li><li>More add-on and local referral potential</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="solution">
+    <div class="container">
+      <div class="section-head">
+        <h2>Old website vs smart concierge website</h2>
+        <p>Sell this as a better guest experience and less manual support, not as “AI for the sake of AI.”</p>
+      </div>
+      <div class="compare-wrap">
+        <div class="card content-card compare-bad"><h3>The old way</h3><ul class="clean"><li>Basic listing or direct-booking page</li><li>Guests text for every detail</li><li>No pre-arrival trip planning help</li><li>Owner handles every question personally</li><li>Site does not add much value after booking</li></ul></div>
+        <div class="card content-card compare-good"><h3>The aWavegent way</h3><ul class="clean"><li>Website acts like a local concierge</li><li>Answers common property questions instantly</li><li>Helps guests plan their stay</li><li>Feels more premium and personal</li><li>Reduces constant back-and-forth</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="container">
+      <div class="section-head">
+        <h2>What it can answer for guests</h2>
+        <p>These examples make the value obvious fast.</p>
+      </div>
+      <div class="grid-2">
+        <div class="qa-list">
+          <div class="qa-item"><div class="qa-q">Property questions</div><div class="qa-a">Check-in time, parking, beach gear, Wi-Fi, pet policy, what is included, and house rules.</div></div><div class="qa-item"><div class="qa-q">Trip planning</div><div class="qa-a">Best nearby restaurants, breakfast spots, family activities, beach gear rentals, and rainy-day options.</div></div><div class="qa-item"><div class="qa-q">Arrival prep</div><div class="qa-a">What to bring, how to enter, and what to know before getting into town.</div></div>
+        </div>
+        <div class="qa-list">
+          <div class="qa-item"><div class="qa-q">Local recommendations</div><div class="qa-a">Useful suggestions that make the stay feel more curated and personal.</div></div><div class="qa-item"><div class="qa-q">Owner relief</div><div class="qa-a">Cuts down on constant phone and text interruptions before check-in.</div></div><div class="qa-item"><div class="qa-q">Premium feel</div><div class="qa-a">Helps a single property feel more polished, modern, and high-touch.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>What is included</h2>
+        <p>Start with the concierge layer first. Add deeper integrations later.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card content-card"><h3>Website concierge widget</h3><p>A helpful guest assistant that lives on your booking or property website.</p></div><div class="card content-card"><h3>Property knowledge setup</h3><p>Answers based on your rental’s details and policies.</p></div><div class="card content-card"><h3>Pre-arrival guest support</h3><p>Guests get answers before they travel, not after confusion starts.</p></div><div class="card content-card"><h3>Local recommendation layer</h3><p>Guide guests toward restaurants, activities, and local experiences.</p></div><div class="card content-card"><h3>Less owner interruption</h3><p>Reduces repetitive calls and texts for the same questions.</p></div><div class="card content-card"><h3>Future growth options</h3><p>Add upgrades, local partner referrals, and deeper guest automation later.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container cta">
+      <div class="cta-grid">
+        <div>
+          <div class="eyebrow" style="background:rgba(255,255,255,.10); color:#fff;">Get started</div>
+          <h2 style="color:white; margin-top:0;">Make your rental website feel like a real concierge.</h2>
+          <p style="color:rgba(255,255,255,.82); font-size:18px; margin:0;">Best for owners who want a more premium guest experience, fewer repetitive messages, and a smarter site that helps guests before they arrive.</p>
+        </div>
+        <div>
+          <form>
+            <input type="text" placeholder="Company or property name" />
+            <input type="text" placeholder="Contact name" />
+            <input type="tel" placeholder="Phone number" />
+            <input type="email" placeholder="Email address" />
+            <select>
+              <option>How many rentals do you own?</option>
+              <option>1 property</option><option>2–3 properties</option><option>4–10 properties</option>
+            </select>
+            <textarea rows="4" placeholder="What questions do guests ask most often?"></textarea>
+            <button class="btn btn-primary" type="button">Request Setup</button>
+          </form>
+          <div class="small" style="margin-top:12px;">Launch with guest support first. Add upsells, referrals, and deeper automation after.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer><div class="container">aWavegent — a smarter, more personal guest concierge for vacation rental owners.</div></footer>
+</body>
+</html>

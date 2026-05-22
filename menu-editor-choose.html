@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Choose Menu Editor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0b7a75, #065f5b);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container { max-width: 600px; width: 100%; }
+    .header {
+      text-align: center;
+      color: #fff;
+      margin-bottom: 40px;
+    }
+    .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+    .header p { font-size: 14px; opacity: 0.9; }
+    .options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .option {
+      background: #fff;
+      border-radius: 16px;
+      padding: 24px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .option:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .option-icon { font-size: 40px; margin-bottom: 12px; }
+    .option-title { font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 8px; }
+    .option-desc { font-size: 12px; color: #64748b; line-height: 1.5; margin-bottom: 16px; flex: 1; }
+    .option-badge {
+      display: inline-block;
+      background: #f0fdf4;
+      color: #16a34a;
+      border: 1px solid #86efac;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .option-cta {
+      background: #0b7a75;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      border: none;
+      cursor: pointer;
+    }
+    .option-cta:hover { background: #065f5b; }
+
+    @media (max-width: 600px) {
+      .options { grid-template-columns: 1fr; }
+      .header h1 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1 id="biz-name">Loading...</h1>
+    <p>Choose your menu editor</p>
+  </div>
+
+  <div class="options" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));">
+    <!-- OPTION 1: PIN-BASED -->
+    <a href="" id="link-pin" class="option">
+      <div class="option-icon">📱</div>
+      <div class="option-title">Quick Edit</div>
+      <div class="option-badge">🔒 PIN</div>
+      <div class="option-desc">Simple, fast daily updates. Edit & save instantly.</div>
+      <button class="option-cta">Open →</button>
+    </a>
+
+    <!-- OPTION 2: TOKEN-BASED -->
+    <a href="" id="link-token" class="option">
+      <div class="option-icon">⚙️</div>
+      <div class="option-title">Full Editor</div>
+      <div class="option-badge">🔐 Token</div>
+      <div class="option-desc">Advanced features. Rotation, detailed management.</div>
+      <button class="option-cta">Open →</button>
+    </a>
+
+    <!-- OPTION 3: PIN WITH ADS -->
+    <a href="" id="link-ads" class="option">
+      <div class="option-icon">📢</div>
+      <div class="option-title">Quick + Ads</div>
+      <div class="option-badge">🔒 PIN</div>
+      <div class="option-desc">Edit menu with sample ads displayed inline.</div>
+      <button class="option-cta">Open →</button>
+    </a>
+  </div>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get('slug');
+const TOKEN = params.get('token');
+const API = 'https://cybercheck-api-database.vercel.app';
+
+// Load restaurant name
+async function init() {
+  try {
+    const r = await fetch(`${API}/api/gcr/entity/${encodeURIComponent(SLUG || '')}`);
+    if (r.ok) {
+      const d = await r.json();
+      document.getElementById('biz-name').textContent = d.entity?.name || 'Menu Editor';
+    }
+  } catch (e) {}
+
+  // Set links
+  if (SLUG) {
+    document.getElementById('link-pin').href = `daily-menu.html?slug=${encodeURIComponent(SLUG)}`;
+    document.getElementById('link-ads').href = `daily-menu-ads.html?slug=${encodeURIComponent(SLUG)}`;
+  }
+  if (TOKEN) {
+    document.getElementById('link-token').href = `menu-editor.html?token=${encodeURIComponent(TOKEN)}`;
+  }
+
+  // Hide options that aren't available
+  if (!SLUG) document.getElementById('link-pin').style.display = 'none';
+  if (!SLUG) document.getElementById('link-ads').style.display = 'none';
+  if (!TOKEN) document.getElementById('link-token').style.display = 'none';
+}
+
+init();
+</script>
+
+</body>
+</html>

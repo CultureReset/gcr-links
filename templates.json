@@ -1,0 +1,40 @@
+{
+  "templates": [
+    {
+      "id": "dark-photo-menu",
+      "name": "Dark Photo Menu",
+      "description": "Full-screen dark theme menu with photos, artist card, music lineup, booking CTA",
+      "file": "mobile_menu_with_photos.html",
+      "route": "/:slug/menu-photo",
+      "best_for": ["restaurant", "bar", "venue"],
+      "blocks": ["hero", "artist", "menu-grid", "music-lineup", "booking"]
+    },
+    {
+      "id": "dark-home",
+      "name": "Dark Business Home",
+      "description": "Mobile homepage with hero, live artist strip, menu preview, loyalty, booking",
+      "file": "mobile_restaurant_homepage.html",
+      "route": "/:slug/home",
+      "best_for": ["restaurant", "bar", "venue", "any"],
+      "blocks": ["hero", "live-strip", "menu-preview", "booking", "loyalty"]
+    },
+    {
+      "id": "links-page",
+      "name": "Links / Bio Page",
+      "description": "Linktree-style bio page with contact, social, quick links, hours, HH, artist",
+      "file": "links-page.html",
+      "route": "/:slug/links",
+      "best_for": ["any"],
+      "blocks": ["profile", "artist", "happy-hour", "links", "hours"]
+    },
+    {
+      "id": "qr-menu",
+      "name": "QR Menu",
+      "description": "Full QR menu with tabs, daily specials, HH, catch of the day, events, booking",
+      "file": "qr-menu.html",
+      "route": "/:slug/menu",
+      "best_for": ["restaurant", "bar", "charter", "any"],
+      "blocks": ["header", "menu-tabs", "happy-hour", "specials", "events", "booking"]
+    }
+  ]
+}

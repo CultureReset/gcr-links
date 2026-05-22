@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reviews</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f8f9fa; --card: #ffffff; --border: #e8ecf0;
+  --text: #1a202c; --muted: #718096; --mid: #4a5568;
+  --primary: #0096c7; --gold: #f59e0b;
+  --green: #38a169; --red: #e53e3e;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --radius: 14px;
+}
+body { font-family: var(--font); background: var(--bg); color: var(--text); min-height: 100vh; }
+a { color: var(--primary); text-decoration: none; }
+
+/* ── HEADER ── */
+.hero {
+  background: linear-gradient(135deg, #0a2233 0%, #0096c7 100%);
+  padding: 48px 24px 40px; text-align: center; color: #fff;
+  position: relative; overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 40px;
+  background: var(--bg); clip-path: ellipse(55% 100% at 50% 100%);
+}
+.biz-logo { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; border: 3px solid rgba(255,255,255,0.3); margin: 0 auto 14px; display: block; background: rgba(255,255,255,0.15); }
+.biz-initial { width: 72px; height: 72px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; margin: 0 auto 14px; }
+.biz-name { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+.platform-tag { font-size: 12px; opacity: 0.7; letter-spacing: 1px; text-transform: uppercase; }
+
+/* ── STATS ── */
+.stats-wrap { max-width: 700px; margin: -8px auto 0; padding: 0 20px; }
+.stats-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; }
+.avg-block { text-align: center; }
+.avg-num { font-size: 56px; font-weight: 900; color: var(--text); line-height: 1; letter-spacing: -2px; }
+.avg-stars { font-size: 22px; color: var(--gold); letter-spacing: 2px; margin: 4px 0; }
+.avg-count { font-size: 13px; color: var(--muted); }
+.dist-bars { display: flex; flex-direction: column; gap: 6px; }
+.dist-row { display: flex; align-items: center; gap: 10px; font-size: 13px; }
+.dist-label { width: 16px; text-align: right; color: var(--muted); font-weight: 600; flex-shrink: 0; }
+.dist-bar-wrap { flex: 1; height: 8px; background: #edf2f7; border-radius: 4px; overflow: hidden; }
+.dist-bar { height: 100%; background: var(--gold); border-radius: 4px; transition: width 0.6s ease; }
+.dist-count { width: 28px; text-align: right; color: var(--muted); font-size: 12px; flex-shrink: 0; }
+
+/* ── FILTERS ── */
+.filters-wrap { max-width: 700px; margin: 20px auto 0; padding: 0 20px; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.filter-btn { padding: 7px 16px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--mid); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+.filter-btn.active { background: var(--primary); border-color: var(--primary); color: #fff; font-weight: 600; }
+.sort-select { margin-left: auto; padding: 7px 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--card); color: var(--mid); font-size: 13px; cursor: pointer; outline: none; }
+
+/* ── REVIEWS ── */
+.reviews-wrap { max-width: 700px; margin: 20px auto 60px; padding: 0 20px; display: flex; flex-direction: column; gap: 14px; }
+.review-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+.review-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.reviewer-name { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.review-meta { font-size: 12px; color: var(--muted); }
+.review-stars { font-size: 18px; color: var(--gold); letter-spacing: 1px; }
+.review-text { font-size: 15px; line-height: 1.65; color: var(--text); margin-bottom: 12px; }
+.review-items { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.item-chip { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px; background: #f0f9ff; color: #0369a1; border: 1px solid #bae6fd; }
+.owner-reply { background: #f7fafc; border-left: 3px solid var(--primary); border-radius: 0 8px 8px 0; padding: 12px 14px; font-size: 13px; color: var(--mid); line-height: 1.55; margin-top: 10px; }
+.owner-reply strong { color: var(--primary); display: block; font-size: 12px; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+/* ── EMPTY / LOADER ── */
+.empty { text-align: center; padding: 60px 24px; color: var(--muted); font-size: 15px; }
+.empty-icon { font-size: 48px; margin-bottom: 12px; }
+.loader { text-align: center; padding: 60px 24px; }
+.spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 12px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── FOOTER ── */
+.page-footer { text-align: center; padding: 28px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); }
+.page-footer a { color: var(--primary); }
+
+@media (max-width: 520px) {
+  .stats-card { grid-template-columns: 1fr; gap: 16px; }
+  .avg-block { display: flex; align-items: center; gap: 16px; text-align: left; }
+  .avg-num { font-size: 44px; }
+  .hero { padding: 36px 20px 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hero" id="hero">
+  <div class="spinner" style="width:28px;height:28px;border:3px solid rgba(255,255,255,0.2);border-top-color:#fff;margin:0 auto 12px;"></div>
+  <div style="opacity:0.6;font-size:14px;">Loading reviews…</div>
+</div>
+
+<!-- STATS -->
+<div class="stats-wrap" id="stats-wrap" style="display:none;">
+  <div class="stats-card">
+    <div class="avg-block">
+      <div class="avg-num" id="avg-num">—</div>
+      <div class="avg-stars" id="avg-stars">☆☆☆☆☆</div>
+      <div class="avg-count" id="avg-count">0 reviews</div>
+    </div>
+    <div class="dist-bars" id="dist-bars"></div>
+  </div>
+</div>
+
+<!-- FILTERS -->
+<div class="filters-wrap" id="filters-wrap" style="display:none;">
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+    <button class="filter-btn" onclick="setFilter(5,this)">⭐⭐⭐⭐⭐</button>
+    <button class="filter-btn" onclick="setFilter(4,this)">⭐⭐⭐⭐</button>
+    <button class="filter-btn" onclick="setFilter('low',this)">1–3 Stars</button>
+    <select class="sort-select" onchange="setSort(this.value)">
+      <option value="newest">Newest first</option>
+      <option value="highest">Highest rated</option>
+      <option value="lowest">Lowest rated</option>
+    </select>
+  </div>
+</div>
+
+<!-- REVIEWS LIST -->
+<div class="reviews-wrap" id="reviews-wrap">
+  <div class="loader"><div class="spinner"></div></div>
+</div>
+
+<div class="page-footer">
+  Powered by <a href="https://cybercheck-links.vercel.app" target="_blank">CyberCheck Reviews</a>
+</div>
+
+<script>
+const API     = 'https://cybercheck-api-database.vercel.app';
+const params  = new URLSearchParams(location.search);
+const siteId  = params.get('s') || params.get('site_id');
+
+let _allReviews = [];
+let _filter     = 'all';
+let _sort       = 'newest';
+
+async function init() {
+  if (!siteId) { showError('No business specified.'); return; }
+  try {
+    const r = await fetch(`${API}/api/reviews/public/${siteId}`);
+    if (!r.ok) throw new Error('Not found');
+    const d = await r.json();
+    _allReviews = d.reviews || [];
+    renderHero(d.business);
+    renderStats(d.stats);
+    renderReviews();
+    document.getElementById('stats-wrap').style.display  = '';
+    document.getElementById('filters-wrap').style.display = '';
+  } catch (e) {
+    showError('Could not load reviews.');
+  }
+}
+
+function renderHero(biz) {
+  const hero = document.getElementById('hero');
+  const name = biz.name || 'Reviews';
+  document.title = name + ' — Reviews';
+  const logoHtml = biz.logo_url
+    ? `<img src="${esc(biz.logo_url)}" class="biz-logo" alt="${esc(name)}">`
+    : `<div class="biz-initial">${esc(name[0] || '★')}</div>`;
+  hero.innerHTML = `${logoHtml}
+    <div class="biz-name">${esc(name)}</div>
+    <div class="platform-tag">⭐ CyberCheck Reviews</div>`;
+}
+
+function renderStats(stats) {
+  const avg   = stats.avg || 0;
+  const total = stats.total || 0;
+  const dist  = stats.distribution || {};
+
+  document.getElementById('avg-num').textContent   = avg ? avg.toFixed(1) : '—';
+  document.getElementById('avg-stars').textContent = starsText(Math.round(avg));
+  document.getElementById('avg-count').textContent = total + ' review' + (total !== 1 ? 's' : '');
+
+  const barsEl = document.getElementById('dist-bars');
+  const max = Math.max(...Object.values(dist), 1);
+  barsEl.innerHTML = [5,4,3,2,1].map(n => {
+    const count = dist[n] || 0;
+    const pct   = Math.round(count / max * 100);
+    return `<div class="dist-row">
+      <div class="dist-label">${n}</div>
+      <div class="dist-bar-wrap"><div class="dist-bar" style="width:${pct}%"></div></div>
+      <div class="dist-count">${count}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderReviews() {
+  const wrap = document.getElementById('reviews-wrap');
+  let list = [..._allReviews];
+
+  // Filter
+  if (_filter === 5)     list = list.filter(r => r.rating === 5);
+  else if (_filter === 4) list = list.filter(r => r.rating === 4);
+  else if (_filter === 'low') list = list.filter(r => r.rating <= 3);
+
+  // Sort
+  if (_sort === 'highest') list.sort((a,b) => b.rating - a.rating);
+  else if (_sort === 'lowest') list.sort((a,b) => a.rating - b.rating);
+  else list.sort((a,b) => new Date(b.created_at) - new Date(a.created_at));
+
+  if (!list.length) {
+    wrap.innerHTML = `<div class="empty"><div class="empty-icon">💬</div>No reviews match this filter.</div>`;
+    return;
+  }
+
+  wrap.innerHTML = list.map(r => {
+    const req   = r.review_requests || {};
+    const items = req.items_ordered || [];
+    const name  = r.customer_name || 'Anonymous';
+    const initial = name[0] || '?';
+    const dt    = new Date(r.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const visitInfo = [
+      req.visit_date ? new Date(req.visit_date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : null,
+      req.table_number ? 'Table ' + req.table_number : null,
+    ].filter(Boolean).join(' · ');
+
+    const itemChips = items.slice(0, 4).map(i => {
+      const n = i.name || i.item_name || i;
+      return n ? `<span class="item-chip">🍽️ ${esc(String(n))}</span>` : '';
+    }).join('');
+
+    const replyHtml = r.owner_reply
+      ? `<div class="owner-reply"><strong>Owner Response</strong>${esc(r.owner_reply)}</div>`
+      : '';
+
+    return `<div class="review-card">
+      <div class="review-top">
+        <div>
+          <div class="reviewer-name">${esc(name)}</div>
+          <div class="review-meta">${dt}${visitInfo ? ' · ' + visitInfo : ''}</div>
+        </div>
+        <div class="review-stars">${starsText(r.rating)}</div>
+      </div>
+      ${r.text ? `<div class="review-text">"${esc(r.text)}"</div>` : ''}
+      ${itemChips ? `<div class="review-items">${itemChips}</div>` : ''}
+      ${replyHtml}
+    </div>`;
+  }).join('');
+}
+
+function setFilter(val, btn) {
+  _filter = val;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReviews();
+}
+
+function setSort(val) {
+  _sort = val;
+  renderReviews();
+}
+
+function starsText(n) {
+  n = Math.max(0, Math.min(5, Math.round(n || 0)));
+  return '★'.repeat(n) + '☆'.repeat(5 - n);
+}
+
+function showError(msg) {
+  document.getElementById('hero').innerHTML = `<div style="font-size:36px;margin-bottom:12px;">⭐</div><div style="font-size:18px;font-weight:700;">CyberCheck Reviews</div>`;
+  document.getElementById('reviews-wrap').innerHTML = `<div class="empty"><div class="empty-icon">⚠️</div>${esc(msg)}</div>`;
+}
+
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = String(s); return d.innerHTML; }
+
+init();
+</script>
+</body>
+</html>

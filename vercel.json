@@ -1,0 +1,19 @@
+{
+  "rewrites": [
+    { "source": "/reviews/:site_id", "destination": "/reviews-page.html?s=:site_id" },
+    { "source": "/rides", "destination": "/rides.html" },
+    { "source": "/rides/join", "destination": "/rides-for-business.html" },
+    { "source": "/search", "destination": "/search.html" },
+    { "source": "/directory", "destination": "/directory.html" },
+    { "source": "/card", "destination": "/card.html" },
+    { "source": "/:slug/menu", "destination": "/qr-menu.html?slug=:slug" },
+    { "source": "/:slug/menu-photo", "destination": "/mobile_menu_with_photos.html?slug=:slug" },
+    { "source": "/:slug/home", "destination": "/mobile_restaurant_homepage.html?slug=:slug" },
+    { "source": "/:slug/links", "destination": "/links-page.html?slug=:slug" },
+    { "source": "/:slug/edit", "destination": "/restaurant-editor.html" },
+    { "source": "/update/:token", "destination": "/menu-editor-clean.html?token=:token" },
+    { "source": "/:slug/book", "destination": "/photographer-booking.html?slug=:slug" },
+    { "source": "/:slug/charter", "destination": "/charter-booking.html?slug=:slug" },
+    { "source": "/:slug/rent", "destination": "/boat-rental-booking.html?slug=:slug" }
+  ]
+}

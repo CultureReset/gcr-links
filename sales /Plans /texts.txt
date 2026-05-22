@@ -1,0 +1,1528 @@
+You need to separate it into 3 layers:
+	1.	what the thing is
+	2.	what shows on the page
+	3.	what is searchable/queryable
+
+That is the clean answer.
+
+If you mix all 3 together, the system gets sloppy.
+
+⸻
+
+1. How the system should separate everything
+
+Layer A: Entity layer
+
+This is the actual business/place/property/unit.
+
+Examples:
+	•	Cobalt
+	•	Sunny Lady
+	•	Dockside Parasail
+	•	Tee Off
+	•	The Wharf
+	•	a condo complex
+	•	a hotel
+	•	a condo unit
+
+This layer answers:
+	•	what is it
+	•	what type is it
+	•	where is it
+	•	who owns it
+	•	what page does it belong to
+
+This is one main record.
+
+⸻
+
+Layer B: Section layer
+
+This is the page structure.
+
+Every page in your examples has:
+	•	header
+	•	features
+	•	perfect for
+	•	main tabs/sections
+	•	content inside those sections
+
+The four example pages all share that same shell even though the middle content changes. Cobalt has About, Happy Hour, Sunday Brunch, Lunch, Dinner, Kids, Gluten-Free, drink sections, Photos, Reviews, Hours, and Location, while Sunny Lady uses About, Highlights, Cruise Times, Guest Info, Photos, Reviews, and Location.    
+
+This layer answers:
+	•	what sections does this page have
+	•	what order are they in
+	•	what type of section is it
+
+⸻
+
+Layer C: Content layer
+
+This is the actual data inside the sections.
+
+Examples:
+	•	feature chips
+	•	perfect-for chips
+	•	about text
+	•	highlights bullets
+	•	cruise times
+	•	ticket pricing
+	•	menu groups
+	•	menu items
+	•	happy hour items
+	•	gallery photos
+	•	review rows
+	•	hours rows
+	•	location info
+
+This layer answers:
+	•	what content goes inside each section
+	•	is it bullets, items, groups, cards, hours, location, etc.
+
+⸻
+
+2. The database should be split like this
+
+A. Main business record
+
+Table: entities
+
+This holds:
+	•	name
+	•	subtitle
+	•	type
+	•	subtype
+	•	phone
+	•	address
+	•	rating
+	•	review count
+	•	hero image
+	•	website link
+	•	directions link
+	•	parent id if inside a hub
+
+This is the top header of the page.
+
+Examples from your pages:
+	•	Sunny Lady Dolphin Cruises / Dolphin & Sunset Cruises at The Wharf  
+	•	Cobalt The Restaurant / Fresh Gulf Seafood & Waterfront Dining  
+	•	Tee Off at The Wharf / LIVE. LAUGH. PLAY!  
+
+⸻
+
+B. Features
+
+Table: entity_features
+
+This is the badge row.
+
+Examples:
+	•	Kid Friendly
+	•	Climate-Controlled Cabin
+	•	Waterfront Views
+	•	Gluten-Free Menu
+	•	Full Bar & Restaurant
+	•	Located at The Wharf      
+
+These are short factual descriptors.
+
+Do not store them in one text field.
+Each one should be its own row.
+
+⸻
+
+C. Perfect For
+
+Table: entity_perfect_for
+
+Examples:
+	•	Families with kids
+	•	Date night
+	•	Group outings
+	•	Business lunch
+	•	First-time visitors    
+
+This is separate from features.
+
+Why:
+	•	“Kid Friendly” = feature
+	•	“Families with kids” = audience fit
+
+Different meaning.
+
+⸻
+
+D. Sections
+
+Table: entity_sections
+
+This is the ordered list of page tabs.
+
+Examples for Sunny Lady:
+	•	About
+	•	Highlights
+	•	Cruise Times
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location  
+
+Examples for Cobalt:
+	•	About
+	•	Happy Hour
+	•	Sunday Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids Menu
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location  
+
+So this table stores:
+	•	section key
+	•	section label
+	•	section type
+	•	sort order
+	•	visible yes/no
+
+⸻
+
+E. Section content tables
+
+You do not need one table per business type.
+You need a few reusable content tables.
+
+section_rich_text
+
+For About/Overview
+
+section_bullets
+
+For Highlights / Guest Info / FAQ
+
+section_groups
+
+For sub-groups like:
+	•	Omelets
+	•	Eggs Benedict
+	•	3:30 PM Cruise
+	•	5:30 PM Cruise
+
+section_items
+
+For repeatable rows like:
+	•	Western Omelet
+	•	Adult Ticket
+	•	House Wine
+	•	Raw Oysters
+
+section_cards
+
+For:
+	•	packages
+	•	events
+	•	league
+	•	book-a-bay
+
+section_photos
+
+For gallery
+
+section_reviews
+
+For reviews
+
+section_hours
+
+For hours
+
+section_locations
+
+For address/map
+
+That’s the real engine.
+
+⸻
+
+3. How the system separates everything automatically
+
+The system should separate things by section type, not by random business logic.
+
+Example 1: Sunny Lady
+
+Sunny Lady is a cruise/activity page.
+
+The system sees these section types:
+	•	About → rich text
+	•	Highlights → bullet list
+	•	Cruise Times → schedule/pricing using groups + items
+	•	Guest Info → bullet list
+	•	Photos → gallery
+	•	Reviews → review rows
+	•	Location → location row
+
+That page is not “special.”
+It is just using a different set of section types.  
+
+Example 2: Cobalt
+
+Cobalt is a restaurant page.
+
+The system sees:
+	•	About → rich text
+	•	Happy Hour → promo items
+	•	Brunch → grouped items
+	•	Lunch → grouped items
+	•	Dinner → grouped items
+	•	Kids → grouped items
+	•	Gluten-Free → grouped items
+	•	Cocktails → grouped items
+	•	Frozen → grouped items
+	•	Reviews → review rows
+	•	Hours → hours rows
+	•	Location → location row
+
+That page uses the same engine, just different section rows and more grouped items.  
+
+Example 3: Tee Off
+
+Tee Off is a hybrid venue.
+
+The system sees:
+	•	Overview → rich text
+	•	Food → grouped items
+	•	Happy Hour → promo items
+	•	Specials → promo items
+	•	Games → cards
+	•	Packages → cards
+	•	League → cards
+	•	Book a Bay → cards
+	•	Events → cards
+	•	Reviews / Hours / Location → standard support sections    
+
+So the engine doesn’t care what business it is.
+It only cares:
+	•	what sections exist
+	•	what type each section is
+
+That is how it stays universal.
+
+⸻
+
+4. How the dashboard should be organized
+
+The dashboard should follow the database layers.
+
+Not the other way around.
+
+Dashboard tab 1: Business Identity
+
+This edits the entities table.
+
+Fields:
+	•	name
+	•	subtitle
+	•	business type
+	•	subtype
+	•	phone
+	•	address
+	•	rating if manual
+	•	review count if manual/imported
+	•	hero image
+	•	website
+	•	directions
+	•	parent hub
+
+This is the top of the page.
+
+⸻
+
+Dashboard tab 2: Features
+
+This edits entity_features.
+
+UI:
+	•	add feature chip
+	•	reorder feature chip
+	•	delete feature chip
+
+Examples:
+	•	Waterfront Views
+	•	Daily Departures
+	•	Kid Friendly
+	•	Located at The Wharf
+
+This should be simple repeatable rows.
+
+⸻
+
+Dashboard tab 3: Perfect For
+
+This edits entity_perfect_for.
+
+UI:
+	•	add label
+	•	reorder label
+	•	delete label
+
+Examples:
+	•	Date night
+	•	Families with kids
+	•	First-time visitors
+	•	Group outings
+
+⸻
+
+Dashboard tab 4: Sections
+
+This edits entity_sections.
+
+This is where you control:
+	•	what sections exist
+	•	section order
+	•	section visibility
+	•	section label
+	•	section type
+
+For example, for a new page:
+	•	add About
+	•	add Highlights
+	•	add Cruise Times
+	•	add Guest Info
+	•	add Photos
+	•	add Reviews
+	•	add Location
+
+Or for a restaurant:
+	•	add Happy Hour
+	•	add Brunch
+	•	add Dinner
+	•	add Cocktails
+
+This is the page skeleton.
+
+⸻
+
+Dashboard tab 5: Section Content
+
+This is where the dashboard changes based on section_type.
+
+If section type = rich_text
+
+Show one large text editor
+
+If section type = bullet_list
+
+Show repeatable bullet rows
+
+If section type = grouped_items
+
+Show:
+	•	group title rows
+	•	items inside each group
+
+If section type = schedule_pricing
+
+Show:
+	•	time group
+	•	schedule subtitle
+	•	ticket rows under each time
+
+If section type = promo_items
+
+Show repeatable promo rows
+
+If section type = cards
+
+Show card builder
+
+If section type = gallery
+
+Show media uploader
+
+If section type = reviews
+
+Show review rows / import
+
+If section type = hours
+
+Show day/time rows
+
+If section type = location
+
+Show address/map inputs
+
+This is how the system separates everything.
+
+The dashboard doesn’t guess.
+It reads the section type and shows the correct editor.
+
+⸻
+
+5. What you need in the dashboard for each type of section
+
+A. Rich text editor
+
+For About / Overview
+
+Fields:
+	•	body text
+
+⸻
+
+B. Bullet editor
+
+For Highlights / Guest Info
+
+Fields:
+	•	bullet text
+	•	sort order
+
+⸻
+
+C. Grouped item editor
+
+For menus / grouped experiences
+
+Fields:
+
+group
+	•	group title
+	•	note/subtitle
+
+items inside group
+	•	item name
+	•	item description
+	•	price
+	•	sort order
+
+This is what Cobalt brunch is doing with groups like Eggs Benedict and Omelets.  
+
+⸻
+
+D. Schedule + pricing editor
+
+For Cruise Times / Times & Tickets
+
+Fields:
+
+group
+	•	departure time
+	•	cruise label
+	•	duration
+
+ticket rows
+	•	ticket type
+	•	age range
+	•	price
+
+This is what Sunny Lady is doing.  
+
+⸻
+
+E. Promo editor
+
+For Happy Hour / Specials
+
+Fields:
+	•	item name
+	•	description
+	•	price
+	•	time note if needed
+
+This is what Cobalt happy hour is doing.  
+
+⸻
+
+F. Card editor
+
+For Packages / League / Events / Book a Bay
+
+Fields:
+	•	title
+	•	subtitle
+	•	description
+	•	price text
+	•	metadata if needed
+
+This is what Tee Off needs.  
+
+⸻
+
+G. Gallery editor
+
+Fields:
+	•	image
+	•	caption
+	•	sort order
+
+⸻
+
+H. Reviews editor
+
+Fields:
+	•	author
+	•	rating
+	•	review text
+	•	date/source
+
+⸻
+
+I. Hours editor
+
+Fields:
+	•	day
+	•	open
+	•	close
+	•	closed yes/no
+
+⸻
+
+J. Location editor
+
+Fields:
+	•	address
+	•	city/state/zip
+	•	lat/lng
+	•	directions link
+	•	note
+
+⸻
+
+6. Should you build the dashboard first?
+
+No.
+
+Build in this order:
+
+Step 1
+
+Database schema
+
+Step 2
+
+Page renderer logic
+
+Step 3
+
+Seed 4 example pages into the schema
+
+Step 4
+
+Make sure the page renderer can output those 4 pages correctly
+
+Step 5
+
+Then build the dashboard to edit those rows
+
+Why:
+If you build the dashboard first, you’re guessing what the schema should be.
+
+If you build the schema and renderer first, the dashboard becomes obvious.
+
+⸻
+
+7. What the system needs to include overall
+
+Minimum universal foundation:
+
+Core tables
+	•	entities
+	•	entity_features
+	•	entity_perfect_for
+	•	entity_sections
+
+Section content tables
+	•	section_rich_text
+	•	section_bullets
+	•	section_groups
+	•	section_items
+	•	section_cards
+	•	section_photos
+	•	section_reviews
+	•	section_hours
+	•	section_locations
+
+That is enough to make the page system work correctly.
+
+Then later you add:
+	•	tags
+	•	categories
+	•	relationships
+	•	availability
+	•	AI logs
+	•	search tables
+
+But the page engine foundation above is what you need first.
+
+⸻
+
+8. The cleanest way to think about it
+
+The database separates everything like this:
+
+entities
+
+Who the page is about
+
+entity_features
+
+Quick factual chips
+
+entity_perfect_for
+
+Audience-fit chips
+
+entity_sections
+
+What sections the page has
+
+section content tables
+
+What is inside each section
+
+And the dashboard mirrors that structure exactly.
+
+⸻
+
+9. Blunt answer
+
+You make it work correctly by:
+	•	storing the business once
+	•	storing features separately
+	•	storing perfect-for separately
+	•	storing sections separately
+	•	storing content by section type
+	•	letting the renderer build the page from the ordered sections
+	•	letting the dashboard only edit those rows
+
+That is how the system separates everything cleanly.
+
+The next thing you should do is build these exact tables, then insert the 4 examples, then test if the same renderer can display all 4. That is the proof the model is right.
+
+
+Yes. Here’s the full database structure for the 4 example pages using one universal system.
+
+This is the version you can actually build.
+
+Core rule
+
+All 4 pages use the same engine:
+	•	one main entity record
+	•	one feature chip list
+	•	one perfect-for list
+	•	one ordered section list
+	•	a few reusable content tables
+
+The difference between Sunny Lady, Dockside, Cobalt, and Tee Off is not the database design. The difference is just which sections exist and which content rows get inserted.        
+
+⸻
+
+1. Main page/business table
+
+entities
+
+This is one row per business/page.
+
+Columns:
+	•	id uuid pk
+	•	name text
+	•	subtitle text
+	•	entity_type text
+	•	entity_subtype text
+	•	slug text unique
+	•	phone text
+	•	rating numeric
+	•	review_count integer
+	•	address_line_1 text
+	•	address_line_2 text nullable
+	•	city text
+	•	state text
+	•	zip text
+	•	latitude numeric nullable
+	•	longitude numeric nullable
+	•	hero_image_url text
+	•	website_url text nullable
+	•	directions_url text nullable
+	•	call_url text nullable
+	•	parent_entity_id uuid nullable
+	•	is_active boolean
+	•	sort_order integer
+	•	created_at
+	•	updated_at
+
+What it stores
+
+The top header block common to all 4 pages:
+	•	name
+	•	subtitle
+	•	phone
+	•	rating
+	•	review count
+	•	address/city/state
+	•	hero image
+	•	website/directions/call buttons
+
+Example rows
+
+Sunny Lady
+	•	name: Sunny Lady Dolphin Cruises
+	•	subtitle: Dolphin & Sunset Cruises at The Wharf
+	•	entity_type: business
+	•	entity_subtype: dolphin_cruise
+	•	phone: (850) 424-5125
+	•	rating: 4.9
+	•	review_count: 9640
+	•	city: Orange Beach
+	•	state: Alabama
+
+Dockside
+	•	name: Orange Beach: Dockside Parasail
+	•	subtitle: Soar 400 Feet Above the Gulf of Mexico
+	•	entity_type: business
+	•	entity_subtype: parasailing
+	•	city: Orange Beach
+	•	state: Alabama
+
+Cobalt
+	•	name: Cobalt The Restaurant
+	•	subtitle: Fresh Gulf Seafood & Waterfront Dining
+	•	entity_type: business
+	•	entity_subtype: restaurant
+	•	phone: (251) 923-5300
+
+Tee Off
+	•	name: Tee Off at The Wharf Powered by TOPGOLF Swing Suites
+	•	subtitle: LIVE. LAUGH. PLAY!
+	•	entity_type: business
+	•	entity_subtype: hybrid_venue
+	•	phone: 251-228-4899
+
+⸻
+
+2. Feature chips table
+
+entity_features
+
+One row per feature chip.
+
+Columns:
+	•	id
+	•	entity_id
+	•	feature_text
+	•	feature_type text default ‘general’
+	•	sort_order
+	•	is_active
+	•	created_at
+
+What it stores
+
+The chip/badge row under the header.
+
+Example Sunny Lady rows
+	•	1.5–2 Hour Cruises
+	•	Daily Departures
+	•	Dolphin & Sunset Cruises
+	•	Open Decks
+	•	Climate-Controlled Cabin
+	•	Snack Bar On Board
+	•	Restrooms On Board
+	•	Family Owned & Operated
+	•	Located at The Wharf
+	•	Up to 100 Passengers
+	•	Kid Friendly
+	•	Lucy the Macaw On Board
+
+Example Dockside rows
+	•	Soar Up to 400 Feet
+	•	8–10 Minute Flight Time
+	•	1 Hour Total Duration
+	•	Single, Double, or Triple Flights
+	•	Small Group Experience
+	•	Safe for First Timers
+	•	Ages 5+
+	•	Dockside Departure
+	•	Gulf of Mexico Views
+
+Example Cobalt rows
+	•	Fresh Gulf Seafood
+	•	Stone Hearth Pizza
+	•	Full Bar & Wine List
+	•	Sunday Brunch 11am–2pm
+	•	Happy Hour Daily 3–5pm
+	•	Waterfront Views
+	•	Gluten-Free Menu
+	•	Kids Menu
+	•	Private Dining Available
+
+Example Tee Off rows
+	•	Topgolf Swing Suites
+	•	7 Sports Simulators
+	•	Full Bar & Restaurant
+	•	Private Party Bays
+	•	Golf League
+	•	Family Friendly
+	•	Corporate Events
+	•	Indoor Climate-Controlled
+	•	Located at The Wharf
+
+⸻
+
+3. Perfect-for table
+
+entity_perfect_for
+
+One row per audience/intention fit.
+
+Columns:
+	•	id
+	•	entity_id
+	•	label
+	•	sort_order
+	•	is_active
+	•	created_at
+
+What it stores
+
+The “Perfect For” chips inside the About/Overview block.
+
+Example Sunny Lady rows
+	•	Families with kids
+	•	Couples & date night
+	•	Sunset lovers
+	•	Wildlife enthusiasts
+	•	Vacation activities
+	•	Group outings
+	•	Anniversary celebrations
+	•	First-time visitors
+	•	All ages  
+
+Example Dockside rows
+	•	First-time flyers
+	•	Thrill seekers
+	•	Families with kids 5+
+	•	Couples
+	•	Friends & groups
+	•	Vacation adventures
+	•	Birthday celebrations
+	•	Beach day add-on  
+
+Example Cobalt rows
+	•	Date night
+	•	Family dining
+	•	Special occasions
+	•	Sunday brunch
+	•	Business lunch
+	•	Waterfront dining
+	•	Fresh seafood lovers
+	•	Wine enthusiasts
+	•	Group dinners
+
+Example Tee Off rows
+	•	Birthday parties
+	•	Corporate team building
+	•	Date night
+	•	Family fun
+	•	Bachelor/Bachelorette parties
+	•	Sports fans
+	•	Golf enthusiasts
+	•	Group outings
+	•	Happy hour  
+
+⸻
+
+4. Section list table
+
+entity_sections
+
+This is the page skeleton.
+
+Columns:
+	•	id
+	•	entity_id
+	•	section_key
+	•	section_label
+	•	section_type
+	•	sort_order
+	•	is_visible
+	•	created_at
+	•	updated_at
+
+Allowed section_type values
+	•	rich_text
+	•	bullet_list
+	•	grouped_items
+	•	schedule_pricing
+	•	promo_items
+	•	cards
+	•	gallery
+	•	reviews
+	•	hours
+	•	location
+
+Sunny Lady sections
+	•	about / About / rich_text
+	•	highlights / Highlights / bullet_list
+	•	schedules / Cruise Times / schedule_pricing
+	•	restrictions / Guest Info / bullet_list
+	•	gallery / Photos / gallery
+	•	reviews / Reviews / reviews
+	•	location / Location / location
+
+Dockside sections
+	•	about / About / rich_text
+	•	highlights / Highlights / bullet_list
+	•	schedules / Times & Tickets / schedule_pricing
+	•	restrictions / Guest Info / bullet_list
+	•	gallery / Photos / gallery
+	•	reviews / Reviews / reviews
+	•	location / Location / location
+
+Cobalt sections
+	•	about / About / rich_text
+	•	happy_hour / Happy Hour / promo_items
+	•	brunch / Sunday Brunch / grouped_items
+	•	lunch / Lunch / grouped_items
+	•	dinner / Dinner / grouped_items
+	•	kids / Kids Menu / grouped_items
+	•	gluten_free / Gluten-Free / grouped_items
+	•	cocktails / Cocktails / grouped_items
+	•	frozen / Frozen / grouped_items
+	•	chardonnay / Chardonnay / grouped_items
+	•	pinot_gris / Pinot Gris / grouped_items
+	•	sauv_blanc / Sauv Blanc / grouped_items
+	•	riesling / Riesling / grouped_items
+	•	rose / Rosé / grouped_items
+	•	sparkling / Sparkling / grouped_items
+	•	other_whites / Other Whites / grouped_items
+	•	pinot_noir / Pinot Noir / grouped_items
+	•	cab_sauv / Cabernet / grouped_items
+	•	merlot / Merlot / grouped_items
+	•	malbec / Malbec / grouped_items
+	•	zinfandel / Zinfandel / grouped_items
+	•	other_reds / Other Reds / grouped_items
+	•	reserve / Reserve List / grouped_items
+	•	gallery / Photos / gallery
+	•	reviews / Reviews / reviews
+	•	hours / Hours / hours
+	•	location / Location / location
+
+Tee Off sections
+	•	about / Overview / rich_text
+	•	food / Food / grouped_items
+	•	happy_hour / Happy Hour / promo_items
+	•	specials / Deals & Specials / promo_items
+	•	cocktails / Cocktails / grouped_items
+	•	draft_beer / Draft Beer / grouped_items
+	•	bottles_beer / Bottles & Cans / grouped_items
+	•	craft_beer / Craft Beer / grouped_items
+	•	wine_glass / Wine by Glass / grouped_items
+	•	wine_bottle / Wine by Bottle / grouped_items
+	•	na_drinks / Non-Alcoholic / grouped_items
+	•	whiskey / Whiskey / grouped_items
+	•	scotch / Scotch / grouped_items
+	•	vodka / Vodka / grouped_items
+	•	tequila / Tequila & Mezcal / grouped_items
+	•	rum / Rum / grouped_items
+	•	gin / Gin / grouped_items
+	•	bitters / Bitters & Aperitifs / grouped_items
+	•	games / Games & Sims / cards
+	•	packages / Party Packages / cards
+	•	league / Golf League / cards
+	•	book_a_bay / Book a Bay / cards
+	•	events / Events / cards
+	•	gallery / Photos / gallery
+	•	reviews / Reviews / reviews
+	•	hours / Hours / hours
+	•	location / Location / location
+
+⸻
+
+5. Rich text sections
+
+section_rich_text
+
+For About / Overview.
+
+Columns:
+	•	id
+	•	section_id
+	•	body_text
+	•	created_at
+	•	updated_at
+
+What it stores
+
+Long-form section text.
+
+Example rows
+	•	Sunny Lady About text describing daily cruises, dolphins, family activity, open decks, snack bar, restrooms, heated/air-conditioned cabin.
+	•	Dockside About text describing harnessing, 400 feet, Gulf views, 8–10 minute flight, single/double/triple riders.  
+	•	Cobalt About text describing waterfront dining, Gulf seafood, cocktails, pizza, wine list, signature dishes.
+	•	Tee Off Overview text describing dining + entertainment venue, simulators, corporate outings, happy hours, birthday parties.
+
+⸻
+
+6. Bullet-list sections
+
+section_bullets
+
+For Highlights / Guest Info / FAQ.
+
+Columns:
+	•	id
+	•	section_id
+	•	bullet_text
+	•	sort_order
+	•	is_active
+	•	created_at
+
+Sunny Lady highlights rows
+	•	Enjoy a scenic dolphin cruise & joy ride aboard the Sunny Lady in Orange Beach, Alabama
+	•	Boat is fully-equipped with open decks, climate-controlled cabins, & snack bar
+	•	Explores the intercoastal waterway where dolphins are plentiful
+	•	See dolphins & other marine wildlife up close
+	•	Great activity for the whole family  
+
+Sunny Lady guest-info rows
+	•	Minimum of 20 paying passengers required to depart
+	•	Passengers ages 7 and under must wear life vests at all times
+	•	Large parties over 15 must reserve at least 24 hours prior
+	•	Mobility scooters not permitted; power wheelchairs allowed
+	•	Children under 18 must be accompanied by an adult
+	•	Must be 21+ to consume alcoholic beverages
+	•	No smoking, vapes, cigars, or pipes
+	•	Maximum capacity of 100 people
+	•	No glass items permitted on the boat
+These come from the page content you pasted and the same Guest Info section shown in the file structure.
+
+Dockside highlights rows
+	•	Enjoy panoramic views of the Gulf Coast
+	•	Soar up to 400 feet above the Gulf of Mexico
+	•	Small group boat experience safe for first timers
+	•	Single, double, or triple flights available
+	•	Perfect for ages 5+  
+
+You can use this same table later for:
+	•	FAQs
+	•	visitor notes
+	•	policies
+	•	restrictions
+
+⸻
+
+7. Group rows for nested subsections
+
+section_groups
+
+This is the sub-section layer.
+
+Columns:
+	•	id
+	•	section_id
+	•	group_title
+	•	group_subtitle
+	•	note_text
+	•	sort_order
+	•	is_active
+	•	created_at
+
+Sunny Lady schedule groups
+	•	3:30 PM / Afternoon Dolphin Cruise · 1.5 Hours
+	•	5:30 PM / Sunset Dolphin Cruise · 1.5 Hours  
+
+Dockside schedule groups
+	•	10:30 AM / Dockside Parasail · 1 Hour
+	•	11:30 AM / Dockside Parasail · 1 Hour
+	•	and more time blocks continuing in the file
+
+Cobalt brunch groups
+	•	Eggs Benedict / note about Sunday 11 AM–2 PM and included sides
+	•	Omelets / note about 3 eggs and included sides
+	•	Brunch Specials / optional note if any  
+
+Tee Off food or drink groups
+	•	Bites & Shareables
+	•	probably other food/drink category groups under Food and various drink sections
+	•	Party package groups can live in cards instead of section_groups depending on renderer choice
+
+⸻
+
+8. Repeatable item rows
+
+section_items
+
+This is the most important content table.
+
+Columns:
+	•	id
+	•	section_id
+	•	group_id nullable
+	•	item_name
+	•	item_description
+	•	price_text
+	•	price_numeric nullable
+	•	item_type
+	•	metadata_json
+	•	sort_order
+	•	is_active
+	•	created_at
+	•	updated_at
+
+Allowed item_type values
+	•	menu_item
+	•	ticket
+	•	hh_item
+	•	special_item
+	•	drink_item
+	•	wine_item
+	•	general_item
+
+Sunny Lady ticket rows
+
+For group “3:30 PM”
+	•	Adult (Ages 13–59) / $33
+	•	Child (Ages 4–12) / $26.4
+	•	Infant (Ages 0–3) / $5.5
+	•	Senior / Military / $30.8
+
+For group “5:30 PM”
+	•	Adult (Ages 13–59) / $36.3
+	•	Child (Ages 4–12) / $29.7
+	•	Infant (Ages 0–3) / $11
+	•	Senior / Military / $34.1  
+
+Dockside ticket rows
+
+For group “10:30 AM”
+	•	Flyer (Ages 5+) / $98.99
+	•	Observer (Ages 5+) / $43.99
+
+For group “11:30 AM”
+	•	Flyer (Ages 5+) / price shown in file
+	•	Observer (Ages 5+) / price shown in file  
+
+Cobalt happy hour rows
+	•	Urban South Paradise Park Draft / $2.50
+	•	Luna’s House Brew / $2.50
+	•	Good People Muchacho / $3.00
+	•	Braided River Hoppy by Nature IPA / $5.00
+	•	House Wine / $3.00
+	•	Well Drinks / $3.50
+	•	Raw Oysters / Market
+	•	Cheese Pizza / $8
+	•	Cobalt Caviar / $5
+	•	Cheese Dip / $8
+	•	Firecracker Shrimp / $8  
+
+Cobalt brunch rows under Omelets group
+	•	Western Omelet / desc / $14
+	•	Seafood Omelet / desc / $18
+	•	Vegetable Omelet / desc / $12
+	•	Cheese Omelet / desc / $11  
+
+Tee Off food rows under Bites & Shareables group
+	•	Boiled Peanuts / Alabama peanuts boiled in smoked ham stock / price shown in file
+	•	more food rows continue in file under Food  
+
+You can use this same table for:
+	•	menus
+	•	happy hour items
+	•	ticket types
+	•	drinks
+	•	wines
+
+That’s why it stays universal.
+
+⸻
+
+9. Card rows
+
+section_cards
+
+For packages, events, league, book-a-bay, and similar blocks.
+
+Columns:
+	•	id
+	•	section_id
+	•	card_title
+	•	card_subtitle
+	•	card_description
+	•	price_text
+	•	metadata_json
+	•	sort_order
+	•	is_active
+	•	created_at
+	•	updated_at
+
+Tee Off package card rows
+	•	Par-Tee Animals / Kids Package / Includes simulator time + food + drinks / $360
+	•	Tee Off Titans / Non-Alcoholic Adult / includes simulator + wings + fries + drinks / $400
+	•	Tee Totalers / Alcoholic Adult / includes simulator + wings + fries + beer tower / $425  
+
+Tee Off league card row
+	•	Golf League / Sundays–Wednesdays starting Feb 1 | 12 weeks / Teams of 2 scramble / $250/team
+	•	perks can either go in metadata_json or separate table if you want deeper structure  
+
+Tee Off book-a-bay card row
+	•	Swing Suite Rental / Up to 8 participants per bay / Access to simulators and virtual sports / $75/hr  
+
+Tee Off event card row
+	•	Birthday & Group Parties / Available Daily / private bay for birthdays, corporate outings, bachelor/bachelorette, team-building / Reservation required  
+
+You can use the same table later for:
+	•	events
+	•	room packages
+	•	condo promotions
+	•	special offers
+	•	bundle cards
+
+⸻
+
+10. Photo gallery table
+
+section_photos
+
+Columns:
+	•	id
+	•	section_id
+	•	image_url
+	•	caption
+	•	alt_text
+	•	sort_order
+	•	is_active
+	•	created_at
+
+Sunny Lady captions
+	•	Dolphins in the Intercoastal Waterway
+	•	Sunny Lady Cruise
+	•	Family Fun on the Water
+	•	Dolphin Sighting
+	•	Sunset Views from the Sunny Lady
+	•	Cruising the Bay
+	•	Open Deck Views
+	•	Aboard the Sunny Lady
+Based on your pasted page content and the gallery section shown in the file.
+
+Tee Off captions
+	•	Tee Off at The Wharf and other gallery captions as loaded in the gallery section  
+
+This same table works for every page.
+
+⸻
+
+11. Reviews table
+
+section_reviews
+
+Columns:
+	•	id
+	•	section_id
+	•	author_name
+	•	rating
+	•	review_text
+	•	review_date
+	•	source
+	•	sort_order
+	•	is_active
+	•	created_at
+
+This table is universal for all 4 pages.
+
+Even if some of your demo pages only show review count in the header and a placeholder review section, this table is still the right structure because the Reviews section exists in all 4 layouts.
+
+⸻
+
+12. Hours table
+
+section_hours
+
+Columns:
+	•	id
+	•	section_id
+	•	day_of_week
+	•	open_time
+	•	close_time
+	•	is_closed
+	•	note_text
+	•	sort_order
+	•	created_at
+	•	updated_at
+
+Tee Off sample rows
+	•	Monday / 11:00 AM / 10:00 PM
+	•	Tuesday / 11:00 AM / 10:00 PM
+	•	Wednesday / 11:00 AM / 10:00 PM
+	•	Thursday / 11:00 AM / 10:00 PM
+	•	Friday / 11:00 AM / 12:00 AM
+	•	Saturday / 11:00 AM / 12:00 AM
+	•	Sunday / 11:00 AM / 10:00 PM  
+
+Cobalt
+
+The file includes a Hours tab and should use the same structure.  
+
+⸻
+
+13. Location table
+
+section_locations
+
+Columns:
+	•	id
+	•	section_id
+	•	address_line_1
+	•	address_line_2
+	•	city
+	•	state
+	•	zip
+	•	latitude
+	•	longitude
+	•	directions_url
+	•	note_text
+	•	created_at
+	•	updated_at
+
+Example rows
+
+Sunny Lady
+	•	address_line_1: 4673 Wharf Parkway West
+	•	city: Orange Beach
+	•	state: AL
+	•	directions_url: maps link  
+
+Dockside
+	•	address_line_1: 27550 Larry C Kelley Rd
+	•	city: Orange Beach
+	•	state: AL
+	•	directions_url: maps link
+
+Cobalt
+	•	address_line_1: 28099 Perdido Beach Blvd
+	•	city: Orange Beach
+	•	state: Alabama
+	•	directions_url: maps link  
+
+Tee Off
+	•	address_line_1: 4619 Main Street, Suite A102
+	•	city: Orange Beach
+	•	state: Alabama  
+
+⸻
+
+14. Optional but smart: page templates
+
+You should also have templates so new pages auto-create their section rows.
+
+page_templates
+
+Columns:
+	•	id
+	•	template_key
+	•	template_label
+	•	entity_type
+	•	entity_subtype
+	•	is_active
+
+page_template_sections
+
+Columns:
+	•	id
+	•	template_id
+	•	section_key
+	•	section_label
+	•	section_type
+	•	sort_order
+	•	is_default_visible
+
+Template examples
+
+Activity template
+	•	about / rich_text
+	•	highlights / bullet_list
+	•	schedules / schedule_pricing
+	•	restrictions / bullet_list
+	•	gallery / gallery
+	•	reviews / reviews
+	•	location / location
+
+Restaurant template
+	•	about / rich_text
+	•	happy_hour / promo_items
+	•	brunch / grouped_items
+	•	lunch / grouped_items
+	•	dinner / grouped_items
+	•	kids / grouped_items
+	•	drinks / grouped_items
+	•	gallery / gallery
+	•	reviews / reviews
+	•	hours / hours
+	•	location / location
+
+Hybrid venue template
+	•	overview / rich_text
+	•	food / grouped_items
+	•	happy_hour / promo_items
+	•	specials / promo_items
+	•	drinks / grouped_items
+	•	packages / cards
+	•	events / cards
+	•	gallery / gallery
+	•	reviews / reviews
+	•	hours / hours
+	•	location / location
+
+This lets you create new businesses fast without changing schema.
+
+⸻
+
+15. Final full structure list
+
+For the 4 example pages, your full database foundation should be:
+	•	entities
+	•	entity_features
+	•	entity_perfect_for
+	•	entity_sections
+	•	section_rich_text
+	•	section_bullets
+	•	section_groups
+	•	section_items
+	•	section_cards
+	•	section_photos
+	•	section_reviews
+	•	section_hours
+	•	section_locations
+	•	page_templates
+	•	page_template_sections
+
+That is enough to render all 4 examples using one universal engine.
+
+⸻
+
+16. Bottom line
+
+This is the real answer:
+
+You do not need separate database designs for:
+	•	cruises
+	•	parasailing
+	•	restaurants
+	•	hybrid venues
+
+You need one universal page engine, and these 4 are just different data plugged into that same engine. The uploaded files prove that because they all share the same page shell while varying only in section list and content rows.
+
+The next thing to do is add the search layer tables on top of this:
+	•	categories
+	•	tags
+	•	relationships
+	•	availability
+	•	schedules as queryable search records
+
+so the content engine and the search engine work together.
+
+
+

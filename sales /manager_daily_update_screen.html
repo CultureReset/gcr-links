@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Update — Harbor House Grill</title>
+  <style>
+    :root{
+      --bg:#0a1320;
+      --card:#121f33;
+      --card2:#182842;
+      --line:rgba(255,255,255,.08);
+      --text:#f4f7fb;
+      --muted:#9fb1c6;
+      --accent:#2de5b7;
+      --accent2:#7ef5d6;
+      --warn:#ffd06f;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --radius:20px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;
+      background:
+        radial-gradient(circle at top right, rgba(45,229,183,.12), transparent 25%),
+        linear-gradient(180deg,#09121d 0%,#0e1827 100%);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    .wrap{max-width:460px;margin:0 auto;min-height:100vh;padding:18px 16px 34px}
+    .top{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:16px
+    }
+    .logo{
+      display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:-.03em
+    }
+    .logo-badge{
+      width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid;place-items:center;color:#06211d;font-weight:900
+    }
+    .tiny{
+      font-size:12px;color:var(--muted)
+    }
+    .badge{
+      display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.04);border:1px solid var(--line);font-size:12px;font-weight:800;color:var(--accent2)
+    }
+    .dot{width:8px;height:8px;border-radius:50%;background:#35d67d;box-shadow:0 0 10px #35d67d}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .hero{padding:18px}
+    h1,h2,h3,h4,p{margin:0}
+    .hero h1{font-size:28px;line-height:1;letter-spacing:-.04em;margin-top:12px}
+    .hero p{margin-top:10px;color:var(--muted);font-size:14px;line-height:1.55}
+    .section{margin-top:14px}
+    .section-head{padding:16px 16px 0}
+    .section-head h2{font-size:18px;letter-spacing:-.03em}
+    .section-head p{margin-top:6px;color:var(--muted);font-size:13px;line-height:1.5}
+    .body{padding:16px}
+    .tabs{display:flex;gap:8px;overflow:auto;padding-bottom:2px}
+    .tab{
+      white-space:nowrap;padding:10px 12px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line);
+      font-size:12px;font-weight:800;color:#dce7f4
+    }
+    .tab.active{background:rgba(45,229,183,.12);border-color:rgba(45,229,183,.22);color:#a6ffe9}
+    .grid{display:grid;gap:10px;margin-top:14px}
+    .item{
+      padding:14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line);cursor:pointer
+    }
+    .item.active{background:rgba(45,229,183,.10);border-color:rgba(45,229,183,.24)}
+    .item-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .item h3{font-size:15px}
+    .item p{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}
+    .price-pill{
+      padding:7px 9px;border-radius:999px;background:rgba(255,208,111,.12);border:1px solid rgba(255,208,111,.18);
+      color:#ffe5a4;font-size:11px;font-weight:900;white-space:nowrap
+    }
+    .field{margin-top:12px}
+    .label{display:block;font-size:12px;font-weight:800;color:#dfe9f6;margin-bottom:8px}
+    input, textarea, select{
+      width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:#0c1523;color:var(--text);font:inherit
+    }
+    textarea{min-height:86px;resize:vertical}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .hint{
+      margin-top:8px;font-size:12px;color:var(--muted);line-height:1.45
+    }
+    .memory{
+      margin-top:14px;padding:14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .memory h4{font-size:14px}
+    .memory p{margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}
+    .toggles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    .toggle{
+      padding:12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:center;font-size:13px;font-weight:800
+    }
+    .toggle.active{background:rgba(255,208,111,.10);border-color:rgba(255,208,111,.22);color:#ffe39c}
+    .summary{
+      margin-top:14px;padding:14px;border-radius:16px;background:rgba(45,229,183,.08);border:1px solid rgba(45,229,183,.18)
+    }
+    .summary h4{font-size:14px}
+    .summary ul{margin:8px 0 0 18px;padding:0;color:#dffcf4}
+    .summary li{margin:4px 0;font-size:12px}
+    .actions{
+      position:sticky;bottom:0;left:0;right:0;margin-top:18px;padding:12px 0 0;background:linear-gradient(180deg, rgba(10,19,32,0), rgba(10,19,32,1) 35%)
+    }
+    .btn{
+      width:100%;height:52px;border:none;border-radius:16px;font-weight:900;font-size:15px
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d}
+    .btn-dark{margin-top:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);color:#fff;height:48px}
+    @media (max-width: 420px){
+      .two,.toggles{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div class="logo">
+        <div class="logo-badge">CC</div>
+        <div>
+          <div>Harbor House Grill</div>
+          <div class="tiny">Daily update link</div>
+        </div>
+      </div>
+      <div class="badge"><span class="dot"></span> Manager view</div>
+    </div>
+
+    <div class="card hero">
+      <div class="badge">Wednesday • 7:04 AM</div>
+      <h1>Update today’s rotating items</h1>
+      <p>This link is pre-built for Harbor House Grill. Choose the item, confirm today’s price, and push the update to the website, QR menu, and Gulf Coast Radar.</p>
+    </div>
+
+    <div class="card section">
+      <div class="section-head">
+        <h2>Choose update type</h2>
+        <p>Tap the category that changed today.</p>
+      </div>
+      <div class="body">
+        <div class="tabs">
+          <div class="tab active">Catch of the Day</div>
+          <div class="tab">Side of the Day</div>
+          <div class="tab">Soup of the Day</div>
+          <div class="tab">Featured Drink</div>
+          <div class="tab">Dessert</div>
+        </div>
+
+        <div class="grid">
+          <div class="item">
+            <div class="item-top">
+              <div>
+                <h3>Red Snapper</h3>
+                <p>Available option for today’s catch.</p>
+              </div>
+              <div class="price-pill">Yesterday $32</div>
+            </div>
+          </div>
+
+          <div class="item active">
+            <div class="item-top">
+              <div>
+                <h3>Grouper</h3>
+                <p>Selected for today’s catch.</p>
+              </div>
+              <div class="price-pill">Yesterday $34</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-top">
+              <div>
+                <h3>Mahi</h3>
+                <p>Available option for today’s catch.</p>
+              </div>
+              <div class="price-pill">Yesterday $29</div>
+            </div>
+          </div>
+
+          <div class="item">
+            <div class="item-top">
+              <div>
+                <h3>Triggerfish</h3>
+                <p>Available option for today’s catch.</p>
+              </div>
+              <div class="price-pill">Yesterday $36</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="memory">
+          <h4>Price memory for selected item</h4>
+          <p>The system remembered that yesterday’s price for <strong>Grouper</strong> was <strong>$34</strong>. Change it only if today’s price is different.</p>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label class="label">Today’s item</label>
+            <input value="Grouper" />
+          </div>
+          <div class="field">
+            <label class="label">Today’s price</label>
+            <input value="$36" />
+          </div>
+        </div>
+
+        <div class="two">
+          <div class="field">
+            <label class="label">Prep / note</label>
+            <input value="Blackened • Citrus butter" />
+          </div>
+          <div class="field">
+            <label class="label">Display label</label>
+            <select>
+              <option selected>Live price</option>
+              <option>Market price</option>
+              <option>Chef feature</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="toggles">
+          <div class="toggle active">Featured Today</div>
+          <div class="toggle">Sold Out</div>
+        </div>
+
+        <div class="field">
+          <label class="label">Manager note (optional)</label>
+          <textarea>Fresh grouper came in higher today, updated from $34 to $36.</textarea>
+          <div class="hint">Optional internal note for tracking changes or kitchen communication.</div>
+        </div>
+
+        <div class="summary">
+          <h4>What this update will change</h4>
+          <ul>
+            <li>Harbor House website catch-of-the-day section</li>
+            <li>Table QR menu featured item + price</li>
+            <li>Gulf Coast Radar connected listing</li>
+          </ul>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary">Update Everything</button>
+          <button class="btn btn-dark">Save Draft</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

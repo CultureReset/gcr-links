@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberCheck — Bookings, Websites & Business Tools for Local Businesses</title>
+  <meta name="description" content="Online booking system, business websites, customer management and custom site development. Built for boat rentals, fishing charters, jet ski rentals, dolphin cruises and service businesses.">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --navy: #0a1628;
+      --navy2: #0f2040;
+      --teal: #0891b2;
+      --teal-light: #06b6d4;
+      --teal-glow: rgba(8,145,178,0.15);
+      --green: #10b981;
+      --white: #ffffff;
+      --slate: #94a3b8;
+      --slate-light: #cbd5e1;
+      --card-bg: #0f2040;
+      --card-border: rgba(8,145,178,0.2);
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 999;
+      background: rgba(10,22,40,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--white);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--teal-light); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--slate-light);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn {
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost {
+      color: var(--slate-light);
+      background: transparent;
+    }
+    .btn-ghost:hover { color: var(--white); }
+    .btn-outline {
+      color: var(--teal-light);
+      border: 1.5px solid var(--teal-light);
+      background: transparent;
+    }
+    .btn-outline:hover { background: var(--teal-glow); }
+    .btn-primary {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--teal-light);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(8,145,178,0.4);
+    }
+    .btn-lg {
+      padding: 14px 32px;
+      font-size: 16px;
+      border-radius: 10px;
+    }
+    .btn-green {
+      background: var(--green);
+      color: var(--white);
+    }
+    .btn-green:hover {
+      background: #059669;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(16,185,129,0.4);
+    }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 2rem 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(8,145,178,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 40% 40% at 80% 60%, rgba(16,185,129,0.08) 0%, transparent 60%);
+    }
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(8,145,178,0.06) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(8,145,178,0.06) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(8,145,178,0.12);
+      border: 1px solid rgba(8,145,178,0.3);
+      color: var(--teal-light);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 28px;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      background: var(--teal-light);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+    }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--teal-light), var(--green));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--slate-light);
+      max-width: 640px;
+      margin: 0 auto 40px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+    .hero-types {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      opacity: 0.7;
+      font-size: 13px;
+      color: var(--slate);
+    }
+    .hero-type-chip {
+      padding: 4px 14px;
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 100px;
+    }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 90px 2rem; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--teal-light);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 1.1rem;
+      color: var(--slate-light);
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .section-sub.centered {
+      margin: 0 auto 60px;
+      text-align: center;
+    }
+    .text-centered { text-align: center; }
+
+    /* ---- WHAT WE DO ---- */
+    .services-bg { background: var(--navy2); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 60px;
+    }
+    .service-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 32px 28px;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+    }
+    .service-card.teal::before { background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+    .service-card.green::before { background: linear-gradient(90deg, var(--green), #34d399); }
+    .service-card.purple::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .service-card.orange::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    .service-icon.teal { background: rgba(8,145,178,0.15); }
+    .service-icon.green { background: rgba(16,185,129,0.15); }
+    .service-icon.purple { background: rgba(139,92,246,0.15); }
+    .service-icon.orange { background: rgba(245,158,11,0.15); }
+    .service-card h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 14px;
+      color: var(--slate-light);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .service-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .service-list li {
+      font-size: 13px;
+      color: var(--slate-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .service-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--teal-light);
+      flex-shrink: 0;
+    }
+    .service-card.green .service-list li::before { background: var(--green); }
+    .service-card.purple .service-list li::before { background: #a78bfa; }
+    .service-card.orange .service-list li::before { background: #fbbf24; }
+
+    /* ---- WHO IT'S FOR ---- */
+    .for-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 50px;
+    }
+    .for-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .for-card:hover {
+      border-color: var(--teal);
+      background: rgba(8,145,178,0.08);
+      transform: translateY(-2px);
+    }
+    .for-card .icon { font-size: 32px; margin-bottom: 12px; }
+    .for-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .for-card p { font-size: 12px; color: var(--slate); }
+
+    /* ---- HOW IT WORKS ---- */
+    .hiw-bg { background: var(--navy2); }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 60px;
+      position: relative;
+    }
+    .step {
+      text-align: center;
+      padding: 32px 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      position: relative;
+    }
+    .step-num {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      margin: 0 auto 20px;
+    }
+    .step h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+    .step p { font-size: 14px; color: var(--slate-light); line-height: 1.6; }
+
+    /* ---- FEATURES ---- */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-top: 60px;
+    }
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 24px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+    }
+    .feature-icon {
+      width: 40px; height: 40px;
+      background: var(--teal-glow);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+    .feature-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .feature-text p { font-size: 13px; color: var(--slate-light); line-height: 1.5; }
+
+    /* ---- LEAD FORM ---- */
+    .lead-section {
+      background: linear-gradient(135deg, rgba(8,145,178,0.12) 0%, rgba(16,185,129,0.06) 100%);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+    .lead-inner {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .lead-form {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .lead-form input,
+    .lead-form select {
+      width: 100%;
+      padding: 13px 16px;
+      background: rgba(15,32,64,0.8);
+      border: 1px solid rgba(8,145,178,0.25);
+      border-radius: 10px;
+      color: var(--white);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .lead-form input::placeholder { color: var(--slate); }
+    .lead-form input:focus,
+    .lead-form select:focus { border-color: var(--teal-light); }
+    .lead-form select option { background: #0f2040; }
+    .lead-submit {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      color: var(--white);
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 6px;
+    }
+    .lead-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(8,145,178,0.4);
+    }
+    .lead-privacy {
+      font-size: 12px;
+      color: var(--slate);
+      margin-top: 10px;
+    }
+    .success-banner {
+      display: none;
+      background: rgba(16,185,129,0.1);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #6ee7b7;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 20px;
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      background: #060e1a;
+      border-top: 1px solid rgba(8,145,178,0.1);
+      padding: 60px 2rem 30px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    .footer-brand p {
+      font-size: 14px;
+      color: var(--slate);
+      margin-top: 12px;
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--slate-light);
+      margin-bottom: 16px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul a {
+      font-size: 14px;
+      color: var(--slate);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(8,145,178,0.1);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p { font-size: 13px; color: var(--slate); }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-mobile-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 68px; left: 0; right: 0;
+        background: var(--navy);
+        padding: 24px;
+        gap: 20px;
+        border-bottom: 1px solid var(--card-border);
+      }
+      .hero { padding: 100px 1.5rem 60px; }
+      section { padding: 60px 1.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <div class="nav-inner">
+      <a href="/" class="logo">Cyber<span>Check</span></a>
+      <ul class="nav-links">
+        <li><a href="#services">What We Do</a></li>
+        <li><a href="#for-who">Who It's For</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="pricing.html">Pricing</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="../beachside-dashboard/login.html" class="btn btn-ghost">Log In</a>
+        <a href="#get-started" class="btn btn-primary">Get Started</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Built for water activity & service businesses
+      </div>
+      <h1>
+        Your whole business<br>
+        <span class="highlight">online in one place</span>
+      </h1>
+      <p>
+        Online bookings, a professional website, customer management, waivers,
+        reviews and SMS — all connected. We also build fully custom sites.
+        No tech skills needed.
+      </p>
+      <div class="hero-ctas">
+        <a href="#get-started" class="btn btn-primary btn-lg">Get Your Business Online</a>
+        <a href="../beachside-dashboard/login.html" class="btn btn-outline btn-lg">Log In to Dashboard</a>
+      </div>
+      <div class="hero-types">
+        <span class="hero-type-chip">Boat Rentals</span>
+        <span class="hero-type-chip">Fishing Charters</span>
+        <span class="hero-type-chip">Jet Ski Rentals</span>
+        <span class="hero-type-chip">Dolphin Cruises</span>
+        <span class="hero-type-chip">Kayak Rentals</span>
+        <span class="hero-type-chip">Yacht Rentals</span>
+        <span class="hero-type-chip">Salons & Spas</span>
+        <span class="hero-type-chip">Service Businesses</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT WE DO -->
+  <section id="services" class="services-bg">
+    <div class="container">
+      <div class="text-centered">
+        <div class="section-label">What We Do</div>
+        <h2 class="section-title">Everything your business needs online</h2>
+        <p class="section-sub centered">
+          Four core offerings — use one or all of them. Each one works on its own,
+          and they all work better together.
+        </p>
+      </div>
+      <div class="services-grid">
+
+        <div class="service-card teal">
+          <div class="service-icon teal">📅</div>
+          <h3>Online Booking System</h3>
+          <p>Customers book and pay directly on your site. Real-time availability, automatic confirmations and no double-bookings — ever.</p>
+          <ul class="service-list">
+            <li>Live availability calendar</li>
+            <li>Stripe / payment processing</li>
+            <li>Automatic SMS confirmations</li>
+            <li>Digital waivers at checkout</li>
+            <li>Add-ons & upsells</li>
+            <li>Coupon codes</li>
+          </ul>
+        </div>
+
+        <div class="service-card green">
+          <div class="service-icon green">🌐</div>
+          <h3>Business Website & Landing Page</h3>
+          <p>A fast, mobile-first website that looks great and gets found on Google. Includes your booking page, gallery, reviews and contact info.</p>
+          <ul class="service-list">
+            <li>Industry-specific templates</li>
+            <li>Built-in SEO</li>
+            <li>Mobile optimized</li>
+            <li>Reviews & photo gallery</li>
+            <li>Linktree-style link page</li>
+            <li>Live in minutes</li>
+          </ul>
+        </div>
+
+        <div class="service-card purple">
+          <div class="service-icon purple">⚙️</div>
+          <h3>Business Dashboard</h3>
+          <p>Your command center. Manage bookings, customers, waivers, reviews, staff and marketing from one place — on any device.</p>
+          <ul class="service-list">
+            <li>Customer database (CRM)</li>
+            <li>Reviews management</li>
+            <li>SMS campaigns</li>
+            <li>Analytics & reports</li>
+            <li>Waiver tracking</li>
+            <li>Staff management</li>
+          </ul>
+        </div>
+
+        <div class="service-card orange">
+          <div class="service-icon orange">🛠️</div>
+          <h3>Custom Website Development</h3>
+          <p>Need something unique? We build fully custom sites — from simple landing pages to complex booking platforms with custom integrations.</p>
+          <ul class="service-list">
+            <li>Custom design & branding</li>
+            <li>Complex booking flows</li>
+            <li>Third-party integrations</li>
+            <li>Payment processing</li>
+            <li>Ongoing maintenance</li>
+            <li>Fast turnaround</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section id="for-who">
+    <div class="container">
+      <div class="text-centered">
+        <div class="section-label">Who It's For</div>
+        <h2 class="section-title">Built for water & service businesses</h2>
+        <p class="section-sub centered">
+          Specifically designed for the way activity and rental businesses operate —
+          from fleet management to waiver signing.
+        </p>
+      </div>
+      <div class="for-grid">
+        <div class="for-card">
+          <div class="icon">⛵</div>
+          <h4>Circle Boat Rentals</h4>
+          <p>Self-guided pontoon rentals</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🎣</div>
+          <h4>Fishing Charters</h4>
+          <p>Half day, full day & offshore trips</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🌊</div>
+          <h4>Jet Ski & Waverunner</h4>
+          <p>30min, 1hr & group rentals</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🐬</div>
+          <h4>Dolphin Cruises</h4>
+          <p>Tour boats & sightseeing</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🛥️</div>
+          <h4>Yacht & Large Vessel</h4>
+          <p>Full-day & sunset charters</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🚣</div>
+          <h4>Kayak & Paddleboard</h4>
+          <p>Hourly & half-day rentals</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">✂️</div>
+          <h4>Salons & Spas</h4>
+          <p>Appointment-based services</p>
+        </div>
+        <div class="for-card">
+          <div class="icon">🔧</div>
+          <h4>Service Businesses</h4>
+          <p>Any appointment-based business</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="hiw-bg">
+    <div class="container">
+      <div class="text-centered">
+        <div class="section-label">How It Works</div>
+        <h2 class="section-title">Up and running in three steps</h2>
+        <p class="section-sub centered">
+          No tech skills, no long setup. Most businesses are taking bookings the same day.
+        </p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Create Your Account</h3>
+          <p>Sign up, pick your business type and enter your basic info. Your dashboard and a starter website are ready immediately.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Set Up Your Business</h3>
+          <p>Add your fleet, pricing, time slots, waivers and photos from the dashboard. Everything connects to your website automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Start Taking Bookings</h3>
+          <p>Share your link. Customers book and pay online. You get an SMS for every new booking. Manage everything from your phone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="container">
+      <div class="text-centered">
+        <div class="section-label">Platform Features</div>
+        <h2 class="section-title">Everything included</h2>
+        <p class="section-sub centered">
+          No nickel-and-diming. All the tools you need to run and grow your business.
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature">
+          <div class="feature-icon">🔒</div>
+          <div class="feature-text">
+            <h4>Digital Waivers</h4>
+            <p>Customers sign liability waivers at checkout. Signed copies stored and searchable forever.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📱</div>
+          <div class="feature-text">
+            <h4>SMS Notifications</h4>
+            <p>Automatic booking confirmations, reminders and review requests sent by text.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">⭐</div>
+          <div class="feature-text">
+            <h4>Reviews System</h4>
+            <p>Collect reviews after each trip. Approve and publish to your website or copy to Google.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">👥</div>
+          <div class="feature-text">
+            <h4>Customer Database</h4>
+            <p>Full CRM — track every customer, their booking history, total spend and notes.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🗓️</div>
+          <div class="feature-text">
+            <h4>Availability Management</h4>
+            <p>Set time slots, blackout dates, capacity limits and add-ons. No overbooking guaranteed.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">💳</div>
+          <div class="feature-text">
+            <h4>Payments Your Way</h4>
+            <p>Connect your own Stripe, Square or Clover account. You keep 100% — we never touch your money.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🎨</div>
+          <div class="feature-text">
+            <h4>Customizable Website</h4>
+            <p>Change colors, fonts, photos, text and pages from your dashboard. No code needed.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">📊</div>
+          <div class="feature-text">
+            <h4>Analytics & Reports</h4>
+            <p>See revenue, bookings, top time slots and customer trends at a glance.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🏷️</div>
+          <div class="feature-text">
+            <h4>Coupons & Promos</h4>
+            <p>Create discount codes, percentage off deals and limited-time offers in seconds.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">👔</div>
+          <div class="feature-text">
+            <h4>Staff Management</h4>
+            <p>Add captains, guides and staff. Assign roles, track schedules and share access.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🔗</div>
+          <div class="feature-text">
+            <h4>Link Page (Linktree-style)</h4>
+            <p>A mobile-friendly page with all your links — perfect for Instagram bio and QR codes.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <div class="feature-icon">🌍</div>
+          <div class="feature-text">
+            <h4>Custom Domain</h4>
+            <p>Connect your own domain name or use a free subdomain. SSL included.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEAD CAPTURE -->
+  <section id="get-started" class="lead-section">
+    <div class="container">
+      <div class="lead-inner">
+        <div class="section-label">Get Started</div>
+        <h2 class="section-title">Ready to take your business online?</h2>
+        <p class="section-sub">
+          Fill out the form and we'll get you set up. Most businesses are live and taking bookings the same day.
+        </p>
+        <form class="lead-form" onsubmit="submitLead(event)">
+          <div class="form-row">
+            <input type="text" id="lead-name" placeholder="Your Name" required>
+            <input type="text" id="lead-biz" placeholder="Business Name" required>
+          </div>
+          <div class="form-row">
+            <input type="email" id="lead-email" placeholder="Email Address" required>
+            <input type="tel" id="lead-phone" placeholder="Phone Number">
+          </div>
+          <select id="lead-type" required>
+            <option value="" disabled selected>What type of business?</option>
+            <option value="rental">Circle Boat / Pontoon Rental</option>
+            <option value="fishing">Fishing Charter</option>
+            <option value="jetski">Jet Ski / Waverunner Rental</option>
+            <option value="cruise">Dolphin Cruise / Tour Boat</option>
+            <option value="bigboat">Large Vessel / Yacht Rental</option>
+            <option value="kayak">Kayak / Paddleboard Rental</option>
+            <option value="restaurant">Restaurant / Food Service</option>
+            <option value="salon">Salon / Spa</option>
+            <option value="custom">I need a custom website built</option>
+            <option value="other">Other</option>
+          </select>
+          <select id="lead-interest">
+            <option value="" disabled selected>What are you most interested in?</option>
+            <option value="full">Full platform — booking + website + dashboard</option>
+            <option value="booking">Just the booking system</option>
+            <option value="website">Just a website</option>
+            <option value="custom">Custom site development</option>
+            <option value="all">All of the above, let's talk</option>
+          </select>
+          <button type="submit" class="lead-submit" id="lead-btn">Get My Business Online &rarr;</button>
+          <p class="lead-privacy">No credit card required. We'll reach out within 24 hours.</p>
+        </form>
+        <div class="success-banner" id="lead-success">
+          You're on the list! We'll be in touch within 24 hours to get you set up.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo">Cyber<span>Check</span></a>
+          <p>Online bookings, business websites, customer management and custom development — all in one platform. Built for water activity and service businesses.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Platform</h5>
+          <ul>
+            <li><a href="#services">Booking System</a></li>
+            <li><a href="#services">Business Website</a></li>
+            <li><a href="#services">Dashboard</a></li>
+            <li><a href="#services">Custom Dev</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Industries</h5>
+          <ul>
+            <li><a href="#for-who">Boat Rentals</a></li>
+            <li><a href="#for-who">Fishing Charters</a></li>
+            <li><a href="#for-who">Jet Ski Rentals</a></li>
+            <li><a href="#for-who">Dolphin Cruises</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Account</h5>
+          <ul>
+            <li><a href="../beachside-dashboard/login.html">Log In</a></li>
+            <li><a href="../beachside-dashboard/login.html">Sign Up</a></li>
+            <li><a href="pricing.html">Pricing</a></li>
+            <li><a href="#get-started">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 CyberCheck. All rights reserved.</p>
+        <p style="color:var(--slate);font-size:13px;">Bookings &bull; Websites &bull; Dashboard &bull; Custom Development</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Supabase for lead capture -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script>
+    // Mobile nav
+    function toggleMenu() {
+      document.getElementById('main-nav').classList.toggle('nav-mobile-open');
+    }
+
+    // Close nav on link click
+    document.querySelectorAll('.nav-links a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        document.getElementById('main-nav').classList.remove('nav-mobile-open');
+      });
+    });
+
+    // Supabase lead capture
+    var SUPABASE_URL = 'https://mhafixflyffflwjhcgfn.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1oYWZpeGZseWZmZmx3amhjZ2ZuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE4MTA4MzUsImV4cCI6MjA4NzM4NjgzNX0.3KW-rGnLhJQ1u3IsSeoGFfgQpcoJNdBGFOGnhc88tHw';
+    var _sb = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+    async function submitLead(e) {
+      e.preventDefault();
+      var btn = document.getElementById('lead-btn');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      var name     = document.getElementById('lead-name').value.trim();
+      var biz      = document.getElementById('lead-biz').value.trim();
+      var email    = document.getElementById('lead-email').value.trim();
+      var phone    = document.getElementById('lead-phone').value.trim();
+      var type     = document.getElementById('lead-type').value;
+      var interest = document.getElementById('lead-interest').value;
+
+      try {
+        if (_sb) {
+          await _sb.from('leads').insert({
+            name: name,
+            business_name: biz,
+            email: email,
+            phone: phone,
+            business_type: type,
+            interest: interest,
+            source: 'landing_page',
+            created_at: new Date().toISOString()
+          });
+        }
+      } catch(err) {
+        console.warn('Lead save error:', err);
+      }
+
+      // Show success regardless (don't block on DB)
+      document.querySelector('.lead-form').style.display = 'none';
+      document.getElementById('lead-success').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

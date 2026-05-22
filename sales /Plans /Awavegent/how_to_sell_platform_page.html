@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How to Sell the Platform | aWavegent</title>
+  <style>
+    :root{
+      --bg:#0a1422;
+      --panel:#0f2136;
+      --line:rgba(255,255,255,.10);
+      --text:#eef5ff;
+      --muted:#adc0d6;
+      --teal:#58d3c3;
+      --blue:#79baff;
+      --orange:#ff9c5e;
+      --shadow:0 24px 70px rgba(0,0,0,.28);
+      --radius:24px;
+      --max:1180px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(121,186,255,.10), transparent 24%),
+        radial-gradient(circle at top left, rgba(88,211,195,.08), transparent 22%),
+        linear-gradient(180deg,#07111d 0%, #0a1422 100%);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(7,17,29,.78);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      min-height:74px;
+      display:flex; align-items:center; justify-content:space-between; gap:18px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:-.02em;
+    }
+    .mark{
+      width:42px; height:42px; border-radius:14px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#081321; font-weight:900; box-shadow:var(--shadow);
+    }
+    .navlinks{display:flex; gap:12px; flex-wrap:wrap}
+    .navlinks a{
+      padding:10px 14px; border-radius:999px; border:1px solid var(--line);
+      color:var(--muted); font-size:14px;
+    }
+    .navlinks a:hover{color:var(--text); border-color:rgba(255,255,255,.22)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:50px; padding:0 20px; border-radius:999px;
+      font-weight:800; border:1px solid transparent; transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--orange),#ffb17c);
+      color:#081321; box-shadow:0 14px 34px rgba(255,156,94,.28);
+    }
+    .btn-secondary{
+      background:rgba(255,255,255,.03); border-color:rgba(255,255,255,.18); color:var(--text);
+    }
+    .hero{padding:74px 0 48px}
+    .hero-grid{display:grid; grid-template-columns:1.08fr .92fr; gap:28px; align-items:center}
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(88,211,195,.24);
+      background:rgba(88,211,195,.08);
+      color:#c5fbf2; font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(2.5rem,5vw,5rem);
+      line-height:.96; letter-spacing:-.05em; max-width:780px;
+    }
+    .lead{
+      color:var(--muted); font-size:clamp(1rem,1.5vw,1.16rem);
+      max-width:760px; margin:0 0 24px;
+    }
+    .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:18px}
+    .proof{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{
+      padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.04); border:1px solid var(--line);
+      color:var(--muted); font-size:14px; font-weight:700;
+    }
+    .card,.panel{
+      background:linear-gradient(180deg,rgba(15,33,54,.94),rgba(11,23,39,.98));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+    }
+    .panel{padding:22px}
+    .stack{display:grid; gap:14px}
+    .stack-item{
+      padding:18px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid var(--line);
+    }
+    .stack-item small{
+      display:block; margin-bottom:8px; color:#bdf7ee; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+    }
+    section{padding:42px 0}
+    .section-head{max-width:850px; margin:0 auto 24px; text-align:center}
+    h2{margin:0 0 12px; font-size:clamp(2rem,3.4vw,3.4rem); line-height:1.02; letter-spacing:-.04em}
+    .section-head p{margin:0; color:var(--muted); font-size:18px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    .card{padding:24px}
+    .card h3{margin:0 0 10px; font-size:24px}
+    .card p{margin:0; color:var(--muted)}
+    ul.clean{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
+    ul.clean li{position:relative; padding-left:20px}
+    ul.clean li::before{content:"•"; position:absolute; left:0; color:var(--teal); font-weight:900}
+    .quote{
+      padding:26px; border-radius:24px; border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(121,186,255,.09), rgba(88,211,195,.07));
+      font-size:24px; line-height:1.28; font-weight:800;
+    }
+    .quote small{display:block; margin-top:14px; color:var(--muted); font-size:14px; font-weight:700; letter-spacing:.08em; text-transform:uppercase}
+    .compare-bad{border-top:4px solid #ef6b6b}
+    .compare-good{border-top:4px solid var(--teal)}
+    .cta{
+      margin:44px 0 72px;
+      background:linear-gradient(135deg,#0d2740,#1f4869);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      padding:34px;
+    }
+    .cta-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:24px; align-items:center}
+    form{display:grid; gap:12px}
+    input,select,textarea{
+      width:100%; padding:14px 16px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      color:white; font:inherit;
+    }
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.72)}
+    .small{font-size:13px; color:rgba(255,255,255,.74)}
+    footer{padding:28px 0 48px; color:var(--muted); font-size:14px}
+    @media (max-width: 960px){
+      .hero-grid,.grid-3,.grid-2,.cta-grid{grid-template-columns:1fr}
+      .nav{flex-direction:column; align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand"><div class="mark">aW</div><div>aWavegent</div></div>
+      <nav class="navlinks">
+        <a href="#pitch">Pitch</a>
+        <a href="#sell">How to sell</a>
+        <a href="#buyers">Who buys</a>
+        <a href="#cta">Use this</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="pitch">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">How to sell the platform</div>
+        <h1>Sell the outcome. Not the architecture.</h1>
+        <p class="lead">
+          The easiest way to sell this is to stop describing it like a giant AI ecosystem. Businesses do not buy architecture. They buy more bookings, fewer repetitive questions, better guest prep, better follow-up, and a website that actually helps people choose.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cta">Use this pitch</a>
+          <a class="btn btn-secondary" href="#sell">See sales structure</a>
+        </div>
+        <div class="proof">
+          <div class="pill">More bookings</div>
+          <div class="pill">Fewer repetitive questions</div>
+          <div class="pill">Better guest prep</div>
+          <div class="pill">Works on top of current stack</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="stack">
+          <div class="stack-item">
+            <small>What it is</small>
+            <strong>A trainable sales and concierge layer</strong>
+            <div style="color:var(--muted); margin-top:8px;">Powered by structured business data, live updates, and authentic customer feedback.</div>
+          </div>
+          <div class="stack-item">
+            <small>What it is not</small>
+            <strong>Not a PMS replacement. Not “just a chatbot.”</strong>
+            <div style="color:var(--muted); margin-top:8px;">It sits on top of the current booking stack and makes the website more useful before the booking or arrival.</div>
+          </div>
+          <div class="stack-item">
+            <small>How to frame it</small>
+            <strong>Support relief first. Revenue layer second.</strong>
+            <div style="color:var(--muted); margin-top:8px;">Start with less manual work and better customer guidance. Then expand into recommendations, upgrades, and referrals.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sell">
+    <div class="container">
+      <div class="section-head">
+        <h2>The sales structure</h2>
+        <p>Keep it simple enough that a business owner understands it in under a minute.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Open with the pain</h3>
+          <p>“Your website helps people find you, but it stops being helpful right when people still have questions.”</p>
+          <ul class="clean">
+            <li>Phone calls and repetitive questions</li>
+            <li>Messy pre-arrival support</li>
+            <li>Weak follow-up or low conversions</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>2. Show the simple fix</h3>
+          <p>“We add a trainable concierge and sales layer to the site that helps people choose faster and gets them into the right booking flow.”</p>
+          <ul class="clean">
+            <li>Voice or chat interaction</li>
+            <li>Structured data answers</li>
+            <li>Guided next step</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>3. Close with a pilot</h3>
+          <p>“Let’s test this on a limited group, prove it reduces support load or increases conversion, then expand from there.”</p>
+          <ul class="clean">
+            <li>No giant rollout first</li>
+            <li>One property / one site / one vertical</li>
+            <li>Measured outcome</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>The one-line pitch</h2>
+        <p>You should be able to say what it is in one clean sentence.</p>
+      </div>
+      <div class="quote">
+        It’s a trainable sales and concierge agent that uses live business data and authentic customer feedback to help people choose faster, ask fewer repetitive questions, and move into the right booking flow.
+        <small>Use this line first</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="buyers">
+    <div class="container">
+      <div class="section-head">
+        <h2>Who buys this</h2>
+        <p>Different people buy it for different reasons. Tailor the pitch to their pain.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card compare-good">
+          <h3>Best early buyers</h3>
+          <ul class="clean">
+            <li>Businesses still handling too much by phone</li>
+            <li>Vacation rental operators with repetitive guest questions</li>
+            <li>Booking businesses where customers need help choosing</li>
+            <li>Operators who already have a site but need it to do more</li>
+          </ul>
+        </div>
+        <div class="card compare-bad">
+          <h3>Do not lead with</h3>
+          <ul class="clean">
+            <li>Patents</li>
+            <li>AI ecosystem talk</li>
+            <li>Marketplace complexity</li>
+            <li>Huge future roadmap</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>How to explain the parts</h2>
+        <p>Use plain English. Keep the technical side in the background unless they ask.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Voice / chat layer</h3>
+          <p>The customer-facing interaction. This is what helps them ask questions and get guidance.</p>
+        </div>
+        <div class="card">
+          <h3>Structured data layer</h3>
+          <p>This is why the answers are useful. The agent reads current services, policies, pricing, hours, offers, and availability rules.</p>
+        </div>
+        <div class="card">
+          <h3>Booking bridge</h3>
+          <p>The agent does not have to replace the booking platform. It just routes people into the right option faster.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>How to handle objections</h2>
+        <p>Keep the response tight and practical.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>“We already have a booking system.”</h3>
+          <p>Good. This sits on top of it. We are not trying to replace your stack. We are making the site more useful before the booking happens.</p>
+        </div>
+        <div class="card">
+          <h3>“We already answer those questions.”</h3>
+          <p>That is the point. Your team should not have to answer the same low-value questions over and over if the site can handle them first.</p>
+        </div>
+        <div class="card">
+          <h3>“What if it is wrong?”</h3>
+          <p>It is built on structured business data and approved knowledge, not random guessing. You start narrow, test it, and expand as it proves itself.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container cta">
+      <div class="cta-grid">
+        <div>
+          <div class="eyebrow" style="background:rgba(255,255,255,.10); color:#fff;">Use this in sales</div>
+          <h2 style="color:white; margin-top:0;">The clean closing ask</h2>
+          <p style="color:rgba(255,255,255,.82); font-size:18px; margin:0;">
+            “If we could reduce repetitive questions, guide people into the right booking flow, and make the website more useful without replacing your current stack, would it be worth testing on a pilot?”
+          </p>
+        </div>
+        <div>
+          <form>
+            <input type="text" placeholder="Business name" />
+            <input type="text" placeholder="Contact name" />
+            <input type="email" placeholder="Email" />
+            <select>
+              <option>Primary pain point</option>
+              <option>Too many repetitive questions</option>
+              <option>Weak website conversions</option>
+              <option>Guests need more guidance</option>
+              <option>Booking flow is too confusing</option>
+            </select>
+            <textarea rows="4" placeholder="What problem are you trying to solve first?"></textarea>
+            <button class="btn btn-primary" type="button">Request pilot details</button>
+          </form>
+          <div class="small" style="margin-top:12px;">Lead with the problem. Prove one win. Expand later.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">aWavegent — trainable sales and concierge layers powered by structured data, live updates, and authentic customer feedback.</div>
+  </footer>
+</body>
+</html>

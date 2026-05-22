@@ -1,0 +1,534 @@
+{
+  "entities": [
+    {
+      "id": "ent_dockside_parasail",
+      "slug": "orange-beach-dockside-parasail",
+      "name": "Orange Beach: Dockside Parasail",
+      "subtitle": "Soar 400 Feet Above the Gulf of Mexico",
+      "entity_type": "business",
+      "entity_subtype": "parasailing",
+      "icon": "\ud83e\ude82",
+      "phone": "(850) 424-5125",
+      "rating": 4.8,
+      "review_count": 0,
+      "address_line_1": "27550 Larry C Kelley Rd",
+      "address_line_2": null,
+      "city": "Orange Beach",
+      "state": "Alabama",
+      "zip": "36561",
+      "latitude": null,
+      "longitude": null,
+      "hero_image_url": "https://images.tripshock.com/activity/5989/Orange-Beach-Dockside-Parasail.jpg",
+      "website_url": "https://www.tripshock.com/orange-beach-dockside-parasail/details/5989/",
+      "directions_url": "https://maps.google.com/?q=27550+Larry+C+Kelley+Rd,+Orange+Beach,+AL+36561",
+      "call_url": "tel:8504245125",
+      "parent_entity_id": null,
+      "is_active": true
+    }
+  ],
+  "entity_features": [
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Soar Up to 400 Feet",
+      "sort_order": 1
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "8\u201310 Minute Flight Time",
+      "sort_order": 2
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "1 Hour Total Duration",
+      "sort_order": 3
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Single, Double, or Triple Flights",
+      "sort_order": 4
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Small Group Experience",
+      "sort_order": 5
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Safe for First Timers",
+      "sort_order": 6
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Ages 5+",
+      "sort_order": 7
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Dockside Departure",
+      "sort_order": 8
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Gulf of Mexico Views",
+      "sort_order": 9
+    }
+  ],
+  "entity_perfect_for": [
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "First-time flyers",
+      "sort_order": 1
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Thrill seekers",
+      "sort_order": 2
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Families with kids 5+",
+      "sort_order": 3
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Couples",
+      "sort_order": 4
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Friends & groups",
+      "sort_order": 5
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Vacation adventures",
+      "sort_order": 6
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Birthday celebrations",
+      "sort_order": 7
+    },
+    {
+      "entity_id": "ent_dockside_parasail",
+      "label": "Beach day add-on",
+      "sort_order": 8
+    }
+  ],
+  "entity_sections": [
+    {
+      "id": "sec_dockside_about",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "about",
+      "section_label": "About",
+      "section_type": "rich_text",
+      "sort_order": 1,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_highlights",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "highlights",
+      "section_label": "Highlights",
+      "section_type": "bullets",
+      "sort_order": 2,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_schedules",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "schedules",
+      "section_label": "Times & Tickets",
+      "section_type": "grouped_items",
+      "sort_order": 3,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_restrictions",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "restrictions",
+      "section_label": "Guest Info",
+      "section_type": "bullets",
+      "sort_order": 4,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_gallery",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "gallery",
+      "section_label": "Photos",
+      "section_type": "gallery",
+      "sort_order": 5,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_reviews",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "reviews",
+      "section_label": "Reviews",
+      "section_type": "reviews",
+      "sort_order": 6,
+      "is_visible": true
+    },
+    {
+      "id": "sec_dockside_location",
+      "entity_id": "ent_dockside_parasail",
+      "section_key": "location",
+      "section_label": "Location",
+      "section_type": "location",
+      "sort_order": 7,
+      "is_visible": true
+    }
+  ],
+  "section_rich_text": [
+    {
+      "section_id": "sec_dockside_about",
+      "body_text": "Climb aboard with a small group and get ready to fly! You will be safely harnessed in before the boat gently picks up speed, lifting you smoothly into the sky. Soar up to 400 feet above the Gulf of Mexico and take in breathtaking views of sugar-white beaches, crystal-clear turquoise water, marine life, and miles of coastline in every direction. Each flight lasts 8\u201310 minutes and is available for single, double, or triple riders. It's peaceful, thrilling, and unforgettable. Perfect for first timers and adventure lovers alike!"
+    }
+  ],
+  "section_bullets": [
+    {
+      "section_id": "sec_dockside_highlights",
+      "bullet_text": "Enjoy panoramic views of the Gulf Coast on an Orange Beach: Dockside Parasail experience",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_highlights",
+      "bullet_text": "Soar up to 400 feet above the Gulf of Mexico",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_highlights",
+      "bullet_text": "Fly for 8\u201310 minutes with single, double, or triple rider options",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_dockside_highlights",
+      "bullet_text": "Small group experience that is safe for first timers",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_dockside_highlights",
+      "bullet_text": "Perfect beach-day adventure for ages 5+",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_dockside_restrictions",
+      "bullet_text": "Participants must be at least 5 years old or older to ride on the boat or parasail.",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_restrictions",
+      "bullet_text": "The combined weight of guests flying must be between 150 and 450 pounds.",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_restrictions",
+      "bullet_text": "Solo flyers can parasail if they meet the weight minimum and maximum requirements.",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_dockside_restrictions",
+      "bullet_text": "All participants must sign a waiver prior to departure.",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_dockside_restrictions",
+      "bullet_text": "Trip duration is approximately 1 hour total, with 8\u201310 minutes of flight time.",
+      "sort_order": 5
+    }
+  ],
+  "section_groups": [
+    {
+      "id": "grp_dockside_1030",
+      "section_id": "sec_dockside_schedules",
+      "title": "10:30 AM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_dockside_1130",
+      "section_id": "sec_dockside_schedules",
+      "title": "11:30 AM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 2
+    },
+    {
+      "id": "grp_dockside_1230",
+      "section_id": "sec_dockside_schedules",
+      "title": "12:30 PM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 3
+    },
+    {
+      "id": "grp_dockside_130",
+      "section_id": "sec_dockside_schedules",
+      "title": "1:30 PM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 4
+    },
+    {
+      "id": "grp_dockside_230",
+      "section_id": "sec_dockside_schedules",
+      "title": "2:30 PM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 5
+    },
+    {
+      "id": "grp_dockside_330",
+      "section_id": "sec_dockside_schedules",
+      "title": "3:30 PM",
+      "subtitle": "Dockside Parasail \u00b7 1 Hour",
+      "note_text": null,
+      "sort_order": 6
+    }
+  ],
+  "section_items": [
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1030",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1030",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1130",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1130",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1230",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_1230",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_130",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_130",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_230",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_230",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_330",
+      "item_name": "Flyer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Flyer",
+      "price_text": "$98.99",
+      "price_numeric": 98.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_schedules",
+      "group_id": "grp_dockside_330",
+      "item_name": "Observer (Ages 5+)",
+      "item_description": null,
+      "price_label": "Observer",
+      "price_text": "$43.99",
+      "price_numeric": 43.99,
+      "price_min": null,
+      "price_max": null,
+      "unit_label": "per person",
+      "item_type": "ticket",
+      "metadata_json": {},
+      "sort_order": 2
+    }
+  ],
+  "section_photos": [
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-536/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Parasailing Over the Gulf",
+      "alt_text": "Parasailing Over the Gulf",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-499/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Soaring High Above Orange Beach",
+      "alt_text": "Soaring High Above Orange Beach",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-435/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Views from 400 Feet",
+      "alt_text": "Views from 400 Feet",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-118/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Taking Flight",
+      "alt_text": "Taking Flight",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-097/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Gulf Coast Panoramic Views",
+      "alt_text": "Gulf Coast Panoramic Views",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_dockside_gallery",
+      "image_url": "https://images.tripshock.com/photo/5989-042/Orange-Beach-Dockside-Parasail.jpg",
+      "caption": "Dockside Parasail Adventure",
+      "alt_text": "Dockside Parasail Adventure",
+      "sort_order": 6
+    }
+  ],
+  "section_reviews": [],
+  "section_location": [
+    {
+      "section_id": "sec_dockside_location",
+      "address_line_1": "27550 Larry C Kelley Rd",
+      "address_line_2": null,
+      "city": "Orange Beach",
+      "state": "Alabama",
+      "zip": "36561",
+      "latitude": null,
+      "longitude": null,
+      "directions_url": "https://maps.google.com/?q=27550+Larry+C+Kelley+Rd,+Orange+Beach,+AL+36561",
+      "phone": "(850) 424-5125",
+      "website_url": "https://www.tripshock.com/orange-beach-dockside-parasail/details/5989/",
+      "note_text": "Dockside departure"
+    }
+  ]
+}

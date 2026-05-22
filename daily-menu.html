@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Daily Menu Editor</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0f172a;
+      color: #f1f5f9;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
+    .header {
+      background: linear-gradient(135deg, #0b7a75, #065f5b);
+      padding: 20px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .header h1 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .header p { font-size: 13px; color: rgba(255,255,255,.7); }
+    .container { padding: 16px; max-width: 600px; margin: 0 auto; }
+    .section { margin-bottom: 20px; }
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #0b7a75;
+      margin-bottom: 12px;
+    }
+    .item {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #334155;
+      cursor: pointer;
+    }
+    .item-img-placeholder {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      background: #334155;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .item-body { flex: 1; }
+    .item-name {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: #f1f5f9;
+    }
+    .item-price {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+    }
+    .item-desc {
+      font-size: 12px;
+      color: #64748b;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .btn-group { display: flex; gap: 6px; }
+    .btn-small {
+      padding: 6px 10px;
+      font-size: 11px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      flex: 1;
+    }
+    .btn-edit { background: #7c3aed; color: #fff; }
+    .btn-delete { background: #7f1d1d; color: #f87171; }
+    .btn-save {
+      width: 100%;
+      padding: 14px;
+      background: #0b7a75;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .btn-save:active { background: #065f5b; }
+    .btn-add {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 2px dashed #334155;
+      border-radius: 10px;
+      color: #38bdf8;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.8);
+      z-index: 100;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    .modal.open { display: flex; }
+    .modal-content {
+      background: #1e293b;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 20px 20px 0 0;
+      padding: 24px 16px 32px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; }
+    .field {
+      margin-bottom: 14px;
+    }
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: #94a3b8;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .field input, .field textarea {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 10px 12px;
+      color: #f1f5f9;
+      font-size: 15px;
+    }
+    .field textarea { resize: vertical; height: 80px; }
+    .img-upload {
+      border: 2px dashed #334155;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 12px;
+    }
+    .img-upload img { max-height: 120px; border-radius: 8px; margin-bottom: 8px; }
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0b7a75;
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: 20px;
+      font-size: 14px;
+      z-index: 200;
+      display: none;
+    }
+    .toast.show { display: block; animation: slideUp .3s; }
+    @keyframes slideUp { from { transform: translateX(-50%) translateY(100px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1 id="biz-name">Loading...</h1>
+  <p id="biz-date"></p>
+</div>
+
+<!-- STICKY NAVIGATION -->
+<div style="position:sticky;top:0;background:linear-gradient(135deg, #0b7a75, #065f5b);padding:12px 16px;z-index:100;display:flex;gap:8px;flex-wrap:wrap;align-items:center;box-shadow:0 2px 8px rgba(0,0,0,0.2);">
+  <span style="font-size:12px;font-weight:600;color:rgba(255,255,255,0.7);white-space:nowrap;">Jump to:</span>
+  <a href="#sec-specials" style="padding:8px 12px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('sec-specials').scrollIntoView({behavior:'smooth'}); return false;">🔥 Specials</a>
+  <a href="#sec-menu" style="padding:8px 12px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('sec-menu').scrollIntoView({behavior:'smooth'}); return false;">🍽️ Menu</a>
+  <a href="#sec-drinks" style="padding:8px 12px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('sec-drinks').scrollIntoView({behavior:'smooth'}); return false;">🍹 Drinks</a>
+  <a href="#sec-hh" style="padding:8px 12px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('sec-hh').scrollIntoView({behavior:'smooth'}); return false;">🍺 Happy Hour</a>
+  <a href="#sec-events" style="padding:8px 12px;background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3);border-radius:6px;text-decoration:none;font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;" onclick="document.getElementById('sec-events').scrollIntoView({behavior:'smooth'}); return false;">🎵 Events</a>
+</div>
+
+<div class="container">
+  <!-- SPECIALS -->
+  <div class="section" id="sec-specials">
+    <div class="section-title">🔥 Today's Specials</div>
+    <div id="list-specials"></div>
+    <button class="btn-add" onclick="addItem('special')">+ Add Special</button>
+  </div>
+
+  <!-- MENU -->
+  <div class="section" id="sec-menu">
+    <div class="section-title">🍽️ Menu</div>
+    <div id="list-menu"></div>
+    <button class="btn-add" onclick="addItem('menu')">+ Add Item</button>
+  </div>
+
+  <!-- DRINKS -->
+  <div class="section" id="sec-drinks">
+    <div class="section-title">🍹 Drinks</div>
+    <div id="list-drinks"></div>
+    <button class="btn-add" onclick="addItem('drink')">+ Add Drink</button>
+  </div>
+
+  <!-- HAPPY HOUR -->
+  <div class="section" id="sec-hh">
+    <div class="section-title">🍺 Happy Hour Items</div>
+    <div id="list-hh"></div>
+    <button class="btn-add" onclick="addItem('hh')">+ Add Happy Hour Item</button>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="section" id="sec-events">
+    <div class="section-title">🎵 Events</div>
+    <div id="list-events"></div>
+    <button class="btn-add" onclick="addItem('event')">+ Add Event</button>
+  </div>
+
+  <!-- SAVE -->
+  <button class="btn-save" onclick="saveAll()">💾 Save & Update Menu</button>
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <div class="modal-title" id="modal-title">Edit Item</div>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'https://cybercheck-api-database.vercel.app';
+const params = new URLSearchParams(window.location.search);
+const SLUG = params.get('slug');
+
+let _data = { specials: [], menu: [], drinks: [], hh: [], events: [] };
+let _edits = { specials: [], menu: [], drinks: [], hh: [], events: [] };
+let _editingKey = null;
+let _authenticated = false;
+
+// Show PIN prompt
+function showPinPrompt() {
+  const pin = prompt('Enter PIN to access menu editor:');
+  if (!pin) return false;
+  localStorage.setItem('menu_pin_' + SLUG, pin);
+  return true;
+}
+
+// Init
+async function init() {
+  // Validate SLUG
+  if (!SLUG) {
+    alert('Missing restaurant slug');
+    return;
+  }
+
+  // Check if PIN is in URL (from the admin dashboard link)
+  const urlParams = new URLSearchParams(window.location.search);
+  const pinFromUrl = urlParams.get('pin');
+
+  // Check PIN (try URL first, then localStorage, then prompt)
+  let pin = pinFromUrl || localStorage.getItem('menu_pin_' + SLUG);
+
+  if (!pin) {
+    if (!showPinPrompt()) return;
+    pin = localStorage.getItem('menu_pin_' + SLUG);
+  }
+
+  // Store PIN for later use (especially if from URL)
+  if (pin) {
+    localStorage.setItem('menu_pin_' + SLUG, pin);
+  }
+
+  // Load data
+  try {
+    const r = await fetch(`${API}/api/gcr/entity/${encodeURIComponent(SLUG)}`);
+    if (!r.ok) throw new Error('Restaurant not found');
+    const d = await r.json();
+
+    document.getElementById('biz-name').textContent = d.entity?.name || 'Menu';
+    document.getElementById('biz-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+
+    // Parse menu data
+    _data.specials = d.specials || [];
+    _data.menu = (d.menu?.items || []).map(item => ({ ...item, type: 'menu', section: 'Menu' }));
+    _data.drinks = (d.drinks?.items || []).map(item => ({ ...item, type: 'drink', section: 'Drinks' }));
+    _data.hh = (d.happy_hour?.items || []).map(item => ({ ...item, type: 'hh', section: 'Happy Hour' }));
+    _data.events = d.events || [];
+
+    render();
+  } catch (e) {
+    toast('Failed to load menu: ' + e.message, true);
+  }
+}
+
+// Render
+function render() {
+  renderList('specials', _data.specials.concat(_edits.specials));
+  renderList('menu', _data.menu.concat(_edits.menu));
+  renderList('drinks', _data.drinks.concat(_edits.drinks));
+  renderList('hh', _data.hh.concat(_edits.hh));
+  renderList('events', _data.events.concat(_edits.events));
+}
+
+function renderList(type, items) {
+  const el = document.getElementById('list-' + (type === 'hh' ? 'hh' : type === 'menu' ? 'menu' : type === 'drink' ? 'drinks' : type));
+  if (!el) return;
+  el.innerHTML = items.map((item, idx) => {
+    const name = item.item_name || item.special_name || item.event_name || 'Item';
+    const price = item.price || item.hh_price || '';
+    const img = item.image_url || '';
+    return `<div class="item">
+      ${img ? `<img class="item-img" src="${img}" alt="${name}">` : `<div class="item-img-placeholder" onclick="uploadImage('${type}',${idx})">📷</div>`}
+      <div class="item-body">
+        <div class="item-name">${name}</div>
+        ${price ? `<div class="item-price">$${parseFloat(price).toFixed(2)}</div>` : ''}
+        ${item.description ? `<div class="item-desc">${item.description}</div>` : ''}
+        <div class="btn-group">
+          <button class="btn-small btn-edit" onclick="editItem('${type}',${idx})">Edit</button>
+          <button class="btn-small btn-delete" onclick="deleteItem('${type}',${idx})">Delete</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function addItem(type) {
+  const newItem = {};
+  if (type === 'special') newItem = { special_name: '', description: '', discount_text: '', image_url: '' };
+  else if (type === 'menu') newItem = { item_name: '', description: '', price: '', image_url: '' };
+  else if (type === 'drink') newItem = { item_name: '', description: '', price: '', image_url: '' };
+  else if (type === 'hh') newItem = { item_name: '', description: '', hh_price: '', image_url: '' };
+  else if (type === 'event') newItem = { event_name: '', description: '', start_time: '', image_url: '' };
+
+  const idx = _edits[type === 'hh' ? 'hh' : type === 'menu' ? 'menu' : type === 'drink' ? 'drinks' : type].length;
+  _edits[type === 'hh' ? 'hh' : type === 'menu' ? 'menu' : type === 'drink' ? 'drinks' : type].push(newItem);
+  editItem(type, idx + _data[type === 'hh' ? 'hh' : type === 'menu' ? 'menu' : type === 'drink' ? 'drinks' : type].length - 1);
+}
+
+function editItem(type, idx) {
+  const typeMap = { special: 'specials', menu: 'menu', drink: 'drinks', hh: 'hh', event: 'events' };
+  const list = typeMap[type] ? (idx < _data[typeMap[type]].length ? _data[typeMap[type]] : _edits[typeMap[type]]) : [];
+  const listIdx = idx < _data[typeMap[type]]?.length ? idx : idx - _data[typeMap[type]]?.length;
+  const item = list[listIdx];
+  if (!item) return;
+
+  _editingKey = type + '_' + idx;
+  document.getElementById('modal-title').textContent = 'Edit ' + type;
+
+  const imageHtml = item.image_url ?
+    `<div class="field">
+      <label>Current Image</label>
+      <img src="${item.image_url}" style="width:100%;max-height:150px;border-radius:8px;object-fit:cover;margin-bottom:8px;">
+      <button type="button" class="btn-save" style="width:100%;margin-bottom:8px;" onclick="uploadImageForModal('${type}', ${idx})">📸 Change Image</button>
+    </div>` :
+    `<div class="field">
+      <button type="button" class="btn-save" style="width:100%;margin-bottom:8px;" onclick="uploadImageForModal('${type}', ${idx})">📸 Upload Image</button>
+    </div>`;
+
+  document.getElementById('modal-body').innerHTML = `
+    ${imageHtml}
+    ${item.item_name !== undefined ? `<div class="field"><label>Item Name</label><input id="name" type="text" value="${item.item_name || ''}"></div>` : ''}
+    ${item.special_name !== undefined ? `<div class="field"><label>Special Name</label><input id="name" type="text" value="${item.special_name || ''}"></div>` : ''}
+    ${item.event_name !== undefined ? `<div class="field"><label>Event Name</label><input id="name" type="text" value="${item.event_name || ''}"></div>` : ''}
+    <div class="field"><label>Description</label><textarea id="desc">${item.description || ''}</textarea></div>
+    ${item.price !== undefined ? `<div class="field"><label>Price</label><input id="price" type="text" value="${item.price || ''}"></div>` : ''}
+    ${item.hh_price !== undefined ? `<div class="field"><label>Happy Hour Price</label><input id="price" type="text" value="${item.hh_price || ''}"></div>` : ''}
+    ${item.discount_text !== undefined ? `<div class="field"><label>Discount</label><input id="discount" type="text" value="${item.discount_text || ''}"></div>` : ''}
+    ${item.start_time !== undefined ? `<div class="field"><label>Start Time</label><input id="time" type="text" value="${item.start_time || ''}"></div>` : ''}
+    <button class="btn-save" onclick="saveItem('${type}', ${idx})">✓ Save</button>
+  `;
+  document.getElementById('modal').classList.add('open');
+}
+
+function saveItem(type, idx) {
+  const typeMap = { special: 'specials', menu: 'menu', drink: 'drinks', hh: 'hh', event: 'events' };
+  const isEdit = idx < _data[typeMap[type]]?.length;
+  const list = isEdit ? _data[typeMap[type]] : _edits[typeMap[type]];
+  const listIdx = isEdit ? idx : idx - _data[typeMap[type]]?.length;
+  const item = list[listIdx];
+
+  item.item_name = document.getElementById('name')?.value || item.item_name;
+  item.special_name = document.getElementById('name')?.value || item.special_name;
+  item.event_name = document.getElementById('name')?.value || item.event_name;
+  item.description = document.getElementById('desc')?.value || item.description || '';
+  item.price = document.getElementById('price')?.value || item.price;
+  item.hh_price = document.getElementById('price')?.value || item.hh_price;
+  item.discount_text = document.getElementById('discount')?.value || item.discount_text;
+  item.start_time = document.getElementById('time')?.value || item.start_time;
+
+  document.getElementById('modal').classList.remove('open');
+  render();
+}
+
+function deleteItem(type, idx) {
+  if (!confirm('Delete this item?')) return;
+  const typeMap = { special: 'specials', menu: 'menu', drink: 'drinks', hh: 'hh', event: 'events' };
+  if (idx < _data[typeMap[type]]?.length) {
+    _data[typeMap[type]].splice(idx, 1);
+  } else {
+    _edits[typeMap[type]].splice(idx - _data[typeMap[type]]?.length, 1);
+  }
+  render();
+}
+
+function uploadImage(type, idx) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    toast('Uploading image...');
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const r = await fetch(`${API}/api/admin/gcr/upload-image`, { method: 'POST', body: fd });
+      if (!r.ok) {
+        const err = await r.text();
+        throw new Error(`Upload failed (${r.status}): ${err}`);
+      }
+      const d = await r.json();
+      if (!d.url) {
+        throw new Error('No image URL returned from server');
+      }
+      const typeMap = { special: 'specials', menu: 'menu', drink: 'drinks', hh: 'hh', event: 'events' };
+      const isEdit = idx < _data[typeMap[type]]?.length;
+      const list = isEdit ? _data[typeMap[type]] : _edits[typeMap[type]];
+      const listIdx = isEdit ? idx : idx - _data[typeMap[type]]?.length;
+      list[listIdx].image_url = d.url;
+      render();
+      toast('✅ Image uploaded and displayed!');
+    } catch (e) {
+      console.error('Upload error:', e);
+      toast('Failed to upload image: ' + e.message, true);
+    }
+  };
+  input.click();
+}
+
+function uploadImageForModal(type, idx) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    toast('Uploading image...');
+    const fd = new FormData();
+    fd.append('file', file);
+    try {
+      const r = await fetch(`${API}/api/admin/gcr/upload-image`, { method: 'POST', body: fd });
+      if (!r.ok) {
+        const err = await r.text();
+        throw new Error(`Upload failed (${r.status}): ${err}`);
+      }
+      const d = await r.json();
+      if (!d.url) {
+        throw new Error('No image URL returned from server');
+      }
+      const typeMap = { special: 'specials', menu: 'menu', drink: 'drinks', hh: 'hh', event: 'events' };
+      const isEdit = idx < _data[typeMap[type]]?.length;
+      const list = isEdit ? _data[typeMap[type]] : _edits[typeMap[type]];
+      const listIdx = isEdit ? idx : idx - _data[typeMap[type]]?.length;
+      list[listIdx].image_url = d.url;
+      // Re-open modal to show updated image
+      editItem(type, idx);
+      toast('✅ Image uploaded!');
+    } catch (e) {
+      console.error('Upload error:', e);
+      toast('Failed to upload image: ' + e.message, true);
+    }
+  };
+  input.click();
+}
+
+async function saveAll() {
+  if (!confirm('Save all changes to the menu?')) return;
+  toast('Saving...');
+  try {
+    const pin = localStorage.getItem('menu_pin_' + SLUG);
+
+    // Send ALL items (existing + new) so photos and edits are saved
+    const updates = {
+      specials: _data.specials.concat(_edits.specials),
+      menu: _data.menu.concat(_edits.menu),
+      drinks: _data.drinks.concat(_edits.drinks),
+      hh: _data.hh.concat(_edits.hh),
+      events: _data.events.concat(_edits.events)
+    };
+
+    const r = await fetch(`${API}/api/gcr/entity/${encodeURIComponent(SLUG)}/daily-update`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-menu-pin': pin
+      },
+      body: JSON.stringify(updates)
+    });
+
+    if (!r.ok) {
+      const err = await r.json();
+      throw new Error(err.error || 'Failed to save');
+    }
+
+    toast('✅ Menu updated! Changes are live on the QR menu.');
+    setTimeout(() => location.reload(), 2000);
+  } catch (e) {
+    toast('Error: ' + e.message, true);
+  }
+}
+
+function toast(msg, isError = false) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.background = isError ? '#dc2626' : '#0b7a75';
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+// Close modal
+document.getElementById('modal').onclick = () => document.getElementById('modal').classList.remove('open');
+
+// Load on start
+init();
+</script>
+
+</body>
+</html>

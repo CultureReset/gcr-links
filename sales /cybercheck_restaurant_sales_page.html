@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberCheck for Restaurants</title>
+  <style>
+    :root{
+      --bg:#06101a;
+      --bg2:#0b1726;
+      --card:#102336;
+      --card2:#15314b;
+      --line:rgba(255,255,255,.08);
+      --text:#f5f7fb;
+      --muted:#a0b3c6;
+      --accent:#2de5b7;
+      --accent2:#7ef5d6;
+      --blue:#5aa7ff;
+      --gold:#ffcd6d;
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:24px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;
+      background:
+        radial-gradient(circle at top right, rgba(45,229,183,.12), transparent 22%),
+        radial-gradient(circle at top left, rgba(90,167,255,.10), transparent 20%),
+        linear-gradient(180deg,#06101a 0%, #0a1623 100%);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+    .nav{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(14px);
+      background:rgba(6,16,26,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      max-width:var(--max);margin:0 auto;padding:14px 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
+    .logo{
+      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d;font-size:18px
+    }
+    .brand-name{font-size:24px}
+    .brand-name span{color:var(--accent)}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+    .nav-cta{
+      padding:11px 16px;border-radius:14px;font-weight:800;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d
+    }
+
+    section{padding:72px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.04);border:1px solid var(--line);
+      color:var(--accent2);font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase
+    }
+    .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:#35d67d;box-shadow:0 0 12px #35d67d}
+    h1,h2,h3,h4,p{margin:0}
+    .title{
+      font-size:clamp(38px,6vw,72px);line-height:.95;letter-spacing:-.05em;font-weight:950;
+      max-width:900px;margin-top:18px
+    }
+    .title .accent{color:var(--accent)}
+    .sub{
+      margin-top:18px;font-size:18px;line-height:1.6;color:var(--muted);max-width:760px
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:50px;padding:0 18px;border-radius:16px;font-weight:850;font-size:15px
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d}
+    .btn-dark{background:rgba(255,255,255,.04);border:1px solid var(--line);color:#fff}
+    .hero-grid{
+      margin-top:34px;
+      display:grid;grid-template-columns:1.1fr .9fr;gap:22px;align-items:stretch
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+    .hero-left{padding:26px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:26px}
+    .stat{padding:16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .stat strong{display:block;font-size:28px;letter-spacing:-.03em}
+    .stat span{display:block;font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+    .hero-right{padding:20px}
+    .phone-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;height:100%}
+    .phone{
+      background:#0c1622;border:1px solid var(--line);border-radius:26px;padding:10px;position:relative;overflow:hidden;
+      display:flex;flex-direction:column
+    }
+    .notch{width:72px;height:18px;border-radius:999px;background:#050b12;margin:0 auto 10px}
+    .screen{
+      flex:1;border-radius:20px;overflow:hidden;background:#101a26;border:1px solid rgba(255,255,255,.06)
+    }
+    .screen.hero{
+      min-height:0;padding:12px;background:
+       linear-gradient(180deg, rgba(5,10,18,.12), rgba(5,10,18,.72)),
+       url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80') center/cover;
+    }
+    .pill{
+      display:inline-block;padding:7px 10px;border-radius:999px;background:#0d2d24;
+      color:#9bfbe4;border:1px solid rgba(126,245,214,.18);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+    }
+    .screen h4{font-size:24px;line-height:.95;letter-spacing:-.03em;margin-top:78px}
+    .screen p{font-size:13px;color:#e1e7ef;margin-top:6px}
+    .mini-btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      margin-top:14px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);font-size:12px;font-weight:800
+    }
+    .menu-screen{padding:12px}
+    .menu-cats{display:flex;gap:6px;flex-wrap:wrap}
+    .cat{padding:6px 8px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:11px;font-weight:800}
+    .menu-item{padding:12px 0;border-bottom:1px solid var(--line)}
+    .row{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+    .menu-item h5{font-size:13px;margin:0 0 4px}
+    .menu-item p{font-size:11px;color:var(--muted);margin:0;line-height:1.4}
+    .price{font-size:13px;font-weight:900}
+    .booking-screen{padding:12px}
+    .input{
+      height:42px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+      margin-top:10px;padding:12px;font-size:12px;color:var(--muted)
+    }
+    .big-action{
+      height:44px;border-radius:14px;margin-top:12px;
+      display:grid;place-items:center;font-size:13px;font-weight:900;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d
+    }
+
+    .section-header{max-width:760px;margin-bottom:24px}
+    .section-header h2{
+      font-size:clamp(30px,4.5vw,52px);line-height:1;letter-spacing:-.04em;font-weight:950
+    }
+    .section-header p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6}
+    .problem-grid,.benefit-grid,.service-grid,.result-grid,.cta-grid{display:grid;gap:18px}
+    .problem-grid{grid-template-columns:1fr 1fr}
+    .problem-card,.benefit,.service,.result,.mini-card{
+      padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .problem-card h3,.benefit h3,.service h3,.result h3,.mini-card h3{font-size:22px;letter-spacing:-.03em}
+    .problem-card p,.benefit p,.service p,.result p,.mini-card p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.55}
+    .benefit-grid{grid-template-columns:repeat(2,1fr)}
+    .icon{
+      width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);font-size:24px;margin-bottom:14px
+    }
+
+    .feature-block{
+      display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center;margin-top:22px
+    }
+    .feature-copy{padding:6px 0}
+    .feature-copy h3{font-size:36px;line-height:1;letter-spacing:-.04em;margin-bottom:14px}
+    .feature-copy p{color:var(--muted);font-size:17px;line-height:1.65}
+    .checklist{display:grid;gap:10px;margin-top:18px}
+    .check{display:flex;gap:10px;align-items:flex-start;color:#e8f0f7;font-size:15px}
+    .check span:first-child{color:var(--accent);font-weight:900}
+    .feature-visual{padding:20px}
+    .visual-inner{
+      border-radius:22px;overflow:hidden;background:#0d1724;border:1px solid var(--line)
+    }
+    .visual-top{
+      min-height:180px;padding:18px;background:
+      linear-gradient(180deg, rgba(6,10,18,.12), rgba(6,10,18,.78)),
+      url('https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=1200&q=80') center/cover;
+    }
+    .visual-top h4{font-size:30px;line-height:1;letter-spacing:-.03em;margin-top:68px}
+    .visual-top p{margin-top:6px;color:#dde7f1;font-size:14px}
+    .visual-body{padding:16px;background:#101a26}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tile{
+      min-height:74px;border-radius:18px;padding:12px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .tile strong{display:block;font-size:13px}
+    .tile span{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}
+
+    .wide{
+      padding:24px;border-radius:28px;background:linear-gradient(180deg, rgba(45,229,183,.08), rgba(45,229,183,.02));
+      border:1px solid rgba(45,229,183,.18)
+    }
+    .wide h3{font-size:34px;line-height:1;letter-spacing:-.04em}
+    .wide p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6;max-width:800px}
+
+    .service-grid{grid-template-columns:repeat(3,1fr)}
+    .service .tag{
+      display:inline-block;padding:7px 10px;border-radius:999px;font-size:11px;font-weight:900;
+      background:rgba(255,255,255,.05);border:1px solid var(--line);margin-bottom:12px;color:var(--accent2)
+    }
+
+    .result-grid{grid-template-columns:repeat(4,1fr)}
+    .result strong{display:block;font-size:34px;letter-spacing:-.04em;color:var(--accent)}
+    .result span{display:block;margin-top:6px;color:var(--muted);font-size:14px;line-height:1.45}
+
+    .cta-wrap{
+      padding:28px;border-radius:28px;background:
+        radial-gradient(circle at right, rgba(45,229,183,.16), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow)
+    }
+    .cta-grid{grid-template-columns:1.1fr .9fr;align-items:center}
+    .cta-copy h2{font-size:clamp(30px,4.5vw,52px);line-height:1;letter-spacing:-.04em}
+    .cta-copy p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6}
+    .cta-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .quote{
+      padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .quote strong{display:block;font-size:18px}
+    .quote p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.6}
+
+    footer{
+      padding:28px 0 50px;color:var(--muted);font-size:14px
+    }
+    footer .container{
+      border-top:1px solid var(--line);padding-top:18px
+    }
+
+    @media (max-width: 960px){
+      .hero-grid,.feature-block,.cta-grid,.problem-grid,.benefit-grid,.service-grid,.result-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .phone-strip{grid-template-columns:1fr}
+      .nav-links{display:none}
+    }
+    @media (max-width: 640px){
+      section{padding:56px 0}
+      .container,.nav-inner{padding-left:16px;padding-right:16px}
+      .stats{grid-template-columns:1fr 1fr}
+      .title{font-size:40px}
+      .feature-copy h3,.wide h3{font-size:30px}
+      .service-grid,.result-grid{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo">🍽</div>
+        <div class="brand-name">CYBER<span>CHECK</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="#menu">Dynamic Menu</a>
+        <a href="#music">Live Music</a>
+        <a href="#booking">Booking</a>
+        <a href="#automation">Automations</a>
+        <a href="#loyalty">Loyalty</a>
+      </div>
+      <a class="nav-cta" href="javascript:void(0)" onclick="openSalesModal()">Book a Demo</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow"><span class="dot"></span> Built for restaurants, bars, and waterfront venues</div>
+      <h1 class="title">One QR Code. <span class="accent">Your Whole Restaurant Experience.</span></h1>
+      <p class="sub">
+        Menu, live music, reservations, catch of the day, daily specials, artist pages, marina bookings, and loyalty —
+        all connected to the same system, all updating in real time.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="javascript:void(0)" onclick="openSalesModal()">Get Started</a>
+        <a class="btn btn-dark" href="#problem">See How It Works</a>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-left card">
+          <h3 style="font-size:32px;line-height:1;letter-spacing:-.04em">Turn every table into a growth engine.</h3>
+          <p class="sub" style="margin-top:14px;max-width:none">
+            CyberCheck replaces outdated menus, stale listings, disconnected booking tools, and generic restaurant websites
+            with one connected system that actually stays current.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <strong>1</strong>
+              <span>System for menu, music, booking, specials, and loyalty</span>
+            </div>
+            <div class="stat">
+              <strong>0</strong>
+              <span>Dead PDFs or stale table menus</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Real-time updates across site, QR menu, and listings</span>
+            </div>
+            <div class="stat">
+              <strong>∞</strong>
+              <span>Ways to expand with automations, add-ons, and experiences</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-right card">
+          <div class="phone-strip">
+            <div class="phone">
+              <div class="notch"></div>
+              <div class="screen hero">
+                <span class="pill">Live tonight</span>
+                <h4>Jordan<br>Miller</h4>
+                <p>7:00 PM – 10:00 PM • Acoustic Rock</p>
+                <div class="mini-btn">View Artist Page</div>
+              </div>
+            </div>
+
+            <div class="phone">
+              <div class="notch"></div>
+              <div class="screen menu-screen">
+                <div class="menu-cats">
+                  <div class="cat">Starters</div>
+                  <div class="cat">Seafood</div>
+                  <div class="cat">Drinks</div>
+                </div>
+                <div class="menu-item">
+                  <div class="row">
+                    <div>
+                      <h5>Crab Cakes</h5>
+                      <p>Lump crab, aioli, slaw.</p>
+                    </div>
+                    <div class="price">$16</div>
+                  </div>
+                </div>
+                <div class="menu-item">
+                  <div class="row">
+                    <div>
+                      <h5>Blackened Grouper</h5>
+                      <p>Citrus butter, vegetables.</p>
+                    </div>
+                    <div class="price">$29</div>
+                  </div>
+                </div>
+                <div class="menu-item">
+                  <div class="row">
+                    <div>
+                      <h5>Harbor Margarita</h5>
+                      <p>Tequila, lime, orange.</p>
+                    </div>
+                    <div class="price">$12</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone">
+              <div class="notch"></div>
+              <div class="screen booking-screen">
+                <div class="pill">Reserve a table</div>
+                <div class="input">Fri, May 24</div>
+                <div class="input">7:00 PM</div>
+                <div class="input">2 Guests</div>
+                <div class="big-action">Find a Table</div>
+                <div class="input">Marina slips & rentals</div>
+                <div class="big-action" style="background:rgba(255,255,255,.06);color:white;border:1px solid var(--line)">View Marina Options</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="container">
+      <div class="section-header">
+        <h2>The problem with most restaurant pages</h2>
+        <p>
+          Guests see one thing on the website, another thing on the table QR code, something outdated on directories,
+          and no real connection between menu, music, bookings, and specials.
+        </p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>Outdated everywhere</h3>
+          <p>
+            Catch of the day changes. Happy hour changes. Artists change. Specials change. Most restaurants still rely on stale PDFs,
+            old website pages, and listings that never match what is really happening.
+          </p>
+        </div>
+        <div class="problem-card">
+          <h3>Disconnected tools</h3>
+          <p>
+            Menus live in one place. Booking lives somewhere else. Live music is on a flyer or Instagram post.
+            Staff has to update everything manually, or it never gets updated at all.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container">
+      <div class="feature-block">
+        <div class="feature-copy">
+          <div class="eyebrow">Dynamic QR Menu</div>
+          <h3>A live menu tied to the real business.</h3>
+          <p>
+            Your restaurant website, your QR menu on the table, and your listing presence can all pull from the same source.
+            Update it once and it stays consistent everywhere.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>With photos or without photos</span></div>
+            <div class="check"><span>✓</span><span>Catch of the day, specials, and item photos can update in real time</span></div>
+            <div class="check"><span>✓</span><span>Item clicks and expands can be tracked so you know what people care about</span></div>
+            <div class="check"><span>✓</span><span>Built into the restaurant’s actual digital presence, not bolted on as an afterthought</span></div>
+          </div>
+        </div>
+
+        <div class="feature-visual card">
+          <div class="visual-inner">
+            <div class="visual-top">
+              <span class="pill">Menu + specials</span>
+              <h4>Always current.<br>Always branded.</h4>
+              <p>Website, table QR, and live listings stay synced.</p>
+            </div>
+            <div class="visual-body">
+              <div class="grid-2">
+                <div class="tile"><strong>Catch of the Day</strong><span>Tap the morning text. Update the item. It goes live everywhere.</span></div>
+                <div class="tile"><strong>Timed Specials</strong><span>Happy hour and daily specials can move to the top automatically.</span></div>
+                <div class="tile"><strong>Item Insights</strong><span>See which dishes get clicks, expands, and attention.</span></div>
+                <div class="tile"><strong>Cleaner Experience</strong><span>Guests browse one connected menu instead of a dead PDF.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="music">
+    <div class="container">
+      <div class="feature-block">
+        <div class="feature-visual card">
+          <div class="visual-inner">
+            <div class="visual-top" style="background:
+              linear-gradient(180deg, rgba(6,10,18,.12), rgba(6,10,18,.78)),
+              url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=1200&q=80') center/cover;">
+              <span class="pill">Live music + artist pages</span>
+              <h4>Show exactly<br>who’s playing.</h4>
+              <p>Let guests tap the artist and open their live page.</p>
+            </div>
+            <div class="visual-body">
+              <div class="grid-2">
+                <div class="tile"><strong>Tonight’s Artist</strong><span>Show the artist, genre, time, and set details at the top.</span></div>
+                <div class="tile"><strong>Artist Page</strong><span>Guests can tap through to the artist’s live profile page.</span></div>
+                <div class="tile"><strong>Weekly Lineup</strong><span>Build a full lineup that stays current instead of just posting flyers.</span></div>
+                <div class="tile"><strong>Shared Data</strong><span>The artist’s page can act as the live source across venues.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-copy">
+          <div class="eyebrow">Live Music + Artist Connection</div>
+          <h3>Turn “live music tonight” into a full experience.</h3>
+          <p>
+            Instead of just saying there is music, CyberCheck can show who is playing, what kind of music they do,
+            and let guests tap through to the artist’s profile page for schedule, links, requests, and booking info.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>Top banner for the artist playing tonight</span></div>
+            <div class="check"><span>✓</span><span>Clickable artist cards in the weekly lineup</span></div>
+            <div class="check"><span>✓</span><span>Artist profiles with social links, music, schedule, tip jar, and request tools</span></div>
+            <div class="check"><span>✓</span><span>Restaurants stop retyping artist details every week</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking">
+    <div class="container">
+      <div class="wide">
+        <h3>Your booking platform belongs on the same page.</h3>
+        <p>
+          CyberCheck is not just a menu. It is also where guests can book tables, reserve private dining, request events,
+          or book marina slips, rentals, and experiences — directly from the same branded page.
+        </p>
+      </div>
+
+      <div class="benefit-grid" style="margin-top:22px">
+        <div class="benefit">
+          <div class="icon">🍽️</div>
+          <h3>Restaurant reservations</h3>
+          <p>Let people reserve a table while they’re already on your menu page instead of sending them off-platform.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">⚓</div>
+          <h3>Marina & experiences</h3>
+          <p>Perfect for waterfront spots that want to book slips, rentals, or add-on experiences from the same page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="automation">
+    <div class="container">
+      <div class="feature-block">
+        <div class="feature-copy">
+          <div class="eyebrow">Automations</div>
+          <h3>Update by text. Sync everything automatically.</h3>
+          <p>
+            This is where the system becomes operational. Each morning, the manager on duty can get a text with a link,
+            tap the catch of the day or daily special, and update the website, QR menu, and Gulf Coast Radar at once.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>Daily manager text for catch of the day or special updates</span></div>
+            <div class="check"><span>✓</span><span>Automatic sync to website, QR menu, and connected listings</span></div>
+            <div class="check"><span>✓</span><span>Timed rules for happy hour banners, daily specials, and events</span></div>
+            <div class="check"><span>✓</span><span>Follow-up and owner notifications can be layered in too</span></div>
+          </div>
+        </div>
+
+        <div class="feature-visual card">
+          <div class="visual-inner">
+            <div class="visual-body" style="padding:20px">
+              <div class="tile" style="min-height:auto;margin-bottom:10px">
+                <strong>7:00 AM — Manager Text</strong>
+                <span>“Tap to update today’s catch.”</span>
+              </div>
+              <div class="tile" style="min-height:auto;margin-bottom:10px">
+                <strong>7:01 AM — Manager taps Red Snapper</strong>
+                <span>Special is selected from preset options.</span>
+              </div>
+              <div class="tile" style="min-height:auto;margin-bottom:10px">
+                <strong>7:02 AM — Website updates</strong>
+                <span>Restaurant site reflects today’s catch.</span>
+              </div>
+              <div class="tile" style="min-height:auto;margin-bottom:10px">
+                <strong>7:02 AM — QR Menu updates</strong>
+                <span>Guests scanning tables now see the right item.</span>
+              </div>
+              <div class="tile" style="min-height:auto">
+                <strong>7:02 AM — Gulf Coast Radar updates</strong>
+                <span>Connected listing shows the same current info.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="loyalty">
+    <div class="container">
+      <div class="section-header">
+        <h2>Don’t just get one visit. Build regulars.</h2>
+        <p>
+          Once the guest is already on your QR experience, you can capture them into loyalty, specials, and future return traffic.
+          This is where the restaurant gets long-term value instead of just a prettier menu.
+        </p>
+      </div>
+
+      <div class="service-grid">
+        <div class="service">
+          <div class="tag">Loyalty</div>
+          <h3>Join from the table</h3>
+          <p>Guests can opt into rewards and offers directly from the same QR experience.</p>
+        </div>
+        <div class="service">
+          <div class="tag">Retention</div>
+          <h3>Promote what matters</h3>
+          <p>Push future specials, music nights, or limited offers to the people who already visited.</p>
+        </div>
+        <div class="service">
+          <div class="tag">Data</div>
+          <h3>See what people engage with</h3>
+          <p>Track what items, artists, specials, and sections get clicked so you can make smarter decisions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2>What the restaurant really gets</h2>
+        <p>This is bigger than a QR menu. It is a connected restaurant operating layer.</p>
+      </div>
+
+      <div class="result-grid">
+        <div class="result">
+          <strong>More</strong>
+          <span>bookings, reservations, and upsells from the same page</span>
+        </div>
+        <div class="result">
+          <strong>Less</strong>
+          <span>manual updating across disconnected platforms and stale pages</span>
+        </div>
+        <div class="result">
+          <strong>Better</strong>
+          <span>guest experience with live music, specials, and relevant menu content</span>
+        </div>
+        <div class="result">
+          <strong>Stronger</strong>
+          <span>retention through loyalty, automations, and repeat visit offers</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container">
+      <div class="cta-wrap">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="eyebrow">Ready to grow?</div>
+            <h2>Put a smarter QR code on every table.</h2>
+            <p>
+              Menu, music, artist pages, bookings, catch of the day, specials, marina experiences, and loyalty —
+              all connected, all dynamic, all on your page.
+            </p>
+            <div class="cta-actions">
+              <a class="btn btn-primary" href="javascript:void(0)" onclick="openSalesModal()">Book a Demo</a>
+              <a class="btn btn-dark" href="javascript:void(0)" onclick="openSalesModal()">Get Started</a>
+            </div>
+          </div>
+
+          <div class="quote">
+            <strong>The pitch</strong>
+            <p>
+              “We rebuild the restaurant’s digital experience so the website, QR menu, specials, live music, bookings,
+              and listings all stay connected. Update once. It updates everywhere.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;">
+        <div>
+          <strong>CyberCheck LLC</strong> &nbsp;&middot;&nbsp; (205) 810-4950 &nbsp;&middot;&nbsp; info@cybercheckinc.com
+        </div>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;">
+          <a href="/privacy.html" style="color:inherit;">Privacy Policy</a>
+          <a href="/terms.html" style="color:inherit;">Terms</a>
+          <a href="/sms-terms.html" style="color:inherit;">SMS Terms</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/sales-config.js"></script>
+  <script>
+    renderSalesModal({ title: 'Get Started with CyberCheck Restaurants', subtitle: "Tell us about your restaurant and we'll reach out to get your page built." });
+  </script>
+</body>
+</html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aWavegent for Restaurants</title>
+  <style>
+    :root{
+      --sand:#f7f0e6;
+      --sea:#0f766e;
+      --deep:#0f172a;
+      --sky:#e6fffb;
+      --coral:#f97316;
+      --white:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#dbe4ea;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--sand),#fff 220px);
+      line-height:1.5;
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .hero{
+      background:
+        radial-gradient(circle at top right, rgba(15,118,110,.15), transparent 28%),
+        linear-gradient(135deg, rgba(15,118,110,.08), rgba(249,115,22,.08));
+      padding:72px 0 56px;
+      border-bottom:1px solid var(--border);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:36px;
+      align-items:center;
+    }
+    h1{
+      font-size:54px;
+      line-height:1.02;
+      margin:0 0 16px;
+      color:var(--deep);
+    }
+    .sub{
+      font-size:20px;
+      color:#334155;
+      max-width:760px;
+      margin-bottom:24px;
+    }
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:14px 20px;
+      border-radius:14px;
+      font-weight:700;
+      border:2px solid transparent;
+    }
+    .btn-primary{background:var(--sea);color:#fff}
+    .btn-secondary{background:#fff;border-color:var(--sea);color:var(--sea)}
+    .phone{
+      background:#0b1220;
+      border-radius:34px;
+      padding:14px;
+      max-width:370px;
+      margin:0 auto;
+      box-shadow:0 24px 60px rgba(15,23,42,.24);
+    }
+    .screen{
+      background:#f8fafc;
+      border-radius:24px;
+      overflow:hidden;
+      min-height:700px;
+    }
+    .screen-top{
+      background:linear-gradient(135deg,var(--sea),#164e63);
+      color:#fff;
+      padding:22px 20px 18px;
+    }
+    .chip{
+      display:inline-block;
+      background:rgba(255,255,255,.18);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+      margin-bottom:10px;
+    }
+    .menu-card, .sms-card, .review-card{
+      background:#fff;
+      margin:14px;
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+      border:1px solid #eef2f7;
+    }
+    .badge{
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      color:var(--sea);
+      background:var(--sky);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:8px;
+    }
+    .menu-item{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid #eef2f7;
+    }
+    .menu-item:last-child{border-bottom:none}
+    .price{font-weight:700;color:var(--deep)}
+    .section{padding:62px 0;border-bottom:1px solid var(--border)}
+    h2{
+      font-size:38px;
+      line-height:1.08;
+      margin:0 0 14px;
+      color:var(--deep);
+    }
+    .lead{font-size:18px;color:var(--muted);max-width:860px;margin-bottom:28px}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+      align-items:start;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 28px rgba(15,23,42,.05);
+    }
+    .card h3{margin:0 0 10px;font-size:22px;color:var(--deep)}
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+      font-weight:800;
+      color:var(--sea);
+      margin-bottom:10px;
+    }
+    ul{padding-left:18px;margin:12px 0 0}
+    li{margin:8px 0}
+    .flow-step{
+      display:grid;
+      grid-template-columns:56px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .flow-step:last-child{border-bottom:none}
+    .num{
+      width:42px;height:42px;border-radius:50%;
+      background:var(--sea);color:#fff;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+      margin-top:2px;
+    }
+    .cta{
+      background:linear-gradient(135deg,var(--deep),#134e4a);
+      color:#fff;
+      padding:60px 0;
+    }
+    .cta .card{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.16);
+      color:#fff;
+    }
+    .cta h2,.cta h3{color:#fff}
+    .small{font-size:14px;color:var(--muted)}
+    .cta .small{color:#d1d5db}
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+    @media (max-width: 900px){
+      .hero-grid,.grid-3,.grid-2{grid-template-columns:1fr}
+      h1{font-size:40px}
+      h2{font-size:30px}
+      .sub,.lead{font-size:17px}
+      .phone{max-width:420px}
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">aWavegent for Restaurants</div>
+        <h1>One text updates your whole restaurant.</h1>
+        <div class="sub">
+          QR menus, daily specials, verified reviews, booking reminders, and a smart restaurant page that stays synced across your site, your menu, and your Gulf Coast Radar listing.
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#cta">Get Started Free</a>
+          <a class="btn btn-secondary" href="#demo">See the Demo Flow</a>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="screen">
+          <div class="screen-top">
+            <div class="chip">Live restaurant demo</div>
+            <div style="font-size:28px;font-weight:800;">Today's Catch + Happy Hour</div>
+            <div style="opacity:.92;margin-top:6px;">One update pushes everywhere.</div>
+          </div>
+
+          <div class="menu-card">
+            <div class="badge">Now Showing</div>
+            <div style="font-weight:800;font-size:20px;margin-bottom:4px;">Happy Hour · 3:00–5:00 PM</div>
+            <div class="small">Craft cocktails, beer specials, and appetizer promos automatically surfaced at the top.</div>
+          </div>
+
+          <div class="sms-card">
+            <div class="badge">Manager SMS</div>
+            <div style="font-weight:700;margin-bottom:8px;">Wavegent · 9:12 AM</div>
+            <div style="background:#f3f4f6;border-radius:14px;padding:12px;margin-bottom:8px;">
+              Morning! What’s the catch today?
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              <span class="badge">Grouper</span>
+              <span class="badge">Snapper</span>
+              <span class="badge">Cobia</span>
+              <span class="badge">Mahi</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="badge">Verified Review</div>
+            <div style="font-weight:800;">Michelle K. · Dinner · Mar 7, 2026 · 7:30 PM</div>
+            <div style="margin-top:8px;">“The red snapper was incredible. Live music, fast service, and the easiest menu experience I’ve seen anywhere.”</div>
+          </div>
+
+          <div class="menu-card">
+            <div class="badge">QR Menu</div>
+            <div class="menu-item">
+              <div>
+                <div style="font-weight:700;">Gulf Snapper</div>
+                <div class="small">Fresh catch, lemon butter, seasonal vegetables</div>
+              </div>
+              <div class="price">$32</div>
+            </div>
+            <div class="menu-item">
+              <div>
+                <div style="font-weight:700;">Shrimp & Grits</div>
+                <div class="small">Creamy stone-ground grits, Gulf shrimp, Cajun butter</div>
+              </div>
+              <div class="price">$24</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">What restaurants actually get</div>
+      <h2>Not another dead landing page. A connected restaurant system.</h2>
+      <div class="lead">
+        Restaurants don’t need more disconnected tools. They need one place to update specials, menus, hours, reservations, reviews, and customer communication without touching five different systems.
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Smart QR Menu</h3>
+          <p>A clean mobile menu that can show happy hour, daily specials, and catch-of-the-day first based on time of day.</p>
+        </div>
+        <div class="card">
+          <h3>SMS Updates</h3>
+          <p>Managers get simple texts for daily updates, reservation reminders, review follow-ups, and open-table pushes.</p>
+        </div>
+        <div class="card">
+          <h3>Verified Reviews</h3>
+          <p>Your own review platform tied to real bookings and real visits, not random open reviews from anyone.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="demo">
+    <div class="wrap">
+      <div class="eyebrow">Restaurant demo flow</div>
+      <h2>How the restaurant version works</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="flow-step">
+            <div class="num">1</div>
+            <div>
+              <h3>Customer books or scans</h3>
+              <div>They come from your website, Gulf Coast Radar, Google, social, a QR code on the table, or a direct link.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">2</div>
+            <div>
+              <h3>Source gets tracked</h3>
+              <div>You see whether the lead or reservation came from GCR, Facebook, Google, direct traffic, or a promo link.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">3</div>
+            <div>
+              <h3>SMS confirmation and reminder</h3>
+              <div>Customer gets confirmation. Later they get a reminder, update link, or same-day message depending on the setup.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">4</div>
+            <div>
+              <h3>Manager updates once</h3>
+              <div>Hours, specials, catch of the day, menu changes, photos, and promos can be updated from one dashboard or simple text prompt.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">5</div>
+            <div>
+              <h3>Everything stays synced</h3>
+              <div>Your menu page, QR menu, smart profile, and GCR page all stay aligned instead of drifting out of date.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">6</div>
+            <div>
+              <h3>Verified review request goes out</h3>
+              <div>After the visit, the guest gets a one-time review link tied to the actual reservation or visit flow.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>What makes this different</h3>
+          <ul>
+            <li>Your menu is not static. It can change by time, special, or daily feature.</li>
+            <li>Your reviews are tied to real customer actions, not random public noise.</li>
+            <li>Your business can track where traffic and reservations actually come from.</li>
+            <li>Your staff can update the restaurant without logging into five different systems.</li>
+            <li>Your GCR listing becomes a real conversion tool, not just a passive listing.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">SMS examples</div>
+      <h2>Simple messages. Real operational value.</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Reservation confirmation</h3>
+          <p><strong>Wavegent:</strong> Hi Sarah — your reservation at Harbor House is confirmed for Friday at 7:30 PM for 4 guests.</p>
+        </div>
+        <div class="card">
+          <h3>Daily manager prompt</h3>
+          <p><strong>Wavegent:</strong> What’s the catch today? Tap one: Grouper / Snapper / Cobia / Mahi.</p>
+        </div>
+        <div class="card">
+          <h3>Review request</h3>
+          <p><strong>Wavegent:</strong> Thanks for dining with us. Leave your verified review here: yourlink.com/review/abc123</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">Built for restaurant operators</div>
+      <h2>Use it as a free hook or a full restaurant growth system.</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Start simple</h3>
+          <ul>
+            <li>Free or low-friction smart page</li>
+            <li>QR menu</li>
+            <li>Basic listing on Gulf Coast Radar</li>
+            <li>Contact + directions + socials</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Then expand</h3>
+          <ul>
+            <li>SMS automations</li>
+            <li>Review engine</li>
+            <li>Reservation reminders</li>
+            <li>Booking source tracking</li>
+            <li>Time-based specials and promos</li>
+            <li>POS / reservation integrations later</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <div class="eyebrow" style="color:#99f6e4;">Restaurant launch offer</div>
+          <h2>Give restaurants something useful fast.</h2>
+          <div class="lead" style="color:#d1d5db;">
+            Lead with the part they understand immediately: a smart page, a QR menu, clean updates, and real customer follow-up. Then expand into bookings, analytics, and automation.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Call to action</h3>
+          <p>Get your restaurant listed, launch a smart QR menu, and start updating everything from one place.</p>
+          <p><strong>Email:</strong> hello@awavegent.com</p>
+          <p><strong>Phone:</strong> (000) 000-0000</p>
+          <p class="small">Replace this with your actual lead form, booking link, or direct contact info.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      aWavegent for Restaurants — smart pages, QR menus, verified reviews, and connected updates.
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aWavegent for Service Businesses</title>
+  <style>
+    :root{
+      --sand:#f7f0e6;
+      --sea:#7c3aed;
+      --deep:#0f172a;
+      --sky:#f5f3ff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#dbe4ea;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--sand),#fff 220px);
+      line-height:1.5;
+    }
+    .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+    .hero{
+      background:
+        radial-gradient(circle at top right, rgba(124,58,237,.15), transparent 28%),
+        linear-gradient(135deg, rgba(124,58,237,.08), rgba(249,115,22,.08));
+      padding:72px 0 56px;
+      border-bottom:1px solid var(--border);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:36px;
+      align-items:center;
+    }
+    h1{
+      font-size:54px;
+      line-height:1.02;
+      margin:0 0 16px;
+      color:var(--deep);
+    }
+    .sub{
+      font-size:20px;
+      color:#334155;
+      max-width:760px;
+      margin-bottom:24px;
+    }
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:16px}
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:14px 20px;
+      border-radius:14px;
+      font-weight:700;
+      border:2px solid transparent;
+    }
+    .btn-primary{background:var(--sea);color:#fff}
+    .btn-secondary{background:#fff;border-color:var(--sea);color:var(--sea)}
+    .phone{
+      background:#0b1220;
+      border-radius:34px;
+      padding:14px;
+      max-width:370px;
+      margin:0 auto;
+      box-shadow:0 24px 60px rgba(15,23,42,.24);
+    }
+    .screen{
+      background:#f8fafc;
+      border-radius:24px;
+      overflow:hidden;
+      min-height:700px;
+    }
+    .screen-top{
+      background:linear-gradient(135deg,var(--sea),#4c1d95);
+      color:#fff;
+      padding:22px 20px 18px;
+    }
+    .chip{
+      display:inline-block;
+      background:rgba(255,255,255,.18);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+      margin-bottom:10px;
+    }
+    .panel-card, .sms-card, .review-card{
+      background:#fff;
+      margin:14px;
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+      border:1px solid #eef2f7;
+    }
+    .badge{
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      color:var(--sea);
+      background:var(--sky);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:8px;
+    }
+    .item{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 0;
+      border-bottom:1px solid #eef2f7;
+    }
+    .item:last-child{border-bottom:none}
+    .price{font-weight:700;color:var(--deep)}
+    .section{padding:62px 0;border-bottom:1px solid var(--border)}
+    h2{
+      font-size:38px;
+      line-height:1.08;
+      margin:0 0 14px;
+      color:var(--deep);
+    }
+    .lead{font-size:18px;color:var(--muted);max-width:860px;margin-bottom:28px}
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+      align-items:start;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 28px rgba(15,23,42,.05);
+    }
+    .card h3{margin:0 0 10px;font-size:22px;color:var(--deep)}
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+      font-weight:800;
+      color:var(--sea);
+      margin-bottom:10px;
+    }
+    ul{padding-left:18px;margin:12px 0 0}
+    li{margin:8px 0}
+    .flow-step{
+      display:grid;
+      grid-template-columns:56px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .flow-step:last-child{border-bottom:none}
+    .num{
+      width:42px;height:42px;border-radius:50%;
+      background:var(--sea);color:#fff;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+      margin-top:2px;
+    }
+    .cta{
+      background:linear-gradient(135deg,var(--deep),#581c87);
+      color:#fff;
+      padding:60px 0;
+    }
+    .cta .card{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.16);
+      color:#fff;
+    }
+    .cta h2,.cta h3{color:#fff}
+    .small{font-size:14px;color:var(--muted)}
+    .cta .small{color:#d1d5db}
+    footer{padding:28px 0;color:var(--muted);font-size:14px}
+    @media (max-width: 900px){
+      .header-inner{flex-direction:column;align-items:flex-start;padding:14px 0}
+      .main-nav{justify-content:flex-start}
+      .header-cta{width:100%;text-align:center}
+
+      .hero-grid,.grid-3,.grid-2{grid-template-columns:1fr}
+      h1{font-size:40px}
+      h2{font-size:30px}
+      .sub,.lead{font-size:17px}
+      .phone{max-width:420px}
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+    .header-inner{
+      min-height:74px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      text-decoration:none;
+      color:var(--deep);
+      font-weight:800;
+    }
+    .brand-mark{
+      width:38px;
+      height:38px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg,var(--sea),var(--deep));
+      color:#fff;
+      font-size:14px;
+      letter-spacing:.02em;
+    }
+    .brand-text{
+      font-size:20px;
+      line-height:1;
+    }
+    .main-nav{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .nav-link{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:700;
+      padding:10px 12px;
+      border-radius:12px;
+      transition:.15s ease;
+    }
+    .nav-link:hover{
+      background:#fff;
+      color:var(--deep);
+    }
+    .nav-link.active{
+      background:var(--sky);
+      color:var(--sea);
+    }
+    .header-cta{
+      text-decoration:none;
+      background:var(--sea);
+      color:#fff;
+      font-weight:800;
+      padding:12px 16px;
+      border-radius:14px;
+      white-space:nowrap;
+    }
+    .site-footer{
+      padding:32px 0;
+      color:var(--muted);
+      font-size:14px;
+      background:#fff;
+    }
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:24px;
+      flex-wrap:wrap;
+    }
+    .footer-brand{
+      color:var(--deep);
+      font-weight:800;
+      margin-bottom:8px;
+      font-size:18px;
+    }
+    .footer-copy{
+      max-width:520px;
+    }
+    .footer-links{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .footer-links a{
+      text-decoration:none;
+      color:var(--muted);
+      font-weight:700;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="wavegent_homepage_v2.html">
+        <span class="brand-mark">aW</span>
+        <span class="brand-text">aWavegent</span>
+      </a>
+      <nav class="main-nav">
+        <a class="nav-link" href="wavegent_homepage_v2.html">Home</a><a class="nav-link" href="wavegent_restaurants_sales_page_v2.html">Restaurants</a><a class="nav-link" href="wavegent_charters_sales_page_v2.html">Charters</a><a class="nav-link" href="wavegent_activities_sales_page_v2.html">Activities</a><a class="nav-link active" href="wavegent_services_sales_page_v2.html">Services</a>
+      </nav>
+      <a class="header-cta" href="#cta">Get Started</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">aWavegent for Service Businesses</div>
+        <h1>Turn calls and inquiries into booked jobs.</h1>
+        <div class="sub">
+          Smart service pages, booking and lead capture, SMS confirmations, follow-up reminders, verified reviews, and a public page that stays synced across your website, your smart link page, and your Gulf Coast Radar listing.
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#cta">Get Started Free</a>
+          <a class="btn btn-secondary" href="#demo">See the Demo Flow</a>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="screen">
+          <div class="screen-top">
+            <div class="chip">Live services demo</div>
+            <div style="font-size:28px;font-weight:800;">Lead Capture + SMS Follow-Up</div>
+            <div style="opacity:.92;margin-top:6px;">A smarter page for photographers, plumbers, cleaners, stylists, and more.</div>
+          </div>
+
+          <div class="sms-card">
+            <div class="badge">Owner SMS</div>
+            <div style="font-weight:700;margin-bottom:8px;">Wavegent · 8:42 AM</div>
+            <div style="background:#f3f4f6;border-radius:14px;padding:12px;margin-bottom:8px;">
+              New appointment request from Sarah M.<br>
+              Service: Bridal Makeup<br>
+              Requested: Saturday at 11:00 AM
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <div class="badge">Service Options</div>
+            <div class="item">
+              <div>
+                <div style="font-weight:700;">In-Home Consultation</div>
+                <div class="small">Fast intake and scheduling</div>
+              </div>
+              <div class="price">$95</div>
+            </div>
+            <div class="item">
+              <div>
+                <div style="font-weight:700;">Half-Day Service</div>
+                <div class="small">Appointments with optional add-ons</div>
+              </div>
+              <div class="price">$250</div>
+            </div>
+            <div class="item">
+              <div>
+                <div style="font-weight:700;">Full Package Booking</div>
+                <div class="small">For larger jobs or premium service</div>
+              </div>
+              <div class="price">$650</div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="badge">Verified Review</div>
+            <div style="font-weight:800;">David R. · Pressure Washing · Apr 14, 2026 · 2:00 PM</div>
+            <div style="margin-top:8px;">“Fast response, easy booking, and the follow-up texts made everything simple. Way better than playing phone tag.”</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">What service businesses actually get</div>
+      <h2>Not just a contact form. A system that helps close jobs.</h2>
+      <div class="lead">
+        Most service businesses lose leads because the website is weak, the follow-up is slow, and the booking process is messy. This gives them one smarter page that captures demand and moves it toward scheduled work.
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Smart Service Page</h3>
+          <p>A clean page for services, pricing, booking, photos, testimonials, and contact actions instead of a dead generic site.</p>
+        </div>
+        <div class="card">
+          <h3>SMS Lead Follow-Up</h3>
+          <p>As soon as a request comes in, the owner gets an alert and the customer gets a response path without waiting around.</p>
+        </div>
+        <div class="card">
+          <h3>Verified Reviews</h3>
+          <p>Reviews tied to actual jobs or appointments so the trust layer is stronger than random public comments.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="demo">
+    <div class="wrap">
+      <div class="eyebrow">Services demo flow</div>
+      <h2>How the services version works</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="flow-step">
+            <div class="num">1</div>
+            <div>
+              <h3>Customer finds the business</h3>
+              <div>They come from Gulf Coast Radar, Google, Facebook, Instagram, a direct link, or a smart profile page.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">2</div>
+            <div>
+              <h3>Source gets tracked</h3>
+              <div>You can see whether the lead or appointment came from GCR, direct, social, referral, or a campaign link.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">3</div>
+            <div>
+              <h3>Lead or booking comes in</h3>
+              <div>The customer requests service, books time, or fills out a guided form based on the business setup.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">4</div>
+            <div>
+              <h3>SMS confirmation goes out</h3>
+              <div>The customer gets confirmation or follow-up. The owner gets instant notification so they can move fast.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">5</div>
+            <div>
+              <h3>Reminders and follow-up run automatically</h3>
+              <div>Appointment reminders, status updates, and post-job follow-up messages can all be automated.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">6</div>
+            <div>
+              <h3>Verified review request goes out</h3>
+              <div>After the job, the customer gets a one-time link to leave a verified review tied to the actual service.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>What makes this different</h3>
+          <ul>
+            <li>You are not relying on a dead website and missed calls.</li>
+            <li>You can track what channels actually send you jobs.</li>
+            <li>You can follow up faster without doing everything manually.</li>
+            <li>Your page, lead flow, and public listing stay aligned.</li>
+            <li>You build a stronger reputation with reviews tied to real work.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">SMS examples</div>
+      <h2>Simple texts. Better close rate.</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Lead alert</h3>
+          <p><strong>Wavegent:</strong> New service request from Sarah M. Requested appointment: Saturday at 11:00 AM.</p>
+        </div>
+        <div class="card">
+          <h3>Customer confirmation</h3>
+          <p><strong>Wavegent:</strong> Your appointment request has been received. We’ll text you shortly with confirmation.</p>
+        </div>
+        <div class="card">
+          <h3>Review request</h3>
+          <p><strong>Wavegent:</strong> Thanks for working with us. Leave your verified service review here: yourlink.com/review/abc123</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">Built for local service operators</div>
+      <h2>Use it as a free hook or a full service growth system.</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Start simple</h3>
+          <ul>
+            <li>Smart profile page</li>
+            <li>Lead form or booking request flow</li>
+            <li>Basic listing on Gulf Coast Radar</li>
+            <li>Call, directions, contact, services overview</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Then expand</h3>
+          <ul>
+            <li>SMS follow-up and appointment reminders</li>
+            <li>Source tracking</li>
+            <li>Verified review engine</li>
+            <li>Repeat customer outreach</li>
+            <li>Automated reminders and status updates</li>
+            <li>Calendar or platform sync later</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <div class="eyebrow" style="color:#ddd6fe;">Services launch offer</div>
+          <h2>Give service businesses a page that helps them win more jobs.</h2>
+          <div class="lead" style="color:#d1d5db;">
+            Lead with the part they understand immediately: a stronger page, better lead follow-up, cleaner appointment handling, and real review collection after the work is done.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Call to action</h3>
+          <p>Launch a smart service page, capture leads faster, automate customer follow-up, and keep everything connected from one system.</p>
+          <p><strong>Email:</strong> hello@awavegent.com</p>
+          <p><strong>Phone:</strong> (000) 000-0000</p>
+          <p class="small">Replace this with your actual lead form, booking link, or direct contact info.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <div class="footer-brand">aWavegent</div>
+        <div class="footer-copy">Smart pages, bookings, SMS automations, verified reviews, and Gulf Coast Radar visibility.</div>
+      </div>
+      <div class="footer-links">
+        <a href="wavegent_homepage_v2.html">Home</a>
+        <a href="wavegent_restaurants_sales_page_v2.html">Restaurants</a>
+        <a href="wavegent_charters_sales_page_v2.html">Charters</a>
+        <a href="wavegent_activities_sales_page_v2.html">Activities</a>
+        <a href="wavegent_services_sales_page_v2.html">Services</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

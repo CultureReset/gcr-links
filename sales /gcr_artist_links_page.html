@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gulf Coast Radar | Artist Links Page</title>
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#121b2d;
+      --muted:#a8b3c7;
+      --text:#f4f7fb;
+      --line:rgba(255,255,255,.10);
+      --accent:#22c55e;
+      --accent2:#38bdf8;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56,189,248,.18), transparent 30%),
+        linear-gradient(180deg,#08101d 0%,#0b1220 60%,#0f172a 100%);
+      color:var(--text);
+    }
+    .wrap{
+      max-width:480px;
+      margin:0 auto;
+      min-height:100vh;
+      padding:20px 16px 40px;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(56,189,248,.12);
+      border:1px solid rgba(56,189,248,.28);
+      color:#d7f1ff;
+      font-size:12px;
+      padding:8px 12px;
+      border-radius:999px;
+      margin-bottom:14px;
+      backdrop-filter: blur(8px);
+    }
+    .hero{
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.15), rgba(0,0,0,.55)),
+        url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+      border:1px solid var(--line);
+      border-radius:24px;
+      min-height:240px;
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      box-shadow:0 24px 80px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+    .avatar{
+      width:86px;height:86px;border-radius:50%;
+      border:3px solid rgba(255,255,255,.9);
+      box-shadow:0 10px 28px rgba(0,0,0,.35);
+      object-fit:cover;
+      background:#ddd;
+      margin-bottom:12px;
+    }
+    h1{
+      margin:0 0 4px;
+      font-size:30px;
+      line-height:1.03;
+      letter-spacing:-.03em;
+    }
+    .sub{
+      color:#e5eefc;
+      opacity:.92;
+      margin:0;
+      font-size:14px;
+    }
+    .stats{
+      margin-top:14px;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .chip{
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(8px);
+    }
+    .section{
+      margin-top:16px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:16px;
+      backdrop-filter: blur(10px);
+    }
+    .section h2{
+      margin:0 0 10px;
+      font-size:17px;
+      letter-spacing:-.02em;
+    }
+    .bio{
+      color:var(--muted);
+      line-height:1.55;
+      font-size:14px;
+      margin:0;
+    }
+    .links{
+      display:grid;
+      gap:12px;
+      margin-top:6px;
+    }
+    .link{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 16px;
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:18px;
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      box-shadow:0 10px 28px rgba(0,0,0,.18);
+      transition:transform .15s ease, border-color .15s ease;
+    }
+    .link:hover{
+      transform:translateY(-1px);
+      border-color:rgba(56,189,248,.40);
+    }
+    .link small{
+      display:block;
+      font-weight:500;
+      color:var(--muted);
+      margin-top:3px;
+      font-size:12px;
+    }
+    .link .icon{
+      width:42px;height:42px;border-radius:14px;
+      display:grid;place-items:center;
+      background:rgba(56,189,248,.12);
+      border:1px solid rgba(56,189,248,.22);
+      font-size:18px;
+      flex-shrink:0;
+      margin-right:12px;
+    }
+    .left{
+      display:flex;align-items:center;min-width:0;
+    }
+    .arrow{opacity:.55;font-size:18px}
+    .grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:6px;
+    }
+    .card{
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+    }
+    .card strong{display:block;font-size:13px}
+    .card span{display:block;color:var(--muted);font-size:12px;margin-top:5px;line-height:1.45}
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      margin-top:18px;
+    }
+    .brand{
+      color:#d9f6ff;
+      font-weight:700;
+      text-decoration:none;
+    }
+    .cta{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+      margin-top:12px;
+    }
+    .btn{
+      text-align:center;
+      text-decoration:none;
+      padding:14px 12px;
+      border-radius:16px;
+      font-weight:800;
+      border:1px solid var(--line);
+    }
+    .btn.primary{
+      background:linear-gradient(90deg,var(--accent2),var(--accent));
+      color:#04111d;
+      border:none;
+    }
+    .btn.secondary{
+      background:rgba(255,255,255,.05);
+      color:var(--text);
+    }
+    @media (max-width:420px){
+      .cta,.grid{grid-template-columns:1fr}
+      h1{font-size:27px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="badge">🎵 Featured on Gulf Coast Radar</div>
+
+    <section class="hero">
+      <img class="avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80" alt="Artist profile photo">
+      <h1>Coastal Sound</h1>
+      <p class="sub">Live music • Gulf Shores • Orange Beach • Private events</p>
+      <div class="stats">
+        <div class="chip">Acoustic + Full Band</div>
+        <div class="chip">Weddings</div>
+        <div class="chip">Bars & Restaurants</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>About</h2>
+      <p class="bio">
+        Coastal Sound is a local artist profile page built for Gulf Coast Radar. Use this page to help artists get discovered,
+        promote upcoming gigs, accept tips or donations, and make it easier for venues or fans to connect fast.
+      </p>
+
+      <div class="cta">
+        <a class="btn primary" href="#">Book This Artist</a>
+        <a class="btn secondary" href="#">Tip / Donate</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Artist Links</h2>
+      <div class="links">
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">📅</div>
+            <div>
+              Upcoming Shows
+              <small>See where they’re playing next</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">🎟️</div>
+            <div>
+              Book for Events
+              <small>Private parties, weddings, venues</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">📸</div>
+            <div>
+              Instagram
+              <small>Photos, clips, and updates</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">▶️</div>
+            <div>
+              Watch Live Clips
+              <small>Video highlights and performances</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">🎧</div>
+            <div>
+              Listen Now
+              <small>Spotify, Apple Music, YouTube</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+
+        <a class="link" href="#">
+          <div class="left">
+            <div class="icon">💬</div>
+            <div>
+              Text for Local Show Alerts
+              <small>Get artist schedules by SMS</small>
+            </div>
+          </div>
+          <div class="arrow">›</div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Why this page works</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Instant demo</strong>
+          <span>Perfect for QR codes at live shows, bars, festivals, and tip jars.</span>
+        </div>
+        <div class="card">
+          <strong>Easy booking</strong>
+          <span>Fans and venues can reach the artist from one clean page.</span>
+        </div>
+        <div class="card">
+          <strong>Builds artist credibility</strong>
+          <span>Turns local artists into searchable profiles instead of random social links.</span>
+        </div>
+        <div class="card">
+          <strong>Promotes Gulf Coast Radar</strong>
+          <span>Every artist page doubles as a branded growth engine for the platform.</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Powered by <a class="brand" href="#">CyberCheck</a> • Featured on <a class="brand" href="#">Gulf Coast Radar</a>
+    </div>
+  </main>
+</body>
+</html>

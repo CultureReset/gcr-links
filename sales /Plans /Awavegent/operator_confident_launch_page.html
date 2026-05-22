@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guest Concierge Layer for Vacation Rental Operators | aWavegent</title>
+  <style>
+    :root{
+      --bg:#081321;
+      --panel:#0f1f34;
+      --panel-2:#132842;
+      --line:rgba(255,255,255,.10);
+      --text:#eef5ff;
+      --muted:#a9bdd4;
+      --teal:#56d0c1;
+      --blue:#73b8ff;
+      --orange:#ff9a57;
+      --white:#ffffff;
+      --shadow:0 24px 70px rgba(0,0,0,.28);
+      --radius:24px;
+      --max:1220px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(115,184,255,.10), transparent 24%),
+        radial-gradient(circle at top left, rgba(86,208,193,.08), transparent 22%),
+        linear-gradient(180deg,#07111d 0%, #0a1525 100%);
+      color:var(--text);
+      line-height:1.58;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{width:min(var(--max), calc(100% - 32px)); margin:0 auto}
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      background:rgba(8,19,33,.76);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      min-height:76px;
+      display:flex; align-items:center; justify-content:space-between; gap:20px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:800; letter-spacing:-.02em;
+    }
+    .mark{
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--blue),var(--teal));
+      color:#07111d; font-weight:900;
+      box-shadow:var(--shadow);
+    }
+    .navlinks{display:flex; gap:12px; flex-wrap:wrap}
+    .navlinks a{
+      padding:10px 14px; border-radius:999px;
+      border:1px solid var(--line); color:var(--muted); font-size:14px;
+    }
+    .navlinks a:hover{color:var(--text); border-color:rgba(255,255,255,.24)}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      min-height:50px; padding:0 20px; border-radius:999px;
+      font-weight:800; border:1px solid transparent; transition:.18s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      background:linear-gradient(135deg,var(--orange),#ffb37a);
+      color:#081321; box-shadow:0 14px 34px rgba(255,154,87,.26);
+    }
+    .btn-secondary{
+      border-color:rgba(255,255,255,.18);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+    }
+    .hero{padding:72px 0 48px}
+    .hero-grid{
+      display:grid; grid-template-columns:1.08fr .92fr; gap:28px; align-items:center;
+    }
+    .eyebrow{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px; border-radius:999px;
+      border:1px solid rgba(86,208,193,.24);
+      background:rgba(86,208,193,.08);
+      color:#bdf7ee; font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:18px;
+    }
+    h1{
+      margin:0 0 18px;
+      font-size:clamp(2.6rem,5vw,5.2rem);
+      line-height:.97;
+      letter-spacing:-.05em;
+      max-width:780px;
+    }
+    .lead{
+      color:var(--muted);
+      font-size:clamp(1rem,1.6vw,1.18rem);
+      max-width:760px;
+      margin:0 0 26px;
+    }
+    .hero-actions{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:20px}
+    .proof{display:flex; gap:10px; flex-wrap:wrap}
+    .pill{
+      padding:10px 14px; border-radius:999px;
+      background:rgba(255,255,255,.04);
+      border:1px solid var(--line);
+      color:var(--muted); font-size:14px; font-weight:700;
+    }
+    .panel,.card{
+      background:linear-gradient(180deg,rgba(15,31,52,.92),rgba(11,23,39,.98));
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+    }
+    .panel{padding:20px}
+    .phone{
+      border-radius:30px;
+      background:#0b1626;
+      padding:12px;
+      max-width:420px;
+      margin-left:auto;
+    }
+    .screen{
+      border-radius:24px;
+      overflow:hidden;
+      min-height:640px;
+      background:linear-gradient(180deg,#0b63a6 0%, #64c8ff 26%, #f6fbff 26%, #ffffff 100%);
+    }
+    .screen-top{padding:20px 18px 14px; color:white}
+    .screen-title{font-size:18px; font-weight:900}
+    .screen-sub{font-size:12px; opacity:.92}
+    .chat{padding:12px 14px 18px; display:grid; gap:12px}
+    .bubble{
+      max-width:88%;
+      border-radius:18px;
+      padding:12px 14px;
+      box-shadow:0 10px 24px rgba(10,31,52,.10);
+      font-size:14px;
+    }
+    .bubble.user{justify-self:end; background:#dff1ff; color:#0d3f5b; border-bottom-right-radius:8px}
+    .bubble.agent{justify-self:start; background:rgba(255,255,255,.96); color:#1b2a38; border-bottom-left-radius:8px}
+    .bubble small{display:block; margin-top:6px; font-size:12px; color:#6a7b8c}
+    section{padding:42px 0}
+    .section-head{max-width:860px; margin:0 auto 24px; text-align:center}
+    h2{
+      margin:0 0 12px;
+      font-size:clamp(2rem,3.4vw,3.5rem);
+      line-height:1.02;
+      letter-spacing:-.04em;
+    }
+    .section-head p{margin:0; color:var(--muted); font-size:18px}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+    .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:18px}
+    .card{padding:24px}
+    .card h3{margin:0 0 10px; font-size:24px}
+    .card p{margin:0; color:var(--muted)}
+    ul.clean{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:10px}
+    ul.clean li{position:relative; padding-left:20px}
+    ul.clean li::before{content:"•"; position:absolute; left:0; color:var(--teal); font-weight:900}
+    .compare-bad{border-top:4px solid #ef6b6b}
+    .compare-good{border-top:4px solid var(--teal)}
+    .statement{
+      padding:18px 20px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.04);
+      color:#dce8f7;
+      font-size:18px;
+    }
+    .quote{
+      padding:26px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(135deg, rgba(115,184,255,.09), rgba(86,208,193,.07));
+      font-size:24px; line-height:1.28; font-weight:800;
+    }
+    .quote small{
+      display:block; margin-top:14px; color:var(--muted); font-size:14px; font-weight:700; letter-spacing:.08em; text-transform:uppercase;
+    }
+    .cta{
+      margin:42px 0 72px;
+      background:linear-gradient(135deg,#0d2740,#1f4869);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      padding:34px;
+    }
+    .cta-grid{display:grid; grid-template-columns:1.06fr .94fr; gap:24px; align-items:center}
+    form{display:grid; gap:12px}
+    input,select,textarea{
+      width:100%; padding:14px 16px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.08);
+      color:white; font:inherit;
+    }
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.72)}
+    .small{font-size:13px; color:rgba(255,255,255,.74)}
+    footer{padding:28px 0 48px; color:var(--muted); font-size:14px}
+    @media (max-width: 960px){
+      .hero-grid,.grid-3,.grid-2,.cta-grid{grid-template-columns:1fr}
+      .phone{margin:0 auto}
+      .nav{flex-direction:column; align-items:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <div class="brand"><div class="mark">aW</div><div>aWavegent</div></div>
+      <nav class="navlinks">
+        <a href="#why-now">Why now</a>
+        <a href="#offer">Offer</a>
+        <a href="#fit">Who it fits</a>
+        <a href="#cta">Pilot</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">For serious vacation rental operators</div>
+        <h1>Your website should help the guest before the trip starts.</h1>
+        <p class="lead">
+          We are launching a pre-arrival guest concierge layer for coastal travel operators. It sits on top of the current website, answers the repetitive questions, improves guest prep, and opens the door for local recommendations, upsells, and support deflection — without replacing the core booking stack.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#cta">Request pilot details</a>
+          <a class="btn btn-secondary" href="#offer">See the offer</a>
+        </div>
+        <div class="proof">
+          <div class="pill">Not a PMS replacement</div>
+          <div class="pill">Guest support layer</div>
+          <div class="pill">Launches with or without one operator</div>
+          <div class="pill">Built for Gulf Coast demand</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="phone">
+          <div class="screen">
+            <div class="screen-top">
+              <div class="screen-title">Guest Concierge</div>
+              <div class="screen-sub">pre-arrival support + local guidance</div>
+            </div>
+            <div class="chat">
+              <div class="bubble user">What time is check-in and where do we park?</div>
+              <div class="bubble agent">Check-in starts at 4:00 PM. I can also walk you through parking, beach access, and early-arrival options.<small>less repetitive support load</small></div>
+              <div class="bubble user">What should we do our first night?</div>
+              <div class="bubble agent">I can recommend seafood nearby, family-friendly spots, live music, or rainy-day options based on your property location.<small>more useful than a static rental page</small></div>
+              <div class="bubble user">Can we add something before arrival?</div>
+              <div class="bubble agent">Yes — that can include upgrades, local referrals, dining suggestions, rentals, and other pre-arrival actions.<small>support + revenue layer</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why-now">
+    <div class="container">
+      <div class="section-head">
+        <h2>This is getting launched either way.</h2>
+        <p>The question is not whether this category will exist. The question is who gets there first in this market and benefits from shaping it early.</p>
+      </div>
+      <div class="grid-2">
+        <div class="quote">
+          We are not pitching a maybe. We are building a category layer that sits between the booking and the arrival.
+          <small>Market posture</small>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>What the old stack misses</h3>
+            <ul class="clean">
+              <li>Website often stops being useful after booking</li>
+              <li>Support teams answer the same guest questions repeatedly</li>
+              <li>No strong local guidance layer before arrival</li>
+              <li>Missed pre-arrival upsell or referral moments</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>What this layer adds</h3>
+            <ul class="clean">
+              <li>Pre-arrival concierge experience</li>
+              <li>Support deflection</li>
+              <li>Property + area guidance in one place</li>
+              <li>Expansion path into recommendations and add-ons</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="offer">
+    <div class="container">
+      <div class="section-head">
+        <h2>What we are actually offering</h2>
+        <p>Keep the pitch tight. Sell the layer, not the whole empire.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>1. Pre-arrival guest concierge</h3>
+          <p>A site-based concierge layer that answers property and arrival questions before the guest reaches the front desk or support team.</p>
+        </div>
+        <div class="card">
+          <h3>2. Local guidance layer</h3>
+          <p>Restaurants, activities, rainy-day options, family ideas, rentals, and other location-specific recommendations that make the site more useful.</p>
+        </div>
+        <div class="card">
+          <h3>3. Support deflection</h3>
+          <p>Reduce repetitive calls, texts, and low-value support interactions by handling the obvious questions automatically.</p>
+        </div>
+        <div class="card">
+          <h3>4. Pilot-first rollout</h3>
+          <p>Start with a property group, building, or limited scope. Prove guest usefulness and staff relief before expanding.</p>
+        </div>
+        <div class="card">
+          <h3>5. Revenue path later</h3>
+          <p>Once the support layer works, add upgrades, local referrals, experiences, and other pre-arrival monetization paths.</p>
+        </div>
+        <div class="card">
+          <h3>6. Works on top of current stack</h3>
+          <p>This is meant to sit on top of the existing booking and PMS environment, not rip out infrastructure that already works.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fit">
+    <div class="container">
+      <div class="section-head">
+        <h2>Who should care first</h2>
+        <p>This page is written for operators who already have serious infrastructure and do not need another generic software pitch.</p>
+      </div>
+      <div class="grid-2">
+        <div class="card compare-bad">
+          <h3>Not the fit</h3>
+          <ul class="clean">
+            <li>People looking for a cheap chatbot</li>
+            <li>Operators who want to replace their full stack immediately</li>
+            <li>Companies that only care about booking buttons</li>
+            <li>Anyone who wants a vague “AI” toy</li>
+          </ul>
+        </div>
+        <div class="card compare-good">
+          <h3>Best fit</h3>
+          <ul class="clean">
+            <li>Vacation rental operators with real guest volume</li>
+            <li>Teams tired of repetitive pre-arrival support work</li>
+            <li>Operators who want the site to do more than list units</li>
+            <li>Groups that understand pilot-first rollouts</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:18px" class="statement">
+        We are looking for selective early partners, not approval to start.
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-head">
+        <h2>How to position it in the room</h2>
+        <p>You do not sell “technology.” You sell relief, prep, and a better website experience.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Open with this</h3>
+          <p>“I’m not trying to replace your booking or PMS stack. I’m focused on what happens before the guest arrives — the part where your team still gets flooded with repetitive questions and your website stops being helpful.”</p>
+        </div>
+        <div class="card">
+          <h3>Then say this</h3>
+          <p>“We’re launching a concierge layer that sits on top of the current site, handles common property and area questions, and turns the website into a more useful pre-arrival experience.”</p>
+        </div>
+        <div class="card">
+          <h3>Close like this</h3>
+          <p>“If this took even a meaningful slice of repetitive guest questions off your team on a pilot group of properties, would that be worth testing?”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container cta">
+      <div class="cta-grid">
+        <div>
+          <div class="eyebrow" style="background:rgba(255,255,255,.10); color:#fff;">Pilot interest</div>
+          <h2 style="color:white; margin-top:0;">Request pilot details.</h2>
+          <p style="color:rgba(255,255,255,.82); font-size:18px; margin:0;">
+            We are moving forward with this category layer. Early operators can help shape the rollout and get in ahead of the broader market expansion.
+          </p>
+        </div>
+        <div>
+          <form>
+            <input type="text" placeholder="Company name" />
+            <input type="text" placeholder="Contact name" />
+            <input type="email" placeholder="Email address" />
+            <input type="tel" placeholder="Phone number" />
+            <select>
+              <option>Property volume</option>
+              <option>1–50</option>
+              <option>51–250</option>
+              <option>251–1000</option>
+              <option>1000+</option>
+            </select>
+            <textarea rows="4" placeholder="What repetitive guest questions create the most support load today?"></textarea>
+            <button class="btn btn-primary" type="button">Request pilot details</button>
+          </form>
+          <div class="small" style="margin-top:12px;">Pilot-first. Selective rollout. Built to run on top of existing infrastructure.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">aWavegent — pre-arrival concierge and local guidance layer for serious vacation rental operators.</div>
+  </footer>
+</body>
+</html>

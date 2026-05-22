@@ -1,0 +1,10034 @@
+What you are actually building
+
+You are building a destination data system, not just a website.
+
+Gulf Coast Radar becomes:
+	•	a public search engine
+	•	a directory
+	•	a business profile network
+	•	a booking layer
+	•	a local concierge
+	•	a live information system
+	•	a structured knowledge base for AI
+
+CyberCheck becomes:
+	•	the backend profile builder
+	•	the business dashboard
+	•	the editing system
+	•	the CRM / automation / control layer
+
+So the core job is this:
+
+Every place, business, activity, unit, amenity, special, event, and local point of interest must be stored as structured data, so search, AI, filters, and concierge answers all work correctly.
+
+⸻
+
+The biggest rule
+
+Do not think of this as pages first.
+
+Think of it as:
+	1.	Entity types
+	2.	Relationships
+	3.	Structured fields
+	4.	Reusable page templates
+	5.	Search/filter/tagging
+	6.	AI generation + AI retrieval
+
+If you structure the data right, the pages, dashboard, RAG, filters, and concierge all become easier.
+
+If you structure it wrong, all of it becomes a mess.
+
+⸻
+
+The master architecture
+
+You need 7 layers:
+	1.	Location / hub layer
+	2.	Business / property / place layer
+	3.	Sub-entity layer
+	4.	Content module layer
+	5.	Taxonomy / tags / attributes layer
+	6.	Availability / live-status layer
+	7.	AI / search / retrieval layer
+
+⸻
+
+1. Location / hub layer
+
+These are parent pages.
+
+Examples:
+	•	Orange Beach
+	•	Gulf Shores
+	•	Fort Morgan
+	•	The Wharf
+	•	OWA
+	•	Phoenix East
+	•	specific marina zones
+	•	shopping centers
+	•	condo complexes
+	•	districts / entertainment areas
+
+These pages are not normal business pages.
+
+They are container pages.
+
+They need to answer:
+	•	what is here
+	•	what categories are here
+	•	what businesses are here
+	•	what activities are here
+	•	what events are happening here
+	•	what is nearby
+	•	what amenities or landmarks are here
+
+Fields for a hub page
+	•	hub_id
+	•	name
+	•	slug
+	•	type
+	•	city
+	•	district
+	•	entertainment district
+	•	shopping center
+	•	condo complex
+	•	marina
+	•	attraction zone
+	•	description
+	•	hero image
+	•	address or general area
+	•	lat/lng
+	•	boundaries if needed
+	•	parent hub
+	•	child hubs
+	•	categories present
+	•	featured businesses
+	•	featured activities
+	•	featured events
+	•	featured amenities
+	•	parking info
+	•	beach access info
+	•	walking-distance rules
+	•	internal directory sections
+
+Example
+
+The Wharf is a hub page.
+
+Inside it:
+	•	restaurants at the wharf
+	•	things to do at the wharf
+	•	entertainment at the wharf
+	•	events at the wharf
+	•	shopping at the wharf
+	•	each business profile inside it
+
+That is your “page within a page” idea.
+
+⸻
+
+2. Main entity types
+
+These are the actual things users can land on, search, filter, and ask about.
+
+You need separate entity types, even if they share templates.
+
+A. Business
+
+Examples:
+	•	Cobalt
+	•	Tee Off at The Wharf
+	•	Dockside Parasail
+	•	Sunny Lady Dolphin Cruises
+
+B. Property
+
+Examples:
+	•	hotel
+	•	condo building
+	•	resort
+	•	condo complex
+
+C. Rental unit
+
+Examples:
+	•	condo unit 1204
+	•	hotel room type
+	•	rental house
+	•	villa
+	•	suite
+
+D. Event
+
+Examples:
+	•	live music performance
+	•	karaoke night
+	•	holiday event
+	•	crawfish boil
+	•	brunch event
+
+E. Artist / performer
+
+Examples:
+	•	band
+	•	solo musician
+	•	DJ
+	•	karaoke host
+
+F. Offer / time-based promotion
+
+Examples:
+	•	happy hour
+	•	Monday oyster special
+	•	lunch special
+	•	all-you-can-eat crab legs
+	•	kids eat free
+	•	2-for-1 drinks
+
+G. Menu item / product / offering
+
+Examples:
+	•	omelet
+	•	martini
+	•	crab legs
+	•	dolphin cruise ticket
+	•	parasail ticket
+	•	bay rental
+	•	arcade package
+
+H. Amenity / infrastructure / info point
+
+Examples:
+	•	beach access
+	•	boat ramp
+	•	overflow parking
+	•	dog-friendly beach access
+	•	public restroom
+	•	marina fuel dock
+	•	indoor activity
+
+I. Booking slot / availability record
+
+Examples:
+	•	dolphin cruise at 2 PM
+	•	parasail opening today at 4 PM
+	•	condo available July 1–5
+	•	bay reservation open at 7 PM
+
+⸻
+
+3. Universal base schema for every entity
+
+Every entity should inherit a shared base.
+
+Universal core fields
+	•	id
+	•	entity_type
+	•	name
+	•	slug
+	•	status
+	•	short_description
+	•	long_description
+	•	hero_image
+	•	gallery
+	•	primary_category
+	•	secondary_categories
+	•	tags
+	•	badges
+	•	location_name
+	•	address
+	•	lat
+	•	lng
+	•	phone
+	•	email
+	•	booking_link
+	•	internal_profile_link
+	•	social links
+	•	review summary
+	•	hours / operating rules
+	•	owner / manager id
+	•	source type
+	•	last_updated_at
+	•	ai_generated_fields
+	•	manually_edited_fields
+	•	visibility flags
+
+This gives consistency across everything.
+
+⸻
+
+4. Category system
+
+You need two different systems:
+
+A. Navigation categories
+
+These are public-facing.
+Examples:
+	•	Restaurants
+	•	Coffee & Sweets
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Things To Do
+	•	Shopping
+	•	Nightlife
+	•	Hotels / Condos
+	•	Live Music
+	•	Family Activities
+
+B. Data categories
+
+These are backend classification buckets.
+Examples:
+	•	restaurant
+	•	bar
+	•	coffee shop
+	•	dessert shop
+	•	hotel
+	•	condo complex
+	•	rental unit
+	•	parasailing
+	•	dolphin cruise
+	•	fishing charter
+	•	indoor attraction
+	•	live music venue
+	•	shopping center
+	•	public access point
+
+One business can belong to multiple navigation categories.
+
+Example:
+Tee Off at The Wharf
+	•	Things To Do
+	•	Restaurants
+	•	Happy Hour
+	•	Indoor Activities
+	•	Family Friendly
+	•	Group Events
+
+That is not duplication. That is correct.
+
+⸻
+
+5. Tagging system
+
+This is where your search becomes powerful.
+
+You need tags in layers.
+
+Layer 1: universal tags
+
+Reusable across many businesses.
+
+Examples:
+	•	family friendly
+	•	kid friendly
+	•	indoor
+	•	outdoor
+	•	waterfront
+	•	gluten free
+	•	vegetarian options
+	•	happy hour
+	•	brunch
+	•	late night
+	•	live music
+	•	reservations
+	•	private dining
+	•	dog friendly
+	•	beach access
+	•	walking distance
+	•	full bar
+	•	arcade
+	•	sports bar
+	•	indoor pool
+	•	hot tub
+	•	sauna
+
+Layer 2: category-specific tags
+
+Only make sense inside a vertical.
+
+Restaurants
+	•	omelets
+	•	oysters
+	•	crab legs
+	•	seafood
+	•	steak
+	•	sushi
+	•	breakfast
+	•	brunch
+	•	lunch
+	•	dinner
+	•	kids menu
+	•	frozen drinks
+	•	martinis
+	•	wine list
+	•	all you can eat
+
+Activities
+	•	sunset cruise
+	•	dolphin cruise
+	•	parasailing
+	•	family cruise
+	•	private charter
+	•	jet ski
+	•	pontoon rental
+	•	fishing trip
+	•	guided tour
+
+Hotels / condos
+	•	2 bedroom
+	•	sleeps 6
+	•	gulf view
+	•	beach front
+	•	indoor heated pool
+	•	balcony
+	•	washer dryer
+	•	full kitchen
+	•	pet friendly
+	•	parking included
+
+Local infrastructure
+	•	boat launch
+	•	public parking
+	•	RV parking
+	•	overflow parking
+	•	public beach access
+	•	showers
+	•	restrooms
+
+Layer 3: business-specific tags
+
+Things unique to one brand or place.
+
+Examples:
+	•	Topgolf swing suites
+	•	stone hearth pizza
+	•	Sunday brunch 11–2
+	•	pirate cruise theme
+	•	ferris wheel
+	•	marina slip access
+
+Layer 4: semantic synonyms
+
+Needed for search / AI.
+
+Examples:
+	•	omelet, omelette
+	•	gluten free, GF
+	•	kids friendly, family friendly
+	•	sunset cruise, evening cruise
+	•	hot tub, spa tub, jacuzzi
+	•	indoor pool, heated indoor pool
+
+These should be stored in a synonym table or retrieval mapping.
+
+⸻
+
+6. Restaurants data structure
+
+Restaurant data needs the deepest structure.
+
+Restaurant master profile fields
+	•	cuisine types
+	•	service types
+	•	meal types
+	•	dietary options
+	•	reservation support
+	•	bar info
+	•	private dining
+	•	waterfront
+	•	dress code if needed
+	•	entertainment schedule
+	•	review score
+	•	price range
+
+Restaurant content modules
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events / Live Music
+	•	Drinks
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Menu structure
+
+Do not store menu as one blob.
+
+Store it like this:
+
+Menu
+	•	meal_period
+	•	breakfast
+	•	brunch
+	•	lunch
+	•	dinner
+	•	drinks
+	•	kids
+	•	dessert
+	•	gluten free
+
+Menu section
+
+Examples:
+	•	Omelets
+	•	Appetizers
+	•	Oysters
+	•	Soup
+	•	Salad
+	•	Entrees
+	•	Surf & Turf Additions
+	•	Cocktails
+	•	Frozen Drinks
+	•	Chardonnay
+
+Menu item
+
+Each item needs:
+	•	item_id
+	•	restaurant_id
+	•	meal_period
+	•	section_name
+	•	item_name
+	•	description
+	•	price
+	•	market_price flag
+	•	calories if available
+	•	image
+	•	tags
+	•	dietary tags
+	•	available_days
+	•	available_times
+	•	hidden / seasonal
+	•	modifiers / add-ons
+
+This is how your query
+“Who has omelets and a gluten-free breakfast menu?”
+actually works.
+
+Because now:
+	•	restaurant has breakfast
+	•	section has omelets
+	•	restaurant has gluten-free menu
+	•	item or menu contains breakfast-compatible gluten-free tags
+
+Without that structure, the answer is weak.
+
+⸻
+
+7. Happy hour structure
+
+Happy hour must be separate from specials.
+
+Happy hour fields
+	•	happy_hour_id
+	•	business_id
+	•	title
+	•	days_of_week
+	•	start_time
+	•	end_time
+	•	recurring flag
+	•	applies_to
+	•	drinks
+	•	food
+	•	both
+	•	item list
+	•	prices
+	•	notes
+	•	seasonal dates
+	•	active flag
+
+Happy hour item fields
+	•	item_name
+	•	description
+	•	price
+	•	original_price optional
+	•	category
+	•	tags
+
+Example:
+	•	House Wine — $3
+	•	Well Drinks — $3.50
+	•	Raw Oysters — Market
+	•	Cheese Pizza — $8
+
+This needs to be queryable.
+
+⸻
+
+8. Specials structure
+
+Specials are not the same as happy hour.
+
+Specials fields
+	•	special_id
+	•	business_id
+	•	title
+	•	description
+	•	category
+	•	lunch special
+	•	all day special
+	•	dinner special
+	•	weekly special
+	•	AYCE
+	•	kids special
+	•	limited promo
+	•	day_of_week
+	•	date_specific optional
+	•	start_time optional
+	•	end_time optional
+	•	recurring flag
+	•	price
+	•	image
+	•	tags
+	•	active flag
+
+Examples:
+	•	Monday $1 oysters all day
+	•	Two meals for X
+	•	All you can eat snow crab legs
+	•	$11 lunch special
+
+That separation matters for both UX and AI.
+
+⸻
+
+9. Events / live music structure
+
+Event fields
+	•	event_id
+	•	business_id
+	•	hub_id
+	•	event_type
+	•	live music
+	•	karaoke
+	•	trivia
+	•	holiday event
+	•	special event
+	•	title
+	•	description
+	•	start_datetime
+	•	end_datetime
+	•	recurrence
+	•	featured artist_id optional
+	•	age restrictions
+	•	cover charge
+	•	reservation required
+	•	location
+	•	tags
+	•	image
+	•	active flag
+
+Artist fields
+	•	artist_id
+	•	name
+	•	type
+	•	genres
+	•	hometown
+	•	bio
+	•	image
+	•	social links
+	•	calendar
+	•	associated venues
+
+This lets someone ask:
+	•	who has live music tonight
+	•	where is karaoke
+	•	which venues feature country artists
+	•	what artist is playing at the wharf this weekend
+
+⸻
+
+10. Activities / things to do structure
+
+Parasailing and dolphin cruises should use a shared activity schema with specialized fields.
+
+Activity profile fields
+	•	activity_type
+	•	duration
+	•	age limits
+	•	group size
+	•	weight limits if relevant
+	•	cancellation policy
+	•	check-in rules
+	•	what to bring
+	•	accessibility
+	•	indoor / outdoor
+	•	weather sensitive
+	•	family friendly
+	•	booking required
+	•	location / departure point
+
+Activity modules
+	•	About
+	•	Highlights
+	•	Packages
+	•	Times & Tickets
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+	•	Book Now
+
+Times & tickets structure
+	•	schedule_id
+	•	business_id
+	•	activity_id
+	•	label
+	•	days_of_week
+	•	start_time
+	•	end_time optional
+	•	duration
+	•	adult_price
+	•	child_price
+	•	infant_price
+	•	senior_price optional
+	•	private_price optional
+	•	capacity
+	•	age policy
+	•	active flag
+
+That is how:
+“Find a dolphin cruise today for 2 adults and 2 kids”
+works.
+
+Then a follow-up:
+“How old are the kids?”
+narrows it further.
+
+⸻
+
+11. Hotels / condos / properties structure
+
+This needs two levels:
+
+A. Property level
+
+Example:
+Phoenix East
+
+Property fields
+	•	property_id
+	•	type
+	•	hotel
+	•	condo complex
+	•	resort
+	•	vacation rental property
+	•	name
+	•	description
+	•	address
+	•	lat/lng
+	•	amenities
+	•	beach proximity
+	•	walking-distance markers
+	•	parking rules
+	•	pet policy
+	•	check-in / check-out
+	•	pool / hot tub / sauna / gym / beach access
+	•	number of units
+	•	unit types
+	•	photos
+	•	reviews
+	•	map proximity relationships
+
+B. Unit level
+
+Example:
+Phoenix East Unit 1204
+
+Unit fields
+	•	unit_id
+	•	parent_property_id
+	•	unit_number or unit_name
+	•	bedrooms
+	•	bathrooms
+	•	sleeps_max
+	•	bed breakdown
+	•	square_feet
+	•	kitchen
+	•	balcony
+	•	gulf view / bay view
+	•	washer dryer
+	•	pet policy
+	•	amenities
+	•	price rules
+	•	availability
+	•	cleaning fee
+	•	images
+	•	booking link
+	•	owner / manager
+	•	notes
+
+This is how:
+“I need a 2-bedroom that sleeps 6 with a hot tub July 1–5”
+works.
+
+Because the system filters:
+	•	unit sleeps >= 6
+	•	bedrooms >= 2
+	•	parent property or unit has hot tub
+	•	available in date range
+	•	optional walking distance or other preferences
+
+⸻
+
+12. Boat ramps / beach access / infrastructure structure
+
+These are not businesses, but they should still have pages.
+
+Infrastructure entity fields
+	•	infrastructure_id
+	•	type
+	•	boat ramp
+	•	beach access
+	•	public parking
+	•	overflow parking
+	•	marina access
+	•	trailhead
+	•	restroom
+	•	name
+	•	address
+	•	lat/lng
+	•	hours
+	•	fees
+	•	overnight parking allowed
+	•	trailer allowed
+	•	dog rules
+	•	beach chair access
+	•	handicap access
+	•	photos
+	•	notes
+	•	nearby hubs
+	•	nearby properties
+	•	nearby businesses
+	•	active flag
+
+This is how the system answers:
+	•	where can I park overnight
+	•	what beach access is close to this condo
+	•	which boat ramps are near me
+
+⸻
+
+13. Relationship model
+
+This is critical.
+
+Everything needs relationships.
+
+Core relationships
+	•	hub contains businesses
+	•	hub contains properties
+	•	hub contains events
+	•	property contains units
+	•	business has menu sections
+	•	business has menu items
+	•	business has happy hours
+	•	business has specials
+	•	business has events
+	•	business has availability
+	•	artist performs at events
+	•	infrastructure is near hub
+	•	property is near infrastructure
+	•	property is walkable to business
+	•	business belongs to multiple categories
+	•	business belongs to hub
+	•	offer belongs to business
+	•	unit belongs to property
+
+Example
+
+The Wharf:
+	•	contains Tee Off
+	•	contains ferris wheel
+	•	contains restaurants
+	•	contains shops
+	•	contains events
+
+Tee Off:
+	•	belongs to Things To Do
+	•	belongs to Restaurants
+	•	belongs to Indoor Activities
+	•	may belong to Happy Hour
+	•	may belong to Family Friendly
+
+That is exactly how the same page appears in multiple parts of the site without duplicate data.
+
+⸻
+
+14. Dashboard architecture
+
+You said you already have a dashboard. Good.
+
+Now it needs to become modular.
+
+Dashboard needs these sections
+
+1. Business/property setup
+	•	basic info
+	•	category assignment
+	•	location / hub assignment
+	•	tags
+	•	features
+	•	images
+
+2. Modules manager
+
+Turn sections on/off:
+	•	about
+	•	features
+	•	perfect for
+	•	menu
+	•	happy hour
+	•	specials
+	•	events
+	•	tickets
+	•	guest info
+	•	availability
+	•	reviews
+	•	location
+
+3. Structured data editors
+
+Separate editors for:
+	•	menu sections
+	•	menu items
+	•	happy hours
+	•	specials
+	•	events
+	•	times & tickets
+	•	amenities
+	•	unit specs
+	•	availability
+
+4. Bulk import
+
+CSV import for:
+	•	menu items
+	•	specials
+	•	events
+	•	unit inventory
+	•	amenity lists
+	•	happy hours
+
+5. Inline editing
+
+This is required.
+You already said you do not want to upload CSV for one price change.
+
+So every item must be editable individually:
+	•	change price
+	•	hide item
+	•	mark sold out
+	•	update hours
+	•	edit one special
+	•	update one event time
+
+6. AI assistant panel
+
+Buttons like:
+	•	Generate About section
+	•	Generate Features
+	•	Generate Perfect For
+	•	Suggest tags
+	•	Classify business
+	•	Detect menu sections
+	•	Suggest dietary tags
+	•	Suggest categories
+	•	Rewrite summary for consumers
+
+7. Preview / publish
+	•	preview business page
+	•	preview category placement
+	•	preview hub placement
+	•	preview search tags
+	•	publish / unpublish
+
+⸻
+
+15. CSV design
+
+You should not use one giant CSV for everything.
+
+Use separate import types.
+
+CSV types
+	•	businesses.csv
+	•	menu_items.csv
+	•	happy_hours.csv
+	•	specials.csv
+	•	events.csv
+	•	activities_schedules.csv
+	•	properties.csv
+	•	units.csv
+	•	infrastructure.csv
+
+Each one maps to a table.
+
+That keeps imports clean.
+
+⸻
+
+16. AI agent system
+
+You asked how agents should work.
+
+Here’s the real setup.
+
+You do not need one giant agent.
+
+You need a small system of specialized agents.
+
+Agent 1: business classifier
+
+Input:
+	•	business name
+	•	description
+	•	website text
+	•	uploaded menu / profile text
+
+Output:
+	•	business type
+	•	category suggestions
+	•	tags
+	•	feature list
+
+Agent 2: content generator
+
+Input:
+	•	structured business data
+
+Output:
+	•	About section
+	•	Features
+	•	Perfect For
+	•	summary blurbs
+	•	CTA copy
+
+Agent 3: menu parser
+
+Input:
+	•	CSV
+	•	scraped menu
+	•	raw text
+	•	OCR result later
+
+Output:
+	•	meal periods
+	•	sections
+	•	items
+	•	dietary hints
+	•	drink categories
+
+Agent 4: specials / happy hour classifier
+
+Input:
+	•	raw promo text
+
+Output:
+	•	happy hour vs special
+	•	days
+	•	times
+	•	item mappings
+	•	pricing
+
+Agent 5: tagging agent
+
+Input:
+	•	all structured content
+
+Output:
+	•	universal tags
+	•	category tags
+	•	semantic synonyms
+	•	search attributes
+
+Agent 6: retrieval / concierge agent
+
+Input:
+	•	user question
+
+Output:
+	•	follow-up question if needed
+	•	structured query plan
+	•	search against entities
+	•	ranked results
+	•	answer
+
+Agent 7: quality / update monitor
+
+Input:
+	•	business edits
+	•	old data
+	•	stale pages
+
+Output:
+	•	flag stale info
+	•	re-run tags
+	•	re-generate summaries
+	•	suggest updates
+
+⸻
+
+17. Where agents should live
+
+You asked this earlier.
+
+Best practical setup:
+	•	main frontend / dashboard on Vercel
+	•	agent API service separate from frontend
+	•	database in Supabase or equivalent
+	•	optional background jobs on AWS / Railway / Render / server environment better suited for longer tasks
+
+Best structure
+	•	app.yourdomain.com → dashboard
+	•	gcr public site → consumer site
+	•	api.yourdomain.com → app API
+	•	agents.yourdomain.com → AI/agent orchestration service
+
+Vercel is fine for frontend and light API work.
+For heavier long-running AI workflows, scraping, scheduled jobs, and queue-based work, a separate backend service is cleaner.
+
+⸻
+
+18. Search + RAG design
+
+You said this clearly:
+you need structure so RAG works correctly.
+
+Correct.
+
+Retrieval should not depend only on embeddings.
+
+It needs hybrid retrieval:
+
+A. structured filters first
+
+Examples:
+	•	category = restaurant
+	•	breakfast = true
+	•	gluten_free = true
+	•	menu section contains omelets
+	•	live_music = true
+	•	hub = The Wharf
+	•	availability today = true
+
+B. semantic retrieval second
+
+Used for:
+	•	“nice date night place”
+	•	“not too loud”
+	•	“good for kids”
+	•	“fun rainy day activity”
+	•	“somewhere classy but still casual”
+
+C. ranking layer third
+
+Rank by:
+	•	exact matches
+	•	active availability
+	•	proximity
+	•	review score
+	•	freshness
+	•	popularity
+	•	fit for party size / date / age
+
+This is how you handle:
+“Find a place with live music, happy hour, and a gluten-free menu”
+without garbage results.
+
+⸻
+
+19. Conversational concierge flow
+
+Your future TTS concierge needs to ask clarifying questions.
+
+Example flows
+
+Restaurants
+
+User:
+“I want omelets and gluten-free breakfast.”
+
+System:
+	•	Which area are you staying in?
+	•	Do you want breakfast today?
+	•	Are you also looking for live music or happy hour later?
+
+Dolphin cruises
+
+User:
+“I need a dolphin cruise for 2 adults and 2 kids today.”
+
+System:
+	•	How old are the kids?
+	•	Morning, afternoon, or sunset?
+	•	Do you want the cheapest option or best family option?
+
+Stay / hotels / condos
+
+User:
+“I need a place for 4 adults and 2 kids, at least 2 bedrooms, July 1–5, hot tub.”
+
+System:
+	•	Condo or hotel?
+	•	Walking distance to beach or restaurants?
+	•	Do you need indoor pool too?
+	•	What budget range?
+
+That means your concierge must translate speech into structured filters, not just chat.
+
+⸻
+
+20. Page template families
+
+You said you want to reuse the profile pages.
+
+Correct.
+Use families, not one giant template.
+
+Template family 1: Restaurant
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events / Live Music
+	•	Drinks
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Template family 2: Activity / excursion
+	•	About
+	•	Highlights
+	•	Packages
+	•	Times & Tickets
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+	•	Book Now
+
+Template family 3: Hybrid venue
+	•	Overview
+	•	Food & Drinks
+	•	Happy Hour
+	•	Events
+	•	Experiences
+	•	Packages
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Template family 4: Property
+	•	About
+	•	Amenities
+	•	Unit Types
+	•	Availability
+	•	Nearby
+	•	Photos
+	•	Reviews
+	•	Policies
+	•	Map
+	•	Book Now
+
+Template family 5: Unit
+	•	Overview
+	•	Sleeps / Beds
+	•	Amenities
+	•	Photos
+	•	Availability
+	•	Pricing
+	•	Rules
+	•	Nearby
+	•	Book Now
+
+Template family 6: Hub / district
+	•	Overview
+	•	Categories
+	•	Businesses directory
+	•	Things to do
+	•	Restaurants
+	•	Events
+	•	Map
+	•	Nearby lodging
+	•	Featured listings
+
+Template family 7: Infrastructure / utility page
+	•	Overview
+	•	Address
+	•	Access / rules
+	•	Photos
+	•	Nearby things
+	•	Directions
+	•	Notes
+
+⸻
+
+21. The “Perfect For” section
+
+You mentioned this.
+
+That should be an AI-generated but structured module.
+
+Perfect For examples
+
+Restaurant:
+	•	date night
+	•	family dinner
+	•	waterfront lunch
+	•	gluten-free diners
+	•	brunch lovers
+
+Activity:
+	•	kids
+	•	families
+	•	first-timers
+	•	sunset outings
+	•	group trips
+
+Property:
+	•	family vacations
+	•	couples
+	•	groups of 6
+	•	long weekends
+	•	beach-first travelers
+
+It should not just be copy.
+It should also produce tags.
+
+⸻
+
+22. How the system should separate data automatically
+
+You asked how AI would separate it.
+
+Workflow
+
+Step 1: ingest raw data
+
+Source can be:
+	•	manual entry
+	•	CSV
+	•	scraped site
+	•	uploaded menu
+	•	old profile
+	•	owner text
+
+Step 2: classify entity
+
+Example:
+Cobalt → restaurant
+Sunny Lady → activity
+Phoenix East → property
+Unit 1204 → unit
+The Wharf → hub
+
+Step 3: detect modules
+
+Example:
+Cobalt has:
+	•	happy hour
+	•	brunch
+	•	lunch
+	•	dinner
+	•	kids
+	•	gluten-free
+	•	cocktails
+	•	wine
+	•	photos
+	•	hours
+
+Step 4: break down structured components
+
+Example:
+Brunch → Omelets section
+Omelets section → individual menu items
+
+Step 5: assign tags and attributes
+
+Example:
+	•	brunch
+	•	omelets
+	•	waterfront
+	•	kids menu
+	•	gluten-free
+
+Step 6: create search index and page placement
+
+Cobalt appears in:
+	•	Restaurants
+	•	Brunch
+	•	Happy Hour
+	•	Gluten-Free
+	•	Waterfront Dining
+
+Step 7: human review
+
+You or business owner can tweak:
+	•	copy
+	•	times
+	•	prices
+	•	category placement
+	•	tags
+
+That is the right hybrid.
+
+⸻
+
+23. The learning loop
+
+You said it should get smarter.
+
+Yes.
+
+Save:
+	•	user queries
+	•	clicked results
+	•	bookings
+	•	unanswered questions
+	•	follow-up clarification patterns
+	•	common tag combinations
+
+Use that to improve:
+	•	auto-tagging
+	•	ranking
+	•	query understanding
+	•	suggested categories
+	•	page suggestions
+	•	concierge follow-up questions
+
+Example:
+If many people ask:
+“gluten-free + live music + happy hour”
+the system learns that combo matters and can optimize around it.
+
+⸻
+
+24. What must be manually controlled
+
+Not everything should be AI-only.
+
+Manual control is required for:
+	•	prices
+	•	hours
+	•	event times
+	•	availability
+	•	booking links
+	•	condo/unit details
+	•	policies
+	•	parking rules
+	•	dog rules
+	•	legal / safety rules
+	•	visibility / publish state
+
+AI can help generate and classify.
+It should not be the only source of truth for sensitive live details.
+
+⸻
+
+25. The actual database / table plan
+
+At minimum, you need tables like:
+	•	hubs
+	•	entities
+	•	businesses
+	•	properties
+	•	units
+	•	categories
+	•	entity_categories
+	•	tags
+	•	entity_tags
+	•	amenities
+	•	entity_amenities
+	•	menu_sections
+	•	menu_items
+	•	happy_hours
+	•	happy_hour_items
+	•	specials
+	•	events
+	•	artists
+	•	schedules
+	•	reviews
+	•	photos
+	•	availability
+	•	nearby_relationships
+	•	business_hours
+	•	owners
+	•	import_jobs
+	•	ai_outputs
+	•	query_logs
+	•	saved_search_patterns
+
+You can simplify the first version, but this is the real shape.
+
+⸻
+
+26. V1, V2, V3 rollout
+
+V1
+
+Get the structure working.
+
+Focus on:
+	•	businesses
+	•	categories
+	•	tags
+	•	restaurant pages
+	•	activity pages
+	•	happy hours
+	•	specials
+	•	events
+	•	hub pages
+	•	dashboard inline editing
+	•	CSV import
+	•	AI-generated About / Features / Perfect For
+
+V2
+
+Add deeper intelligence.
+
+Focus on:
+	•	hotels / condos
+	•	units
+	•	infrastructure pages
+	•	walking-distance relationships
+	•	better multi-filter search
+	•	smarter tag generation
+	•	personalized recommendations
+	•	saved query patterns
+
+V3
+
+Full concierge / live commerce layer.
+
+Focus on:
+	•	availability integrations
+	•	voice / TTS
+	•	booking orchestration
+	•	trip planning
+	•	weather-aware suggestions
+	•	cross-business itineraries
+	•	full destination assistant behavior
+
+⸻
+
+27. The simplest way to think about all this
+
+Every record in the system should answer these questions:
+	•	What is it?
+	•	Where is it?
+	•	What categories does it belong to?
+	•	What features does it have?
+	•	What content modules does it use?
+	•	What tags describe it?
+	•	What time-based things are attached to it?
+	•	What other records is it related to?
+	•	Can it be booked?
+	•	Is the information live?
+	•	Can AI retrieve it cleanly?
+
+If every entity can answer that, the whole platform works.
+
+⸻
+
+28. My blunt recommendation
+
+Do not start by trying to make the AI do everything.
+
+Start by building the schema and dashboard structure first.
+
+Order of operations:
+	1.	lock your core entity types
+	2.	lock your module types
+	3.	lock your category system
+	4.	lock your tag taxonomy
+	5.	build CSV/import formats
+	6.	build inline editing
+	7.	then add AI generation
+	8.	then add conversational concierge
+	9.	then add live integrations
+
+That is the clean path.
+
+If you try to do concierge first without the data structure, it will be sloppy.
+
+⸻
+
+29. Best immediate next deliverables
+
+You need these written out next:
+	1.	master taxonomy doc
+	2.	entity schema doc
+	3.	dashboard field map
+	4.	CSV column map
+	5.	template-to-module map
+	6.	AI agent responsibilities doc
+	7.	search/filter logic doc
+
+That is the blueprint set.
+
+⸻
+
+30. Bottom line
+
+What you described is a modular destination knowledge graph with business-managed live data and an AI concierge layer on top.
+
+That is the real thing you are building.
+
+Not:
+	•	just pages
+	•	just a directory
+	•	just RAG
+	•	just a dashboard
+
+It is all of them connected through structured data.
+
+I can turn this into a clean master blueprint document next, with exact sections like:
+	•	all entity types
+	•	every field per entity
+	•	module rules
+	•	category rules
+	•	tag rules
+	•	and the exact dashboard input structure for each business type.
+
+
+
+The Wharf, OWA, condo complexes, hotels, and similar places should be treated as hybrid entities:
+	•	they are real business/place pages themselves
+	•	they also act like parent directory pages for child pages inside them
+
+So they are not just containers.
+They are business pages with hub behavior.
+
+Correct model
+
+Instead of:
+	•	container page
+	•	business page
+
+You need:
+	•	standard business page
+	•	business hub page
+	•	child page
+
+What that means
+
+1. Standard business page
+
+Normal single-location business.
+
+Examples:
+	•	Cobalt
+	•	Sunny Lady
+	•	Dockside Parasail
+
+These have:
+	•	about
+	•	features
+	•	hours
+	•	menu or tickets
+	•	photos
+	•	reviews
+	•	location
+
+2. Business hub page
+
+A real place/business that also contains other entities.
+
+Examples:
+	•	The Wharf
+	•	OWA
+	•	a hotel
+	•	a condo complex
+	•	a marina
+	•	a shopping center
+
+These need two roles at once:
+
+Role A: their own direct page
+They need their own:
+	•	about
+	•	hours
+	•	address
+	•	phone if applicable
+	•	photos
+	•	amenities
+	•	overview
+	•	directions
+	•	reviews if relevant
+	•	parking info
+	•	map
+	•	major features
+
+Role B: a nested directory / internal website
+They also need to show:
+	•	restaurants inside
+	•	things to do inside
+	•	shops inside
+	•	units inside
+	•	amenities inside
+	•	events happening there
+	•	parking / beach access / public info tied to them
+
+So yes, you’re right:
+they are business pages also.
+
+They just happen to have children.
+
+Best way to structure it
+
+Each record should have flags like:
+	•	is_business = true
+	•	is_hub = true/false
+	•	can_have_children = true/false
+	•	parent_id = nullable
+
+So:
+
+The Wharf
+	•	is_business = true
+	•	is_hub = true
+	•	can_have_children = true
+	•	parent_id = null
+
+Tee Off at The Wharf
+	•	is_business = true
+	•	is_hub = false
+	•	can_have_children = false
+	•	parent_id = The Wharf
+
+Phoenix East
+	•	is_business = true
+	•	is_hub = true
+	•	can_have_children = true
+	•	parent_id = null
+
+Phoenix East Unit 1204
+	•	is_business = false
+	•	is_hub = false
+	•	can_have_children = false
+	•	parent_id = Phoenix East
+
+The real page types you need now
+
+A. Business page
+
+Single page only.
+
+B. Business hub page
+
+A page that is both:
+	•	its own profile
+	•	a directory for attached pages
+
+C. Unit/detail child page
+
+Lives under a business hub or property.
+
+Examples:
+	•	condo unit
+	•	hotel room type
+	•	individual business inside The Wharf
+	•	amenity page
+	•	parking page
+	•	beach access page if attached
+
+Example: The Wharf page
+
+The Wharf page should have its own top-level business content:
+	•	About The Wharf
+	•	address
+	•	parking
+	•	entertainment overview
+	•	featured attractions
+	•	featured events
+	•	photos
+	•	map
+	•	hours
+	•	overview of what it is
+
+Then below or in tabs, it should have internal sections:
+	•	Restaurants at The Wharf
+	•	Things To Do at The Wharf
+	•	Shopping at The Wharf
+	•	Events at The Wharf
+	•	Entertainment at The Wharf
+	•	Parking / access
+	•	directory listing
+
+So it behaves like a mini-site.
+
+Example: hotel / condo complex
+
+The property itself has its own page:
+	•	overview
+	•	amenities
+	•	location
+	•	beach access
+	•	pools
+	•	sauna
+	•	hot tub
+	•	parking
+	•	map
+	•	reviews
+	•	policies
+
+Then it also contains child pages:
+	•	unit 1204
+	•	unit 803
+	•	penthouse suite
+	•	2-bedroom gulf view unit
+
+So again:
+business page + directory page together
+
+The corrected architecture
+
+You should stop using the word “container” by itself.
+
+Use this instead:
+	•	hub business
+	•	child business
+	•	child unit
+	•	attached amenity/info page
+
+Because “container” makes it sound like it has no real identity of its own, and that is not how you want The Wharf, OWA, hotels, or condo properties treated.
+
+Updated rule
+
+Any place that is both:
+	•	a destination/page people search for directly
+	•	and a parent of other pages
+
+should be modeled as a hub business page.
+
+That is the right model for:
+	•	The Wharf
+	•	OWA
+	•	hotels
+	•	condo complexes
+	•	large marinas
+	•	shopping centers
+	•	entertainment districts
+
+Best database logic for this
+
+Each entity should support:
+	•	entity_type
+	•	entity_subtype
+	•	is_hub
+	•	parent_entity_id
+	•	children_count
+	•	child_entity_types_allowed
+
+Example:
+
+The Wharf
+	•	entity_type: place
+	•	entity_subtype: entertainment_district
+	•	is_hub: true
+	•	child types allowed:
+	•	business
+	•	event
+	•	attraction
+	•	parking
+	•	directory listing
+
+Hotel
+	•	entity_type: property
+	•	entity_subtype: hotel
+	•	is_hub: true
+	•	child types allowed:
+	•	room type
+	•	amenity
+	•	dining venue
+	•	event
+	•	offer
+
+Condo complex
+	•	entity_type: property
+	•	entity_subtype: condo_complex
+	•	is_hub: true
+	•	child types allowed:
+	•	unit
+	•	amenity
+	•	beach access
+	•	parking info
+
+Bottom line
+
+You’re right.
+
+The Wharf, OWA, hotels, condo complexes, and similar places are not just container pages.
+
+They are:
+
+real business/place pages that also operate as hub pages with nested child pages and attached data.
+
+That is the correct architecture.
+
+Next, I can rewrite the full master structure using this corrected model so it shows:
+	•	standard business
+	•	hub business
+	•	property hub
+	•	unit child
+	•	attached amenity/info pages
+
+Then you should model The Wharf as a top-tier business hub page that is strong enough to replace a destination website, not just a listing.
+
+Right now their site is doing a few core jobs:
+	•	top navigation for Things To Do, Visitor Info, Directory, Calendar, Stay, Amphitheater, and Marina  
+	•	positioning The Wharf as a full destination with shopping, dining, concerts, ferris wheel, SPECTRA, marina activity, and lodging/stay options  
+	•	surfacing an upcoming events feed with dated events and times  
+	•	giving visitor information, map access, directions, and quick links like Hours, Ferris Wheel, and SPECTRA  
+
+So if you are replacing their actual website, your page cannot be treated like a normal business profile. It has to be a hub-business page with multiple site functions built into it.  
+
+What The Wharf page needs to become
+
+It needs to be all 4 of these at once:
+	1.	its own business/place page
+	2.	a directory page for everything inside it
+	3.	an events/calendar page
+	4.	a local-answer page for AI and search
+
+That means The Wharf is still a business page, but it also behaves like a mini-site.
+
+The Wharf page should have these main sections
+
+1. Main overview
+
+This is the business-page part.
+
+Fields:
+	•	name
+	•	short pitch
+	•	full description
+	•	main address
+	•	phone if applicable
+	•	hero images/video
+	•	map
+	•	parking overview
+	•	hours if applicable
+	•	core features
+
+Example feature tags:
+	•	shopping
+	•	restaurants
+	•	marina
+	•	amphitheater
+	•	ferris wheel
+	•	laser light show
+	•	family friendly
+	•	pet friendly
+	•	waterfront entertainment district
+
+Their current site explicitly highlights shopping, dining, amphitheater concerts, ferris wheel, SPECTRA, marina access, and pet-friendliness.  
+
+2. Internal directory
+
+This is the “website inside the website” part.
+
+It should dynamically show:
+	•	restaurants at The Wharf
+	•	things to do at The Wharf
+	•	shops at The Wharf
+	•	attractions at The Wharf
+	•	bars/nightlife at The Wharf
+	•	services if needed
+	•	stay/lodging tied to The Wharf
+	•	special pages like amphitheater and marina
+
+Their current site already has merchant directory, things to do, stay, amphitheater, and marina sections in the main nav and footer.  
+
+3. Events and calendar
+
+This needs to be much better than a static website list.
+
+Right now their site prominently shows upcoming events and links to the full calendar.  
+
+So your Wharf page needs:
+	•	featured upcoming events
+	•	full event calendar
+	•	concerts
+	•	family events
+	•	seasonal events
+	•	event detail pages
+	•	recurring events
+	•	event filters by date/type
+	•	child events tied to the Wharf hub
+
+4. Visitor info
+
+Their current site has Visitor Info, Property Map, Directions, and quick links for Hours, Ferris Wheel, and SPECTRA.  
+
+So you need a structured visitor info block:
+	•	address
+	•	directions
+	•	parking info
+	•	property map
+	•	walking info
+	•	family tips
+	•	pet policy
+	•	guest FAQs
+	•	accessibility info
+	•	quick links to main attractions
+
+5. Wharf-specific attraction pages
+
+Some things should be child pages under The Wharf, not just text sections.
+
+Examples:
+	•	Ferris Wheel
+	•	SPECTRA
+	•	Amphitheater
+	•	Marina
+	•	Portside
+	•	individual shops
+	•	individual restaurants
+	•	activities like Tee Off
+
+The current site already treats Amphitheater and Marina as major first-class sections.  
+
+Correct entity model for The Wharf
+
+Use this:
+	•	entity_type = business
+	•	entity_subtype = entertainment_district
+	•	is_hub = true
+	•	has_directory = true
+	•	has_events = true
+	•	has_child_entities = true
+
+Child entities can include:
+	•	business
+	•	attraction
+	•	event
+	•	venue
+	•	info page
+	•	parking/access page
+
+So The Wharf is a business entity with attached children, not a simple folder.
+
+What questions The Wharf page should answer
+
+Your structured data should let it answer questions like:
+	•	what restaurants are at the wharf
+	•	what things are there to do at the wharf
+	•	what events are happening at the wharf this week
+	•	what concerts are at the amphitheater
+	•	where do I park at the wharf
+	•	is the wharf pet friendly
+	•	what is kid friendly at the wharf
+	•	what has happy hour at the wharf
+	•	what is indoors at the wharf
+	•	what’s open at the wharf tonight
+
+Those answers become possible because the Wharf page owns relationships to all attached businesses, venues, events, and visitor-info records.
+
+The actual page architecture you need for a Wharf replacement
+
+Top layer
+	•	hero
+	•	overview
+	•	quick CTA buttons
+	•	map/directions
+	•	featured highlights
+
+Second layer
+	•	Things To Do
+	•	Restaurants
+	•	Shopping
+	•	Events
+	•	Stay
+	•	Marina
+	•	Amphitheater
+	•	Visitor Info
+
+Third layer
+
+Each one opens into structured results/cards linking to child pages.
+
+Fourth layer
+
+Each child page has its own full profile.
+
+That gives you:
+	•	a destination homepage
+	•	a directory
+	•	a search system
+	•	a data graph for AI
+
+Blunt truth
+
+If you are replacing their website, your version needs to beat them on:
+	•	structure
+	•	searchability
+	•	event visibility
+	•	directory usefulness
+	•	child-page depth
+	•	mobile usability
+	•	live updates
+
+If it only looks prettier but does not organize the data better, it is not really a replacement.
+
+Best way to think about it
+
+The Wharf is:
+
+a real business page, a destination hub, a directory, and a queryable local knowledge node all at once.
+
+That is the correct model.
+
+Next, I can map out the exact field list and section structure for a hub-business page like The Wharf, then do the same for OWA, hotels, condo properties, and normal businesses.
+
+
+Then you should model The Wharf as a top-tier business hub page that is strong enough to replace a destination website, not just a listing.
+
+Right now their site is doing a few core jobs:
+	•	top navigation for Things To Do, Visitor Info, Directory, Calendar, Stay, Amphitheater, and Marina  
+	•	positioning The Wharf as a full destination with shopping, dining, concerts, ferris wheel, SPECTRA, marina activity, and lodging/stay options  
+	•	surfacing an upcoming events feed with dated events and times  
+	•	giving visitor information, map access, directions, and quick links like Hours, Ferris Wheel, and SPECTRA  
+
+So if you are replacing their actual website, your page cannot be treated like a normal business profile. It has to be a hub-business page with multiple site functions built into it.  
+
+What The Wharf page needs to become
+
+It needs to be all 4 of these at once:
+	1.	its own business/place page
+	2.	a directory page for everything inside it
+	3.	an events/calendar page
+	4.	a local-answer page for AI and search
+
+That means The Wharf is still a business page, but it also behaves like a mini-site.
+
+The Wharf page should have these main sections
+
+1. Main overview
+
+This is the business-page part.
+
+Fields:
+	•	name
+	•	short pitch
+	•	full description
+	•	main address
+	•	phone if applicable
+	•	hero images/video
+	•	map
+	•	parking overview
+	•	hours if applicable
+	•	core features
+
+Example feature tags:
+	•	shopping
+	•	restaurants
+	•	marina
+	•	amphitheater
+	•	ferris wheel
+	•	laser light show
+	•	family friendly
+	•	pet friendly
+	•	waterfront entertainment district
+
+Their current site explicitly highlights shopping, dining, amphitheater concerts, ferris wheel, SPECTRA, marina access, and pet-friendliness.  
+
+2. Internal directory
+
+This is the “website inside the website” part.
+
+It should dynamically show:
+	•	restaurants at The Wharf
+	•	things to do at The Wharf
+	•	shops at The Wharf
+	•	attractions at The Wharf
+	•	bars/nightlife at The Wharf
+	•	services if needed
+	•	stay/lodging tied to The Wharf
+	•	special pages like amphitheater and marina
+
+Their current site already has merchant directory, things to do, stay, amphitheater, and marina sections in the main nav and footer.  
+
+3. Events and calendar
+
+This needs to be much better than a static website list.
+
+Right now their site prominently shows upcoming events and links to the full calendar.  
+
+So your Wharf page needs:
+	•	featured upcoming events
+	•	full event calendar
+	•	concerts
+	•	family events
+	•	seasonal events
+	•	event detail pages
+	•	recurring events
+	•	event filters by date/type
+	•	child events tied to the Wharf hub
+
+4. Visitor info
+
+Their current site has Visitor Info, Property Map, Directions, and quick links for Hours, Ferris Wheel, and SPECTRA.  
+
+So you need a structured visitor info block:
+	•	address
+	•	directions
+	•	parking info
+	•	property map
+	•	walking info
+	•	family tips
+	•	pet policy
+	•	guest FAQs
+	•	accessibility info
+	•	quick links to main attractions
+
+5. Wharf-specific attraction pages
+
+Some things should be child pages under The Wharf, not just text sections.
+
+Examples:
+	•	Ferris Wheel
+	•	SPECTRA
+	•	Amphitheater
+	•	Marina
+	•	Portside
+	•	individual shops
+	•	individual restaurants
+	•	activities like Tee Off
+
+The current site already treats Amphitheater and Marina as major first-class sections.  
+
+Correct entity model for The Wharf
+
+Use this:
+	•	entity_type = business
+	•	entity_subtype = entertainment_district
+	•	is_hub = true
+	•	has_directory = true
+	•	has_events = true
+	•	has_child_entities = true
+
+Child entities can include:
+	•	business
+	•	attraction
+	•	event
+	•	venue
+	•	info page
+	•	parking/access page
+
+So The Wharf is a business entity with attached children, not a simple folder.
+
+What questions The Wharf page should answer
+
+Your structured data should let it answer questions like:
+	•	what restaurants are at the wharf
+	•	what things are there to do at the wharf
+	•	what events are happening at the wharf this week
+	•	what concerts are at the amphitheater
+	•	where do I park at the wharf
+	•	is the wharf pet friendly
+	•	what is kid friendly at the wharf
+	•	what has happy hour at the wharf
+	•	what is indoors at the wharf
+	•	what’s open at the wharf tonight
+
+Those answers become possible because the Wharf page owns relationships to all attached businesses, venues, events, and visitor-info records.
+
+The actual page architecture you need for a Wharf replacement
+
+Top layer
+	•	hero
+	•	overview
+	•	quick CTA buttons
+	•	map/directions
+	•	featured highlights
+
+Second layer
+	•	Things To Do
+	•	Restaurants
+	•	Shopping
+	•	Events
+	•	Stay
+	•	Marina
+	•	Amphitheater
+	•	Visitor Info
+
+Third layer
+
+Each one opens into structured results/cards linking to child pages.
+
+Fourth layer
+
+Each child page has its own full profile.
+
+That gives you:
+	•	a destination homepage
+	•	a directory
+	•	a search system
+	•	a data graph for AI
+
+Blunt truth
+
+If you are replacing their website, your version needs to beat them on:
+	•	structure
+	•	searchability
+	•	event visibility
+	•	directory usefulness
+	•	child-page depth
+	•	mobile usability
+	•	live updates
+
+If it only looks prettier but does not organize the data better, it is not really a replacement.
+
+Best way to think about it
+
+The Wharf is:
+
+a real business page, a destination hub, a directory, and a queryable local knowledge node all at once.
+
+You are building a structured destination database where every business, place, property, offer, event, and amenity is stored in a way that can power:
+	•	the business’s own website
+	•	GCR directory pages
+	•	hub pages like The Wharf
+	•	QR menus
+	•	search results
+	•	AI concierge answers
+	•	filters
+	•	availability lookups
+	•	future voice/TTS flows
+
+The core rule is this:
+
+Every piece of data gets entered once, stored in a structured way, and then displayed everywhere it belongs.
+
+That is the whole model.
+
+⸻
+
+1. The real system architecture
+
+You do not have “just business pages.”
+
+You have several kinds of entities.
+
+Main entity types
+
+A. Standard business
+
+Examples:
+	•	Cobalt
+	•	Sunny Lady
+	•	Dockside Parasail
+
+A normal business with one main page.
+
+B. Hub business
+
+Examples:
+	•	The Wharf
+	•	OWA
+	•	a hotel property
+	•	a condo complex
+	•	a marina
+	•	a shopping center
+
+These are real business/place pages, but they also contain child pages and directory data.
+
+C. Property
+
+Examples:
+	•	hotel
+	•	condo complex
+	•	resort
+
+These can also be hub businesses.
+
+D. Unit
+
+Examples:
+	•	condo unit 1204
+	•	2-bedroom unit
+	•	hotel room type
+	•	villa
+
+E. Event
+
+Examples:
+	•	live music night
+	•	trivia
+	•	karaoke
+	•	concert
+	•	crawfish boil
+
+F. Artist / performer
+
+Examples:
+	•	band
+	•	DJ
+	•	solo artist
+	•	karaoke host
+
+G. Special / promotion
+
+Examples:
+	•	Monday oyster special
+	•	lunch special
+	•	all-you-can-eat crab legs
+	•	two-for-one deal
+
+H. Happy hour
+
+Separate from specials.
+
+I. Menu / offering item
+
+Examples:
+	•	omelet
+	•	martini
+	•	crab legs
+	•	seafood platter
+	•	bay rental
+	•	cruise ticket
+
+J. Amenity / utility / local info point
+
+Examples:
+	•	beach access
+	•	boat ramp
+	•	overflow parking
+	•	public parking
+	•	indoor pool
+	•	sauna
+	•	hot tub
+
+K. Availability / booking slot
+
+Examples:
+	•	cruise at 2 PM
+	•	parasail opening at 4 PM
+	•	condo available July 1–5
+	•	table reservation time
+	•	unit open this weekend
+
+⸻
+
+2. The base structure every entity should have
+
+Every record in your system needs a universal foundation.
+
+Universal fields for every page/entity
+	•	id
+	•	name
+	•	slug
+	•	entity_type
+	•	entity_subtype
+	•	status
+	•	is_hub
+	•	parent_id
+	•	short_description
+	•	long_description
+	•	hero_image
+	•	gallery
+	•	primary_category
+	•	secondary_categories
+	•	tags
+	•	badges
+	•	address
+	•	city
+	•	state
+	•	zip
+	•	lat
+	•	lng
+	•	phone
+	•	email
+	•	website_url if you want to keep it
+	•	booking_url
+	•	social_links
+	•	hours
+	•	last_updated_at
+	•	source_type
+	•	ai_generated_content
+	•	manual_override_fields
+	•	is_active
+	•	is_featured
+
+This is the minimum structure that keeps everything consistent.
+
+⸻
+
+3. The most important concept: one entity can belong in many places
+
+A business should not live in only one category.
+
+Example:
+Tee Off at The Wharf can belong to:
+	•	Things To Do
+	•	Restaurants
+	•	Happy Hour
+	•	Indoor Activities
+	•	Family Friendly
+	•	Group Activities
+	•	The Wharf
+
+That is not messy. That is exactly how it should work.
+
+So you need:
+	•	primary category
+	•	secondary categories
+	•	tags
+	•	parent-child relationships
+	•	hub assignments
+
+That’s how one business shows up in multiple areas without copying data.
+
+⸻
+
+4. The actual data layers you need
+
+Your system has 5 big layers.
+
+Layer 1: business identity
+
+What the business/property/place is.
+
+Layer 2: content modules
+
+What sections appear on the page.
+
+Layer 3: taxonomy
+
+How the record is categorized, tagged, and related.
+
+Layer 4: live structured data
+
+Menus, specials, events, availability, hours, schedules.
+
+Layer 5: search/AI retrieval
+
+How the system answers complex questions.
+
+⸻
+
+5. Structure for a standard business page
+
+This is your base business model.
+
+Business identity fields
+	•	business name
+	•	subtitle / one-line pitch
+	•	business type
+	•	industry type
+	•	category assignments
+	•	parent hub if applicable
+	•	address
+	•	phone
+	•	description
+	•	hero image
+	•	gallery
+	•	social links
+	•	directions link
+	•	review summary
+
+Business feature fields
+	•	waterfront
+	•	indoor
+	•	outdoor
+	•	family friendly
+	•	kid friendly
+	•	pet friendly
+	•	reservations
+	•	walk-ins
+	•	private dining
+	•	full bar
+	•	gluten-free
+	•	wheelchair accessible
+	•	live music
+	•	happy hour
+	•	breakfast
+	•	brunch
+	•	lunch
+	•	dinner
+	•	late night
+	•	QR menu enabled
+	•	booking enabled
+
+Business page modules
+
+Toggle these on or off depending on business type:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Drinks
+	•	Tickets / Packages
+	•	Guest Info
+	•	Availability
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+⸻
+
+6. Restaurant structure
+
+Restaurants need the deepest data model.
+
+Restaurant profile fields
+	•	cuisine type
+	•	service style
+	•	meal periods offered
+	•	dietary options
+	•	alcohol type
+	•	reservations accepted
+	•	private dining available
+	•	dress code optional
+	•	entertainment available
+	•	waterfront yes/no
+	•	kid menu yes/no
+	•	gluten-free menu yes/no
+	•	brunch yes/no
+	•	happy hour yes/no
+
+Restaurant modules
+	•	About
+	•	Features
+	•	Perfect For
+	•	Breakfast
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids Menu
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen Drinks
+	•	Beer
+	•	Wine
+	•	Happy Hour
+	•	Specials
+	•	Live Music / Events
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Restaurant menu structure
+
+This is critical.
+
+Do not save menu as a paragraph.
+Do not save it as one big block.
+
+You need 3 levels:
+
+Menu level
+
+Examples:
+	•	Breakfast
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids
+	•	Dessert
+	•	Drinks
+	•	Gluten-Free
+
+Menu section level
+
+Examples:
+	•	Omelets
+	•	Appetizers
+	•	Oysters
+	•	Soup
+	•	Salad
+	•	Entrees
+	•	Surf & Turf Additions
+	•	Cocktails
+	•	Frozen Drinks
+	•	Chardonnay
+
+Menu item level
+
+Each item needs:
+	•	item ID
+	•	parent restaurant ID
+	•	meal period
+	•	section name
+	•	item name
+	•	item description
+	•	price
+	•	market price flag
+	•	item image
+	•	dietary tags
+	•	cuisine tags
+	•	ingredients if needed
+	•	available days
+	•	available times
+	•	active yes/no
+	•	seasonal yes/no
+
+This is how someone can ask:
+	•	who has omelets
+	•	who has gluten-free breakfast
+	•	who has martinis and omelets
+	•	who has all-you-can-eat crab legs
+	•	who has oysters on happy hour
+
+Without this level of structure, AI answers will be sloppy.
+
+⸻
+
+7. Happy hour structure
+
+Happy hour must be its own data type.
+
+Happy hour fields
+	•	happy_hour ID
+	•	business ID
+	•	title
+	•	description
+	•	recurring yes/no
+	•	days of week
+	•	start time
+	•	end time
+	•	category type
+	•	drinks
+	•	food
+	•	both
+	•	date range optional
+	•	active yes/no
+
+Happy hour item fields
+	•	parent happy_hour ID
+	•	item name
+	•	description
+	•	price
+	•	original price optional
+	•	item type
+	•	tags
+
+Example:
+	•	House Wine — $3
+	•	Well Drinks — $3.50
+	•	Raw Oysters — Market
+	•	Cheese Pizza — $8
+
+This must be separate from specials because user intent is different.
+
+If they ask:
+	•	“Who has happy hour from 3 to 5?”
+that is not the same as:
+	•	“Who has Monday oyster specials?”
+
+⸻
+
+8. Specials structure
+
+Specials must be separate from happy hour.
+
+Special fields
+	•	special ID
+	•	business ID
+	•	title
+	•	short description
+	•	long description
+	•	special type
+	•	lunch special
+	•	dinner special
+	•	all-day special
+	•	weekly special
+	•	AYCE
+	•	holiday special
+	•	recurring yes/no
+	•	specific day(s)
+	•	start time optional
+	•	end time optional
+	•	date range optional
+	•	price
+	•	original price optional
+	•	item/image
+	•	active yes/no
+
+Examples:
+	•	Monday $1 oysters
+	•	Lunch special $11
+	•	Two meals for X
+	•	All-you-can-eat snow crab legs
+
+This separation makes search cleaner and page layout cleaner.
+
+⸻
+
+9. Events and live music structure
+
+You need events as first-class data.
+
+Event fields
+	•	event ID
+	•	business ID
+	•	parent hub ID optional
+	•	event type
+	•	live music
+	•	karaoke
+	•	trivia
+	•	concert
+	•	family event
+	•	holiday event
+	•	title
+	•	description
+	•	start datetime
+	•	end datetime
+	•	recurring yes/no
+	•	recurrence pattern
+	•	cover charge
+	•	artist ID optional
+	•	age restriction
+	•	booking / RSVP link
+	•	image
+	•	active yes/no
+
+Artist fields
+	•	artist ID
+	•	artist name
+	•	type
+	•	genre
+	•	bio
+	•	image
+	•	social links
+	•	home location optional
+	•	tags
+
+This allows questions like:
+	•	who has live music tonight
+	•	what artist is at the wharf
+	•	where is karaoke tonight
+	•	what restaurants have live music and gluten-free menu
+
+⸻
+
+10. Activity / things-to-do structure
+
+Parasailing, dolphin cruises, rentals, charters, indoor activities all need a shared schema with variations.
+
+Activity profile fields
+	•	activity type
+	•	duration
+	•	age limit
+	•	minimum age
+	•	group size
+	•	weight restrictions
+	•	weather dependent yes/no
+	•	indoor/outdoor
+	•	family friendly
+	•	check-in instructions
+	•	what to bring
+	•	cancellation policy
+	•	accessibility notes
+	•	booking required yes/no
+
+Activity modules
+	•	About
+	•	Highlights
+	•	Packages
+	•	Times & Tickets
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+	•	Book Now
+
+Times and tickets structure
+	•	schedule ID
+	•	business ID
+	•	activity type
+	•	label
+	•	days of week
+	•	departure/start time
+	•	duration
+	•	adult price
+	•	child price
+	•	infant price
+	•	private rate optional
+	•	capacity
+	•	age notes
+	•	active yes/no
+
+That is how:
+“I want a dolphin cruise today for 2 adults and 2 kids”
+gets answered.
+
+Then the system can follow up:
+“How old are the kids?”
+
+Then it checks:
+	•	age rules
+	•	family suitability
+	•	available schedules
+	•	price options
+	•	remaining capacity
+
+⸻
+
+11. Hybrid venue structure
+
+A place like Tee Off needs both restaurant and activity logic.
+
+Tee Off style fields
+	•	serves food yes/no
+	•	has happy hour yes/no
+	•	has entertainment yes/no
+	•	has bays/suites/packages
+	•	indoor yes/no
+	•	family friendly yes/no
+	•	group events yes/no
+	•	league info yes/no
+	•	reservation supported yes/no
+
+Tee Off modules
+	•	Overview
+	•	Features
+	•	Perfect For
+	•	Food & Drinks
+	•	Happy Hour
+	•	Experiences / Games
+	•	Packages
+	•	Leagues
+	•	Events
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Because it belongs in:
+	•	Things To Do
+	•	Restaurants
+	•	Happy Hour
+	•	Family Activities
+	•	Indoor Activities
+
+⸻
+
+12. Hub business structure
+
+This is what The Wharf, OWA, hotels, condo complexes, marinas, shopping centers need.
+
+These are real business pages and parent pages.
+
+Hub business base fields
+	•	name
+	•	type
+	•	entertainment district
+	•	shopping center
+	•	hotel
+	•	condo complex
+	•	marina
+	•	resort
+	•	description
+	•	address
+	•	map
+	•	contact info
+	•	parking info
+	•	visitor info
+	•	major amenities
+	•	family-friendly yes/no
+	•	pet policy
+	•	accessibility info
+	•	featured images
+	•	featured attractions
+	•	featured events
+
+Hub modules
+	•	About
+	•	Visitor Info
+	•	Parking / Access
+	•	Map
+	•	Restaurants Inside
+	•	Things To Do Inside
+	•	Shops Inside
+	•	Events
+	•	Stay / Units
+	•	Amenities
+	•	Photos
+	•	Reviews if relevant
+
+Hub child relationships
+
+A hub business can contain:
+	•	child businesses
+	•	child activities
+	•	child events
+	•	child units
+	•	child amenities
+	•	child parking/access info pages
+
+Example:
+The Wharf
+	•	its own page
+	•	restaurants at the wharf
+	•	things to do at the wharf
+	•	amphitheater
+	•	marina
+	•	ferris wheel
+	•	events
+	•	shopping
+	•	entertainment
+
+That is why it is a business hub page, not just a normal business page.
+
+⸻
+
+13. Hotel / condo property structure
+
+A property is not the same as an individual unit.
+
+Property fields
+	•	property ID
+	•	property type
+	•	name
+	•	address
+	•	location
+	•	overview
+	•	amenities
+	•	indoor pool
+	•	outdoor pool
+	•	heated pool
+	•	hot tub
+	•	sauna
+	•	beach access
+	•	parking
+	•	pet policy
+	•	check-in info
+	•	check-out info
+	•	number of units
+	•	unit types
+	•	nearby walkable places
+	•	images
+	•	policies
+
+Property modules
+	•	About
+	•	Amenities
+	•	Unit Types
+	•	Availability Summary
+	•	Nearby
+	•	Beach Access
+	•	Parking
+	•	Photos
+	•	Reviews
+	•	Policies
+	•	Map
+
+This allows questions like:
+	•	does this condo have a hot tub
+	•	what is walking distance from this property
+	•	which condos have indoor pool and sauna
+
+⸻
+
+14. Unit structure
+
+Each unit needs its own structured page.
+
+Unit fields
+	•	unit ID
+	•	parent property ID
+	•	unit number or name
+	•	bedrooms
+	•	bathrooms
+	•	sleeps max
+	•	bed breakdown
+	•	square footage
+	•	balcony
+	•	gulf view
+	•	kitchen
+	•	washer/dryer
+	•	pet allowed
+	•	amenity flags
+	•	cleaning fee
+	•	booking link
+	•	nightly pricing rules
+	•	minimum stay
+	•	blackout dates
+	•	images
+	•	availability calendar
+
+Unit modules
+	•	Overview
+	•	Sleeps / Beds
+	•	Amenities
+	•	Availability
+	•	Pricing
+	•	Photos
+	•	Policies
+	•	Nearby
+	•	Book Now
+
+This is how the system answers:
+“I need a 2-bedroom that sleeps 6 with a hot tub July 1–5.”
+
+It filters:
+	•	bedrooms >= 2
+	•	sleeps >= 6
+	•	hot tub at property or unit
+	•	availability overlaps date range
+
+⸻
+
+15. Local infrastructure / utility pages
+
+These are pages too.
+
+Examples:
+	•	beach access
+	•	overflow parking
+	•	boat ramps
+	•	public parking
+	•	marina access
+
+Infrastructure fields
+	•	ID
+	•	type
+	•	name
+	•	address
+	•	lat/lng
+	•	fees
+	•	overnight parking yes/no
+	•	trailer parking yes/no
+	•	dog rules
+	•	hours
+	•	restroom yes/no
+	•	accessibility
+	•	photos
+	•	notes
+	•	nearby hubs
+	•	nearby properties
+	•	nearby attractions
+
+These pages let the system answer:
+	•	where can I park overnight
+	•	where is beach access near this condo
+	•	which boat ramp is closest to me
+
+⸻
+
+16. Category system
+
+You need two category systems.
+
+Public categories
+
+These are what users browse:
+	•	Restaurants
+	•	Coffee
+	•	Sweets
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Things To Do
+	•	Shopping
+	•	Nightlife
+	•	Hotels
+	•	Condos
+	•	Live Music
+	•	Family Activities
+
+Data categories
+
+These are backend:
+	•	restaurant
+	•	bar
+	•	coffee shop
+	•	dessert shop
+	•	parasailing
+	•	dolphin cruise
+	•	charter
+	•	hotel
+	•	condo complex
+	•	unit
+	•	live music venue
+	•	shopping center
+	•	marina
+	•	beach access
+	•	parking
+
+One entity may have:
+	•	1 primary data category
+	•	many public categories
+
+⸻
+
+17. Tag system
+
+This is the layer that powers multi-question search.
+
+Universal tags
+	•	family friendly
+	•	kid friendly
+	•	indoor
+	•	outdoor
+	•	waterfront
+	•	gluten-free
+	•	pet friendly
+	•	reservations
+	•	private dining
+	•	live music
+	•	happy hour
+	•	brunch
+	•	breakfast
+	•	late night
+	•	beach access
+	•	parking
+	•	walkable
+	•	full bar
+
+Restaurant tags
+	•	omelets
+	•	oysters
+	•	brunch
+	•	crab legs
+	•	seafood
+	•	sushi
+	•	martinis
+	•	wine list
+	•	frozen drinks
+	•	AYCE
+
+Activity tags
+	•	sunset cruise
+	•	dolphin cruise
+	•	parasailing
+	•	indoor activity
+	•	rainy day activity
+	•	group activity
+	•	family activity
+
+Property tags
+	•	2 bedroom
+	•	sleeps 6
+	•	gulf front
+	•	hot tub
+	•	sauna
+	•	indoor pool
+	•	outdoor pool
+	•	balcony
+	•	full kitchen
+
+Business-specific tags
+	•	Topgolf swing suites
+	•	ferris wheel
+	•	SPECTRA
+	•	stone hearth pizza
+
+⸻
+
+18. Relationships
+
+This is how pages connect.
+
+Main relationships
+	•	hub business contains businesses
+	•	hub business contains events
+	•	property contains units
+	•	business has menu sections
+	•	menu sections have menu items
+	•	business has happy hours
+	•	business has specials
+	•	business has events
+	•	artist linked to events
+	•	property near beach access
+	•	property near businesses
+	•	business in hub
+	•	business in multiple categories
+	•	infrastructure near property
+	•	infrastructure near hub
+
+This is what makes:
+	•	“What restaurants are at the Wharf?”
+	•	“What’s walkable from Phoenix East?”
+	•	“Which places at the Wharf have happy hour?”
+possible.
+
+⸻
+
+19. Search / AI retrieval structure
+
+Your AI should not guess from blobs of text.
+
+It should search structured data first.
+
+Query pipeline
+
+Step 1: identify intent
+
+Examples:
+	•	restaurant search
+	•	activity booking
+	•	hotel/condo search
+	•	local info question
+	•	event lookup
+
+Step 2: extract filters
+
+Example:
+“live music, happy hour, gluten-free menu”
+
+Filters become:
+	•	live_music = true
+	•	happy_hour = true
+	•	gluten_free = true
+
+Step 3: check categories and tags
+	•	category = restaurant
+	•	tags match the filters
+
+Step 4: check structured child records
+	•	happy hour records
+	•	event records
+	•	menu data
+	•	availability
+
+Step 5: ask follow-up if needed
+
+Example:
+	•	which area are you in?
+	•	today or another date?
+	•	adults / kids?
+
+Step 6: rank results
+
+By:
+	•	exact match
+	•	location
+	•	availability
+	•	freshness
+	•	popularity
+	•	review score
+
+⸻
+
+20. Dashboard structure
+
+Your dashboard needs to be modular.
+
+Main dashboard areas
+
+1. Basic profile
+	•	name
+	•	type
+	•	categories
+	•	parent hub
+	•	address
+	•	contact info
+	•	summary
+	•	hero image
+	•	gallery
+
+2. Features / tags
+	•	checkboxes
+	•	multi-select tags
+	•	amenities
+	•	special business features
+
+3. Module toggles
+
+Turn on/off:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Drinks
+	•	Tickets
+	•	Guest Info
+	•	Availability
+	•	Reviews
+	•	Hours
+	•	Location
+
+4. Structured content editors
+
+Separate editors for:
+	•	menu sections
+	•	menu items
+	•	happy hours
+	•	specials
+	•	events
+	•	packages
+	•	schedules
+	•	amenities
+	•	units
+	•	availability
+
+5. Bulk import
+
+CSV for:
+	•	menu
+	•	specials
+	•	events
+	•	units
+	•	schedules
+
+6. Inline editing
+
+Required.
+So they can:
+	•	change one price
+	•	update one hour
+	•	hide one menu item
+	•	edit one special
+	•	update one event time
+
+7. AI assistant tools
+	•	generate About
+	•	generate Features
+	•	generate Perfect For
+	•	suggest categories
+	•	suggest tags
+	•	classify menu sections
+	•	rewrite summary
+	•	find missing fields
+
+⸻
+
+21. AI roles
+
+You should use several smaller AI jobs, not one giant magical AI.
+
+AI jobs
+
+Business classifier
+
+Figures out:
+	•	business type
+	•	categories
+	•	likely tags
+
+Content writer
+
+Generates:
+	•	About
+	•	Features
+	•	Perfect For
+	•	profile summary
+
+Menu parser
+
+Turns raw menu text/CSV into:
+	•	meal periods
+	•	sections
+	•	items
+	•	prices
+	•	dietary tags
+
+Specials classifier
+
+Separates:
+	•	happy hour
+	•	specials
+	•	event promos
+
+Tagging engine
+
+Assigns:
+	•	universal tags
+	•	business tags
+	•	category-specific tags
+
+Search/conversational planner
+
+Turns a user question into:
+	•	filters
+	•	follow-ups
+	•	ranked answers
+
+⸻
+
+22. Sync model
+
+This is your main sales pitch.
+
+A business should update data once, and it should update everywhere.
+
+One update should sync to:
+	•	their public business website
+	•	their GCR business page
+	•	their hub placement page
+	•	their QR menu
+	•	their specials page
+	•	their category listings
+	•	their AI answers
+	•	future partner directories if you expose it
+
+That means the database is the source of truth.
+Not the page itself.
+
+The page is just a view of the data.
+
+⸻
+
+23. What should be editable by the business
+
+Businesses need access to edit:
+	•	hours
+	•	specials
+	•	happy hours
+	•	menus
+	•	pricing
+	•	events
+	•	images
+	•	About text
+	•	features
+	•	tags if allowed
+	•	category visibility if allowed
+	•	booking links
+	•	policies
+
+You may still control:
+	•	template layout
+	•	SEO structure
+	•	hub placement rules
+	•	featured status
+	•	quality control
+	•	AI-generated copy review
+
+⸻
+
+24. Example of how one restaurant should be stored
+
+Cobalt-style restaurant
+
+Base profile
+	•	type: restaurant
+	•	categories: Restaurants, Happy Hour, Brunch, Waterfront Dining
+	•	tags: seafood, waterfront, brunch, gluten-free, kids menu, happy hour
+
+Modules enabled
+	•	About
+	•	Features
+	•	Perfect For
+	•	Happy Hour
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen
+	•	Wine
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Structured data attached
+	•	brunch menu sections
+	•	dinner menu sections
+	•	item-level menu data
+	•	happy hour records
+	•	live music if any
+	•	specials if any
+
+That’s what makes it searchable for:
+	•	omelets
+	•	gluten-free breakfast
+	•	happy hour
+	•	waterfront dinner
+
+⸻
+
+25. Example of how a hub business should be stored
+
+The Wharf-style page
+
+Base profile
+	•	type: entertainment district
+	•	is_hub: true
+	•	categories: Things To Do, Shopping, Dining, Events
+	•	tags: family friendly, shopping, restaurants, ferris wheel, marina, amphitheater
+
+Modules enabled
+	•	About
+	•	Visitor Info
+	•	Parking
+	•	Map
+	•	Restaurants Inside
+	•	Things To Do Inside
+	•	Shops Inside
+	•	Events
+	•	Stay
+	•	Photos
+
+Child relationships
+	•	Tee Off at The Wharf
+	•	restaurants at the wharf
+	•	ferris wheel page
+	•	amphitheater page
+	•	marina page
+	•	event pages
+	•	shopping pages
+
+That lets the system answer:
+	•	what restaurants are at the wharf
+	•	what things to do are at the wharf
+	•	what events are there this week
+	•	what’s kid friendly there
+
+⸻
+
+26. Example of how a property should be stored
+
+Condo complex / hotel
+
+Base profile
+	•	type: condo complex
+	•	is_hub: true
+	•	categories: Condos, Places to Stay
+	•	tags: beach access, indoor pool, outdoor pool, hot tub, sauna
+
+Modules enabled
+	•	About
+	•	Amenities
+	•	Unit Types
+	•	Availability
+	•	Nearby
+	•	Beach Access
+	•	Parking
+	•	Policies
+	•	Photos
+
+Child relationships
+	•	unit 1204
+	•	unit 803
+	•	parking page
+	•	beach access page
+
+That lets the system answer:
+	•	what condos here sleep 6
+	•	what’s near this place
+	•	does it have hot tub
+	•	what is walking distance
+
+⸻
+
+27. The actual end goal
+
+The end goal is not “nice pages.”
+
+It is a live structured knowledge graph for the Gulf Coast.
+
+That means every entity in the system can answer:
+	•	what it is
+	•	where it is
+	•	what it offers
+	•	what categories it belongs to
+	•	what tags describe it
+	•	what live data is attached to it
+	•	what other pages it is related to
+	•	whether it is available/bookable
+	•	how AI should retrieve it
+
+That is the actual structure.
+
+⸻
+
+28. Bottom line
+
+What you need for each business is:
+
+Identity
+
+Who/what it is.
+
+Category placement
+
+Where it belongs publicly and internally.
+
+Tags
+
+What searchable attributes describe it.
+
+Modules
+
+What sections appear on its page.
+
+Structured child data
+
+Menu items, specials, happy hours, events, schedules, units, amenities.
+
+Relationships
+
+What hub/business/property it belongs to and what it contains.
+
+Sync behavior
+
+Where updates should display.
+
+Search behavior
+
+How user questions map to its data.
+
+That is the deep structure.
+
+The cleanest next step is for me to turn this into a master field-by-field schema, broken into sections like:
+	•	restaurant schema
+	•	activity schema
+	•	hub business schema
+	•	property schema
+	•	unit schema
+	•	event schema
+	•	special schema
+	•	happy hour schema
+	•	amenity/infrastructure schema
+
+You need a hybrid model:
+	•	some core preset tables that always exist
+	•	some modular section records the dashboard/AI can create dynamically
+	•	some schema rules so growth does not turn into chaos
+
+That is the right answer.
+
+If you make everything custom and dynamic with no structure, it will get sloppy fast.
+
+If you make everything fixed and hardcoded, it will stop you from growing.
+
+So the move is:
+
+The right architecture
+
+1. Keep core tables fixed
+
+These should absolutely exist from the start.
+
+Examples:
+	•	entities
+	•	entity_types
+	•	categories
+	•	entity_categories
+	•	tags
+	•	entity_tags
+	•	hubs / parent relationships
+	•	business_hours
+	•	photos
+	•	reviews
+	•	locations
+	•	availability
+	•	users / owners
+
+These are your backbone.
+
+These should not be created on the fly by AI.
+
+They are core infrastructure.
+
+2. Let sections/modules be data-driven
+
+This is the part that should grow.
+
+Instead of hardcoding:
+	•	brunch
+	•	dinner
+	•	kids menu
+	•	gluten-free
+	•	marina info
+	•	parking info
+	•	visitor info
+	•	leagues
+	•	packages
+
+as permanent database tables for every possible future thing, you should store those as modules/sections.
+
+So a page can have:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Tickets
+	•	Visitor Info
+	•	Unit Specs
+	•	Amenities
+	•	Parking
+	•	FAQ
+
+And later you can add:
+	•	Ferry Schedule
+	•	Dog Rules
+	•	Boat Slip Info
+	•	Rainy Day Options
+	•	Vendor Booths
+	•	Festival Zones
+
+without rebuilding your database.
+
+That is what needs to grow.
+
+3. Let AI help fill modules, not invent your database
+
+AI should help with:
+	•	classifying the business
+	•	suggesting categories
+	•	suggesting modules
+	•	generating About copy
+	•	extracting tags
+	•	organizing raw data into your structure
+
+AI should not be in charge of inventing random production tables every time you add something.
+
+That becomes a nightmare.
+
+What you should do in Supabase
+
+Use a model like this:
+
+Fixed core table: entities
+
+One row for every thing.
+
+Fields like:
+	•	id
+	•	name
+	•	slug
+	•	entity_type
+	•	entity_subtype
+	•	parent_id
+	•	is_hub
+	•	short_description
+	•	address
+	•	lat
+	•	lng
+	•	phone
+	•	active
+
+That table should always exist.
+
+Fixed core table: entity_modules
+
+This is the big one.
+
+Each row is a module attached to an entity.
+
+Fields:
+	•	id
+	•	entity_id
+	•	module_type
+	•	title
+	•	sort_order
+	•	status
+	•	visibility
+	•	data_json
+	•	ai_generated
+	•	created_at
+	•	updated_at
+
+Example:
+
+Cobalt
+	•	About module
+	•	Features module
+	•	Perfect For module
+	•	Happy Hour module
+	•	Brunch module
+	•	Dinner module
+	•	Kids Menu module
+	•	Gluten-Free module
+	•	Cocktails module
+	•	Reviews module
+
+The Wharf
+	•	About module
+	•	Visitor Info module
+	•	Parking module
+	•	Restaurants Inside module
+	•	Things To Do Inside module
+	•	Events module
+	•	Shopping module
+	•	Marina module
+
+That gives you growth.
+
+Fixed supporting tables for structured content
+
+For things that need real querying, don’t leave them only in JSON.
+
+Examples:
+	•	menu_sections
+	•	menu_items
+	•	specials
+	•	happy_hours
+	•	events
+	•	schedules
+	•	amenities
+	•	units
+	•	availability
+
+Because if you want real search like:
+	•	who has omelets and gluten-free breakfast
+	•	who has happy hour 3 to 5
+	•	what condo sleeps 6 and has hot tub
+
+those need real structured tables.
+
+So the rule is:
+
+Use relational tables for:
+	•	data you need to filter/search/rank precisely
+
+Use modules/JSON for:
+	•	flexible page content and future display sections
+
+That is the balance.
+
+Best setup for growth
+
+You need 3 layers:
+
+Layer 1: core relational structure
+
+This is stable.
+
+Examples:
+	•	entities
+	•	categories
+	•	tags
+	•	menu items
+	•	events
+	•	availability
+	•	units
+	•	amenities
+
+Layer 2: flexible module layer
+
+This is where pages grow.
+
+Examples:
+	•	About
+	•	FAQ
+	•	Visitor Tips
+	•	Neighborhood Guide
+	•	Parking Notes
+	•	Seasonal Info
+	•	Rainy Day Suggestions
+
+Layer 3: AI orchestration layer
+
+This decides:
+	•	what type of entity this is
+	•	which modules it should have
+	•	which categories it belongs to
+	•	which structured tables to populate
+	•	how to write the content
+
+What not to do
+
+Don’t do this:
+	•	create a separate hardcoded table for every possible section forever
+	•	let AI freely make new database tables in production
+	•	store everything as one giant JSON blob
+	•	build everything around just the current pages
+
+That will box you in or make it unmanageable.
+
+What to do instead
+
+Preset the system with:
+	•	core entity types
+	•	core structured tables
+	•	module definitions
+	•	rules for what modules can attach to what entity types
+
+Then let the dashboard and AI do this:
+
+Example flow
+
+You add a new business.
+
+AI/dash does:
+	1.	classify it as restaurant / activity / hub / property
+	2.	assign core categories
+	3.	create base entity row
+	4.	create default modules for that type
+	5.	create empty related records or editors
+	6.	let you or business owner fill in details
+	7.	expand with custom modules if needed
+
+So yes, let the system generate the page structure from templates/rules, but not in a chaotic way.
+
+Best practical model
+
+Have a table like module_definitions
+
+This tells your system what module types exist.
+
+Examples:
+	•	about
+	•	features
+	•	perfect_for
+	•	menu
+	•	happy_hour
+	•	specials
+	•	events
+	•	tickets
+	•	amenities
+	•	units
+	•	visitor_info
+	•	parking
+	•	faq
+	•	gallery
+	•	reviews
+
+Fields:
+	•	module_type
+	•	label
+	•	entity_types_allowed
+	•	repeatable
+	•	structured_source
+	•	ui_component
+	•	default_enabled
+
+Then when a new entity is created, the dashboard or AI can say:
+	•	this is a restaurant
+	•	enable about, features, perfect_for, menu, happy_hour, specials, gallery, reviews, hours, location
+
+Or:
+	•	this is a hub business
+	•	enable about, visitor_info, parking, restaurants_inside, things_to_do_inside, events, map, gallery
+
+That is scalable.
+
+Smartest answer to your exact question
+
+You asked whether you should let AI/dashboard create these and let Supabase create them so it’s not tied to existing tables and sections.
+
+The answer is:
+
+Let the dashboard/AI create records and module instances, not database tables.
+
+That is the important distinction.
+
+Good:
+	•	create new entity records
+	•	create new module rows
+	•	create new tag assignments
+	•	create new category assignments
+	•	create new menu sections/items
+	•	create new amenity records
+
+Bad:
+	•	dynamically create brand-new production tables every time a new business type appears
+
+That gets messy fast.
+
+What should be preset from day one
+
+Preset these:
+
+Core entity system
+	•	entities
+	•	parent/child relationships
+	•	categories
+	•	tags
+	•	locations
+
+Core structured vertical tables
+	•	menu_sections
+	•	menu_items
+	•	happy_hours
+	•	specials
+	•	events
+	•	schedules
+	•	amenities
+	•	units
+	•	availability
+
+Core flexible page system
+	•	module_definitions
+	•	entity_modules
+
+That gives you both stability and growth.
+
+Best long-term design principle
+
+Think of it like this:
+	•	tables store truth
+	•	modules control display
+	•	AI controls setup and organization
+	•	dashboard controls editing
+	•	Supabase stores relationships
+
+That is the clean model.
+
+My blunt recommendation
+
+Build it this way:
+
+Fixed
+	•	core tables
+	•	module registry
+	•	relational search tables
+
+Dynamic
+	•	which modules get attached
+	•	sort order
+	•	visibility
+	•	page composition
+	•	tag suggestions
+	•	category placement
+	•	AI-generated content
+
+That will grow well.
+
+If you want, I’ll map the exact Supabase table structure next with:
+	•	table names
+	•	columns
+	•	which ones are fixed
+	•	which ones are dynamic
+	•	and how AI/dashboard should create records when a new business is added.
+
+Here’s the clean Supabase structure.
+
+This is the setup that gives you:
+	•	growth
+	•	modular pages
+	•	AI-generated setup
+	•	structured search
+	•	RAG-friendly data
+	•	business editing
+	•	hub pages like The Wharf
+	•	child pages like units, events, menu items, etc.
+
+The main idea is:
+
+do not let AI create new database tables in production.
+
+do not let AI create new database tables in production.
+Let AI create:
+	•	new entity records
+	•	new module records
+	•	new tag/category assignments
+	•	new structured child records
+
+That is the right model.
+
+⸻
+
+1. Core database philosophy
+
+Use 3 layers:
+
+Layer 1: fixed core relational tables
+
+These are permanent and should exist from day one.
+
+Layer 2: flexible module/page-composition tables
+
+These let pages grow without rebuilding schema.
+
+Layer 3: AI/workflow tables
+
+These track generation, suggestions, imports, and automation.
+
+⸻
+
+2. Core fixed tables
+
+entities
+
+This is the master table. Almost everything starts here.
+
+Each row is a real thing:
+	•	business
+	•	hub business
+	•	property
+	•	unit
+	•	attraction
+	•	event venue
+	•	parking page
+	•	beach access page
+	•	artist if you want unified entity model
+
+Columns
+	•	id uuid pk
+	•	name text
+	•	slug text unique
+	•	entity_type text
+	•	entity_subtype text
+	•	is_hub boolean default false
+	•	parent_entity_id uuid nullable
+	•	status text
+	•	short_description text
+	•	long_description text
+	•	phone text
+	•	email text
+	•	website_url text nullable
+	•	booking_url text nullable
+	•	address_1 text
+	•	address_2 text nullable
+	•	city text
+	•	state text
+	•	zip text
+	•	country text default ‘US’
+	•	lat numeric
+	•	lng numeric
+	•	hero_image_url text
+	•	cover_video_url text nullable
+	•	is_featured boolean default false
+	•	is_active boolean default true
+	•	source_type text
+	•	created_by_user_id uuid nullable
+	•	owned_by_account_id uuid nullable
+	•	last_updated_at timestamptz
+	•	created_at timestamptz
+	•	updated_at timestamptz
+
+Example entity types
+	•	business
+	•	property
+	•	unit
+	•	infrastructure
+	•	artist
+	•	venue
+	•	hub_place
+
+You can keep entity_type broad and use entity_subtype for detail:
+	•	restaurant
+	•	condo_complex
+	•	hotel
+	•	parasailing
+	•	dolphin_cruise
+	•	shopping_center
+	•	marina
+	•	entertainment_district
+
+⸻
+
+entity_relationships
+
+This is how things connect beyond a simple parent/child.
+
+Use this for:
+	•	located_in
+	•	belongs_to_hub
+	•	near
+	•	walkable_to
+	•	contains
+	•	managed_by
+	•	performs_at
+	•	has_access_to
+
+Columns
+	•	id
+	•	from_entity_id
+	•	to_entity_id
+	•	relationship_type
+	•	metadata_json
+	•	sort_order
+	•	created_at
+
+Example relationship types
+	•	contains
+	•	located_in
+	•	walkable_to
+	•	nearby
+	•	has_unit
+	•	hosts_event
+	•	has_artist
+	•	has_parking
+	•	has_beach_access
+
+This is important because not everything should be modeled only through parent_entity_id.
+
+⸻
+
+categories
+
+Public-facing and backend categories.
+
+Columns
+	•	id
+	•	name
+	•	slug
+	•	category_type
+	•	parent_category_id
+	•	description
+	•	is_active
+
+Example category_type
+	•	public
+	•	internal
+
+Examples:
+	•	Restaurants
+	•	Happy Hour
+	•	Specials
+	•	Things To Do
+	•	Hotels
+	•	Condos
+	•	Shopping
+	•	Live Music
+	•	Family Activities
+
+⸻
+
+entity_categories
+
+Many-to-many between entities and categories.
+
+Columns
+	•	id
+	•	entity_id
+	•	category_id
+	•	is_primary
+	•	sort_order
+	•	created_at
+
+This lets Tee Off belong to multiple places.
+
+⸻
+
+tags
+
+Master tag list.
+
+Columns
+	•	id
+	•	name
+	•	slug
+	•	tag_type
+	•	parent_tag_id
+	•	synonyms_json
+	•	description
+	•	is_active
+
+Example tag_type
+	•	universal
+	•	restaurant
+	•	activity
+	•	property
+	•	hub
+	•	feature
+	•	amenity
+	•	dietary
+
+⸻
+
+entity_tags
+
+Many-to-many between entities and tags.
+
+Columns
+	•	id
+	•	entity_id
+	•	tag_id
+	•	source
+	•	confidence_score
+	•	is_manual_override
+	•	created_at
+
+source can be:
+	•	ai
+	•	manual
+	•	import
+	•	scraped
+
+⸻
+
+business_hours
+
+Structured hours.
+
+Columns
+	•	id
+	•	entity_id
+	•	day_of_week
+	•	open_time
+	•	close_time
+	•	is_closed
+	•	notes
+	•	season_start
+	•	season_end
+
+⸻
+
+photos
+
+Reusable media table.
+
+Columns
+	•	id
+	•	entity_id
+	•	url
+	•	caption
+	•	alt_text
+	•	media_type
+	•	sort_order
+	•	is_hero
+	•	created_at
+
+⸻
+
+reviews
+
+Keep simple at first.
+
+Columns
+	•	id
+	•	entity_id
+	•	author_name
+	•	rating
+	•	title
+	•	body
+	•	review_date
+	•	source
+	•	verified
+	•	created_at
+
+⸻
+
+3. Flexible module system
+
+This is what makes the whole system scalable.
+
+module_definitions
+
+This table defines what modules exist.
+
+Do not hardcode everything in the frontend forever.
+
+Columns
+	•	id
+	•	module_type
+	•	label
+	•	description
+	•	entity_types_allowed_json
+	•	entity_subtypes_allowed_json
+	•	repeatable boolean
+	•	structured_source_type text nullable
+	•	ui_component_key text
+	•	default_enabled boolean
+	•	default_sort_order int
+	•	is_active boolean
+
+Example rows
+	•	about
+	•	features
+	•	perfect_for
+	•	menu
+	•	menu_section_group
+	•	happy_hour
+	•	specials
+	•	events
+	•	drinks
+	•	tickets
+	•	guest_info
+	•	amenities
+	•	visitor_info
+	•	parking_info
+	•	units_directory
+	•	restaurants_inside
+	•	things_to_do_inside
+	•	shopping_inside
+	•	gallery
+	•	reviews
+	•	map
+	•	faq
+
+This is how you grow without schema chaos.
+
+⸻
+
+entity_modules
+
+This is the page builder layer.
+
+Each row is one module attached to one entity.
+
+Columns
+	•	id
+	•	entity_id
+	•	module_definition_id
+	•	module_type
+	•	title
+	•	subtitle
+	•	sort_order
+	•	is_visible
+	•	is_enabled
+	•	is_ai_generated
+	•	data_json
+	•	created_at
+	•	updated_at
+
+data_json examples
+
+For an About module:
+	•	body text
+	•	key bullets
+	•	featured chips
+
+For a Visitor Info module:
+	•	parking summary
+	•	pet policy
+	•	map note
+	•	family note
+
+For a FAQ module:
+	•	list of questions/answers
+
+This is where flexibility lives.
+
+⸻
+
+4. Structured content tables for real querying
+
+Anything you want to filter hard should have a real table.
+
+menu_sections
+
+Columns
+	•	id
+	•	entity_id
+	•	meal_period
+	•	section_name
+	•	sort_order
+	•	is_active
+	•	description
+
+Examples:
+	•	Brunch / Omelets
+	•	Dinner / Appetizers
+	•	Drinks / Frozen Drinks
+
+⸻
+
+menu_items
+
+Columns
+	•	id
+	•	entity_id
+	•	menu_section_id
+	•	meal_period
+	•	item_name
+	•	description
+	•	price_text
+	•	price_numeric nullable
+	•	market_price boolean
+	•	image_url
+	•	is_active
+	•	is_featured
+	•	available_days_json
+	•	available_times_json
+	•	metadata_json
+	•	created_at
+	•	updated_at
+
+metadata_json examples
+	•	calories
+	•	spice_level
+	•	modifiers
+	•	allergens
+	•	ingredients
+
+⸻
+
+menu_item_tags
+
+Columns
+	•	id
+	•	menu_item_id
+	•	tag_id
+
+This is how you search:
+	•	omelets
+	•	gluten-free breakfast
+	•	martinis
+	•	oysters
+
+⸻
+
+happy_hours
+
+Columns
+	•	id
+	•	entity_id
+	•	title
+	•	description
+	•	days_json
+	•	start_time
+	•	end_time
+	•	start_date
+	•	end_date
+	•	is_recurring
+	•	is_active
+
+⸻
+
+happy_hour_items
+
+Columns
+	•	id
+	•	happy_hour_id
+	•	item_name
+	•	description
+	•	price_text
+	•	price_numeric
+	•	item_type
+	•	metadata_json
+
+⸻
+
+specials
+
+Columns
+	•	id
+	•	entity_id
+	•	title
+	•	description
+	•	special_type
+	•	days_json
+	•	start_time
+	•	end_time
+	•	start_date
+	•	end_date
+	•	price_text
+	•	price_numeric
+	•	is_recurring
+	•	is_active
+	•	image_url
+	•	metadata_json
+
+Example special_type:
+	•	lunch_special
+	•	weekly_special
+	•	all_day_special
+	•	ayce
+	•	promo
+	•	family_deal
+
+⸻
+
+events
+
+Columns
+	•	id
+	•	entity_id
+	•	hub_entity_id nullable
+	•	artist_entity_id nullable
+	•	title
+	•	description
+	•	event_type
+	•	start_at
+	•	end_at
+	•	is_recurring
+	•	recurrence_rule
+	•	cover_charge_text
+	•	booking_url
+	•	image_url
+	•	is_active
+	•	metadata_json
+
+Example event_type:
+	•	live_music
+	•	karaoke
+	•	trivia
+	•	concert
+	•	family_event
+	•	holiday_event
+
+⸻
+
+schedules
+
+Use this for activities, tours, rentals, tickets, etc.
+
+Columns
+	•	id
+	•	entity_id
+	•	schedule_type
+	•	label
+	•	days_json
+	•	start_time
+	•	end_time
+	•	duration_minutes
+	•	capacity
+	•	price_adult
+	•	price_child
+	•	price_infant
+	•	price_private
+	•	is_active
+	•	metadata_json
+
+Use for:
+	•	dolphin cruise departures
+	•	parasail trips
+	•	bay reservations
+	•	rental time blocks
+
+⸻
+
+amenities
+
+Master amenity table.
+
+Columns
+	•	id
+	•	name
+	•	slug
+	•	amenity_type
+	•	description
+
+Examples:
+	•	hot tub
+	•	sauna
+	•	indoor pool
+	•	outdoor pool
+	•	full kitchen
+	•	waterfront
+	•	private dining
+	•	marina access
+	•	beach access
+
+⸻
+
+entity_amenities
+
+Columns
+	•	id
+	•	entity_id
+	•	amenity_id
+	•	value_text
+	•	value_bool
+	•	metadata_json
+
+This supports hotels, condos, hub places, restaurants, and activities.
+
+⸻
+
+units
+
+Columns
+	•	id
+	•	entity_id
+	•	parent_property_entity_id
+	•	unit_code
+	•	bedrooms
+	•	bathrooms
+	•	sleeps_max
+	•	square_feet
+	•	view_type
+	•	nightly_rate_from
+	•	cleaning_fee
+	•	is_active
+	•	metadata_json
+
+metadata_json
+	•	bed configuration
+	•	balcony
+	•	washer dryer
+	•	kitchen
+	•	pet policy
+	•	parking notes
+
+⸻
+
+availability
+
+Columns
+	•	id
+	•	entity_id
+	•	available_date
+	•	start_at
+	•	end_at
+	•	inventory_count
+	•	status
+	•	price_override
+	•	metadata_json
+
+Use for:
+	•	units
+	•	cruises
+	•	rentals
+	•	appointments
+	•	event capacity blocks
+
+⸻
+
+5. Hub-business specific support
+
+For The Wharf, OWA, marina hubs, shopping centers, etc., you need directory logic.
+
+entity_directory_views
+
+Optional but useful.
+
+Defines which child groupings show up on the hub page.
+
+Columns
+	•	id
+	•	entity_id
+	•	view_type
+	•	label
+	•	filter_json
+	•	sort_order
+	•	is_active
+
+Example rows for The Wharf
+	•	Restaurants Inside
+	•	Things To Do Inside
+	•	Shopping Inside
+	•	Events at The Wharf
+	•	Stay Nearby
+	•	Marina
+
+This helps the frontend know how to group and render things.
+
+⸻
+
+6. AI / automation tables
+
+ai_jobs
+
+Track async generation work.
+
+Columns
+	•	id
+	•	entity_id
+	•	job_type
+	•	status
+	•	input_json
+	•	output_json
+	•	error_text
+	•	started_at
+	•	completed_at
+
+Example job_type
+	•	classify_entity
+	•	generate_about
+	•	generate_features
+	•	suggest_tags
+	•	parse_menu
+	•	classify_specials
+	•	generate_modules
+
+⸻
+
+ai_suggestions
+
+Store suggestions before applying them.
+
+Columns
+	•	id
+	•	entity_id
+	•	suggestion_type
+	•	target_table
+	•	target_record_id
+	•	payload_json
+	•	confidence_score
+	•	status
+	•	created_at
+	•	reviewed_at
+
+This is smart because not every AI guess should auto-publish.
+
+⸻
+
+import_jobs
+
+For CSV uploads.
+
+Columns
+	•	id
+	•	entity_id
+	•	import_type
+	•	file_url
+	•	mapping_json
+	•	status
+	•	summary_json
+	•	created_at
+	•	completed_at
+
+Example import_type
+	•	menu_items
+	•	specials
+	•	happy_hours
+	•	events
+	•	units
+	•	schedules
+
+⸻
+
+query_logs
+
+For future concierge learning.
+
+Columns
+	•	id
+	•	user_session_id
+	•	query_text
+	•	parsed_intent
+	•	filters_json
+	•	results_json
+	•	clicked_entity_id
+	•	created_at
+
+This helps the system get smarter later.
+
+⸻
+
+7. What should be fixed vs dynamic
+
+Fixed forever
+
+These should stay as real tables:
+	•	entities
+	•	entity_relationships
+	•	categories
+	•	entity_categories
+	•	tags
+	•	entity_tags
+	•	business_hours
+	•	photos
+	•	reviews
+	•	menu_sections
+	•	menu_items
+	•	happy_hours
+	•	specials
+	•	events
+	•	schedules
+	•	amenities
+	•	entity_amenities
+	•	units
+	•	availability
+	•	module_definitions
+	•	entity_modules
+
+Dynamic by dashboard/AI
+
+These are rows, not tables:
+	•	new entities
+	•	new modules attached to entities
+	•	new tag assignments
+	•	new category assignments
+	•	new menu sections
+	•	new specials
+	•	new happy hour entries
+	•	new event entries
+	•	new unit records
+	•	new directory views
+
+That is the key distinction.
+
+⸻
+
+8. How a new business should be created
+
+When you add a new business, the dashboard/AI should run this flow:
+
+Step 1
+
+Create row in entities
+
+Step 2
+
+Assign categories in entity_categories
+
+Step 3
+
+Assign tags in entity_tags
+
+Step 4
+
+Create default modules in entity_modules based on type/subtype
+
+Example restaurant defaults
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Example activity defaults
+	•	About
+	•	Highlights
+	•	Packages
+	•	Times & Tickets
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+
+Example hub-business defaults
+	•	About
+	•	Visitor Info
+	•	Parking
+	•	Map
+	•	Restaurants Inside
+	•	Things To Do Inside
+	•	Events
+	•	Gallery
+
+Step 5
+
+If CSV uploaded, create structured child rows:
+	•	menu sections/items
+	•	specials
+	•	events
+	•	schedules
+
+Step 6
+
+Run AI jobs:
+	•	classify
+	•	generate copy
+	•	suggest tags
+	•	suggest missing modules
+
+Step 7
+
+Allow manual review and editing
+
+That gives you both speed and control.
+
+⸻
+
+9. What the frontend should read from
+
+Business profile page
+
+Read from:
+	•	entities
+	•	entity_modules
+	•	structured tables relevant to the business
+	•	photos
+	•	reviews
+	•	business_hours
+
+Hub page like The Wharf
+
+Read from:
+	•	entities
+	•	entity_modules
+	•	entity_relationships
+	•	entity_directory_views
+	•	child entities filtered by category/relationship
+	•	events
+
+Search / concierge
+
+Read from:
+	•	categories
+	•	tags
+	•	structured tables
+	•	relationships
+	•	availability
+	•	semantic search index layered on top
+
+⸻
+
+10. Why this model grows well
+
+This model works because:
+	•	the core truth stays relational
+	•	modules keep page layouts flexible
+	•	AI helps organize records, not mutate schema
+	•	new business types can be added without rebuilding your app
+	•	search still works because important data is structured
+	•	hub pages and child pages are easy to model
+	•	updates entered once can render everywhere
+
+⸻
+
+11. My blunt recommendation
+
+Build the first version with these tables first:
+
+Must-have V1
+	•	entities
+	•	entity_relationships
+	•	categories
+	•	entity_categories
+	•	tags
+	•	entity_tags
+	•	business_hours
+	•	photos
+	•	module_definitions
+	•	entity_modules
+	•	menu_sections
+	•	menu_items
+	•	happy_hours
+	•	happy_hour_items
+	•	specials
+	•	events
+	•	schedules
+	•	amenities
+	•	entity_amenities
+	•	availability
+
+Add soon after
+	•	units
+	•	ai_jobs
+	•	ai_suggestions
+	•	import_jobs
+	•	query_logs
+	•	entity_directory_views
+
+That is enough to build something real without overengineering it.
+
+⸻
+
+12. Final answer to your question
+
+Yes, preset the core tables.
+
+Yes, let the dashboard + AI create records and module instances.
+
+No, do not let AI create brand-new production tables every time it sees a new section.
+
+The right setup is:
+	•	fixed schema for truth
+	•	dynamic rows for growth
+	•	modules for display
+	•	AI for organization
+	•	Supabase as the source of truth
+
+If you want, next I’ll turn this into a literal table-by-table build sheet with SQL-style column definitions and which tables connect to which.
+
+A category is not just a menu button on the site.
+A category is a way of organizing the same business or place so users can find it from different angles.
+
+That means a business does not belong to only one category.
+
+Example:
+Tee Off at The Wharf can be:
+	•	a restaurant
+	•	a thing to do
+	•	a happy hour spot
+	•	an indoor activity
+	•	a family-friendly place
+
+That is the whole power of your system.
+
+So categories do 3 jobs at once:
+	1.	they organize the site for users
+	2.	they tell search where something belongs
+	3.	they help AI understand what kind of result to return
+
+⸻
+
+The 3 levels of organization
+
+To make this easy to understand, think of the platform in 3 layers:
+
+1. Entity
+
+This is the actual thing.
+
+Examples:
+	•	Cobalt
+	•	Sunny Lady Dolphin Cruises
+	•	Dockside Parasail
+	•	The Wharf
+	•	a condo
+	•	a condo unit
+	•	a beach access point
+
+That is the real object.
+
+2. Category
+
+This is the section of the site it should appear in.
+
+Examples:
+	•	Restaurants
+	•	Things To Do
+	•	Happy Hour
+	•	Specials
+	•	Hotels
+	•	Condos
+	•	Shopping
+	•	Events
+
+That is the public bucket.
+
+3. Tags / attributes
+
+These are the details that describe it more specifically.
+
+Examples:
+	•	gluten-free
+	•	kid friendly
+	•	waterfront
+	•	indoor
+	•	brunch
+	•	live music
+	•	hot tub
+	•	sleeps 6
+
+That is the search detail layer.
+
+So:
+	•	entity = what it is
+	•	category = where it shows up
+	•	tag = what makes it special
+
+⸻
+
+Why categories matter
+
+Without categories, the site becomes a giant pile of pages.
+
+With categories, users can quickly find what they want.
+
+For example:
+
+A tourist may not know the name “Cobalt.”
+
+But they may know they want:
+	•	a waterfront dinner
+	•	happy hour
+	•	gluten-free food
+	•	brunch
+
+So the category system helps them browse and filter before they ever know the business name.
+
+That is why categories are so important.
+
+⸻
+
+The main category types you need
+
+You really have 2 kinds of categories.
+
+A. Public categories
+
+These are the categories users actually browse on the site.
+
+Examples:
+	•	Restaurants
+	•	Coffee
+	•	Sweets
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Things To Do
+	•	Shopping
+	•	Hotels
+	•	Condos
+	•	Live Music
+	•	Family Activities
+
+B. Internal categories
+
+These are more technical and tell the system what the thing actually is.
+
+Examples:
+	•	restaurant
+	•	bar
+	•	dolphin_cruise
+	•	parasailing
+	•	condo_complex
+	•	condo_unit
+	•	shopping_center
+	•	entertainment_district
+	•	beach_access
+	•	marina
+
+Public categories are for browsing.
+Internal categories are for logic.
+
+⸻
+
+How each public category works
+
+Now I’ll break down each category in plain English.
+
+⸻
+
+1. Restaurants
+
+What it is
+
+This category is for places where people go to eat food.
+
+What it does
+
+It lets users browse all food-serving businesses in one place.
+
+What belongs here
+	•	restaurants
+	•	casual dining
+	•	fine dining
+	•	seafood restaurants
+	•	breakfast spots
+	•	lunch spots
+	•	dinner spots
+	•	restaurants inside hubs like The Wharf
+
+What it shows
+
+A restaurant category page should show:
+	•	business name
+	•	photo
+	•	cuisine type
+	•	price range
+	•	top tags
+	•	location
+	•	quick highlights
+	•	open now / hours
+	•	menu snippets
+	•	happy hour if relevant
+	•	live music if relevant
+
+What questions it should answer
+	•	where can I eat
+	•	what seafood restaurants are nearby
+	•	who has brunch
+	•	who has dinner tonight
+	•	what restaurants are at The Wharf
+
+Why it matters
+
+This is the broad entry point for food.
+
+Example
+
+Cobalt belongs here because it is a restaurant and its page is structured around food, brunch, happy hour, drinks, and dining sections.  
+
+⸻
+
+2. Coffee
+
+What it is
+
+This category is for coffee shops, cafes, espresso bars, and places known for coffee.
+
+What it does
+
+It separates coffee-focused businesses from full restaurants.
+
+What belongs here
+	•	coffee shops
+	•	cafes
+	•	breakfast/coffee spots
+	•	bakery/coffee businesses
+
+What it shows
+	•	coffee specialties
+	•	breakfast pastries
+	•	seating vibe
+	•	hours
+	•	drive-thru if relevant
+	•	indoor/outdoor
+	•	wifi if relevant
+
+What questions it should answer
+	•	where can I get coffee
+	•	what coffee shops are open early
+	•	where can I sit and work
+	•	what coffee places are near my condo
+
+Why it matters
+
+Coffee users usually have a different intent than restaurant users.
+
+They are often looking for:
+	•	quick stop
+	•	breakfast item
+	•	caffeine
+	•	meeting spot
+	•	morning place
+
+So it deserves its own category.
+
+⸻
+
+3. Sweets
+
+What it is
+
+This is for dessert and treat-focused businesses.
+
+What belongs here
+	•	ice cream shops
+	•	candy stores
+	•	bakeries
+	•	donut shops
+	•	dessert cafes
+	•	fudge shops
+
+What it does
+
+It helps people find dessert places without digging through all restaurants.
+
+What questions it should answer
+	•	where can I get ice cream
+	•	what dessert places are open late
+	•	where can I get cookies or fudge
+	•	what is kid friendly nearby
+
+Why it matters
+
+Dessert is often its own search behavior.
+
+A family after dinner is not searching “restaurant.”
+They are searching:
+	•	ice cream
+	•	dessert
+	•	sweets
+
+⸻
+
+4. Happy Hour
+
+What it is
+
+This category is for businesses that currently offer or regularly offer happy hour.
+
+What it does
+
+This is not a business type.
+It is a time-based category.
+
+That means a business can be in Happy Hour without being a “happy hour business.”
+
+What belongs here
+
+Any place with structured happy hour records:
+	•	bars
+	•	restaurants
+	•	hybrid venues
+	•	lounges
+
+What it shows
+	•	days
+	•	start time
+	•	end time
+	•	featured items
+	•	drink deals
+	•	food deals
+	•	current status
+
+What questions it should answer
+	•	who has happy hour right now
+	•	who has happy hour 3 to 5
+	•	what places have oysters on happy hour
+	•	what places near me have drink specials
+
+Why it matters
+
+Happy hour is high-intent and time-sensitive.
+It is one of the strongest local search categories.
+
+Example
+
+Cobalt’s page includes a dedicated happy hour block with times and item-level offers, which is exactly why it should appear in this category.  
+
+⸻
+
+5. Specials
+
+What it is
+
+This category is for promotions that are not just happy hour.
+
+What belongs here
+	•	Monday specials
+	•	lunch specials
+	•	weekly specials
+	•	kids eat free
+	•	all-you-can-eat
+	•	limited-time offers
+	•	holiday promos
+
+What it does
+
+It collects all special offers in one searchable place.
+
+What it shows
+	•	title
+	•	day
+	•	time if relevant
+	•	price
+	•	description
+	•	business
+	•	image if available
+
+What questions it should answer
+	•	who has lunch specials
+	•	where are the crab leg specials
+	•	who has monday oyster deals
+	•	what all-you-can-eat specials are today
+
+Why it matters
+
+Specials drive traffic and urgency.
+
+If happy hour and specials are mixed together, the site gets confusing.
+So this category needs to be separate.
+
+⸻
+
+6. Events
+
+What it is
+
+This category is for happenings tied to time and date.
+
+What belongs here
+	•	live music events
+	•	karaoke nights
+	•	trivia nights
+	•	seasonal events
+	•	concerts
+	•	holiday events
+	•	pop-up events
+	•	crawfish boils
+
+What it does
+
+It gives users a calendar-driven way to discover what is happening.
+
+What it shows
+	•	event title
+	•	date
+	•	start time
+	•	end time
+	•	venue
+	•	type of event
+	•	performer if relevant
+	•	ticket / RSVP info
+
+What questions it should answer
+	•	what’s happening tonight
+	•	what events are this weekend
+	•	what’s happening at The Wharf
+	•	what family events are going on
+
+Why it matters
+
+Events are one of the main reasons tourists search.
+This category is about activity by date, not just by place.
+
+⸻
+
+7. Live Music
+
+What it is
+
+This is a specialized event category, focused only on music performance.
+
+What belongs here
+	•	bars with live music
+	•	restaurants with live music
+	•	concert venues
+	•	solo artists
+	•	bands
+	•	recurring venue music nights
+
+What it does
+
+It isolates music intent from general events.
+
+What it shows
+	•	artist
+	•	genre
+	•	venue
+	•	time
+	•	recurring schedule
+	•	cover charge if any
+
+What questions it should answer
+	•	who has live music tonight
+	•	what restaurants have live music
+	•	where can I hear country music
+	•	what’s at the Wharf this weekend
+
+Why it matters
+
+Users often search live music as its own thing, not as “events.”
+
+⸻
+
+8. Things To Do
+
+What it is
+
+This is one of the broadest categories.
+
+It covers experiences, attractions, rentals, tours, entertainment, and activities.
+
+What belongs here
+	•	parasailing
+	•	dolphin cruises
+	•	fishing charters
+	•	boat rentals
+	•	jet ski rentals
+	•	ferris wheel
+	•	Topgolf-style venues
+	•	family attractions
+	•	indoor attractions
+	•	sightseeing tours
+
+What it does
+
+It gives people a one-stop category for activities and experiences.
+
+What it shows
+	•	type of activity
+	•	duration
+	•	pricing
+	•	family friendliness
+	•	booking status
+	•	photos
+	•	schedule
+	•	location
+
+What questions it should answer
+	•	what can we do today
+	•	what is kid friendly
+	•	what indoor activities are there
+	•	what can I book now
+	•	what things are at The Wharf
+
+Why it matters
+
+Tourists often start with “what is there to do?”
+So this is one of your most important categories.
+
+Example
+
+Sunny Lady and Dockside Parasail fit here because they use activity-style pages with highlights, times/tickets, guest info, and booking-oriented structure.    
+
+⸻
+
+9. Family Activities
+
+What it is
+
+A special category for things appropriate for families and kids.
+
+What belongs here
+	•	dolphin cruises
+	•	ferris wheel
+	•	arcades
+	•	mini golf
+	•	indoor attractions
+	•	family restaurants
+	•	kid-friendly events
+
+What it does
+
+It filters broad activities into family-appropriate ones.
+
+What it shows
+	•	age friendliness
+	•	indoor/outdoor
+	•	duration
+	•	stroller friendliness if relevant
+	•	booking info
+	•	child pricing if relevant
+
+What questions it should answer
+	•	what can I do with kids today
+	•	what’s good for toddlers
+	•	what family activities are indoors
+	•	where can 2 adults and 2 kids go
+
+Why it matters
+
+Families search differently than couples or adult groups.
+
+⸻
+
+10. Shopping
+
+What it is
+
+This category is for retail and shopping destinations.
+
+What belongs here
+	•	boutiques
+	•	gift shops
+	•	outfitters
+	•	mall-type businesses
+	•	shops inside The Wharf
+	•	beach shops
+	•	souvenir stores
+
+What it does
+
+It gives users a way to browse stores, not just food and activities.
+
+What it shows
+	•	business type
+	•	store category
+	•	hours
+	•	location
+	•	shopping center/hub
+	•	key products
+	•	brand or local focus
+
+What questions it should answer
+	•	where can I shop
+	•	what stores are at The Wharf
+	•	where are the gift shops
+	•	what is near me
+
+Why it matters
+
+Shopping is part of the destination experience and should not be buried.
+
+⸻
+
+11. Hotels
+
+What it is
+
+This category is for hotel properties.
+
+What belongs here
+	•	hotels
+	•	resorts
+	•	hotel-style properties
+
+What it does
+
+It helps people find places to stay by property type.
+
+What it shows
+	•	hotel name
+	•	address
+	•	amenities
+	•	indoor/outdoor pool
+	•	hot tub
+	•	beach access
+	•	room types
+	•	booking link
+	•	nearby places
+
+What questions it should answer
+	•	what hotels are near The Wharf
+	•	what hotel has indoor pool
+	•	what hotel is walking distance to restaurants
+	•	what hotel has family amenities
+
+Why it matters
+
+Hotels need different data than businesses.
+They are not just “places.”
+They are stay-focused properties.
+
+⸻
+
+12. Condos
+
+What it is
+
+This category is for condo complexes and condo rentals.
+
+What belongs here
+	•	condo properties
+	•	condo complexes
+	•	vacation condo rentals
+	•	condo hubs
+	•	individual condo units if surfaced
+
+What it does
+
+It gives people a structured way to search stay options beyond hotels.
+
+What it shows
+	•	complex name
+	•	amenities
+	•	beach access
+	•	pools
+	•	hot tub
+	•	parking
+	•	walkability
+	•	unit types
+	•	nearby attractions
+
+What questions it should answer
+	•	what condos sleep 6
+	•	which condos have hot tub
+	•	what is walking distance from this condo
+	•	what condos have beach access
+
+Why it matters
+
+Condos require much deeper structure:
+	•	property level
+	•	unit level
+	•	amenity level
+	•	nearby relationship level
+
+⸻
+
+13. Nightlife
+
+What it is
+
+This category is for businesses and events tied to going out at night.
+
+What belongs here
+	•	bars
+	•	clubs
+	•	late-night restaurants
+	•	venues with music
+	•	lounges
+	•	nightlife events
+
+What it does
+
+It separates “where do I go tonight” from general restaurants and activities.
+
+What it shows
+	•	opening hours
+	•	late-night status
+	•	live music
+	•	karaoke
+	•	DJ
+	•	drinks
+	•	vibe tags
+
+What questions it should answer
+	•	where should I go tonight
+	•	what is open late
+	•	what has drinks and music
+	•	what’s fun after dinner
+
+Why it matters
+
+Nightlife behavior is different from food or family activity behavior.
+
+⸻
+
+14. Visitor Info / Local Info
+
+This may not feel like a public category at first, but it matters.
+
+What it is
+
+This is for utility and information pages.
+
+What belongs here
+	•	boat ramps
+	•	beach access points
+	•	parking lots
+	•	overflow parking
+	•	dog rules
+	•	local FAQs
+	•	access information
+	•	marina utilities
+
+What it does
+
+It gives the platform the ability to answer practical trip questions.
+
+What questions it should answer
+	•	where can I park overnight
+	•	where is beach access near this condo
+	•	are dogs allowed on the beach
+	•	where is the closest boat ramp
+
+Why it matters
+
+Your concierge vision needs this, not just businesses.
+
+⸻
+
+How categories work together
+
+A category is not a locked box.
+
+A business can appear in many categories at once.
+
+Example: Cobalt
+
+Could appear in:
+	•	Restaurants
+	•	Happy Hour
+	•	Brunch
+	•	Gluten-Free Dining
+	•	Waterfront Dining
+
+Example: Tee Off
+
+Could appear in:
+	•	Things To Do
+	•	Restaurants
+	•	Happy Hour
+	•	Family Activities
+	•	Indoor Activities
+
+Example: Sunny Lady
+
+Could appear in:
+	•	Things To Do
+	•	Family Activities
+	•	Dolphin Cruises
+	•	Bookable Experiences
+
+So the same page can be found from many paths.
+
+That is exactly what you want.
+
+⸻
+
+What categories do for AI
+
+Categories tell AI the kind of answer it should be looking for.
+
+If a question sounds like food:
+AI should look at restaurant entities and food-related modules/tables.
+
+If a question sounds like activities:
+AI should look at schedules, times, tickets, and family activity data.
+
+If a question sounds like stay:
+AI should look at hotel/condo/property/unit data.
+
+If a question sounds like utility:
+AI should look at beach access, parking, and local info pages.
+
+So categories help the AI narrow the world down before it even starts ranking results.
+
+⸻
+
+What categories do for the dashboard
+
+Categories also control:
+	•	which modules get turned on
+	•	which fields the business sees
+	•	where the page displays
+	•	which structured tables are needed
+
+Example
+
+If the business is categorized as a restaurant:
+show fields for:
+	•	menu
+	•	happy hour
+	•	specials
+	•	meal periods
+	•	drinks
+
+If it is categorized as an activity:
+show fields for:
+	•	tickets
+	•	schedules
+	•	age rules
+	•	booking
+	•	duration
+
+If it is a property:
+show fields for:
+	•	amenities
+	•	unit types
+	•	nearby places
+	•	policies
+	•	availability
+
+So categories also shape the business editing experience.
+
+⸻
+
+What categories do for users
+
+For the user, categories make the platform understandable.
+
+They help answer:
+	•	where do I start
+	•	what section should I browse
+	•	what kind of result am I looking at
+	•	why is this business showing up here
+
+So categories are really the navigation brain of the platform.
+
+⸻
+
+The easiest way to explain categories to anyone
+
+Use this:
+
+A category is the section of the platform where a page should appear based on what it offers. One business can belong to multiple categories so users can find it in different ways.
+
+And if you want the even simpler version:
+
+Entities are the actual pages. Categories are where those pages show up. Tags are the details that make search smart.
+
+⸻
+
+Bottom line
+
+Each category works like a doorway into the same structured database.
+	•	Restaurants = food discovery
+	•	Coffee = morning/cafe discovery
+	•	Sweets = dessert discovery
+	•	Happy Hour = time-based deals
+	•	Specials = promotions outside happy hour
+	•	Events = what’s happening by date
+	•	Live Music = music-specific event discovery
+	•	Things To Do = activities and attractions
+	•	Family Activities = kid-friendly experiences
+	•	Shopping = retail discovery
+	•	Hotels = hotel stay discovery
+	•	Condos = condo/property stay discovery
+	•	Nightlife = evening social discovery
+	•	Visitor Info = practical local answers
+
+That is how the site stays understandable for people and powerful for AI.
+
+Next I can turn this into a category-by-category field map showing exactly what data each category needs in the dashboard.
+
+
+Gulf Coast Radar is a real-time local discovery, search, and booking platform built for tourist-heavy beach markets like Orange Beach, Gulf Shores, Fort Morgan, and similar destinations.
+
+Plainly, it is meant to become the main digital layer for the area that helps people figure out:
+	•	where to eat
+	•	what to do
+	•	what’s happening
+	•	what has deals
+	•	what is nearby
+	•	what is available right now
+	•	what they can book
+
+It is not supposed to be just another local directory.
+
+It is supposed to be a live destination engine.
+
+What Gulf Coast Radar is
+
+GCR is the public-facing brand and platform that organizes local businesses, attractions, events, lodging, and useful location info into one searchable system.
+
+That means it covers things like:
+	•	restaurants
+	•	bars
+	•	coffee shops
+	•	sweets
+	•	happy hours
+	•	specials
+	•	live music
+	•	events
+	•	things to do
+	•	dolphin cruises
+	•	parasailing
+	•	fishing charters
+	•	boat rentals
+	•	family activities
+	•	nightlife
+	•	shopping
+	•	hotels
+	•	condos
+	•	beach access
+	•	parking
+	•	boat ramps
+	•	other local utility info
+
+So instead of people bouncing between Google, Facebook, outdated PDFs, random tourism blogs, bad websites, and separate booking pages, GCR is meant to pull all of that into one place.
+
+The simplest definition
+
+Gulf Coast Radar is a live local search engine for the Gulf Coast that helps tourists and locals find food, drinks, events, activities, lodging, and bookable experiences, while helping businesses get found and keep their information updated everywhere from one place.
+
+What makes it different
+
+The real difference is that GCR is supposed to run on structured, searchable, constantly updated data.
+
+That means it does not just show business names.
+
+It is meant to show the actual useful content inside those businesses and places, like:
+	•	menu items
+	•	drink menus
+	•	happy hour times
+	•	specials
+	•	live music schedules
+	•	event dates
+	•	ticket prices
+	•	activity times
+	•	amenities
+	•	room/unit details
+	•	beach access info
+	•	parking details
+	•	booking availability
+
+That is the whole play.
+
+So a user should eventually be able to search things like:
+	•	crab legs
+	•	omelets
+	•	gluten-free breakfast
+	•	waterfront dinner
+	•	happy hour right now
+	•	live music tonight
+	•	karaoke tonight
+	•	kid-friendly activity
+	•	indoor activity on a rainy day
+	•	dolphin cruise today
+	•	condo that sleeps 6 with a hot tub
+	•	what restaurants are at The Wharf
+	•	what is walking distance from this hotel
+
+That is much bigger than a normal directory.
+
+Who it is for
+
+GCR serves two sides.
+
+1. Tourists and locals
+
+They use it to discover:
+	•	where to eat
+	•	what to do today
+	•	what’s happening tonight
+	•	where to stay
+	•	what is close by
+	•	what has deals
+	•	what can be booked now
+	•	what matches their preferences
+
+For them, GCR should feel like a local digital concierge.
+
+2. Businesses and properties
+
+They use it to:
+	•	get found
+	•	appear in more searches
+	•	show live info
+	•	update menus, hours, specials, and events
+	•	get bookings
+	•	fill empty slots
+	•	display better pages
+	•	replace old static websites
+	•	keep all listings updated from one place
+
+So for businesses, GCR is not just exposure.
+It is supposed to be a traffic, conversion, and update system.
+
+What a business gets
+
+A business on GCR is supposed to have more than a simple listing.
+
+It can have a structured page with things like:
+	•	photos
+	•	overview
+	•	location
+	•	phone
+	•	hours
+	•	menu
+	•	drinks
+	•	happy hour
+	•	specials
+	•	live music
+	•	events
+	•	amenities
+	•	pricing
+	•	packages
+	•	schedules
+	•	booking options
+	•	reviews
+	•	directions
+	•	tags
+	•	searchable structured content
+
+That means a restaurant, an activity business, a hotel, or a condo property can all have deeper pages that are built around what they actually offer.
+
+How it connects to your bigger model
+
+GCR is the public-facing side.
+
+CyberCheck is the backend/business tool side.
+
+So:
+	•	GCR = search, discovery, public pages, hub pages, tourist experience
+	•	CyberCheck = dashboard, editing tools, structured business pages, CRM tools, sync system, profile controls
+
+That means a business could update its information in one backend system, and that information can then update:
+	•	its own website
+	•	its GCR page
+	•	QR menus
+	•	hub pages like The Wharf
+	•	category pages
+	•	search results
+	•	AI answers
+
+That one-update-everywhere idea is one of the biggest strengths of what you’re building.
+
+The deeper vision
+
+Long term, GCR is not just a tourism site.
+
+It becomes a destination operating layer.
+
+Meaning it can become the place where:
+	•	businesses keep information current
+	•	tourists search and book
+	•	local pages stay organized
+	•	AI answers are grounded in real data
+	•	trip planning happens
+	•	live availability gets surfaced
+	•	events and specials stay current
+	•	properties and units can be searched by real needs
+	•	people can ask natural language questions and get useful answers
+
+So instead of being “just another local guide,” GCR becomes a structured local knowledge system for the destination.
+
+Why that matters
+
+Right now, most local markets are broken because information is:
+	•	scattered
+	•	outdated
+	•	inconsistent
+	•	hard to search
+	•	hidden inside PDFs or social posts
+	•	disconnected from booking
+	•	not organized for AI or conversational search
+
+GCR is your attempt to fix that by turning the destination into one connected system.
+
+How it should feel to a user
+
+To the user, GCR should feel like:
+	•	a search engine
+	•	a food finder
+	•	an events guide
+	•	a booking hub
+	•	a lodging finder
+	•	a live local concierge
+	•	a destination planner
+
+all in one place.
+
+The cleanest explanation
+
+Use this:
+
+Gulf Coast Radar is a real-time local search, discovery, and booking platform for tourist destinations that helps people find food, drinks, events, activities, lodging, and useful local information, while helping businesses keep live information updated and turn attention into revenue.
+
+Even shorter:
+
+GCR is a live search engine and discovery platform for the Gulf Coast.
+
+And the more aggressive version:
+
+Gulf Coast Radar is the digital operating layer for a beach destination—organizing where to eat, what to do, where to stay, what’s happening, and what’s available right now.
+
+If you want, I can turn this into a sharper website About section, sales pitch, and investor-style explanation next.
+
+Gulf Coast Radar: developer explanation
+
+1. What Gulf Coast Radar is
+
+Gulf Coast Radar is a consumer-facing local discovery, search, and booking platform for tourist-heavy coastal markets like Orange Beach, Gulf Shores, Fort Morgan, and similar destinations.
+
+It is not just a directory.
+
+It is a structured platform that lets users:
+	•	discover restaurants, bars, coffee, sweets
+	•	find happy hours and specials
+	•	browse live music and events
+	•	search things to do
+	•	search lodging like hotels and condos
+	•	search practical local info like beach access, parking, boat ramps
+	•	eventually ask natural-language questions and get accurate results
+	•	eventually book activities, lodging, or other experiences
+
+The key difference is that the platform is built around structured data instead of static pages.
+
+So the same source of truth should power:
+	•	the business’s own page/site
+	•	Gulf Coast Radar listing pages
+	•	hub pages like The Wharf
+	•	QR menus
+	•	search results
+	•	filters
+	•	AI concierge / RAG responses
+	•	future voice/TTS experiences
+
+⸻
+
+2. High-level product goal
+
+The product goal is:
+
+one update in the dashboard should update everywhere that entity appears
+
+Example:
+
+A restaurant updates:
+	•	hours
+	•	menu item
+	•	happy hour
+	•	special
+	•	image
+
+That update should flow to:
+	•	their own hosted page/site
+	•	their GCR business page
+	•	category pages like Restaurants / Happy Hour / Specials
+	•	hub pages like The Wharf
+	•	QR menu page
+	•	search results
+	•	AI answers
+
+So the architecture should be built around a central structured database, not page-level hardcoded content.
+
+⸻
+
+3. Main product concepts
+
+There are 4 major concepts:
+
+A. Entities
+
+The actual things in the system.
+
+Examples:
+	•	Cobalt
+	•	Tee Off at The Wharf
+	•	Sunny Lady Dolphin Cruises
+	•	The Wharf
+	•	OWA
+	•	a condo complex
+	•	a condo unit
+	•	a boat ramp
+	•	a beach access point
+	•	an event
+	•	an artist
+
+B. Categories
+
+Public-facing sections of the site.
+
+Examples:
+	•	Restaurants
+	•	Coffee
+	•	Sweets
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Things To Do
+	•	Shopping
+	•	Hotels
+	•	Condos
+	•	Live Music
+	•	Family Activities
+	•	Nightlife
+
+A single entity can belong to multiple categories.
+
+C. Tags / attributes
+
+These are detailed descriptors.
+
+Examples:
+	•	gluten-free
+	•	waterfront
+	•	brunch
+	•	indoor
+	•	kid friendly
+	•	hot tub
+	•	indoor pool
+	•	live music
+	•	happy hour
+	•	dog friendly
+	•	sleeps 6
+
+These power filtering and AI retrieval.
+
+D. Modules
+
+These are page sections.
+
+Examples:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Drinks
+	•	Tickets
+	•	Guest Info
+	•	Amenities
+	•	Visitor Info
+	•	Parking Info
+	•	Gallery
+	•	Reviews
+	•	Map
+	•	FAQ
+	•	Units Directory
+	•	Restaurants Inside
+	•	Things To Do Inside
+
+Pages should be composed from modules, not hardcoded per page forever.
+
+⸻
+
+4. Core entity types
+
+The system needs multiple entity types.
+
+4.1 Standard business
+
+Examples:
+	•	restaurant
+	•	bar
+	•	coffee shop
+	•	dessert shop
+	•	parasailing business
+	•	dolphin cruise business
+	•	fishing charter
+	•	hybrid venue like Tee Off
+
+These have their own full pages.
+
+4.2 Hub business
+
+Examples:
+	•	The Wharf
+	•	OWA
+	•	a marina
+	•	a shopping center
+	•	a large entertainment district
+	•	some large hotels / condo complexes if treated as hubs
+
+These are real pages themselves, but they also contain child pages and directory content.
+
+They are both:
+	•	a business/place page
+	•	a parent/hub page
+
+4.3 Property
+
+Examples:
+	•	hotel
+	•	condo complex
+	•	resort
+	•	vacation property
+
+These may also be hubs.
+
+4.4 Unit
+
+Examples:
+	•	condo unit 1204
+	•	hotel room type
+	•	2-bedroom unit
+	•	villa
+
+4.5 Event
+
+Examples:
+	•	live music night
+	•	karaoke night
+	•	trivia night
+	•	concert
+	•	holiday event
+
+4.6 Artist / performer
+
+Examples:
+	•	band
+	•	solo artist
+	•	DJ
+	•	karaoke host
+
+4.7 Offer / promotion
+
+Examples:
+	•	happy hour
+	•	lunch special
+	•	monday oyster special
+	•	all-you-can-eat crab legs
+
+4.8 Amenity / utility / infrastructure
+
+Examples:
+	•	beach access
+	•	boat ramp
+	•	parking lot
+	•	overflow parking
+	•	marina slip access
+	•	indoor pool
+	•	hot tub
+	•	sauna
+
+4.9 Schedule / availability record
+
+Examples:
+	•	dolphin cruise at 2 PM
+	•	parasailing slot at 4 PM
+	•	condo availability July 1–5
+	•	bay reservation at 7 PM
+
+⸻
+
+5. Important architecture rule
+
+Do not model the system as “pages first.”
+
+Model it as:
+	1.	entity
+	2.	classification
+	3.	relationships
+	4.	modules
+	5.	structured child data
+	6.	search / AI retrieval
+
+Pages are just views of the data.
+
+⸻
+
+6. The database design philosophy
+
+Use 3 layers:
+
+Layer 1: fixed relational core
+
+Stable tables that always exist.
+
+Examples:
+	•	entities
+	•	relationships
+	•	categories
+	•	tags
+	•	hours
+	•	menu items
+	•	specials
+	•	events
+	•	amenities
+	•	units
+	•	availability
+
+Layer 2: flexible module layer
+
+For page composition and flexible content.
+
+Examples:
+	•	About
+	•	FAQ
+	•	Visitor Info
+	•	Perfect For
+	•	Parking Info
+	•	Restaurants Inside
+	•	Things To Do Inside
+
+Layer 3: AI / automation layer
+
+For classification, suggestions, generation, imports, query logging.
+
+⸻
+
+7. Core relational model
+
+7.1 entities
+
+Master table for every real thing.
+
+Fields should include:
+	•	id
+	•	name
+	•	slug
+	•	entity_type
+	•	entity_subtype
+	•	is_hub
+	•	parent_entity_id
+	•	status
+	•	short_description
+	•	long_description
+	•	phone
+	•	email
+	•	website_url optional
+	•	booking_url optional
+	•	address
+	•	city/state/zip
+	•	lat/lng
+	•	hero image
+	•	active / featured flags
+	•	ownership fields
+	•	timestamps
+
+7.2 entity_relationships
+
+Used for flexible linking.
+
+Examples:
+	•	contains
+	•	located_in
+	•	belongs_to_hub
+	•	near
+	•	walkable_to
+	•	has_unit
+	•	hosts_event
+	•	has_parking
+	•	has_beach_access
+
+This is critical because not every relationship is a simple parent-child.
+
+7.3 categories
+
+Public and internal categories.
+
+Examples:
+	•	Restaurants
+	•	Happy Hour
+	•	Things To Do
+	•	Hotels
+	•	Condos
+
+7.4 entity_categories
+
+Many-to-many link between entities and categories.
+
+A single entity can appear in multiple categories.
+
+7.5 tags
+
+Master list of searchable descriptors.
+
+7.6 entity_tags
+
+Many-to-many entity-to-tag link.
+
+Should allow:
+	•	manual tags
+	•	AI tags
+	•	imported tags
+	•	confidence score if AI-generated
+
+7.7 business_hours
+
+Structured hours by day.
+
+7.8 photos
+
+Media table.
+
+7.9 reviews
+
+Review table.
+
+⸻
+
+8. Module/page composition system
+
+8.1 module_definitions
+
+Defines what module types exist.
+
+Examples:
+	•	about
+	•	features
+	•	perfect_for
+	•	menu
+	•	happy_hour
+	•	specials
+	•	events
+	•	drinks
+	•	tickets
+	•	guest_info
+	•	amenities
+	•	visitor_info
+	•	parking_info
+	•	units_directory
+	•	restaurants_inside
+	•	things_to_do_inside
+	•	shopping_inside
+	•	gallery
+	•	reviews
+	•	map
+	•	faq
+
+Each definition should include:
+	•	module_type
+	•	label
+	•	allowed entity types/subtypes
+	•	repeatable or not
+	•	UI component key
+	•	structured source type if any
+	•	default sort order
+	•	default enabled state
+
+8.2 entity_modules
+
+Actual modules attached to one entity/page.
+
+Fields:
+	•	entity_id
+	•	module_definition_id
+	•	module_type
+	•	title
+	•	sort_order
+	•	visible/enabled flags
+	•	AI-generated flag
+	•	data_json
+	•	timestamps
+
+This allows flexible page growth without changing schema every time.
+
+⸻
+
+9. Structured tables for hard querying
+
+Anything the user needs to filter precisely should live in real tables.
+
+9.1 Menu structure
+
+Need:
+	•	menu_sections
+	•	menu_items
+	•	menu_item_tags
+
+This supports questions like:
+	•	who has omelets
+	•	who has crab legs
+	•	who has martinis
+	•	who has gluten-free breakfast
+
+Menu hierarchy:
+	•	meal period
+	•	section
+	•	item
+
+9.2 Happy hour
+
+Need:
+	•	happy_hours
+	•	happy_hour_items
+
+Happy hour is separate from specials because it is recurring and time-based.
+
+Supports questions like:
+	•	who has happy hour from 3 to 5
+	•	who has oysters on happy hour
+
+9.3 Specials
+
+Need:
+	•	specials
+
+Specials are separate from happy hour.
+
+Supports:
+	•	monday oyster special
+	•	lunch special
+	•	all-you-can-eat crab legs
+
+9.4 Events
+
+Need:
+	•	events
+
+Supports:
+	•	who has live music tonight
+	•	what’s happening this weekend
+	•	what’s at The Wharf
+
+9.5 Schedules
+
+Need:
+	•	schedules
+
+For:
+	•	dolphin cruise times
+	•	parasail times
+	•	bay rental slots
+	•	ticket-based time offerings
+
+9.6 Amenities
+
+Need:
+	•	amenities
+	•	entity_amenities
+
+For:
+	•	hot tub
+	•	indoor pool
+	•	sauna
+	•	beach access
+	•	private dining
+	•	pet friendly
+
+9.7 Units
+
+Need:
+	•	units
+
+For:
+	•	sleeps 6
+	•	2-bedroom condo
+	•	balcony
+	•	full kitchen
+
+9.8 Availability
+
+Need:
+	•	availability
+
+For:
+	•	available today
+	•	available July 1–5
+	•	remaining seats
+	•	open slots
+
+⸻
+
+10. How each main category behaves
+
+Restaurants
+
+Food-serving businesses.
+Can also overlap with:
+	•	Happy Hour
+	•	Specials
+	•	Live Music
+	•	Waterfront Dining
+	•	Family Dining
+
+Need:
+	•	menu
+	•	drinks
+	•	specials
+	•	happy hour
+	•	events/live music
+	•	hours
+
+Coffee
+
+Coffee shops/cafes.
+Need:
+	•	coffee-focused menu
+	•	breakfast/snack support
+	•	hours
+	•	vibe/features
+
+Sweets
+
+Dessert shops, ice cream, bakeries.
+Need:
+	•	product/menu data
+	•	hours
+	•	location
+	•	family-friendly tags
+
+Happy Hour
+
+Not a business type.
+A time-based promotional category.
+Businesses appear here if they have structured happy hour records.
+
+Specials
+
+Also not a business type.
+Businesses appear here if they have structured specials.
+
+Events
+
+Time-based happenings.
+Could belong to a business or a hub.
+
+Live Music
+
+Subset of events.
+Music-focused.
+
+Things To Do
+
+Activities, attractions, excursions, entertainment.
+Need:
+	•	schedules
+	•	tickets
+	•	duration
+	•	age suitability
+	•	booking data
+
+Family Activities
+
+A filtered layer over activities/events/businesses with family/kid relevance.
+
+Shopping
+
+Retail businesses and shopping-related hubs.
+
+Hotels / Condos
+
+Stay-focused properties.
+Need:
+	•	amenities
+	•	policies
+	•	room/unit logic
+	•	nearby relationships
+	•	availability
+
+Nightlife
+
+Evening social discovery:
+	•	bars
+	•	clubs
+	•	lounges
+	•	late-night spots
+	•	music venues
+
+Visitor Info / utility layer
+
+Practical local information:
+	•	parking
+	•	beach access
+	•	dog rules
+	•	boat ramps
+	•	marina access
+
+⸻
+
+11. How hub pages work
+
+A hub page is a real business/place page that also acts like a mini-site.
+
+Examples:
+	•	The Wharf
+	•	OWA
+	•	a condo complex
+	•	some hotels
+	•	shopping center
+	•	marina
+
+A hub page needs 2 kinds of content:
+
+A. Direct business/place content
+
+Its own:
+	•	overview
+	•	address
+	•	parking
+	•	visitor info
+	•	map
+	•	main features
+	•	photos
+	•	reviews if relevant
+
+B. Child/directory content
+
+Things inside or attached to it:
+	•	restaurants inside
+	•	things to do inside
+	•	events
+	•	shops
+	•	units
+	•	amenities
+	•	nearby pages
+
+Example: The Wharf
+Should answer:
+	•	what restaurants are at the wharf
+	•	what things to do are at the wharf
+	•	where do I park
+	•	what events are happening
+	•	what is kid friendly there
+
+That requires:
+	•	entity record for The Wharf
+	•	entity modules for The Wharf
+	•	child relationships to attached businesses/events/attractions
+	•	category- and relationship-driven directory sections
+
+⸻
+
+12. How property + unit structure works
+
+Property-level
+
+Hotel / condo complex / resort
+
+Stores:
+	•	overview
+	•	amenities
+	•	rules
+	•	parking
+	•	beach access
+	•	nearby relationships
+	•	unit directory
+	•	property photos
+
+Unit-level
+
+Individual rentable unit or room type
+
+Stores:
+	•	bedrooms
+	•	bathrooms
+	•	sleeps max
+	•	bed layout
+	•	kitchen
+	•	balcony
+	•	view
+	•	rate
+	•	fees
+	•	availability
+	•	unit-specific photos
+
+This supports questions like:
+	•	I need 2 bedrooms, sleeps 6, hot tub, July 1–5
+	•	what is walkable from this condo
+	•	does this property have indoor pool and sauna
+
+⸻
+
+13. Search and AI behavior
+
+The AI should not answer from blobs of text only.
+
+The query system should work like this:
+
+Step 1: detect intent
+
+Examples:
+	•	restaurant search
+	•	event lookup
+	•	activity booking
+	•	stay/lodging search
+	•	local utility question
+
+Step 2: extract filters
+
+Examples:
+“live music, happy hour, gluten-free menu”
+becomes:
+	•	live_music = true
+	•	happy_hour = true
+	•	gluten_free = true
+
+Step 3: search structured data first
+
+Use:
+	•	categories
+	•	tags
+	•	menu data
+	•	events
+	•	specials
+	•	schedules
+	•	amenities
+	•	availability
+	•	relationships
+
+Step 4: semantic layer second
+
+Use embeddings/semantic search for softer concepts like:
+	•	date night
+	•	not too loud
+	•	rainy day
+	•	classy but casual
+	•	family fun
+
+Step 5: ask follow-up question if needed
+
+Examples:
+	•	what dates
+	•	how old are the kids
+	•	what area are you staying in
+	•	indoor or outdoor
+
+This is the future concierge behavior.
+
+⸻
+
+14. Dashboard behavior
+
+The dashboard is the source of updates.
+
+Each business/property owner should be able to:
+	•	edit basic info
+	•	edit hours
+	•	manage images
+	•	manage categories/tags if permitted
+	•	manage modules
+	•	manage menu sections/items
+	•	manage specials
+	•	manage happy hours
+	•	manage events
+	•	manage schedules
+	•	manage amenities
+	•	manage units
+	•	manage availability
+
+Important:
+	•	bulk CSV import should exist
+	•	individual inline editing must exist
+	•	one-off changes should not require re-uploading CSVs
+
+⸻
+
+15. AI responsibilities
+
+AI should help create and maintain records, but not invent schema.
+
+AI jobs should include:
+	•	classify entity
+	•	suggest categories
+	•	suggest tags
+	•	generate About content
+	•	generate Features
+	•	generate Perfect For
+	•	parse menu text into sections/items
+	•	classify specials vs happy hours
+	•	suggest missing modules
+
+AI should create:
+	•	records
+	•	assignments
+	•	suggestions
+	•	module content
+
+AI should not create:
+	•	brand-new production tables dynamically
+
+⸻
+
+16. Sync model
+
+This is a core product promise.
+
+One update in the dashboard should sync to all relevant surfaces.
+
+Example:
+Business updates menu item price.
+
+That should update:
+	•	their own site/page
+	•	GCR business page
+	•	QR menu
+	•	hub page views
+	•	category pages
+	•	search answers
+	•	AI results
+
+So the source of truth is the structured database, not the page HTML.
+
+⸻
+
+17. Practical developer summary
+
+Tell the developer this plainly:
+
+Gulf Coast Radar is a modular, structured local discovery platform built on a central entity system.
+
+It needs:
+	•	a master entities model
+	•	relational category/tag/relationship tables
+	•	structured tables for query-critical data
+	•	a flexible module system for page composition
+	•	hub pages with child-entity directory logic
+	•	business dashboard editing
+	•	AI-assisted setup/classification/content generation
+	•	one-update-syncs-everywhere architecture
+
+The frontend should be rendered from structured data and modules, not handcrafted one-off pages.
+
+The search layer should combine:
+	•	relational filters
+	•	tags/categories
+	•	structured child records
+	•	semantic retrieval
+	•	availability
+	•	relationships
+
+The system has to support:
+	•	standard business pages
+	•	hub business pages
+	•	property pages
+	•	unit pages
+	•	event pages
+	•	local utility pages
+	•	future concierge/voice experiences
+
+⸻
+
+18. Best short explanation for the developer
+
+Use this:
+
+Gulf Coast Radar is a structured destination platform where every business, property, event, activity, and local info point is stored as an entity with categories, tags, modules, relationships, and searchable child records, so one update can power websites, directory pages, hub pages, QR menus, search, and AI answers from the same source of truth.
+
+If you want, I’ll turn this into a developer handoff spec next with sections like:
+	•	system overview
+	•	database model
+	•	page types
+	•	dashboard behavior
+	•	AI behavior
+	•	search behavior
+	•	and V1 build priorities.
+
+
+
+Good. This confirms the property + unit model.
+
+That page is not just a normal business page. It is really 3 layers combined:
+	1.	search / availability results page
+	2.	property page
+	3.	unit detail page
+
+On the Brett/Robinson example you sent, the URL is a search-results flow, but the content shown is for a specific unit inside a specific property: Phoenix East 104, with unit-level details like 2 bedrooms, 2 baths, sleeps 8, floor 1, plus property-level amenities and FAQs about Phoenix East as a whole.  
+
+So this is exactly the kind of structure you need in GCR.
+
+What this page proves
+
+It proves you need to separate:
+	•	property/complex data
+	•	unit data
+	•	availability/search data
+
+Because on that page:
+	•	the unit has bedroom count, bath count, sleeps, floor, photos, bed types, and description for that exact condo.  
+	•	the property/complex has shared amenities like indoor/outdoor pools, splash pad, hot tubs, sauna, fitness center, tennis, parking, beach access, and FAQs about the complex.  
+	•	the search layer is driven by dates, occupancy, and filters from the URL, which means the page is also responding to booking/search criteria.  
+
+That is exactly how your lodging side should work.
+
+How this should be structured in your system
+
+1. Property / complex page
+
+Example:
+Phoenix East
+
+This is the parent page.
+
+It should store things like:
+	•	property name
+	•	address
+	•	overview
+	•	complex amenities
+	•	beach access
+	•	parking info
+	•	pool info
+	•	hot tub
+	•	sauna
+	•	fitness center
+	•	family-friendly notes
+	•	nearby attractions
+	•	policies
+	•	FAQ
+	•	photos
+	•	map
+	•	unit directory
+
+On the Brett/Robinson page, the FAQ and most of the amenity list are really Phoenix East property-level data, not just unit-level data.  
+
+2. Unit page
+
+Example:
+Phoenix East 104
+
+This is a child page under the property.
+
+It should store:
+	•	unit name/number
+	•	parent property ID
+	•	bedrooms
+	•	bathrooms
+	•	sleeps max
+	•	floor
+	•	unit description
+	•	bed types
+	•	unit-specific photos
+	•	unit-specific amenities
+	•	balcony/view details
+	•	kitchen/laundry details
+	•	smoking rules if specific
+	•	booking link
+	•	pricing/availability hooks
+
+That matches the detail shown for Phoenix East 104: bedrooms, baths, sleeps, floor, detailed description, and bed types.  
+
+3. Search / availability layer
+
+This should not be hardcoded into the page body.
+
+This should come from search/filter logic.
+
+Inputs include:
+	•	date range
+	•	occupancy
+	•	bedrooms
+	•	bathrooms
+	•	price range
+	•	property
+	•	unit if selected
+
+That is exactly what the URL is doing with start date, end date, occupancy, and pricing filters.  
+
+The correct page types for lodging
+
+You need at least these 4 page types:
+
+A. Lodging search results page
+
+This is where users search:
+	•	dates
+	•	guests
+	•	bedrooms
+	•	bathrooms
+	•	amenities
+	•	price
+
+Returns:
+	•	matching properties
+	•	matching units
+	•	availability-aware results
+
+B. Property page
+
+This is the complex/hotel/resort page.
+
+Example:
+	•	Phoenix East
+	•	hotel property
+	•	condo complex
+
+Shows:
+	•	overview
+	•	amenities
+	•	FAQ
+	•	nearby
+	•	beach access
+	•	parking
+	•	all units or room types
+
+C. Unit page
+
+This is the individual rentable listing.
+
+Example:
+	•	Phoenix East 104
+	•	Unit 812
+	•	2-bedroom gulf-front unit
+
+Shows:
+	•	exact specs
+	•	bed layout
+	•	photos
+	•	description
+	•	unit amenities
+	•	availability
+	•	booking
+
+D. Availability/quote panel
+
+This is the live booking side:
+	•	selected dates
+	•	quote
+	•	available/booked status
+	•	inventory
+	•	pricing
+
+What data belongs to the property vs the unit
+
+This part matters a lot.
+
+Property-level data
+
+Shared by all units in the complex.
+
+Examples from the Brett/Robinson page:
+	•	address
+	•	indoor/outdoor pools
+	•	splash pad
+	•	kiddie pool
+	•	hot tubs
+	•	sauna
+	•	fitness center
+	•	tennis
+	•	basketball
+	•	racquetball
+	•	beach access
+	•	covered parking
+	•	family-friendly positioning
+	•	nearby attractions
+	•	FAQ answers about the complex  
+
+Unit-level data
+
+Specific to that one unit.
+
+Examples from the page:
+	•	Phoenix East 104
+	•	2 bedrooms
+	•	2 baths
+	•	sleeps 8
+	•	floor 1
+	•	description of the furnishings
+	•	balcony access
+	•	exact bed types
+	•	unit photos
+	•	low floor / directly over pool
+	•	master on gulf
+	•	sleeper sofa
+	•	specific room layout  
+
+That separation is not optional. If you mix them together, the data gets messy fast.
+
+How this should live in your database
+
+Property entity
+
+Example:
+Phoenix East
+
+Fields:
+	•	entity_type = property
+	•	entity_subtype = condo_complex
+	•	is_hub = true
+
+Related tables:
+	•	entity_amenities
+	•	property FAQ module
+	•	photos
+	•	nearby relationships
+	•	parking info
+	•	beach access relationships
+	•	child units
+
+Unit entity
+
+Example:
+Phoenix East 104
+
+Fields:
+	•	entity_type = unit
+	•	entity_subtype = condo_unit
+	•	parent_entity_id = Phoenix East
+
+Related tables:
+	•	unit specs
+	•	bed types
+	•	unit photos
+	•	availability
+	•	booking
+	•	unit description
+	•	unit amenities
+
+Availability records
+
+Separate rows for:
+	•	date
+	•	date range
+	•	unit ID
+	•	rate / quote
+	•	inventory status
+	•	booked/available
+
+What questions this model should answer
+
+With this structure, your system can answer:
+	•	what condos are available July 1–5
+	•	which units sleep 6
+	•	which condo complex has indoor pool and hot tub
+	•	what is walking distance from Phoenix East
+	•	which unit has 2 bedrooms and balcony
+	•	what properties near the Wharf have beach access
+	•	which condo has availability for 2 adults and 2 kids this weekend
+
+That is the actual goal.
+
+The page/module structure you should use for lodging
+
+Property page modules
+	•	About Property
+	•	Amenities
+	•	FAQ
+	•	Nearby
+	•	Beach Access
+	•	Parking
+	•	Photos
+	•	Map
+	•	Unit Directory
+	•	Policies
+
+Unit page modules
+	•	Overview
+	•	Specs
+	•	Bed Types
+	•	Amenities
+	•	Photos
+	•	Availability
+	•	Pricing / Quote
+	•	Policies
+	•	Nearby
+	•	Book Now
+
+The big takeaway
+
+This page you sent is strong proof that lodging in GCR should not be treated like a single flat page.
+
+It needs:
+	•	a property page
+	•	child unit pages
+	•	a search/results layer
+	•	an availability layer
+	•	shared property data separated from unit data
+
+That is the correct structure.
+
+If you want, next I’ll break this into an exact lodging schema with:
+	•	property fields
+	•	unit fields
+	•	amenity fields
+	•	availability fields
+	•	and which modules belong on each page.
+
+What Gulf Coast Radar is
+
+Gulf Coast Radar is a consumer-facing local discovery, search, and booking platform for beach and tourist markets.
+
+At the simplest level, it is meant to help people find:
+	•	where to eat
+	•	what to do
+	•	what’s happening
+	•	where to stay
+	•	what is nearby
+	•	what has deals
+	•	what is available right now
+
+But the real version of it is bigger than that.
+
+GCR is supposed to become the structured destination layer for the area. That means it is not just a directory. It is a system that organizes businesses, properties, activities, events, menus, specials, amenities, and local info into one connected platform.
+
+What makes it different
+
+Most local discovery is broken because the information is spread everywhere:
+	•	business websites
+	•	Facebook
+	•	Google
+	•	PDFs
+	•	separate booking systems
+	•	separate hotel/condo systems
+	•	random event pages
+	•	outdated menus
+	•	scattered happy hours
+
+GCR is meant to replace that mess with one structured system.
+
+So instead of only showing a business name and address, GCR should be able to show the real useful data inside the business or place, like:
+	•	menu items
+	•	happy hour times
+	•	specials
+	•	live music schedules
+	•	ticket times
+	•	lodging amenities
+	•	unit specs
+	•	beach access
+	•	parking
+	•	availability
+	•	booking links
+
+That is the real model.
+
+What it is for
+
+It has two sides.
+
+Public side
+
+For tourists and locals, it should feel like:
+	•	a search engine
+	•	a local guide
+	•	a food finder
+	•	an events calendar
+	•	an activity finder
+	•	a lodging finder
+	•	a concierge
+
+Business side
+
+For businesses, it should feel like:
+	•	a modern hosted website/page
+	•	a dashboard to update content
+	•	a listing system
+	•	a distribution engine
+	•	a search engine feed
+	•	a synced content hub
+
+So businesses are not just “listed.” They are publishing into a shared local data system.
+
+The biggest promise
+
+The main promise is:
+
+update once, display everywhere
+
+If a business updates:
+	•	hours
+	•	menu
+	•	happy hour
+	•	special
+	•	event
+	•	image
+	•	amenity
+	•	booking info
+
+that update should flow to:
+	•	their own page/site
+	•	their GCR profile
+	•	hub pages like The Wharf
+	•	category pages
+	•	QR menu pages
+	•	search results
+	•	AI answers
+
+That is one of the strongest parts of the product.
+
+What the platform is really made of
+
+GCR is really made of 6 connected parts.
+
+1. Entity system
+
+Everything in the platform is a real object in the database.
+
+Examples:
+	•	Cobalt
+	•	Sunny Lady Dolphin Cruises
+	•	Dockside Parasail
+	•	Tee Off at The Wharf
+	•	The Wharf
+	•	OWA
+	•	Phoenix East
+	•	Phoenix East Unit 104
+	•	a beach access point
+	•	a boat ramp
+	•	an event
+	•	an artist
+
+Each one is an entity.
+
+2. Category system
+
+Categories are where entities appear publicly.
+
+Examples:
+	•	Restaurants
+	•	Coffee
+	•	Sweets
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Things To Do
+	•	Shopping
+	•	Hotels
+	•	Condos
+	•	Live Music
+	•	Family Activities
+	•	Nightlife
+
+A single business can appear in many categories.
+
+3. Tag system
+
+Tags are the detailed attributes that make search smart.
+
+Examples:
+	•	gluten-free
+	•	waterfront
+	•	brunch
+	•	indoor
+	•	kid friendly
+	•	pet friendly
+	•	hot tub
+	•	indoor pool
+	•	balcony
+	•	live music
+	•	happy hour
+	•	sleeps 8
+
+4. Module system
+
+Modules are the sections that build each page.
+
+Examples:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Drinks
+	•	Tickets
+	•	Guest Info
+	•	Amenities
+	•	Visitor Info
+	•	Parking
+	•	Reviews
+	•	Map
+	•	FAQ
+	•	Units Directory
+	•	Restaurants Inside
+	•	Things To Do Inside
+
+5. Structured child data
+
+This is the queryable factual layer.
+
+Examples:
+	•	menu items
+	•	happy hour records
+	•	specials
+	•	event records
+	•	activity schedules
+	•	unit specs
+	•	amenities
+	•	availability
+
+6. Relationship system
+
+This is how pages connect.
+
+Examples:
+	•	The Wharf contains Tee Off
+	•	Phoenix East contains Unit 104
+	•	a condo is near beach access
+	•	a property is walkable to restaurants
+	•	an artist performs at a venue
+	•	a business belongs to a hub page
+
+That is what makes the whole thing work.
+
+The page types you actually need
+
+You do not have one page type.
+
+You have several.
+
+1. Standard business page
+
+This is for normal businesses.
+
+Examples:
+	•	restaurant
+	•	bar
+	•	coffee shop
+	•	parasail company
+	•	dolphin cruise company
+
+A standard business page usually needs:
+	•	About
+	•	Features
+	•	Photos
+	•	Hours
+	•	Location
+	•	Reviews
+
+Then extra modules depending on the business type.
+
+2. Restaurant page
+
+This is a specialized business page.
+
+It needs:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Drinks
+	•	Events / Live Music
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Cobalt is the clearest example of this structure in your uploaded demos, with a deep restaurant layout including happy hour and multiple menu/drinks sections.  
+
+3. Activity page
+
+This is for things to do.
+
+Examples:
+	•	parasailing
+	•	dolphin cruises
+	•	fishing charters
+	•	indoor attractions
+
+It needs:
+	•	About
+	•	Highlights
+	•	Packages
+	•	Times & Tickets
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+	•	Book Now
+
+Your Sunny Lady and Dockside Parasail uploads follow that kind of activity-first structure.    
+
+4. Hybrid venue page
+
+This is for places that are both a business and an activity.
+
+Example:
+	•	Tee Off at The Wharf
+
+It belongs in more than one category, so it needs:
+	•	Overview
+	•	Features
+	•	Food & Drinks
+	•	Happy Hour
+	•	Experiences
+	•	Packages
+	•	Events
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Your Tee Off demo clearly shows why this type needs to overlap categories like Things To Do and Restaurants.  
+
+5. Hub business page
+
+This is one of the biggest parts of your system.
+
+Examples:
+	•	The Wharf
+	•	OWA
+	•	marina-style destinations
+	•	shopping centers
+	•	some hotel/condo properties
+
+These are real business/place pages but also mini-sites.
+
+They need two jobs at once:
+
+Job A: their own direct page
+
+They need:
+	•	overview
+	•	address
+	•	map
+	•	parking
+	•	visitor info
+	•	main features
+	•	photos
+	•	maybe reviews
+
+Job B: a directory inside themselves
+
+They also need:
+	•	restaurants inside
+	•	things to do inside
+	•	shopping inside
+	•	events inside
+	•	attractions inside
+	•	special pages inside
+
+That is why The Wharf is not just a normal business page. It is a hub business page.
+
+The current Wharf site already behaves like that by surfacing visitor info, directory content, calendar/events, marina, amphitheater, and things to do from one destination site.
+
+6. Property page
+
+This is for hotels, condo complexes, resorts, and lodging properties.
+
+Examples:
+	•	Phoenix East
+	•	a hotel property
+	•	a condo complex
+
+A property page needs:
+	•	About
+	•	Amenities
+	•	Unit Types
+	•	Parking
+	•	Beach Access
+	•	Policies
+	•	Nearby
+	•	Photos
+	•	Map
+	•	Availability summary
+
+7. Unit page
+
+This is for a specific rentable unit or room type.
+
+Examples:
+	•	Unit 104
+	•	Unit 812
+	•	2-bedroom Gulf-front unit
+
+A unit page needs:
+	•	Overview
+	•	Specs
+	•	Beds
+	•	Sleeps
+	•	Amenities
+	•	Photos
+	•	Availability
+	•	Pricing
+	•	Policies
+	•	Book Now
+
+The Brett/Robinson page you shared shows exactly why this split matters: the page blends property-level amenity info with unit-specific details like beds, baths, sleeps, floor, and exact layout.
+
+8. Utility / local info page
+
+This is for practical local questions.
+
+Examples:
+	•	beach access
+	•	overflow parking
+	•	boat ramps
+	•	marina access
+	•	dog rules
+	•	public parking
+
+These need their own page types too, because your concierge vision includes practical trip questions, not just business questions.
+
+How the categories really work
+
+A category is not the same as an entity.
+
+An entity is the real thing.
+A category is where it appears.
+
+So a business can belong to multiple categories.
+
+Example: Tee Off
+
+Can appear in:
+	•	Things To Do
+	•	Restaurants
+	•	Happy Hour
+	•	Family Activities
+	•	Indoor Activities
+	•	The Wharf
+
+Example: Cobalt
+
+Can appear in:
+	•	Restaurants
+	•	Happy Hour
+	•	Brunch
+	•	Waterfront Dining
+	•	Gluten-Free Dining
+
+Example: Sunny Lady
+
+Can appear in:
+	•	Things To Do
+	•	Family Activities
+	•	Dolphin Cruises
+	•	Bookable Experiences
+
+That is the point of the category system.
+
+It lets users find the same business from different intents.
+
+How structured data works
+
+This is where the real power is.
+
+Not everything should just be a paragraph inside an About section.
+
+Some data needs real structure so search and AI can answer questions correctly.
+
+Restaurant data
+
+Restaurant pages need several levels:
+
+Level 1: restaurant entity
+
+The business itself.
+
+Level 2: menu groups
+
+Examples:
+	•	Breakfast
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids
+	•	Dessert
+	•	Drinks
+	•	Gluten-Free
+
+Level 3: menu sections
+
+Examples:
+	•	Omelets
+	•	Appetizers
+	•	Oysters
+	•	Soup
+	•	Salad
+	•	Entrees
+	•	Cocktails
+	•	Frozen Drinks
+	•	Wine
+
+Level 4: menu items
+
+Each item needs:
+	•	name
+	•	description
+	•	price
+	•	tags
+	•	dietary info
+	•	maybe image
+	•	availability rules
+
+This is how the system can answer:
+	•	who has omelets
+	•	who has gluten-free breakfast
+	•	who has martinis
+	•	who has oysters
+	•	who has crab legs
+
+Happy hour data
+
+Happy hour needs its own structure.
+
+It should include:
+	•	days
+	•	start time
+	•	end time
+	•	recurring or not
+	•	item-level offers
+
+This lets the system answer:
+	•	who has happy hour now
+	•	who has happy hour from 3 to 5
+	•	who has oysters on happy hour
+
+Specials data
+
+Specials should be separate from happy hour.
+
+Examples:
+	•	monday oyster special
+	•	lunch special
+	•	all-you-can-eat crab legs
+	•	kids eat free
+
+This lets the system answer:
+	•	who has specials today
+	•	where are the oyster specials
+	•	who has all-you-can-eat specials
+
+Events data
+
+Events should be first-class structured records.
+
+Fields should include:
+	•	title
+	•	type
+	•	start time
+	•	end time
+	•	recurring or not
+	•	venue
+	•	artist if relevant
+
+This is how the system answers:
+	•	who has live music tonight
+	•	what events are at the Wharf this week
+	•	what restaurants have karaoke
+
+Activity schedule data
+
+Activities need:
+	•	times
+	•	ticket prices
+	•	adult/child pricing
+	•	duration
+	•	capacity
+	•	age notes
+
+This is how the system answers:
+	•	what dolphin cruises are available today
+	•	how much is parasailing
+	•	what’s good for 2 adults and 2 kids
+
+Property and unit data
+
+Lodging needs two levels.
+
+Property-level data
+
+Shared data like:
+	•	indoor pool
+	•	outdoor pool
+	•	hot tub
+	•	sauna
+	•	beach access
+	•	parking
+	•	location
+	•	nearby attractions
+	•	amenities
+	•	policies
+
+Unit-level data
+
+Specific data like:
+	•	bedrooms
+	•	bathrooms
+	•	sleeps
+	•	bed layout
+	•	balcony
+	•	kitchen
+	•	floor
+	•	rate
+	•	availability
+	•	unit photos
+
+That is how the system answers:
+	•	what condos sleep 6
+	•	what has hot tub
+	•	what is available July 1–5
+	•	what is walking distance from this property
+
+How the dashboard should work
+
+The dashboard is where the structured data gets managed.
+
+A business owner should not be editing raw page HTML.
+
+They should be editing data.
+
+The dashboard should let them edit:
+
+Basic profile
+	•	name
+	•	description
+	•	address
+	•	phone
+	•	images
+
+Categories
+	•	Restaurants
+	•	Things To Do
+	•	Happy Hour
+	•	etc.
+
+Tags
+	•	waterfront
+	•	gluten-free
+	•	indoor
+	•	kid friendly
+	•	etc.
+
+Modules
+
+Turn sections on/off and edit them:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Parking
+	•	FAQ
+	•	Amenities
+
+Structured data
+	•	menu sections/items
+	•	happy hours
+	•	specials
+	•	events
+	•	schedules
+	•	amenities
+	•	units
+	•	availability
+
+Bulk imports
+
+CSV imports for:
+	•	menu items
+	•	specials
+	•	events
+	•	units
+	•	schedules
+
+Inline edits
+
+So they can change one thing fast:
+	•	one menu item price
+	•	one event time
+	•	one happy hour item
+	•	one special
+
+That is what makes it actually useful.
+
+How AI fits in
+
+AI should help structure and organize the system, not replace the system.
+
+AI should help with:
+	•	classifying the entity
+	•	suggesting categories
+	•	suggesting tags
+	•	generating About content
+	•	generating Features
+	•	generating Perfect For
+	•	parsing menus
+	•	classifying happy hours vs specials
+	•	suggesting modules
+
+AI should not be the only source of truth for:
+	•	hours
+	•	prices
+	•	availability
+	•	event times
+	•	legal/policy info
+
+So AI helps set things up and speed them up, but the structured data and dashboard still control the final truth.
+
+How search should work
+
+Search should not just look through blobs of text.
+
+It should use:
+	•	categories
+	•	tags
+	•	structured records
+	•	relationships
+	•	availability
+	•	semantic search for softer intent
+
+Example query
+
+“Find me a place with live music, happy hour, and a gluten-free menu.”
+
+The system should break that into:
+	•	restaurant/bar candidates
+	•	live music = true
+	•	happy hour = true
+	•	gluten_free = true
+
+Then it checks:
+	•	event records
+	•	happy hour records
+	•	menu tags
+	•	entity tags
+	•	category placements
+
+That is why structure matters.
+
+How the relationship system works
+
+This is the part that turns the platform from a simple directory into a destination graph.
+
+Examples:
+	•	Tee Off is located in The Wharf
+	•	The Wharf contains Tee Off
+	•	Phoenix East contains Unit 104
+	•	Phoenix East is near beach access
+	•	beach access is near restaurants
+	•	a band performs at a venue
+	•	a special belongs to a restaurant
+
+This is how your concierge can answer:
+	•	what restaurants are at the Wharf
+	•	what’s near my condo
+	•	what is walking distance from here
+	•	what events are in this district
+
+What Gulf Coast Radar becomes long-term
+
+Long term, GCR is not just a website.
+
+It becomes a destination operating layer.
+
+That means:
+	•	businesses use it to maintain their info
+	•	users use it to discover and book
+	•	hub pages replace destination sites
+	•	QR menus tie into it
+	•	lodging ties into it
+	•	activities tie into it
+	•	AI answers are grounded in it
+	•	eventually voice/TTS concierge can run on top of it
+
+So it becomes the place where the destination is organized digitally.
+
+The shortest developer-style summary
+
+Gulf Coast Radar is a structured destination platform where every business, activity, property, unit, event, and local info point is stored as an entity with:
+	•	categories
+	•	tags
+	•	modules
+	•	relationships
+	•	queryable child data
+	•	dashboard-managed updates
+
+So one update can power:
+	•	the business’s own site/page
+	•	GCR listings
+	•	hub pages like The Wharf
+	•	QR pages
+	•	search
+	•	AI answers
+	•	future concierge flows
+
+The cleanest plain-English explanation
+
+Use this:
+
+Gulf Coast Radar is a live local discovery and data platform for beach destinations. It organizes restaurants, things to do, events, lodging, and local utility info into one structured system so users can find what they want faster, businesses can update information in one place, and the same data can power websites, directory pages, hub pages, search, and AI answers.
+
+If you want, I’ll turn this into a single developer handoff document next, with sections for architecture, page types, data model, dashboard behavior, and AI behavior.
+
+
+
+
+
+
+The foundation is just this:
+
+everything in the system is stored as structured records, not as random page content.
+
+That means before you think about design, AI, or pages, you need to decide:
+	•	what the thing is
+	•	what fields belong to it
+	•	how it connects to other things
+	•	what parts are shared
+	•	what parts are unique
+
+That is the foundation.
+
+1. Entity
+
+An entity is the main record for any real thing in the system.
+
+Examples:
+	•	a restaurant
+	•	a parasail company
+	•	a dolphin cruise
+	•	The Wharf
+	•	a hotel
+	•	a condo complex
+	•	a condo unit
+	•	a beach access point
+	•	a boat ramp
+	•	an event
+	•	an artist
+
+So the first rule is:
+
+every real thing gets one main record.
+
+That record needs basic identity fields like:
+	•	id
+	•	name
+	•	type
+	•	subtype
+	•	description
+	•	address
+	•	phone
+	•	location
+	•	image
+	•	active/inactive
+
+That is the root of everything.
+
+Example
+
+Cobalt = one entity
+The Wharf = one entity
+Phoenix East = one entity
+Unit 104 = one entity
+
+2. Type and subtype
+
+Every entity needs to be classified.
+
+You need at least:
+	•	type = broad group
+	•	subtype = exact kind
+
+Example
+
+The Wharf:
+	•	type = business
+	•	subtype = entertainment district
+
+Cobalt:
+	•	type = business
+	•	subtype = restaurant
+
+Sunny Lady:
+	•	type = business
+	•	subtype = dolphin cruise
+
+Phoenix East:
+	•	type = property
+	•	subtype = condo complex
+
+Unit 104:
+	•	type = unit
+	•	subtype = condo unit
+
+This matters because the system uses type/subtype to know:
+	•	what fields to show
+	•	what modules to attach
+	•	what search filters apply
+	•	what data tables to use
+
+3. Categories
+
+A category is where the entity appears publicly.
+
+This is not what it is internally.
+This is where it should show up in the site.
+
+Examples:
+	•	Restaurants
+	•	Things To Do
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Shopping
+	•	Hotels
+	•	Condos
+	•	Live Music
+
+A single entity can belong to multiple categories.
+
+Example
+
+Tee Off can belong to:
+	•	Restaurants
+	•	Things To Do
+	•	Happy Hour
+	•	Family Activities
+
+So category is not identity.
+Category is placement.
+
+4. Tags
+
+A tag is a detailed attribute.
+
+Categories are broad.
+Tags are specific.
+
+Examples:
+	•	gluten-free
+	•	waterfront
+	•	brunch
+	•	indoor
+	•	kid friendly
+	•	pet friendly
+	•	hot tub
+	•	indoor pool
+	•	live music
+	•	happy hour
+	•	sleeps 8
+
+Tags are what make detailed search possible.
+
+Example
+
+A user asks:
+“Who has live music, happy hour, and a gluten-free menu?”
+
+That works because the business has:
+	•	category = Restaurants
+	•	tags = live music, happy hour, gluten-free
+
+So tags are one of the core layers of the foundation.
+
+5. Relationships
+
+A relationship is how one record connects to another.
+
+This is one of the biggest parts of the structure.
+
+Examples:
+	•	Tee Off belongs to The Wharf
+	•	Unit 104 belongs to Phoenix East
+	•	Phoenix East is near beach access
+	•	a live music event belongs to a venue
+	•	a restaurant belongs to a hub
+	•	a property has parking
+	•	a business is walkable from a condo
+
+Without relationships, everything is flat.
+
+With relationships, the system can answer:
+	•	what restaurants are at the Wharf
+	•	what is near this condo
+	•	which unit belongs to this property
+	•	what events are at this venue
+
+So relationships are the layer that makes the whole system connected.
+
+6. Parent and child structure
+
+Some entities stand alone.
+Some entities contain other entities.
+
+That means you need parent-child structure.
+
+Parent examples
+	•	The Wharf
+	•	OWA
+	•	a hotel
+	•	a condo complex
+
+Child examples
+	•	Tee Off at The Wharf
+	•	a restaurant inside the Wharf
+	•	Unit 104 inside Phoenix East
+	•	parking page attached to a property
+	•	beach access attached to a property area
+
+So some records are:
+	•	standalone
+	•	parent
+	•	child
+
+This is how you get “page inside a page” without actually breaking the data model.
+
+7. Shared data vs unique data
+
+This is critical.
+
+Some data belongs to the parent.
+Some data belongs only to the child.
+
+Example: condo complex
+
+Phoenix East has shared data:
+	•	pools
+	•	hot tub
+	•	sauna
+	•	parking
+	•	beach access
+
+That is property-level data.
+
+Unit 104 has unique data:
+	•	2 bedrooms
+	•	sleeps 8
+	•	floor 1
+	•	bed layout
+	•	photos
+	•	unit description
+
+That is unit-level data.
+
+If you mix those together, the data gets messy.
+
+So part of the foundation is deciding:
+
+what data is shared
+and
+what data is unique
+
+8. Structured child data
+
+Some information cannot just live in one text box.
+
+It needs its own structured records.
+
+This is where most systems get sloppy.
+
+Restaurant example
+
+A restaurant should not just have “menu text.”
+
+It needs:
+
+menu group
+	•	brunch
+	•	lunch
+	•	dinner
+	•	drinks
+
+menu section
+	•	omelets
+	•	appetizers
+	•	oysters
+	•	salads
+	•	entrees
+
+menu item
+	•	item name
+	•	description
+	•	price
+	•	tags
+
+That structure is what makes:
+	•	“who has omelets”
+	•	“who has oysters”
+	•	“who has gluten-free breakfast”
+possible.
+
+Happy hour example
+
+Happy hour needs:
+	•	days
+	•	start time
+	•	end time
+	•	items
+	•	prices
+
+Specials example
+
+Specials need:
+	•	title
+	•	day
+	•	time
+	•	description
+	•	price
+
+Event example
+
+Events need:
+	•	title
+	•	date
+	•	time
+	•	venue
+	•	event type
+	•	artist
+
+Unit example
+
+Units need:
+	•	bedrooms
+	•	bathrooms
+	•	sleeps max
+	•	amenities
+	•	availability
+
+So structured child data is where searchable facts live.
+
+9. Modules
+
+A module is a page section.
+
+Examples:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Events
+	•	Amenities
+	•	Visitor Info
+	•	Parking
+	•	Reviews
+	•	Photos
+
+Modules are not the raw truth.
+They are the way truth gets displayed.
+
+So the foundation works like this:
+	•	the database stores the facts
+	•	modules decide how those facts appear on the page
+
+That means pages are built from modules instead of being custom-coded one by one forever.
+
+10. Core data vs display data
+
+This is one of the most important distinctions.
+
+Core data
+
+This is the truth the system must search and filter.
+
+Examples:
+	•	business type
+	•	address
+	•	tags
+	•	menu items
+	•	happy hour times
+	•	event times
+	•	unit bedrooms
+	•	availability
+	•	amenities
+
+This should be stored in structured tables.
+
+Display data
+
+This is presentation content.
+
+Examples:
+	•	About paragraph
+	•	feature bullets
+	•	FAQ answers
+	•	visitor notes
+	•	“perfect for” descriptions
+
+This can live in flexible modules.
+
+So the rule is:
+
+if the system needs to query it, filter it, rank it, or answer questions from it, it should be structured.
+
+If it is just supporting display copy, it can be flexible.
+
+11. Why this foundation matters
+
+Because once this is structured correctly, everything else becomes easier:
+	•	category pages
+	•	search
+	•	filters
+	•	AI answers
+	•	page generation
+	•	dashboard editing
+	•	lodging search
+	•	hub pages
+	•	directory pages
+	•	one-update-everywhere syncing
+
+If this part is weak, everything built on top of it gets weak.
+
+12. The actual flow
+
+This is the real foundation flow for every new thing added.
+
+Step 1
+
+Create the entity.
+
+Step 2
+
+Assign type and subtype.
+
+Step 3
+
+Assign categories.
+
+Step 4
+
+Assign tags.
+
+Step 5
+
+Attach parent/child and other relationships.
+
+Step 6
+
+Create structured child data if needed.
+Examples:
+	•	menu items
+	•	specials
+	•	events
+	•	schedules
+	•	units
+	•	amenities
+
+Step 7
+
+Attach page modules.
+
+That is the actual system.
+
+13. Example: restaurant foundation
+
+For a restaurant, the foundation is:
+
+entity
+	•	Cobalt
+
+type/subtype
+	•	business / restaurant
+
+categories
+	•	Restaurants
+	•	Happy Hour
+	•	Brunch
+
+tags
+	•	seafood
+	•	waterfront
+	•	gluten-free
+	•	kids menu
+	•	happy hour
+
+structured child data
+	•	menu groups
+	•	menu sections
+	•	menu items
+	•	happy hour records
+	•	specials
+	•	events
+
+modules
+	•	About
+	•	Features
+	•	Menu
+	•	Happy Hour
+	•	Specials
+	•	Photos
+	•	Hours
+	•	Location
+
+That is the foundation.
+
+14. Example: hub foundation
+
+For The Wharf, the foundation is:
+
+entity
+	•	The Wharf
+
+type/subtype
+	•	business / entertainment district
+
+categories
+	•	Things To Do
+	•	Shopping
+	•	Events
+	•	Dining
+
+tags
+	•	family friendly
+	•	shopping
+	•	restaurants
+	•	marina
+	•	amphitheater
+
+relationships
+	•	contains Tee Off
+	•	contains restaurants
+	•	contains shops
+	•	contains events
+
+modules
+	•	About
+	•	Visitor Info
+	•	Parking
+	•	Map
+	•	Restaurants Inside
+	•	Things To Do Inside
+	•	Events
+
+That is the foundation.
+
+15. Example: property foundation
+
+For Phoenix East, the foundation is:
+
+entity
+	•	Phoenix East
+
+type/subtype
+	•	property / condo complex
+
+categories
+	•	Condos
+	•	Places To Stay
+
+tags
+	•	indoor pool
+	•	outdoor pool
+	•	hot tub
+	•	sauna
+	•	beach access
+
+structured child data
+	•	amenities
+	•	units
+	•	availability
+	•	nearby relationships
+
+modules
+	•	About
+	•	Amenities
+	•	Units Directory
+	•	Nearby
+	•	Beach Access
+	•	Parking
+	•	Photos
+
+That is the foundation.
+
+16. The simplest possible explanation
+
+The foundation is just this:
+
+Every thing becomes a structured record.
+That record gets classified.
+That record gets connected to other records.
+The facts go into structured data.
+The page sections are built from modules.
+
+That is the whole foundation.
+
+17. Bottom line
+
+If you want the shortest developer-friendly version:
+
+The foundation is an entity-based relational data model with categories, tags, relationships, structured child records, and modular display sections.
+
+Or even plainer:
+
+Everything is a record first, a page second.
+
+If you want, I’ll now turn this into the exact foundation in plain tables, like:
+	•	entities
+	•	categories
+	•	tags
+	•	relationships
+	•	menu sections
+	•	menu items
+	•	specials
+	•	events
+	•	units
+	•	amenities
+	•	availability
+	•	modules
+
+with what each table is for in simple English.
+
+
+You’re right — the important part is the sections already on each page, because those sections show the real structure you’re building.
+
+The mistake would be explaining this too generically instead of using the actual section pattern from your uploaded pages.
+
+What I see on each page
+
+Cobalt
+
+This page is built like a deep restaurant profile with a lot of section layers:
+	•	About
+	•	Features
+	•	Perfect For
+	•	Happy Hour
+	•	Sunday Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids Menu
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen
+	•	multiple wine sections
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location  
+
+And inside those bigger sections, you also have sub-sections like:
+	•	Eggs Benedict
+	•	Omelets
+	•	Brunch Specials
+	•	and then item-level records with names, descriptions, and prices.  
+
+So Cobalt is not just:
+	•	one business
+	•	one menu
+	•	one happy hour
+
+It is really:
+	•	business profile
+	•	feature set
+	•	meal-period groups
+	•	menu-section groups
+	•	item-level data
+	•	promo data
+	•	drink data
+	•	review/location data
+
+⸻
+
+Tee Off at The Wharf
+
+This page is built like a hybrid business:
+	•	Overview / About
+	•	features/highlights in the badge area
+	•	likely food/drink sections
+	•	packages
+	•	league/program info
+	•	events
+	•	photos
+	•	reviews
+	•	hours
+	•	location  
+
+So Tee Off is clearly not just one category.
+It has sections that make it act like:
+	•	a thing to do
+	•	a restaurant/bar
+	•	an event venue
+	•	a group/private-party place
+
+That means its structure has to support multiple kinds of sections on the same profile.  
+
+⸻
+
+Dockside Parasail
+
+This page is built like an activity/excursion page.
+From the structure and naming, it’s using sections more like:
+	•	overview/about
+	•	highlights
+	•	pricing/packages
+	•	booking-oriented details
+	•	guest info
+	•	photos
+	•	reviews
+	•	hours/location style sections  
+
+So this is not menu-first like Cobalt.
+It is schedule/ticket/experience-first.
+
+⸻
+
+Sunny Lady Dolphin Cruises
+
+This page is also clearly an activity page, not a restaurant page:
+	•	overview/about
+	•	highlights
+	•	likely ticket/package areas
+	•	cruise or schedule-oriented sections
+	•	guest info
+	•	photos
+	•	reviews
+	•	location/hours style sections  
+
+So again, this one is built around:
+	•	experience details
+	•	schedule/ticket info
+	•	family/guest suitability
+	•	conversion/booking info
+
+⸻
+
+The actual point you’re making
+
+You’re not just saying:
+“there are pages.”
+
+You’re saying:
+
+each page already shows the section architecture the data needs to support.
+
+That’s the foundation.
+
+So the real structure is not just:
+	•	entity
+	•	category
+	•	tags
+
+It is also:
+	•	section groups
+	•	sub-sections
+	•	repeatable content blocks
+	•	item-level records inside those sections
+
+⸻
+
+The real section logic from your pages
+
+Layer 1: Business identity
+
+This is the top of every page:
+	•	name
+	•	subtitle
+	•	location
+	•	phone
+	•	rating
+	•	badges
+	•	CTA buttons
+
+That exists across all four pages.        
+
+Layer 2: Main sections
+
+These are the slide-across sections / sticky tabs.
+
+Examples:
+
+Cobalt
+	•	About
+	•	Happy Hour
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen
+	•	Wine sections
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location  
+
+Tee Off
+	•	Overview and business/activity-related sections
+	•	likely packages / events / reviews / hours / location sections  
+
+Activity pages
+	•	About
+	•	highlights
+	•	tickets/packages
+	•	guest info
+	•	reviews
+	•	location    
+
+Layer 3: Sub-sections inside main sections
+
+This is where you go deeper.
+
+Example from Cobalt brunch:
+	•	Eggs Benedict
+	•	Omelets
+	•	Brunch Specials  
+
+That means “Brunch” is not one blob.
+It contains smaller structured groups.
+
+Layer 4: Item-level records
+
+Inside those sub-sections, you have the actual usable records:
+	•	item name
+	•	description
+	•	price
+	•	notes
+	•	tags if needed
+
+Example:
+	•	Western Omelet
+	•	Seafood Omelet
+	•	Cheese Omelet
+	•	Crab and Scallop Cake Benedict  
+
+That is the part that powers actual search.
+
+⸻
+
+So the true data structure is this
+
+Not just:
+	•	business
+	•	category
+	•	tags
+
+But:
+
+1. Entity
+
+The business/property/place itself.
+
+2. Section
+
+The big tab/slide section.
+
+Examples:
+	•	About
+	•	Happy Hour
+	•	Brunch
+	•	Dinner
+	•	Packages
+	•	Guest Info
+
+3. Sub-section
+
+The grouped block inside a main section.
+
+Examples:
+	•	Omelets
+	•	Eggs Benedict
+	•	Appetizers
+	•	Cruise Times
+	•	Package Options
+
+4. Item / record
+
+The actual line item or offer.
+
+Examples:
+	•	Seafood Omelet
+	•	House Wine $3
+	•	Sunset Cruise Adult Ticket
+	•	Bay Rental Package
+
+That’s the real structure you’ve been pointing at.
+
+⸻
+
+What that means for your foundation
+
+Your system has to support:
+	•	page-level sections
+	•	nested sub-sections
+	•	repeatable items inside each sub-section
+	•	different section sets depending on business type
+
+Because Cobalt’s structure is different from Sunny Lady’s structure, but they still follow the same logic:
+	•	top profile
+	•	sliding sections
+	•	nested grouped content
+	•	item-level details
+
+⸻
+
+The simplest way to explain what you’re building
+
+You’re building a system where each business page is made of:
+	•	a top business profile
+	•	a set of main sections
+	•	optional sub-sections inside those sections
+	•	and structured repeatable records inside each one
+
+That is the actual foundation.
+
+⸻
+
+The real table logic behind that
+
+At the deepest level, it should be something like:
+	•	entities = the page/business
+	•	entity_sections = the big slide-across sections
+	•	entity_section_groups = the sub-sections inside a section
+	•	entity_items = the actual item-level rows inside the group
+
+Example using Cobalt
+
+Entity
+
+Cobalt
+
+Sections
+	•	About
+	•	Happy Hour
+	•	Brunch
+	•	Lunch
+	•	Dinner
+	•	Kids
+	•	Gluten-Free
+	•	Cocktails
+	•	Frozen
+	•	Photos
+	•	Reviews
+	•	Hours
+	•	Location
+
+Section groups inside Brunch
+	•	Eggs Benedict
+	•	Omelets
+	•	Brunch Specials
+
+Items inside Omelets
+	•	Western Omelet
+	•	Seafood Omelet
+	•	Vegetable Omelet
+	•	Cheese Omelet  
+
+That’s the exact structure you’ve been trying to get at.
+
+⸻
+
+Bottom line
+
+Yes — I see the sections.
+
+And your real foundation is not just “business records.”
+
+It is:
+
+business → sections → sub-sections → item-level records
+
+with each page type using a different combination of those layers.        
+
+The next thing I should do is map all 4 uploaded pages into a section hierarchy blueprint, showing for each one:
+	•	main sections
+	•	sub-sections
+	•	repeatable item types
+	•	and which parts should become reusable across all businesses.
+
+How this should be structured
+
+1. Business identity
+
+This is the top-level business record.
+
+Fields:
+	•	name
+	•	location/state
+	•	phone
+	•	rating
+	•	review count
+
+Example from what you pasted:
+	•	Alabama
+	•	(850) 424-5125
+	•	4.9
+	•	9640 reviews
+
+That belongs to the main entity/business record.
+
+⸻
+
+2. Feature badges
+
+This is the features layer.
+
+These are short, high-value attributes that describe the business quickly.
+
+Your list:
+	•	1.5–2 Hour Cruises
+	•	Daily Departures
+	•	Dolphin & Sunset Cruises
+	•	Open Decks
+	•	Climate-Controlled Cabin
+	•	Snack Bar On Board
+	•	Restrooms On Board
+	•	Family Owned & Operated
+	•	Located at The Wharf
+	•	Up to 100 Passengers
+	•	Kid Friendly
+	•	Lucy the Macaw On Board
+
+These should be stored as feature records or feature tags, not just one paragraph.
+
+Because users may search for:
+	•	climate-controlled cabin
+	•	kid friendly
+	•	located at the wharf
+	•	sunset cruises
+	•	restrooms on board
+
+So each one should be queryable.
+
+⸻
+
+3. Perfect For
+
+This is a separate layer from features.
+
+Features describe what it has.
+Perfect For describes who it fits.
+
+Your list:
+	•	Families with kids
+	•	Couples & date night
+	•	Sunset lovers
+	•	Wildlife enthusiasts
+	•	Vacation activities
+	•	Group outings
+	•	Anniversary celebrations
+	•	First-time visitors
+	•	All ages
+
+That should be stored as a separate structured section called something like:
+	•	perfect_for
+or
+	•	audience_fit
+
+Because this is different from operational features.
+
+Example:
+	•	“Climate-Controlled Cabin” = feature
+	•	“Families with kids” = perfect_for
+
+Those are not the same thing.
+
+⸻
+
+The correct data breakdown
+
+So this one section should be broken into:
+
+A. Main business record
+	•	name
+	•	phone
+	•	rating
+	•	review_count
+	•	location
+	•	subtitle if needed
+
+B. Features table / records
+
+Each one as a separate row:
+	•	1.5–2 Hour Cruises
+	•	Daily Departures
+	•	Dolphin & Sunset Cruises
+	•	Open Decks
+	•	Climate-Controlled Cabin
+	•	Snack Bar On Board
+	•	Restrooms On Board
+	•	Family Owned & Operated
+	•	Located at The Wharf
+	•	Up to 100 Passengers
+	•	Kid Friendly
+	•	Lucy the Macaw On Board
+
+C. Perfect For table / records
+
+Each one as a separate row:
+	•	Families with kids
+	•	Couples & date night
+	•	Sunset lovers
+	•	Wildlife enthusiasts
+	•	Vacation activities
+	•	Group outings
+	•	Anniversary celebrations
+	•	First-time visitors
+	•	All ages
+
+⸻
+
+Why this matters
+
+Because if you store this as just one blob of text, the system gets weaker.
+
+If you store it as structured records, then the system can answer questions like:
+	•	what cruises are kid friendly
+	•	what’s good for couples
+	•	what is at the wharf
+	•	what has a climate-controlled cabin
+	•	what is family owned
+	•	what activities are good for first-time visitors
+	•	what cruise has restrooms on board
+
+That is the difference.
+
+⸻
+
+What this page section actually is
+
+This is really:
+	•	identity block
+	•	feature block
+	•	perfect-for block
+
+That means for this kind of business page, your structure should be:
+	1.	Business Identity
+	2.	Features
+	3.	Perfect For
+	4.	Highlights / About
+	5.	Cruise Times / Tickets
+	6.	Guest Info
+	7.	Photos
+	8.	Reviews
+	9.	Location
+
+That’s the correct foundation for this kind of page.
+
+⸻
+
+The simplest way to think about it
+
+Identity
+
+Basic business facts.
+
+Features
+
+Operational/business facts about what the experience includes.
+
+Perfect For
+
+Audience and intent matching.
+
+That’s the clean separation.
+
+⸻
+
+Best structure in plain English
+
+For this example, I’d structure it like this:
+
+Entity
+
+Sunny Lady Dolphin Cruises
+
+Section: Overview Header
+	•	location
+	•	phone
+	•	rating
+	•	review count
+
+Section: Features
+
+repeatable feature rows:
+	•	climate-controlled cabin
+	•	daily departures
+	•	open decks
+	•	restrooms on board
+	•	snack bar on board
+	•	etc.
+
+Section: Perfect For
+
+repeatable audience-fit rows:
+	•	families with kids
+	•	couples
+	•	sunset lovers
+	•	group outings
+	•	all ages
+
+That is the correct structure.
+
+If you want, I’ll take this exact Sunny Lady-style section and break it into the exact database fields and tables next.
+
+The actual structure of this page
+
+Layer 1: Main entity
+
+This is the business itself.
+
+Entity
+
+Sunny Lady Dolphin Cruises
+
+This is the main record.
+
+It should hold:
+	•	business name
+	•	subtitle
+	•	city/state
+	•	phone
+	•	rating
+	•	review count
+	•	hero image
+	•	website link
+	•	directions link
+	•	call link
+
+From your example:
+	•	Sunny Lady Dolphin Cruises
+	•	Dolphin & Sunset Cruises at The Wharf
+	•	Orange Beach, Alabama
+	•	(850) 424-5125
+	•	4.9
+	•	9640 reviews  
+
+That all belongs to the main business/entity table.
+
+⸻
+
+Layer 2: Header badges / quick facts
+
+This is the row of fast-scan business facts.
+
+These are not random text.
+These are structured feature records.
+
+From your example:
+	•	1.5–2 Hour Cruises
+	•	Daily Departures
+	•	Dolphin & Sunset Cruises
+	•	Open Decks
+	•	Climate-Controlled Cabin
+	•	Snack Bar On Board
+	•	Restrooms On Board
+	•	Family Owned & Operated
+	•	Located at The Wharf
+	•	Up to 100 Passengers
+	•	Kid Friendly
+	•	Lucy the Macaw On Board  
+
+These should be stored as:
+	•	repeatable feature items
+	•	searchable tags/features
+	•	display chips/badges
+
+Because users may search:
+	•	climate-controlled cabin
+	•	kid friendly
+	•	located at the wharf
+	•	sunset cruise
+	•	restrooms on board
+
+So each of those should be its own structured row, not buried in one paragraph.
+
+⸻
+
+Layer 3: Main page sections
+
+These are the sticky navigation tabs / main sections.
+
+From your example:
+	•	About
+	•	Highlights
+	•	Cruise Times
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location  
+
+These are the top-level sections of the page.
+
+So the page structure is not just:
+	•	one page
+	•	one description
+
+It is:
+	•	one business
+	•	many top-level sections
+
+This means your system needs a table or structure for:
+	•	entity_sections
+
+Because each page can have different main sections depending on business type.
+
+⸻
+
+What each section really is
+
+1. About
+
+This is the descriptive summary section.
+
+From your example, the About explains:
+	•	daily dolphin cruises
+	•	family owned and operated
+	•	1.5–2 hour cruise
+	•	dolphins in natural habitat
+	•	open decks
+	•	snack bar
+	•	restrooms
+	•	heated/air-conditioned cabin
+	•	intercoastal waterway
+	•	family activity  
+
+This section should store:
+	•	long-form description
+	•	AI-generated or manual summary
+	•	supporting bullets if needed
+
+This is mostly display copy, but it can also help generate tags.
+
+⸻
+
+2. Features
+
+This is separate from About.
+
+Features are the quick factual points.
+
+From your example:
+	•	Daily Departures
+	•	Open Decks
+	•	Climate-Controlled Cabin
+	•	Snack Bar
+	•	Restrooms
+	•	Located at The Wharf
+	•	Up to 100 Passengers
+	•	Kid Friendly  
+
+This should be stored as:
+	•	entity_features
+or
+	•	structured feature rows tied to the business
+
+Because features are:
+	•	repeatable
+	•	filterable
+	•	queryable
+
+⸻
+
+3. Perfect For
+
+This is also separate.
+
+This is not about what the business has.
+It is about who it fits.
+
+From your example:
+	•	Families with kids
+	•	Couples & date night
+	•	Sunset lovers
+	•	Wildlife enthusiasts
+	•	Vacation activities
+	•	Group outings
+	•	Anniversary celebrations
+	•	First-time visitors
+	•	All ages
+
+This should be a separate structured list.
+
+Because this drives intent matching.
+
+Example user queries:
+	•	best for families
+	•	good for couples
+	•	good for first-time visitors
+	•	good for anniversary
+	•	all ages activity
+
+So this should be stored as something like:
+	•	perfect_for
+	•	audience_fit
+	•	experience_fit_tags
+
+This is a distinct layer.
+
+⸻
+
+4. Highlights
+
+This is another separate section.
+
+From your example, these are not the same as features.
+
+They are more like:
+	•	curated selling points
+	•	highlight bullets
+	•	marketing summary bullets
+
+Examples:
+	•	scenic dolphin cruise & joy ride
+	•	open decks, climate-controlled cabins, snack bar
+	•	explores intercoastal waterway
+	•	see dolphins and marine wildlife
+	•	great for the whole family  
+
+So this is best stored as:
+	•	repeatable highlight bullets
+
+This is mostly display content, but still structured as a bullet list.
+
+⸻
+
+5. Cruise Times
+
+This is one of the most important structured sections.
+
+This is not just text.
+This is a schedule + pricing system.
+
+From your example:
+
+3:30 PM
+
+Afternoon Dolphin Cruise · 1.5 Hours
+	•	Adult
+	•	Child
+	•	Infant
+	•	Senior/Military
+
+5:30 PM
+
+Sunset Dolphin Cruise · 1.5 Hours
+	•	Adult
+	•	Child
+	•	Infant
+	•	Senior/Military  
+
+This section actually has 3 layers inside it.
+
+Layer A: Cruise slot
+	•	3:30 PM
+	•	5:30 PM
+
+Layer B: Cruise type
+	•	Afternoon Dolphin Cruise
+	•	Sunset Dolphin Cruise
+
+Layer C: Ticket rows
+	•	Adult
+	•	Child
+	•	Infant
+	•	Senior/Military
+
+So this should not be one table only.
+It should be broken down like:
+
+Cruise time / schedule record
+	•	business_id
+	•	departure_time
+	•	cruise_name
+	•	duration
+	•	active status
+
+Ticket type record
+	•	schedule_id
+	•	ticket_type_name
+	•	age_range
+	•	price
+
+That is how the system can answer:
+	•	what time are the cruises
+	•	what is the sunset cruise price
+	•	what does it cost for 2 adults and 2 kids
+	•	which cruises run today
+	•	what activities at The Wharf have afternoon departures
+
+This is exactly the kind of deep structure you’ve been trying to explain.
+
+⸻
+
+6. Guest Info
+
+This is another structured section.
+
+From your example:
+	•	minimum passenger count
+	•	kids under 7 wear life vests
+	•	large party reservation rules
+	•	mobility scooter/wheelchair rules
+	•	children under 18 with adult
+	•	21+ alcohol
+	•	no smoking
+	•	max capacity
+	•	no glass items  
+
+These are operational rules.
+
+This should be stored as:
+	•	repeatable guest-info bullets
+	•	or guest policy records
+
+Because users may ask:
+	•	is it wheelchair accessible
+	•	do kids need life vests
+	•	what are the age rules
+	•	can I bring glass
+	•	can I smoke
+	•	do I need a minimum group
+
+So this is very important structured operational info.
+
+⸻
+
+7. Photos
+
+This is a media gallery.
+
+From your example:
+	•	Dolphins in the Intercoastal Waterway
+	•	Sunny Lady Cruise
+	•	Family Fun on the Water
+	•	Dolphin Sighting
+	•	Sunset Views
+	•	Cruising the Bay
+	•	Open Deck Views
+	•	Aboard the Sunny Lady  
+
+This should be stored in a repeatable photo/media table:
+	•	business_id
+	•	image_url
+	•	caption
+	•	alt text
+	•	sort order
+
+Because media is its own content layer.
+
+⸻
+
+8. Reviews
+
+This is its own structured block too.
+
+At minimum:
+	•	business_id
+	•	author
+	•	rating
+	•	review text
+	•	source
+	•	date
+
+Even if you don’t fully populate custom reviews yet, the page structure expects it.
+
+⸻
+
+9. Location
+
+This is another section.
+
+It should hold:
+	•	address
+	•	map coordinates
+	•	hub relationship
+	•	directions link
+	•	parking or arrival info if needed
+
+In this case it also ties into:
+	•	Located at The Wharf  
+
+That means the Sunny Lady entity should also have a relationship:
+	•	Sunny Lady → located_in → The Wharf
+
+That is how:
+	•	“what is at The Wharf?”
+works correctly.
+
+⸻
+
+So the real hierarchy is this
+
+For this exact page, the structure is:
+
+A. Business entity
+
+Sunny Lady Dolphin Cruises
+
+B. Top-level page sections
+	•	About
+	•	Highlights
+	•	Cruise Times
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+
+C. Sub-records inside sections
+
+Features section
+
+repeatable feature rows
+
+Perfect For section
+
+repeatable audience-fit rows
+
+Highlights section
+
+repeatable bullet rows
+
+Cruise Times section
+	•	cruise schedule rows
+	•	ticket type rows inside each schedule
+
+Guest Info section
+
+repeatable guest policy rows
+
+Photos section
+
+repeatable media rows
+
+Reviews section
+
+repeatable review rows
+
+That is the real structure.
+
+⸻
+
+Why this matters
+
+Because if you don’t store it this way, you lose the power of the page.
+
+If it is all dumped into one rich text field, then the system cannot accurately answer:
+	•	what cruises are kid friendly
+	•	what cruise has a climate-controlled cabin
+	•	what cruise has restrooms onboard
+	•	what times does the sunset cruise run
+	•	how much is a child ticket
+	•	what activities are good for first-time visitors
+	•	what activities are located at The Wharf
+	•	what experiences are good for anniversary celebrations
+
+But if this is structured correctly, all of that becomes easy.
+
+⸻
+
+The actual foundation you need from this example
+
+This one page proves your system needs at least these layers:
+
+1. Main entity
+
+The business itself
+
+2. Section definitions
+
+The top tabs:
+	•	About
+	•	Highlights
+	•	Cruise Times
+	•	Guest Info
+	•	Photos
+	•	Reviews
+	•	Location
+
+3. Repeatable section data
+
+For sections like:
+	•	Features
+	•	Perfect For
+	•	Highlights
+	•	Guest Info
+
+4. Nested structured records
+
+For sections like Cruise Times:
+	•	schedule
+	•	ticket type
+	•	price
+
+5. Relationship data
+
+For things like:
+	•	located at The Wharf
+
+That’s the foundation.
+
+⸻
+
+Blunt answer
+
+Yes, I see it.
+
+And you’re right:
+each page is not just a page.
+Each page is a structured stack of sections, and each section has its own type of data inside it.
+
+So the actual model is not just:
+	•	entity
+	•	category
+	•	tag
+
+It is:
+	•	entity
+	•	main sections
+	•	repeatable section lists
+	•	nested sub-records inside certain sections
+	•	relationships to hubs/places
+
+That is the real foundation you’ve been pointing at.
+
+If you want, I’ll take this Sunny Lady page only and map it into the exact plain-English table structure next:
+	•	what table
+	•	what field
+	•	what row type
+	•	and how each section should be stored.
+
+
+You’re right: the layout pattern is the same, and the content inside the sections changes by business type.
+
+So here is the chart you actually need.
+
+Universal page structure across all 4 example pages
+
+You’re right: the layout pattern is the same, and the content inside the sections changes by business type.
+
+So here is the chart you actually need.
+
+Universal page structure across all 4 example pages

@@ -1,0 +1,2209 @@
+{
+  "entity": {
+    "id": "ent_tee_off",
+    "slug": "tee-off-at-the-wharf-powered-by-topgolf-swing-suites",
+    "name": "Tee Off at The Wharf Powered by TOPGOLF Swing Suites",
+    "subtitle": "LIVE. LAUGH. PLAY!",
+    "entity_type": "business",
+    "entity_subtype": "hybrid_venue",
+    "icon": "\u26f3",
+    "phone": "251-228-4899",
+    "rating": 4.5,
+    "review_count": 100,
+    "address_line_1": "4619 Main Street, Suite A102",
+    "address_line_2": null,
+    "city": "Orange Beach",
+    "state": "Alabama",
+    "zip": "36561",
+    "latitude": null,
+    "longitude": null,
+    "hero_image_url": null,
+    "website_url": "https://teeoffatthewharf.com/",
+    "directions_url": "https://maps.google.com/?q=4619+Main+Street,+Suite+A102,+Orange+Beach,+Alabama,+36561",
+    "call_url": "tel:2512284899",
+    "parent_entity_id": null,
+    "is_active": true
+  },
+  "entity_features": [
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Topgolf Swing Suites",
+      "sort_order": 1
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "7 Sports Simulators",
+      "sort_order": 2
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Full Bar & Restaurant",
+      "sort_order": 3
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Private Party Bays",
+      "sort_order": 4
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Golf League",
+      "sort_order": 5
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Family Friendly",
+      "sort_order": 6
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Corporate Events",
+      "sort_order": 7
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Indoor Climate-Controlled",
+      "sort_order": 8
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Located at The Wharf",
+      "sort_order": 9
+    }
+  ],
+  "entity_perfect_for": [
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Birthday parties",
+      "sort_order": 1
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Corporate team building",
+      "sort_order": 2
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Date night",
+      "sort_order": 3
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Family fun",
+      "sort_order": 4
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Bachelor/Bachelorette parties",
+      "sort_order": 5
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Sports fans",
+      "sort_order": 6
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Golf enthusiasts",
+      "sort_order": 7
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Group outings",
+      "sort_order": 8
+    },
+    {
+      "entity_id": "ent_tee_off",
+      "label": "Happy hour",
+      "sort_order": 9
+    }
+  ],
+  "entity_sections": [
+    {
+      "id": "sec_tee_about",
+      "entity_id": "ent_tee_off",
+      "section_key": "about",
+      "section_label": "Overview",
+      "section_type": "rich_text",
+      "sort_order": 1
+    },
+    {
+      "id": "sec_tee_food",
+      "entity_id": "ent_tee_off",
+      "section_key": "food",
+      "section_label": "Food",
+      "section_type": "grouped_items",
+      "sort_order": 2
+    },
+    {
+      "id": "sec_tee_happy_hour",
+      "entity_id": "ent_tee_off",
+      "section_key": "happy_hour",
+      "section_label": "Happy Hour",
+      "section_type": "grouped_items",
+      "sort_order": 3
+    },
+    {
+      "id": "sec_tee_specials",
+      "entity_id": "ent_tee_off",
+      "section_key": "specials",
+      "section_label": "Deals & Specials",
+      "section_type": "bullets",
+      "sort_order": 4
+    },
+    {
+      "id": "sec_tee_cocktails",
+      "entity_id": "ent_tee_off",
+      "section_key": "cocktails",
+      "section_label": "Cocktails",
+      "section_type": "grouped_items",
+      "sort_order": 5
+    },
+    {
+      "id": "sec_tee_draft_beer",
+      "entity_id": "ent_tee_off",
+      "section_key": "draft_beer",
+      "section_label": "Draft Beer",
+      "section_type": "grouped_items",
+      "sort_order": 6
+    },
+    {
+      "id": "sec_tee_bottles_cans",
+      "entity_id": "ent_tee_off",
+      "section_key": "bottles_cans",
+      "section_label": "Bottles & Cans",
+      "section_type": "grouped_items",
+      "sort_order": 7
+    },
+    {
+      "id": "sec_tee_craft_beer",
+      "entity_id": "ent_tee_off",
+      "section_key": "craft_beer",
+      "section_label": "Craft Beer",
+      "section_type": "grouped_items",
+      "sort_order": 8
+    },
+    {
+      "id": "sec_tee_wine_glass",
+      "entity_id": "ent_tee_off",
+      "section_key": "wine_glass",
+      "section_label": "Wine by Glass",
+      "section_type": "grouped_items",
+      "sort_order": 9
+    },
+    {
+      "id": "sec_tee_wine_bottle",
+      "entity_id": "ent_tee_off",
+      "section_key": "wine_bottle",
+      "section_label": "Wine by Bottle",
+      "section_type": "grouped_items",
+      "sort_order": 10
+    },
+    {
+      "id": "sec_tee_na_drinks",
+      "entity_id": "ent_tee_off",
+      "section_key": "na_drinks",
+      "section_label": "Non-Alcoholic",
+      "section_type": "grouped_items",
+      "sort_order": 11
+    },
+    {
+      "id": "sec_tee_whiskey",
+      "entity_id": "ent_tee_off",
+      "section_key": "whiskey",
+      "section_label": "Whiskey",
+      "section_type": "grouped_items",
+      "sort_order": 12
+    },
+    {
+      "id": "sec_tee_scotch",
+      "entity_id": "ent_tee_off",
+      "section_key": "scotch",
+      "section_label": "Scotch",
+      "section_type": "grouped_items",
+      "sort_order": 13
+    },
+    {
+      "id": "sec_tee_vodka",
+      "entity_id": "ent_tee_off",
+      "section_key": "vodka",
+      "section_label": "Vodka",
+      "section_type": "grouped_items",
+      "sort_order": 14
+    },
+    {
+      "id": "sec_tee_tequila_mezcal",
+      "entity_id": "ent_tee_off",
+      "section_key": "tequila_mezcal",
+      "section_label": "Tequila & Mezcal",
+      "section_type": "grouped_items",
+      "sort_order": 15
+    },
+    {
+      "id": "sec_tee_rum",
+      "entity_id": "ent_tee_off",
+      "section_key": "rum",
+      "section_label": "Rum",
+      "section_type": "grouped_items",
+      "sort_order": 16
+    },
+    {
+      "id": "sec_tee_gin",
+      "entity_id": "ent_tee_off",
+      "section_key": "gin",
+      "section_label": "Gin",
+      "section_type": "grouped_items",
+      "sort_order": 17
+    },
+    {
+      "id": "sec_tee_bitters_aperitifs",
+      "entity_id": "ent_tee_off",
+      "section_key": "bitters_aperitifs",
+      "section_label": "Bitters & Aperitifs",
+      "section_type": "grouped_items",
+      "sort_order": 18
+    },
+    {
+      "id": "sec_tee_games",
+      "entity_id": "ent_tee_off",
+      "section_key": "games",
+      "section_label": "Games & Sims",
+      "section_type": "grouped_items",
+      "sort_order": 19
+    },
+    {
+      "id": "sec_tee_packages",
+      "entity_id": "ent_tee_off",
+      "section_key": "packages",
+      "section_label": "Party Packages",
+      "section_type": "cards",
+      "sort_order": 20
+    },
+    {
+      "id": "sec_tee_league",
+      "entity_id": "ent_tee_off",
+      "section_key": "league",
+      "section_label": "Golf League",
+      "section_type": "cards",
+      "sort_order": 21
+    },
+    {
+      "id": "sec_tee_book_a_bay",
+      "entity_id": "ent_tee_off",
+      "section_key": "book_a_bay",
+      "section_label": "Book a Bay",
+      "section_type": "cards",
+      "sort_order": 22
+    },
+    {
+      "id": "sec_tee_events",
+      "entity_id": "ent_tee_off",
+      "section_key": "events",
+      "section_label": "Events",
+      "section_type": "cards",
+      "sort_order": 23
+    },
+    {
+      "id": "sec_tee_gallery",
+      "entity_id": "ent_tee_off",
+      "section_key": "gallery",
+      "section_label": "Photos",
+      "section_type": "gallery",
+      "sort_order": 24
+    },
+    {
+      "id": "sec_tee_hours",
+      "entity_id": "ent_tee_off",
+      "section_key": "hours",
+      "section_label": "Hours",
+      "section_type": "hours",
+      "sort_order": 25
+    },
+    {
+      "id": "sec_tee_location",
+      "entity_id": "ent_tee_off",
+      "section_key": "location",
+      "section_label": "Location",
+      "section_type": "location",
+      "sort_order": 26
+    }
+  ],
+  "section_rich_text": [
+    {
+      "section_id": "sec_tee_about",
+      "body_text": "Tee Off powered by Topgolf Swing Suite is a dining and entertainment venue that features golf-simulation games and a variety of other virtual sports and games using state-of-the-art technology. This fun and interactive restaurant is located at The Wharf in sunny Orange Beach, Alabama and is ideal for team-building events, corporate outings, happy hours, birthday parties and more. Topgolf Swing Suite and its Full Swing golf simulator provide endless opportunities for fun. Whether you're an aspiring golf pro or picking up a club for the first time, Topgolf is for everyone."
+    }
+  ],
+  "section_bullets": [
+    {
+      "section_id": "sec_tee_specials",
+      "bullet_text": "4.0% Cash Discount \u2014 Receive a 4.0% discount on your total bill when you pay with cash.",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_specials",
+      "bullet_text": "Daily 3\u20136pm Happy Hour \u2014 House cocktails $7, draft beer $4, house wine $6, plus appetizer specials.",
+      "sort_order": 2
+    }
+  ],
+  "section_groups": [
+    {
+      "id": "grp_tee_food_1",
+      "section_id": "sec_tee_food",
+      "title": "Bites & Shareables",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_tee_food_2",
+      "section_id": "sec_tee_food",
+      "title": "Handhelds",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 2
+    },
+    {
+      "id": "grp_tee_food_3",
+      "section_id": "sec_tee_food",
+      "title": "Salads",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 3
+    },
+    {
+      "id": "grp_tee_food_4",
+      "section_id": "sec_tee_food",
+      "title": "Bowls",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 4
+    },
+    {
+      "id": "grp_tee_food_5",
+      "section_id": "sec_tee_food",
+      "title": "Seafood",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 5
+    },
+    {
+      "id": "grp_tee_food_6",
+      "section_id": "sec_tee_food",
+      "title": "Kids Menu",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 6
+    },
+    {
+      "id": "grp_tee_food_7",
+      "section_id": "sec_tee_food",
+      "title": "Desserts",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 7
+    },
+    {
+      "id": "grp_tee_hh_main",
+      "section_id": "sec_tee_happy_hour",
+      "title": "Daily 3pm \u2013 6pm",
+      "subtitle": "Happy Hour",
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_cocktails_1",
+      "section_id": "sec_tee_cocktails",
+      "title": "Signature Cocktails",
+      "subtitle": null,
+      "note_text": "4% discount when paying with cash",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_draft_beer_1",
+      "section_id": "sec_tee_draft_beer",
+      "title": "Draft Beer",
+      "subtitle": null,
+      "note_text": "$4 during Happy Hour (Daily 3pm\u20136pm)",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_bottles_cans_1",
+      "section_id": "sec_tee_bottles_cans",
+      "title": "Bottles & Cans",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_craft_beer_1",
+      "section_id": "sec_tee_craft_beer",
+      "title": "Craft Beer",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_wine_glass_1",
+      "section_id": "sec_tee_wine_glass",
+      "title": "Wine \u2014 By the Glass",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_wine_bottle_1",
+      "section_id": "sec_tee_wine_bottle",
+      "title": "Wine \u2014 By the Bottle",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_na_drinks_1",
+      "section_id": "sec_tee_na_drinks",
+      "title": "Non-Alcoholic",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_whiskey_1",
+      "section_id": "sec_tee_whiskey",
+      "title": "Whiskey & Bourbon",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_scotch_1",
+      "section_id": "sec_tee_scotch",
+      "title": "Scotch",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_vodka_1",
+      "section_id": "sec_tee_vodka",
+      "title": "Vodka",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_tequila_mezcal_1",
+      "section_id": "sec_tee_tequila_mezcal",
+      "title": "Tequila & Mezcal",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_rum_1",
+      "section_id": "sec_tee_rum",
+      "title": "Rum",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_gin_1",
+      "section_id": "sec_tee_gin",
+      "title": "Gin",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_bitters_aperitifs_1",
+      "section_id": "sec_tee_bitters_aperitifs",
+      "title": "Bitters & Aperitifs",
+      "subtitle": null,
+      "note_text": "Sorted low to high \u00b7 same price grouped together",
+      "sort_order": 1
+    },
+    {
+      "id": "grp_games_1",
+      "section_id": "sec_tee_games",
+      "title": "Golf Simulators",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 1
+    },
+    {
+      "id": "grp_games_2",
+      "section_id": "sec_tee_games",
+      "title": "Sports Simulators",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 2
+    },
+    {
+      "id": "grp_games_3",
+      "section_id": "sec_tee_games",
+      "title": "Arcade & Carnival Games",
+      "subtitle": null,
+      "note_text": null,
+      "sort_order": 3
+    }
+  ],
+  "section_items": [
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Boiled Peanuts",
+      "item_description": "Alabama peanuts boiled in smoked ham stock",
+      "price_text": "$10.50",
+      "price_numeric": 10.5,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Whipped Ricotta Dip",
+      "item_description": "Served with Italian chili crisp & grilled sourdough",
+      "price_text": "$15",
+      "price_numeric": 15.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Warm Spinach Dip",
+      "item_description": "With grilled bread",
+      "price_text": "$15",
+      "price_numeric": 15.0,
+      "item_type": "menu_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Fried Pickles",
+      "item_description": "Panko breaded with buttermilk ranch",
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "menu_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Fried Green Tomatoes",
+      "item_description": "Fresh fried and topped with Creole Crawfish sauce",
+      "price_text": "$13.50",
+      "price_numeric": 13.5,
+      "item_type": "menu_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Soft Bread Pretzels",
+      "item_description": "Served with beer cheese",
+      "price_text": "$15",
+      "price_numeric": 15.0,
+      "item_type": "menu_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Nachos",
+      "item_description": "Tortilla chips topped with braised pork, queso, pickled onions, jalape\u00f1os, avocado crema, salsas verde & roja",
+      "price_text": "$19",
+      "price_numeric": 19.0,
+      "item_type": "menu_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Pork Skins",
+      "item_description": "Crispy fried pork skins served with candied jalape\u00f1o jam & ranch",
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "menu_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Smashed Potatoes",
+      "item_description": "Twice cooked gold potatoes topped with cheddar cheese, dill and chive sour cream, bacon & jalape\u00f1os",
+      "price_text": "$16.50",
+      "price_numeric": 16.5,
+      "item_type": "menu_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_1",
+      "item_name": "Hushpuppies",
+      "item_description": "Two dozen sweet onion hushpuppies",
+      "price_text": "$10",
+      "price_numeric": 10.0,
+      "item_type": "menu_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Tee Off Burger",
+      "item_description": "7 oz Wagyu served with Augusta pimento, caramelized onions & dill pickles on a hamburger bun. Served with French fries",
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Cheddar Bacon Burger",
+      "item_description": "7 oz Wagyu served with shaved onions, tomato bacon jam, sharp cheddar and our special sauce. Served with French fries",
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Backyard Burger",
+      "item_description": "7 oz Wagyu burger served with sharp cheddar, ketchup, mustard, lettuce and tomato. Served with French fries",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "menu_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Chicken Sandwich",
+      "item_description": "Grilled or fried chicken with our special sauce, sharp cheddar cheese, lettuce and tomato. Served with French fries. Add bacon jam +$2.50",
+      "price_text": "$17",
+      "price_numeric": 17.0,
+      "item_type": "menu_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Chicken Salad Sandwich",
+      "item_description": "Fresh made chicken salad, tomato, crisp apples, smokey seasoning, lettuce, on toasted white bread with fries or chips. Add bacon jam +$2.50",
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "menu_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_2",
+      "item_name": "Wings or Tenders",
+      "item_description": "8 beer brined jumbo wings or 4 jumbo chicken tenders available with any of our sauces. Served with French fries",
+      "price_text": "$17",
+      "price_numeric": 17.0,
+      "item_type": "menu_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_3",
+      "item_name": "Fried Green Tomato Salad",
+      "item_description": "Baby gem lettuce tossed in spicy peppercorn ranch with grilled corn, bacon, goat cheese & fried green tomatoes",
+      "price_text": "$15.50",
+      "price_numeric": 15.5,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_3",
+      "item_name": "Caesar Salad",
+      "item_description": "Served with your choice of protein: Chicken (grilled, blackened or fried) +$6 | 6 oz Steak +$10 | Shrimp (6 count) +$12",
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_4",
+      "item_name": "Tuna Poke Bowl",
+      "item_description": "Rice, tuna, avocado, tomatoes, edamame, seaweed salad, carrots, roasted sesame seeds, poke sauce & spicy mayo",
+      "price_text": "$32",
+      "price_numeric": 32.0,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_4",
+      "item_name": "Mediterranean Chicken Rice Bowl",
+      "item_description": "Grilled chicken, rice, pickled onions, avocado, cucumbers, tomatoes, kalamata olives & house made Tzatziki sauce",
+      "price_text": "$20",
+      "price_numeric": 20.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_4",
+      "item_name": "Teriyaki Steak Bowl",
+      "item_description": "Tenderloin filet, rice, carrots, corn, avocado and cilantro crema sauce",
+      "price_text": "$35",
+      "price_numeric": 35.0,
+      "item_type": "menu_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_5",
+      "item_name": "Fish Tacos",
+      "item_description": "Grilled Grouper, charred jalape\u00f1o slaw, pickled onions, lime crema & queso fresco on flour tortillas & served with fries",
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_5",
+      "item_name": "Tuna Tacos",
+      "item_description": "Fresh Ahi Tuna, jalape\u00f1o coleslaw, pickled onions, spicy mayo & ginger teriyaki sauce",
+      "price_text": "$28",
+      "price_numeric": 28.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_5",
+      "item_name": "Shrimp Basket",
+      "item_description": "8 jumbo Gulf shrimp, either fried, grilled or blackened & served with corn, fries & sweet onion hushpuppies",
+      "price_text": "$24",
+      "price_numeric": 24.0,
+      "item_type": "menu_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_5",
+      "item_name": "Grouper Basket",
+      "item_description": "Grouper either fried, grilled or blackened and served with corn, fries & sweet onion hushpuppies",
+      "price_text": "$24",
+      "price_numeric": 24.0,
+      "item_type": "menu_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_5",
+      "item_name": "Crab Cakes",
+      "item_description": "Jumbo Cajun inspired crab cakes served with house made jalape\u00f1o tartar",
+      "price_text": "$25",
+      "price_numeric": 25.0,
+      "item_type": "menu_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_6",
+      "item_name": "Chicken Tenders",
+      "item_description": null,
+      "price_text": "$9",
+      "price_numeric": 9.0,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_6",
+      "item_name": "Mac & Cheese",
+      "item_description": null,
+      "price_text": "$9",
+      "price_numeric": 9.0,
+      "item_type": "menu_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_6",
+      "item_name": "Cheeseburger",
+      "item_description": null,
+      "price_text": "$9",
+      "price_numeric": 9.0,
+      "item_type": "menu_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_6",
+      "item_name": "Hot Dog",
+      "item_description": null,
+      "price_text": "$9",
+      "price_numeric": 9.0,
+      "item_type": "menu_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_food",
+      "group_id": "grp_tee_food_7",
+      "item_name": "Hot Fudge Brownie",
+      "item_description": "Served with vanilla ice cream and caramel drizzle",
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "menu_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_happy_hour",
+      "group_id": "grp_tee_hh_main",
+      "item_name": "House Cocktails",
+      "item_description": "Selected house cocktails",
+      "price_text": "$7",
+      "price_numeric": 7.0,
+      "item_type": "hh_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_happy_hour",
+      "group_id": "grp_tee_hh_main",
+      "item_name": "Draft Beer",
+      "item_description": "All draft beers",
+      "price_text": "$4",
+      "price_numeric": 4.0,
+      "item_type": "hh_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_happy_hour",
+      "group_id": "grp_tee_hh_main",
+      "item_name": "House Wine",
+      "item_description": "House red or white",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "hh_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_happy_hour",
+      "group_id": "grp_tee_hh_main",
+      "item_name": "Appetizer Specials",
+      "item_description": "Selected appetizers at happy hour pricing",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "hh_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Azalea",
+      "item_description": "Vodka, pineapple, lemon, grenadine, cherry with orange garnish",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Transfusion",
+      "item_description": "Vodka, grape juice, lime, ginger ale",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Mother of Pearl",
+      "item_description": "Gin, celery bitters, tonic, celery salt rim, celery & fennel garnish",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Southside",
+      "item_description": "Gin, lemon juice, soda, mint syrup & fresh mint",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Green Margarita",
+      "item_description": "Blanco Tequila, orange liqueur, lime, agave, kiwi",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Paloma",
+      "item_description": "Reposado Tequila, ruby red grapefruit, lime, agave, soda with chili rim",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Dirty Martini",
+      "item_description": "Vodka, olive brine, blue cheese olive",
+      "price_text": "$17",
+      "price_numeric": 17.0,
+      "item_type": "drink_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Espresso Martini",
+      "item_description": "Vodka, coffee liqueur, espresso, toasted marshmallow",
+      "price_text": "$17",
+      "price_numeric": 17.0,
+      "item_type": "drink_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Bloody Mary",
+      "item_description": "Vodka, Bold Charleston Bloody Mary Mix, pickle stuffed olives, pickled okra",
+      "price_text": "$15",
+      "price_numeric": 15.0,
+      "item_type": "drink_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Bushwhacker White Russian",
+      "item_description": "Dark rum, coconut liqueur, coffee liqueur, cream & shaved chocolate",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_cocktails",
+      "group_id": "grp_cocktails_1",
+      "item_name": "Old Fashioned",
+      "item_description": "Bourbon, sugar, bitters, orange zest",
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "drink_item",
+      "sort_order": 11
+    },
+    {
+      "section_id": "sec_tee_draft_beer",
+      "group_id": "grp_draft_beer_1",
+      "item_name": "Paulaner Hefe-Weizen",
+      "item_description": "German wheat beer on draft",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "beer_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Corona Premier",
+      "item_description": "Domestic lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Bud Light",
+      "item_description": "Domestic lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Miller Lite",
+      "item_description": "Domestic light lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Coors Lite",
+      "item_description": "Domestic light lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Yuengling",
+      "item_description": "Domestic amber lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Modelo Especial",
+      "item_description": "Mexican lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Blue Moon Light",
+      "item_description": "Belgian-style wheat ale",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Michelob Ultra",
+      "item_description": "Domestic light lager",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Twisted Tea",
+      "item_description": "Hard iced tea",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_bottles_cans",
+      "group_id": "grp_bottles_cans_1",
+      "item_name": "Austin Eastside Cider",
+      "item_description": "Hard cider",
+      "price_text": "$6",
+      "price_numeric": 6.0,
+      "item_type": "beer_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Sweetwater Day Trip IPA",
+      "item_description": "IPA",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "White Claw (Black Cherry & Mango)",
+      "item_description": "Hard seltzer",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "DR JUICE IPA",
+      "item_description": "IPA",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Destin Don't Hassle Me I'm Local Blood Orange Blonde",
+      "item_description": "Blood orange blonde ale",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Fat Tire Amber",
+      "item_description": "Belgian-style amber ale",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Good People Muchacho",
+      "item_description": "Mexican lager craft",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Deschutes Black Butte Porter",
+      "item_description": "Robust porter",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Dogfish Grateful Dead Pale Ale",
+      "item_description": "American pale ale",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Dogfish Sequence Sour",
+      "item_description": "Sour ale",
+      "price_text": "$8",
+      "price_numeric": 8.0,
+      "item_type": "beer_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Run Wild IPA",
+      "item_description": "Non-alcoholic IPA",
+      "price_text": "$5",
+      "price_numeric": 5.0,
+      "item_type": "beer_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_craft_beer",
+      "group_id": "grp_craft_beer_1",
+      "item_name": "Athletic Golden Ale",
+      "item_description": "Non-alcoholic golden ale",
+      "price_text": "$5",
+      "price_numeric": 5.0,
+      "item_type": "beer_item",
+      "sort_order": 11
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "Mezzacorona Domenic Pinot Grigio",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "wine_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "Drylands Sauvignon Blanc",
+      "item_description": null,
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "wine_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "Carmel Road Chardonnay",
+      "item_description": null,
+      "price_text": "$10",
+      "price_numeric": 10.0,
+      "item_type": "wine_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "La Marca Prosecco",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "wine_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "Ceretoo Moscato D'Asti",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "wine_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "La Crema Pinot Noir",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "wine_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "H3 Cabernet Sauvignon",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "wine_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_wine_glass",
+      "group_id": "grp_wine_glass_1",
+      "item_name": "Chateau La Mascaronne Folly Ros\u00e9",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "wine_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Justin Sauvignon Blanc",
+      "item_description": "White \u2014 California",
+      "price_text": "$42",
+      "price_numeric": 42.0,
+      "item_type": "wine_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Tomatore Etna Bianco",
+      "item_description": "White \u2014 Sicily, Italy",
+      "price_text": "$54",
+      "price_numeric": 54.0,
+      "item_type": "wine_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Chandon Brut",
+      "item_description": "Sparkling \u2014 California",
+      "price_text": "$54",
+      "price_numeric": 54.0,
+      "item_type": "wine_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Santa Margherita Pinot Grigio",
+      "item_description": "White \u2014 Alto Adige, Italy",
+      "price_text": "$58",
+      "price_numeric": 58.0,
+      "item_type": "wine_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Rombauer Vineyards Chardonnay",
+      "item_description": "White \u2014 Napa Valley",
+      "price_text": "$98",
+      "price_numeric": 98.0,
+      "item_type": "wine_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Grand Veneur La Fontaine Chateauneuf Du-Pape Blanc",
+      "item_description": "White \u2014 Rh\u00f4ne, France",
+      "price_text": "$165",
+      "price_numeric": 165.0,
+      "item_type": "wine_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Tomatore Etna Rosso",
+      "item_description": "Red \u2014 Sicily, Italy",
+      "price_text": "$58",
+      "price_numeric": 58.0,
+      "item_type": "wine_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Trefethen Family Vineyard Napa Merlot",
+      "item_description": "Red \u2014 Napa Valley",
+      "price_text": "$67",
+      "price_numeric": 67.0,
+      "item_type": "wine_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Department 66 Others (Grenache, Carignan, Syrah, Mouvedre)",
+      "item_description": "Red \u2014 Roussillon, France",
+      "price_text": "$72",
+      "price_numeric": 72.0,
+      "item_type": "wine_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Robert Mondavi Napa Cabernet Sauvignon",
+      "item_description": "Red \u2014 Napa Valley",
+      "price_text": "$88",
+      "price_numeric": 88.0,
+      "item_type": "wine_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Orin Swift 8 Years In The Desert (Zin/Petite Syrah/Syrah)",
+      "item_description": "Red \u2014 California",
+      "price_text": "$88",
+      "price_numeric": 88.0,
+      "item_type": "wine_item",
+      "sort_order": 11
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Patz & Hall Pinot Noir",
+      "item_description": "Red \u2014 Sonoma Coast",
+      "price_text": "$96",
+      "price_numeric": 96.0,
+      "item_type": "wine_item",
+      "sort_order": 12
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Stag's Leap Artemis Cabernet Sauvignon",
+      "item_description": "Red \u2014 Napa Valley",
+      "price_text": "$197",
+      "price_numeric": 197.0,
+      "item_type": "wine_item",
+      "sort_order": 13
+    },
+    {
+      "section_id": "sec_tee_wine_bottle",
+      "group_id": "grp_wine_bottle_1",
+      "item_name": "Chateau D'Esclans Whispering Angel Ros\u00e9",
+      "item_description": "Ros\u00e9 \u2014 Provence, France",
+      "price_text": "Ask server",
+      "price_numeric": null,
+      "item_type": "wine_item",
+      "sort_order": 14
+    },
+    {
+      "section_id": "sec_tee_na_drinks",
+      "group_id": "grp_na_drinks_1",
+      "item_name": "Athletic Golden Ale",
+      "item_description": "Non-alcoholic golden ale",
+      "price_text": "$5",
+      "price_numeric": 5.0,
+      "item_type": "drink_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_na_drinks",
+      "group_id": "grp_na_drinks_1",
+      "item_name": "Run Wild IPA",
+      "item_description": "Non-alcoholic IPA",
+      "price_text": "$5",
+      "price_numeric": 5.0,
+      "item_type": "drink_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_na_drinks",
+      "group_id": "grp_na_drinks_1",
+      "item_name": "Soft Drinks & Teas",
+      "item_description": "Coke, Diet Coke, Sprite, sweet tea & more",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "drink_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Sazerac Rye, Maker's Mark",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Elijah Craig",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Elijah Craig Rye, Bulleit Rye",
+      "item_description": null,
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Woodford Reserve, Old Elk Wheated, Whistlepig Piggyback",
+      "item_description": null,
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Angel's Envy, Michters Unblended, Bulleit Rye 10 Yr, Heaven Hill",
+      "item_description": null,
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "spirit_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Old Forester 1910",
+      "item_description": null,
+      "price_text": "$19",
+      "price_numeric": 19.0,
+      "item_type": "spirit_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Bulleit Bottled In Bond",
+      "item_description": null,
+      "price_text": "$20",
+      "price_numeric": 20.0,
+      "item_type": "spirit_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Woodford Double Oak, Old Forester Statesman, Bushmills Single Malt Irish",
+      "item_description": null,
+      "price_text": "$21",
+      "price_numeric": 21.0,
+      "item_type": "spirit_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Angel's Envy Triple Oak",
+      "item_description": null,
+      "price_text": "$24",
+      "price_numeric": 24.0,
+      "item_type": "spirit_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Jefferson's Ocean Aged Straight Bourbon",
+      "item_description": null,
+      "price_text": "$29",
+      "price_numeric": 29.0,
+      "item_type": "spirit_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Calumet Farm High Rye, Jefferson's Ocean Aged Rye",
+      "item_description": null,
+      "price_text": "$31",
+      "price_numeric": 31.0,
+      "item_type": "spirit_item",
+      "sort_order": 11
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Joseph Magnus",
+      "item_description": null,
+      "price_text": "$34",
+      "price_numeric": 34.0,
+      "item_type": "spirit_item",
+      "sort_order": 12
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Jefferson's Tropics",
+      "item_description": null,
+      "price_text": "$35",
+      "price_numeric": 35.0,
+      "item_type": "spirit_item",
+      "sort_order": 13
+    },
+    {
+      "section_id": "sec_tee_whiskey",
+      "group_id": "grp_whiskey_1",
+      "item_name": "Calumet Farm 18 Yr",
+      "item_description": null,
+      "price_text": "$157",
+      "price_numeric": 157.0,
+      "item_type": "spirit_item",
+      "sort_order": 14
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "Johnnie Walker Black, Chivas Regal 12 Yr",
+      "item_description": null,
+      "price_text": "$15",
+      "price_numeric": 15.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "Glenarry 12 Yr",
+      "item_description": null,
+      "price_text": "$21",
+      "price_numeric": 21.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "Johnnie Walker Scotch",
+      "item_description": null,
+      "price_text": "$27",
+      "price_numeric": 27.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "The Dalmore Sherry Cask Single Malt 12 Yr",
+      "item_description": null,
+      "price_text": "$32",
+      "price_numeric": 32.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "The Dalmore Port Wood Single Malt",
+      "item_description": null,
+      "price_text": "$35",
+      "price_numeric": 35.0,
+      "item_type": "spirit_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "The Macallan Dbl Cask 15 Yr",
+      "item_description": null,
+      "price_text": "$62",
+      "price_numeric": 62.0,
+      "item_type": "spirit_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "Glenmorangie Signet Single Malt",
+      "item_description": null,
+      "price_text": "$87",
+      "price_numeric": 87.0,
+      "item_type": "spirit_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_scotch",
+      "group_id": "grp_scotch_1",
+      "item_name": "Johnnie Walker Blue",
+      "item_description": null,
+      "price_text": "$776",
+      "price_numeric": 776.0,
+      "item_type": "spirit_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_vodka",
+      "group_id": "grp_vodka_1",
+      "item_name": "Tito's, Wheatley",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_vodka",
+      "group_id": "grp_vodka_1",
+      "item_name": "Haku",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_vodka",
+      "group_id": "grp_vodka_1",
+      "item_name": "Grey Goose",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_vodka",
+      "group_id": "grp_vodka_1",
+      "item_name": "Belvedere",
+      "item_description": null,
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Corazon Blanco",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Espolon Reposado",
+      "item_description": null,
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Lalo Blanco",
+      "item_description": null,
+      "price_text": "$16",
+      "price_numeric": 16.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Casamigos Blanco",
+      "item_description": null,
+      "price_text": "$17",
+      "price_numeric": 17.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Patron Silver, Casamigos Reposado",
+      "item_description": null,
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "spirit_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Casamigos Mezcal",
+      "item_description": null,
+      "price_text": "$19",
+      "price_numeric": 19.0,
+      "item_type": "spirit_item",
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Patron Anejo",
+      "item_description": null,
+      "price_text": "$22",
+      "price_numeric": 22.0,
+      "item_type": "spirit_item",
+      "sort_order": 7
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Don Julio Anejo",
+      "item_description": null,
+      "price_text": "$24",
+      "price_numeric": 24.0,
+      "item_type": "spirit_item",
+      "sort_order": 8
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Maestro Dobel 50 Cristalino Extra Anejo",
+      "item_description": null,
+      "price_text": "$49",
+      "price_numeric": 49.0,
+      "item_type": "spirit_item",
+      "sort_order": 9
+    },
+    {
+      "section_id": "sec_tee_tequila_mezcal",
+      "group_id": "grp_tequila_mezcal_1",
+      "item_name": "Dos Hombres Mezcal",
+      "item_description": null,
+      "price_text": "$120",
+      "price_numeric": 120.0,
+      "item_type": "spirit_item",
+      "sort_order": 10
+    },
+    {
+      "section_id": "sec_tee_rum",
+      "group_id": "grp_rum_1",
+      "item_name": "Malibu",
+      "item_description": null,
+      "price_text": "$10",
+      "price_numeric": 10.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_rum",
+      "group_id": "grp_rum_1",
+      "item_name": "Bacardi Light, Captain Morgan",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_rum",
+      "group_id": "grp_rum_1",
+      "item_name": "Bumbu",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_gin",
+      "group_id": "grp_gin_1",
+      "item_name": "Aviation",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_gin",
+      "group_id": "grp_gin_1",
+      "item_name": "Bombay Sapphire",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_gin",
+      "group_id": "grp_gin_1",
+      "item_name": "Roku, Hendricks",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_gin",
+      "group_id": "grp_gin_1",
+      "item_name": "Monkey 47",
+      "item_description": null,
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_bitters_aperitifs",
+      "group_id": "grp_bitters_aperitifs_1",
+      "item_name": "Baileys, Kahlua, Pimms No1, Licor 43",
+      "item_description": null,
+      "price_text": "$11",
+      "price_numeric": 11.0,
+      "item_type": "spirit_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_bitters_aperitifs",
+      "group_id": "grp_bitters_aperitifs_1",
+      "item_name": "Aperol, Frangelico, Campari, Amaretto Disarrono",
+      "item_description": null,
+      "price_text": "$12",
+      "price_numeric": 12.0,
+      "item_type": "spirit_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_bitters_aperitifs",
+      "group_id": "grp_bitters_aperitifs_1",
+      "item_name": "St Germain",
+      "item_description": null,
+      "price_text": "$13",
+      "price_numeric": 13.0,
+      "item_type": "spirit_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_bitters_aperitifs",
+      "group_id": "grp_bitters_aperitifs_1",
+      "item_name": "Fernet Branca, Chambord",
+      "item_description": null,
+      "price_text": "$14",
+      "price_numeric": 14.0,
+      "item_type": "spirit_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_bitters_aperitifs",
+      "group_id": "grp_bitters_aperitifs_1",
+      "item_name": "Grand Marnier",
+      "item_description": null,
+      "price_text": "$18",
+      "price_numeric": 18.0,
+      "item_type": "spirit_item",
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_1",
+      "item_name": "Topgolf Swing Suite",
+      "item_description": "Full golf simulator with Topgolf games. Multiple courses, skill levels welcome \u2014 from beginners to pros.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_1",
+      "item_name": "Top Contender",
+      "item_description": "Closest-to-pin golf challenge across 9 shots. Compete against friends for the highest score.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_1",
+      "item_name": "Top Pressure",
+      "item_description": "High-stakes shot challenge \u2014 earn points by hitting pressure shots under the clock.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_1",
+      "item_name": "Top Challenge",
+      "item_description": "Target-based driving game. Hit the targets, rack up points.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_2",
+      "item_name": "Quarterback Challenge",
+      "item_description": "NFL-style football simulator. Throw passes at moving targets \u2014 perfect spiral not required.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_2",
+      "item_name": "Hardball Challenge",
+      "item_description": "Baseball pitching simulator. Test your fastball and accuracy against virtual batters.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_2",
+      "item_name": "Hockey Shots",
+      "item_description": "Ice hockey simulator. Slap shots, wrist shots \u2014 light up the targets.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_2",
+      "item_name": "Soccer Simulator",
+      "item_description": "Penalty kick challenge. Bend it like Beckham or just boot it \u2014 either works.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_3",
+      "item_name": "Dodgeball Simulator",
+      "item_description": "Virtual dodgeball \u2014 dodge, duck, dip, dive and dodge your way to victory.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_games",
+      "group_id": "grp_games_3",
+      "item_name": "Carnival Classic",
+      "item_description": "Classic carnival games reimagined in a simulator. Midway fun without the cotton candy mess.",
+      "price_text": null,
+      "price_numeric": null,
+      "item_type": "game_item",
+      "sort_order": 2
+    }
+  ],
+  "section_cards": [
+    {
+      "section_id": "sec_tee_packages",
+      "title": "Par-Tee Animals",
+      "subtitle": "Kids Package",
+      "description": "Kids Party Package. Includes 2 hours of Topgolf Swing Suite simulation, 8 hotdogs or 16 chicken tenders, large basket of fries, 2 pitchers of fountain drinks, and birthday decorations.",
+      "badge_text": "\u23f1 2 hours",
+      "price_text": "$360",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_packages",
+      "title": "Tee Off Titans",
+      "subtitle": "Non-Alcoholic Adult",
+      "description": "Includes 2 hours of Topgolf Swing Suite simulation, 50 wings (5 choices of wing sauce + 10 dipping sauces), large basket of fries, 2 pitchers of fountain drinks, and birthday decorations.",
+      "badge_text": "\u23f1 2 hours",
+      "price_text": "$400",
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_packages",
+      "title": "Tee Totalers",
+      "subtitle": "Alcoholic Adult",
+      "description": "Includes 2 hours of Topgolf Swing Suite simulation, 50 wings (5 choices of wing sauce + 10 dipping sauces), large basket of fries, beer tower with any beer, and birthday decorations.",
+      "badge_text": "\u23f1 2 hours",
+      "price_text": "$425",
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_league",
+      "title": "Golf League",
+      "subtitle": "\ud83d\udcc5 Sundays\u2013Wednesdays starting Feb 1 | 12 weeks \u00b7 Teams of 2, scramble format",
+      "description": "Competitive 12-week golf league. Teams of 2, scramble format. Experience exciting weekly 9-hole matches on different courses using state-of-the-art golf simulators. Our league features a comprehensive point system rewarding both match victories and low scores.",
+      "badge_text": "\u2713 10% off food & drinks all season, \u2713 Weekly standings posted online, \u2713 Champion: $500 in gift cards, \u2713 Runner-up: $250 in gift cards, \u2713 Single-elimination playoffs, \u2713 Substitute players welcome",
+      "price_text": "$250/team",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_book_a_bay",
+      "title": "Swing Suite Rental",
+      "subtitle": "\ud83d\udc65 Up to 8 participants per bay",
+      "description": "TOPGOLF Swing Suite rental at standard rate. Access to golf simulators and virtual sports games.",
+      "badge_text": null,
+      "price_text": "$75/hr",
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_events",
+      "title": "Birthday & Group Parties",
+      "subtitle": "Available Daily",
+      "description": "Book a private bay for birthdays, corporate outings, bachelor/bachelorette parties and team-building events. Party packages include simulator time, food, and drinks.",
+      "badge_text": "\ud83d\udccc Reservation required",
+      "price_text": null,
+      "sort_order": 1
+    }
+  ],
+  "section_photos": [
+    {
+      "section_id": "sec_tee_gallery",
+      "image_url": "https://share.google/33DKu6MZI6IAAv4cD",
+      "caption": "Tee Off at The Wharf",
+      "alt_text": "Tee Off at The Wharf",
+      "sort_order": 1
+    }
+  ],
+  "section_hours": [
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 1,
+      "day_label": "Monday",
+      "open_time": "11:00 AM",
+      "close_time": "10:00 PM",
+      "is_closed": false,
+      "sort_order": 1
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 2,
+      "day_label": "Tuesday",
+      "open_time": "11:00 AM",
+      "close_time": "10:00 PM",
+      "is_closed": false,
+      "sort_order": 2
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 3,
+      "day_label": "Wednesday",
+      "open_time": "11:00 AM",
+      "close_time": "10:00 PM",
+      "is_closed": false,
+      "sort_order": 3
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 4,
+      "day_label": "Thursday",
+      "open_time": "11:00 AM",
+      "close_time": "10:00 PM",
+      "is_closed": false,
+      "sort_order": 4
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 5,
+      "day_label": "Friday",
+      "open_time": "11:00 AM",
+      "close_time": "12:00 AM",
+      "is_closed": false,
+      "sort_order": 5
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 6,
+      "day_label": "Saturday",
+      "open_time": "11:00 AM",
+      "close_time": "12:00 AM",
+      "is_closed": false,
+      "sort_order": 6
+    },
+    {
+      "section_id": "sec_tee_hours",
+      "day_of_week": 7,
+      "day_label": "Sunday",
+      "open_time": "11:00 AM",
+      "close_time": "10:00 PM",
+      "is_closed": false,
+      "sort_order": 7
+    }
+  ],
+  "section_location": [
+    {
+      "section_id": "sec_tee_location",
+      "address_line_1": "4619 Main Street, Suite A102",
+      "address_line_2": null,
+      "city": "Orange Beach",
+      "state": "Alabama",
+      "zip": "36561",
+      "latitude": null,
+      "longitude": null,
+      "directions_url": "https://maps.google.com/?q=4619+Main+Street,+Suite+A102,+Orange+Beach,+Alabama,+36561",
+      "phone": "251-228-4899",
+      "website_url": "https://teeoffatthewharf.com/",
+      "note_text": null
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aWavegent Full Example Pack</title>
+  <link rel="stylesheet" href="css/awavegent.css" />
+  <style>
+    .pack-wrap {
+      padding-top: 100px;
+      padding-bottom: 80px;
+      background: linear-gradient(180deg, #0a2540 0%, #0d3358 40%, #f5efe6 100%);
+      min-height: 100vh;
+    }
+    .pack-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(10,37,64,0.08);
+    }
+    .pack-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 24px;
+    }
+    .pack-links {
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+    .pack-link {
+      display:block;
+      padding:16px 18px;
+      border-radius:16px;
+      border:1.5px solid #d9e7ef;
+      background:#f8fcff;
+      color:#0a2540;
+      font-weight:600;
+      transition: var(--transition);
+    }
+    .pack-link:hover {
+      border-color: var(--wave-teal);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+    .pack-note {
+      margin-top: 16px;
+      color: var(--text-mid);
+      font-size: .95rem;
+      line-height: 1.7;
+    }
+    .pack-list {
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top:12px;
+      color:var(--text-mid);
+    }
+    .pill {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background: rgba(0,173,168,0.12);
+      color: var(--wave-teal);
+      border: 1px solid rgba(0,173,168,0.28);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-family: var(--font-accent);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom: 18px;
+    }
+    .mini {
+      font-size:.92rem;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .pack-grid, .pack-links { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="pack-wrap">
+    <div class="container">
+      <div class="pack-grid">
+        <div class="pack-card">
+          <div class="pill">Assembled Example Pack</div>
+          <h1 class="display-lg" style="color:var(--deep-ocean);margin-bottom:14px;">Everything is wired together.</h1>
+          <p class="body-lg" style="color:var(--text-mid);max-width:780px;">
+            This package gives you one clean structure with the aWavegent marketing layer, the modular business-page engine,
+            the reusable section files, and two full JSON-driven examples you can expand.
+          </p>
+
+          <div class="pack-links">
+            <a class="pack-link" href="sales/wavegent-homepage.html">Open Sales Homepage</a>
+            <a class="pack-link" href="examples/restaurant/index.html">Open Full Restaurant Example</a>
+            <a class="pack-link" href="examples/charter/index.html">Open Full Charter Example</a>
+            <a class="pack-link" href="sales/lead-form.html">Open Lead Form</a>
+            <a class="pack-link" href="sales/pricing.html">Open Pricing Page</a>
+            <a class="pack-link" href="sales/proof.html">Open Proof / Comparison</a>
+          </div>
+
+          <p class="pack-note">
+            The restaurant and charter examples are the real important part. They are both built from the same template shell,
+            the same section modules, and different <code>data.json</code> files. That is the reusable system.
+          </p>
+        </div>
+
+        <div class="pack-card">
+          <h2 class="display-md" style="color:var(--deep-ocean);margin-bottom:16px;">Folder Structure</h2>
+          <div class="pack-list">
+            <div><strong>/css</strong> — marketing site design system</div>
+            <div><strong>/base</strong> — shared business-page styles</div>
+            <div><strong>/sections</strong> — modular page components</div>
+            <div><strong>/examples/restaurant</strong> — full restaurant example</div>
+            <div><strong>/examples/charter</strong> — full charter example</div>
+            <div><strong>/sales</strong> — homepage + funnel pages</div>
+            <div><strong>/docs</strong> — setup notes</div>
+          </div>
+
+          <p class="pack-note mini">
+            To add another business, duplicate one example folder, replace <code>data.json</code>, and keep the same <code>index.html</code>.
+            To add or remove sections, edit the <code>sections</code> array inside the JSON.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>

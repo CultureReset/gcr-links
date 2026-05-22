@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Harbor House Grill & Marina — Scrollable Menu</title>
+  <style>
+    :root {
+      --bg: #07131f;
+      --panel: #0d1c2b;
+      --panel-2: #11253a;
+      --text: #f5f7fb;
+      --muted: #9fb2c8;
+      --line: rgba(255,255,255,0.08);
+      --accent: #11c5ff;
+      --accent-2: #19d47b;
+      --gold: #f3c969;
+      --danger: #ff7b54;
+      --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(17,197,255,0.12), transparent 28%),
+        radial-gradient(circle at top right, rgba(25,212,123,0.08), transparent 24%),
+        linear-gradient(180deg, #050d16 0%, var(--bg) 100%);
+      color: var(--text);
+    }
+
+    .wrap {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 18px 64px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 22px;
+      align-items: stretch;
+      margin-bottom: 22px;
+    }
+
+    .hero-card, .qr-card, .section-card, .menu-shell, .artist-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero-card {
+      position: relative;
+      min-height: 360px;
+      background:
+        linear-gradient(180deg, rgba(3,7,18,0.08), rgba(3,7,18,0.7)),
+        url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 28px;
+    }
+
+    .brand-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(6,18,31,0.7);
+      border: 1px solid rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .status-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(25,212,123,0.14);
+      color: #83efb7;
+      border: 1px solid rgba(25,212,123,0.24);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1;
+      max-width: 720px;
+      letter-spacing: -0.03em;
+    }
+
+    .sub {
+      margin-top: 14px;
+      max-width: 650px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.86);
+    }
+
+    .live-banner {
+      width: fit-content;
+      margin-bottom: 14px;
+      padding: 10px 14px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.42);
+      border: 1px solid rgba(17,197,255,0.28);
+      backdrop-filter: blur(10px);
+    }
+
+    .live-tag {
+      color: var(--accent-2);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+    }
+
+    .live-name {
+      margin-top: 4px;
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .live-time {
+      margin-top: 2px;
+      color: #d6e0ec;
+      font-weight: 600;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 0 18px;
+      border-radius: 16px;
+      font-weight: 800;
+      text-decoration: none;
+      color: white;
+      border: 1px solid transparent;
+      transition: transform .18s ease, opacity .18s ease, border-color .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); opacity: .96; }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), #2d82ff); }
+    .btn.secondary { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.12); }
+    .btn.gold { background: linear-gradient(135deg, #dba93d, var(--gold)); color: #1e1504; }
+
+    .qr-card {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 360px;
+      background: linear-gradient(180deg, #0c1725, #0a121d);
+    }
+
+    .qr-sign {
+      margin: 18px auto 0;
+      width: min(100%, 280px);
+      background: linear-gradient(180deg, #101b2b, #0a1220);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 22px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 18px 30px rgba(0,0,0,0.35);
+    }
+
+    .qr-box {
+      width: 170px;
+      height: 170px;
+      margin: 16px auto;
+      border-radius: 14px;
+      background:
+        linear-gradient(45deg, #000 25%, transparent 25%) -10px 0/20px 20px,
+        linear-gradient(-45deg, #000 25%, transparent 25%) -10px 0/20px 20px,
+        linear-gradient(45deg, transparent 75%, #000 75%) -10px 0/20px 20px,
+        linear-gradient(-45deg, transparent 75%, #000 75%) -10px 0/20px 20px,
+        #fff;
+      border: 10px solid #fff;
+      position: relative;
+    }
+
+    .qr-box:before, .qr-box:after {
+      content: "";
+      position: absolute;
+      width: 38px;
+      height: 38px;
+      border: 10px solid #000;
+      background: #fff;
+      top: 10px;
+      left: 10px;
+      box-shadow: 92px 0 0 -10px #fff, 92px 0 0 0 #000, 0 92px 0 -10px #fff, 0 92px 0 0 #000;
+    }
+    .qr-box:after { display:none; }
+
+    .section-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(22px, 3vw, 32px);
+      margin: 0;
+      letter-spacing: -0.02em;
+    }
+
+    .section-note {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 22px;
+      align-items: start;
+      margin-bottom: 22px;
+    }
+
+    .menu-shell {
+      background: linear-gradient(180deg, #0d1b2a, #0a1521);
+      padding: 18px;
+    }
+
+    .sticky-bar {
+      position: sticky;
+      top: 10px;
+      z-index: 25;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+      scrollbar-width: none;
+    }
+    .sticky-bar::-webkit-scrollbar { display:none; }
+
+    .chip {
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--text);
+      padding: 12px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .chip.active, .chip:hover { background: linear-gradient(135deg, var(--accent), #2d82ff); border-color: transparent; }
+
+    .menu-category {
+      margin-bottom: 18px;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 18px 18px 14px;
+      background: rgba(255,255,255,0.03);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .category-header h3 {
+      margin: 0;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .category-sub {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 108px minmax(0,1fr);
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+      min-height: 118px;
+    }
+
+    .item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .item-body {
+      padding: 14px 14px 14px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .item-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+
+    .item-name {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .price {
+      color: var(--gold);
+      font-weight: 800;
+      white-space: nowrap;
+      font-size: 17px;
+    }
+
+    .desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(17,197,255,0.1);
+      color: #8fdfff;
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid rgba(17,197,255,0.18);
+    }
+
+    .sidebar {
+      display: grid;
+      gap: 18px;
+      position: sticky;
+      top: 14px;
+    }
+
+    .artist-card, .section-card {
+      padding: 18px;
+      background: linear-gradient(180deg, #0e1c2c, #0a1420);
+    }
+
+    .artist-hero {
+      position: relative;
+      min-height: 220px;
+      padding: 16px;
+      border-radius: 18px;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.76)),
+        url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80') center/cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .mini {
+      display: inline-block;
+      width: fit-content;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(25,212,123,0.16);
+      color: #91efbc;
+      border: 1px solid rgba(25,212,123,0.22);
+      margin-bottom: 12px;
+    }
+
+    .artist-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .artist-row {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      text-decoration: none;
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .artist-row img {
+      width: 58px;
+      height: 58px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .artist-row strong { display:block; font-size:15px; }
+    .artist-row span { color: var(--muted); font-size: 13px; }
+
+    .quick-links {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1080px) {
+      .hero, .top-grid { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+    }
+
+    @media (max-width: 760px) {
+      .wrap { padding: 14px 12px 42px; }
+      .hero-card, .qr-card { min-height: unset; }
+      .items { grid-template-columns: 1fr; }
+      .item { grid-template-columns: 92px minmax(0,1fr); }
+      .hero-card { padding: 20px; }
+      .sub { font-size: 16px; }
+      .category-header h3 { font-size: 20px; }
+      .btn { width: 100%; }
+      .hero-actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="brand-row">
+          <div class="logo-badge">⚓ Harbor House Grill & Marina</div>
+          <div class="status-pill">Open Now · 11 AM – 10 PM</div>
+        </div>
+
+        <div>
+          <div class="live-banner">
+            <div class="live-tag">LIVE TONIGHT</div>
+            <div class="live-name">Jordan Miller</div>
+            <div class="live-time">6:00 PM – 9:00 PM · Tap artist profile below</div>
+          </div>
+          <h1>Scrollable QR Menu with Live Music, Reservations, and Marina Booking.</h1>
+          <p class="sub">This is the real customer-facing layout: guests scroll the menu, jump between categories, see tonight’s artist at the top, and book tables or marina experiences without leaving the page.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#menu">View Scrollable Menu</a>
+            <a class="btn secondary" href="#artists">Tonight’s Music</a>
+            <a class="btn gold" href="#bookings">Book a Table</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="qr-card">
+        <div>
+          <div class="section-head">
+            <h2 class="section-title">Table QR Sign</h2>
+          </div>
+          <div class="section-note">One code for menu, specials, music, reservations, and rewards.</div>
+        </div>
+
+        <div class="qr-sign">
+          <div style="font-weight:800;font-size:24px;letter-spacing:-0.03em;">SCAN TO EXPLORE</div>
+          <div class="qr-box" aria-hidden="true"></div>
+          <div style="color:var(--muted);font-weight:700;line-height:1.6;">Menu · Live Music · Book a Table<br>Marina Rentals · Rewards</div>
+        </div>
+
+        <div class="footer-note">Built so the guest stays on your page the whole time.</div>
+      </aside>
+    </section>
+
+    <section class="top-grid">
+      <div class="menu-shell" id="menu">
+        <div class="section-head">
+          <div>
+            <h2 class="section-title">Scrollable Menu</h2>
+            <div class="section-note">Sticky category navigation + image menu cards.</div>
+          </div>
+        </div>
+
+        <nav class="sticky-bar" aria-label="Menu categories">
+          <a class="chip active" href="#starters">Starters</a>
+          <a class="chip" href="#seafood">Seafood</a>
+          <a class="chip" href="#burgers">Burgers</a>
+          <a class="chip" href="#specials">Specials</a>
+          <a class="chip" href="#happyhour">Happy Hour</a>
+          <a class="chip" href="#desserts">Desserts</a>
+        </nav>
+
+        <section class="menu-category" id="starters">
+          <div class="category-header">
+            <div>
+              <h3>Starters</h3>
+              <div class="category-sub">Shareables, snacks, and starters</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1625943555419-56a2cb596640?auto=format&fit=crop&w=800&q=80" alt="Calamari" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Crispy Calamari</h4><div class="price">$12.99</div></div>
+                <p class="desc">Flash fried calamari with marinara and lemon aioli.</p>
+                <div class="meta"><span class="tag">Seafood</span><span class="tag">Shareable</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1541544741938-0af808871cc0?auto=format&fit=crop&w=800&q=80" alt="Shrimp" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Bang Bang Shrimp</h4><div class="price">$16.99</div></div>
+                <p class="desc">Crispy shrimp tossed in sweet heat sauce with green onions.</p>
+                <div class="meta"><span class="tag">Popular</span><span class="tag">Spicy</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="menu-category" id="seafood">
+          <div class="category-header">
+            <div>
+              <h3>Seafood</h3>
+              <div class="category-sub">Fresh coastal favorites</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62?auto=format&fit=crop&w=800&q=80" alt="Mahi tacos" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Blackened Mahi Tacos</h4><div class="price">$16.99</div></div>
+                <p class="desc">Cabbage slaw, mango salsa, chipotle crema, choice of fries or slaw.</p>
+                <div class="meta"><span class="tag">Fish</span><span class="tag">Best Seller</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1511690743698-d9d85f2fbf38?auto=format&fit=crop&w=800&q=80" alt="Pasta" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Shrimp Pasta</h4><div class="price">$19.99</div></div>
+                <p class="desc">Garlic cream sauce, parmesan, roasted tomatoes, grilled shrimp.</p>
+                <div class="meta"><span class="tag">Dinner</span><span class="tag">Creamy</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="menu-category" id="burgers">
+          <div class="category-header">
+            <div>
+              <h3>Burgers</h3>
+              <div class="category-sub">Handhelds and house favorites</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Burger" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Marina Burger</h4><div class="price">$15.99</div></div>
+                <p class="desc">Angus beef, cheddar, lettuce, tomato, pickles, harbor sauce.</p>
+                <div class="meta"><span class="tag">Burger</span><span class="tag">House Favorite</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1550317138-10000687a72b?auto=format&fit=crop&w=800&q=80" alt="Chicken sandwich" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Crispy Chicken Sandwich</h4><div class="price">$14.49</div></div>
+                <p class="desc">Buttermilk fried chicken, slaw, pickles, spicy mayo.</p>
+                <div class="meta"><span class="tag">Handheld</span><span class="tag">Crunchy</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="menu-category" id="specials">
+          <div class="category-header">
+            <div>
+              <h3>Tonight’s Specials</h3>
+              <div class="category-sub">Dynamic section that can update daily</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Special steak" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Chef’s Ribeye</h4><div class="price">$31.99</div></div>
+                <p class="desc">12oz ribeye with herb butter, garlic mashed potatoes, grilled asparagus.</p>
+                <div class="meta"><span class="tag">Limited</span><span class="tag">Chef Special</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=800&q=80" alt="Oysters" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Chargrilled Oysters</h4><div class="price">$18.50</div></div>
+                <p class="desc">Half dozen oysters with garlic butter, parmesan, and lemon.</p>
+                <div class="meta"><span class="tag">Seasonal</span><span class="tag">Coastal</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="menu-category" id="happyhour">
+          <div class="category-header">
+            <div>
+              <h3>Happy Hour</h3>
+              <div class="category-sub">Mon–Fri · 4:00 PM – 6:00 PM</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80" alt="Cocktail" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Harbor Mule</h4><div class="price">$7.00</div></div>
+                <p class="desc">Vodka, ginger beer, lime, mint. Normally $10.</p>
+                <div class="meta"><span class="tag">Drink Special</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=800&q=80" alt="Oysters and drinks" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">$1 Off Oysters + Drafts</h4><div class="price">Daily</div></div>
+                <p class="desc">Easy banner section for table guests to notice right away.</p>
+                <div class="meta"><span class="tag">Banner</span><span class="tag">Promo</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="menu-category" id="desserts">
+          <div class="category-header">
+            <div>
+              <h3>Desserts</h3>
+              <div class="category-sub">Finish strong</div>
+            </div>
+          </div>
+          <div class="items">
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=800&q=80" alt="Key lime pie" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Key Lime Pie</h4><div class="price">$8.50</div></div>
+                <p class="desc">Classic key lime filling, graham crust, whipped cream.</p>
+                <div class="meta"><span class="tag">Dessert</span></div>
+              </div>
+            </article>
+            <article class="item">
+              <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80" alt="Chocolate cake" />
+              <div class="item-body">
+                <div class="item-top"><h4 class="item-name">Chocolate Torte</h4><div class="price">$9.00</div></div>
+                <p class="desc">Dark chocolate torte with raspberry drizzle and sea salt.</p>
+                <div class="meta"><span class="tag">Rich</span><span class="tag">Chocolate</span></div>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <aside class="sidebar">
+        <section class="artist-card" id="artists">
+          <div class="section-head">
+            <div>
+              <h3 class="section-title" style="font-size:26px;">Tonight’s Artist</h3>
+              <div class="section-note">Show this at the top of the menu when live music is active.</div>
+            </div>
+          </div>
+
+          <div class="artist-hero">
+            <div class="mini">LIVE TONIGHT</div>
+            <div style="font-size:32px;font-weight:900;line-height:1;">Jordan Miller</div>
+            <div style="margin-top:6px;color:#dce8f5;font-weight:600;">Coastal acoustic set · 6:00 PM – 9:00 PM</div>
+          </div>
+
+          <div class="artist-list">
+            <a class="artist-row" href="#">
+              <img src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?auto=format&fit=crop&w=300&q=80" alt="Jordan Miller" />
+              <div><strong>Jordan Miller</strong><span>Tonight · View full artist profile</span></div>
+            </a>
+            <a class="artist-row" href="#">
+              <img src="https://images.unsplash.com/photo-1501612780327-45045538702b?auto=format&fit=crop&w=300&q=80" alt="River & Rowe" />
+              <div><strong>River & Rowe</strong><span>Wednesday · 6:30 PM – 9:30 PM</span></div>
+            </a>
+            <a class="artist-row" href="#">
+              <img src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=300&q=80" alt="Docksiders" />
+              <div><strong>The Docksiders</strong><span>Friday · 7:00 PM – 10:00 PM</span></div>
+            </a>
+          </div>
+        </section>
+
+        <section class="section-card" id="bookings">
+          <div class="section-head">
+            <div>
+              <h3 class="section-title" style="font-size:26px;">Quick Actions</h3>
+              <div class="section-note">Menu is not the only thing on the QR page.</div>
+            </div>
+          </div>
+          <div class="quick-links">
+            <a class="quick-link" href="#">Book a Table <span>→</span></a>
+            <a class="quick-link" href="#">Marina & Boat Rentals <span>→</span></a>
+            <a class="quick-link" href="#">Join Loyalty & Rewards <span>→</span></a>
+            <a class="quick-link" href="#">Today’s Specials <span>→</span></a>
+          </div>
+        </section>
+      </aside>
+    </section>
+
+    <div class="footer-note">This page is built as a real scrollable menu concept: menu with photos, sticky categories, live artist at the top, and side actions for booking and marina offers.</div>
+  </div>
+</body>
+</html>

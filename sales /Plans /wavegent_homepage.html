@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>aWavegent — Smart Pages, Bookings, SMS, and Verified Reviews</title>
+  <style>
+    :root{
+      --sand:#f7f0e6;
+      --sea:#0f766e;
+      --deep:#0f172a;
+      --sky:#ecfeff;
+      --coral:#f97316;
+      --purple:#7c3aed;
+      --blue:#0284c7;
+      --teal:#0ea5a4;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --border:#dbe4ea;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,var(--sand),#fff 240px);
+      line-height:1.5;
+    }
+    .wrap{max-width:1240px;margin:0 auto;padding:0 20px}
+    .hero{
+      background:
+        radial-gradient(circle at top right, rgba(15,118,110,.14), transparent 28%),
+        radial-gradient(circle at top left, rgba(249,115,22,.10), transparent 24%),
+        linear-gradient(135deg, rgba(15,118,110,.08), rgba(249,115,22,.06));
+      padding:76px 0 56px;
+      border-bottom:1px solid var(--border);
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:36px;
+      align-items:center;
+    }
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+      font-weight:800;
+      color:var(--sea);
+      margin-bottom:10px;
+    }
+    h1{
+      font-size:58px;
+      line-height:1.02;
+      margin:0 0 16px;
+      color:var(--deep);
+      max-width:760px;
+    }
+    .sub{
+      font-size:21px;
+      color:#334155;
+      max-width:760px;
+      margin-bottom:24px;
+    }
+    .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:18px}
+    .btn{
+      display:inline-block;
+      text-decoration:none;
+      padding:14px 20px;
+      border-radius:14px;
+      font-weight:700;
+      border:2px solid transparent;
+    }
+    .btn-primary{background:var(--sea);color:#fff}
+    .btn-secondary{background:#fff;border-color:var(--sea);color:var(--sea)}
+    .hero-panel{
+      background:#0b1220;
+      border-radius:28px;
+      padding:18px;
+      box-shadow:0 24px 60px rgba(15,23,42,.22);
+    }
+    .hero-screen{
+      background:#f8fafc;
+      border-radius:20px;
+      overflow:hidden;
+    }
+    .hero-top{
+      background:linear-gradient(135deg,var(--sea),#164e63);
+      color:#fff;
+      padding:22px 20px 18px;
+    }
+    .chip{
+      display:inline-block;
+      background:rgba(255,255,255,.18);
+      padding:7px 10px;
+      border-radius:999px;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.02em;
+      margin-bottom:10px;
+    }
+    .mini-card{
+      background:#fff;
+      margin:14px;
+      border-radius:18px;
+      padding:14px;
+      border:1px solid #eef2f7;
+      box-shadow:0 8px 24px rgba(15,23,42,.08);
+    }
+    .mini-badge{
+      display:inline-block;
+      font-size:12px;
+      font-weight:700;
+      color:var(--sea);
+      background:var(--sky);
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:8px;
+    }
+    .section{
+      padding:64px 0;
+      border-bottom:1px solid var(--border);
+    }
+    h2{
+      font-size:40px;
+      line-height:1.06;
+      margin:0 0 14px;
+      color:var(--deep);
+    }
+    .lead{
+      font-size:18px;
+      color:var(--muted);
+      max-width:860px;
+      margin-bottom:28px;
+    }
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:24px;
+      align-items:start;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:22px;
+      padding:22px;
+      box-shadow:0 8px 28px rgba(15,23,42,.05);
+      height:100%;
+    }
+    .card h3{
+      margin:0 0 10px;
+      font-size:24px;
+      color:var(--deep);
+    }
+    .card p{margin:0 0 14px}
+    .tag{
+      display:inline-block;
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.02em;
+      padding:6px 10px;
+      border-radius:999px;
+      margin-bottom:10px;
+    }
+    .tag-rest{background:#dcfce7;color:#166534}
+    .tag-charter{background:#dbeafe;color:#1d4ed8}
+    .tag-activity{background:#ccfbf1;color:#115e59}
+    .tag-service{background:#ede9fe;color:#6d28d9}
+    .link{
+      text-decoration:none;
+      font-weight:700;
+      color:var(--sea);
+    }
+    ul{padding-left:18px;margin:12px 0 0}
+    li{margin:8px 0}
+    .flow-step{
+      display:grid;
+      grid-template-columns:56px 1fr;
+      gap:14px;
+      align-items:start;
+      padding:14px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .flow-step:last-child{border-bottom:none}
+    .num{
+      width:42px;height:42px;border-radius:50%;
+      background:var(--sea);color:#fff;font-weight:800;
+      display:flex;align-items:center;justify-content:center;
+      margin-top:2px;
+    }
+    .cta{
+      background:linear-gradient(135deg,var(--deep),#134e4a);
+      color:#fff;
+      padding:64px 0;
+    }
+    .cta .card{
+      background:rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.16);
+      color:#fff;
+    }
+    .cta h2,.cta h3{color:#fff}
+    .small{font-size:14px;color:var(--muted)}
+    .cta .small{color:#d1d5db}
+    footer{
+      padding:28px 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    @media (max-width: 1080px){
+      .grid-4{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (max-width: 900px){
+      .hero-grid,.grid-3,.grid-2,.grid-4{grid-template-columns:1fr}
+      h1{font-size:42px}
+      h2{font-size:32px}
+      .sub,.lead{font-size:17px}
+    }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">aWavegent</div>
+        <h1>One update keeps your whole business connected.</h1>
+        <div class="sub">
+          Smart pages, bookings, QR menus, SMS automations, verified reviews, and Gulf Coast Radar visibility — built for local businesses that are tired of running everything through disconnected tools.
+        </div>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#industries">Explore Industries</a>
+          <a class="btn btn-secondary" href="#cta">Get Started Free</a>
+        </div>
+      </div>
+      <div class="hero-panel">
+        <div class="hero-screen">
+          <div class="hero-top">
+            <div class="chip">Connected business system</div>
+            <div style="font-size:30px;font-weight:800;">Bookings + SMS + Reviews + GCR</div>
+            <div style="opacity:.92;margin-top:6px;">One source of truth for your business page, customer flow, and public listing.</div>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-badge">Manager update</div>
+            <div style="font-weight:700;">Wavegent: What’s the catch today?</div>
+            <div class="small" style="margin-top:8px;">One tap updates your smart page, QR menu, and Gulf Coast Radar listing.</div>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-badge">Booking tracked</div>
+            <div style="font-weight:700;">Source: GCR listing</div>
+            <div class="small" style="margin-top:8px;">Know whether bookings came from GCR, direct, Google, Facebook, links page, SMS, or a referral campaign.</div>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-badge">Verified review</div>
+            <div style="font-weight:700;">Review tied to actual booking</div>
+            <div class="small" style="margin-top:8px;">Real customer actions, not random open reviews from anyone.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="industries">
+    <div class="wrap">
+      <div class="eyebrow">Built by niche</div>
+      <h2>Industry pages that actually match the business.</h2>
+      <div class="lead">
+        Don’t sell everything with one generic page. Each industry gets its own angle, workflow, and demo so the business owner sees something built for them.
+      </div>
+      <div class="grid-4">
+        <div class="card">
+          <div class="tag tag-rest">Restaurants</div>
+          <h3>Menus, specials, QR, and reservations</h3>
+          <p>Show daily specials, catch-of-the-day updates, QR menu flow, and verified dining reviews.</p>
+          <a class="link" href="wavegent_restaurants_sales_page.html">Open restaurants page →</a>
+        </div>
+        <div class="card">
+          <div class="tag tag-charter">Charters</div>
+          <h3>Bookings, briefings, and trip reviews</h3>
+          <p>Show trip booking flow, captain SMS briefings, source tracking, and verified post-trip reviews.</p>
+          <a class="link" href="wavegent_charters_sales_page.html">Open charters page →</a>
+        </div>
+        <div class="card">
+          <div class="tag tag-activity">Activities / Rentals</div>
+          <h3>Inventory, open slots, and same-day demand</h3>
+          <p>Show availability, booking, same-day offer texts, and customer follow-up after the experience.</p>
+          <a class="link" href="wavegent_activities_sales_page.html">Open activities page →</a>
+        </div>
+        <div class="card">
+          <div class="tag tag-service">Services</div>
+          <h3>Lead capture, appointments, and follow-up</h3>
+          <p>Show service pages, request forms, appointment flow, owner alerts, and review requests after the job.</p>
+          <a class="link" href="wavegent_services_sales_page.html">Open services page →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">What the platform actually does</div>
+      <h2>Not another dead profile page. A connected business system.</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Smart pages</h3>
+          <p>Each business gets a better page than a generic website or simple links page, tailored to how that niche actually sells.</p>
+        </div>
+        <div class="card">
+          <h3>Bookings and source tracking</h3>
+          <p>See where leads and bookings come from, from Gulf Coast Radar to direct traffic to social links and SMS campaigns.</p>
+        </div>
+        <div class="card">
+          <h3>SMS automations</h3>
+          <p>Run confirmations, reminders, manager prompts, briefings, open-slot messages, and review requests from one place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">Core flow</div>
+      <h2>How aWavegent works</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="flow-step">
+            <div class="num">1</div>
+            <div>
+              <h3>Business joins</h3>
+              <div>You set them up or invite them in, and they get a smart page built around their niche.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">2</div>
+            <div>
+              <h3>Data becomes structured</h3>
+              <div>Hours, services, menus, photos, booking flow, reviews, and specials live in one connected system.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">3</div>
+            <div>
+              <h3>Public pages stay synced</h3>
+              <div>The business page, GCR listing, and customer-facing flows all stay aligned instead of drifting apart.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">4</div>
+            <div>
+              <h3>Bookings and leads get tracked</h3>
+              <div>The business sees what source is actually producing revenue and which channels deserve more attention.</div>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="num">5</div>
+            <div>
+              <h3>SMS keeps everything moving</h3>
+              <div>Customer confirmations, manager prompts, reminders, and post-visit review requests happen automatically.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Why this is better than a generic tool stack</h3>
+          <ul>
+            <li>One update can push across the smart page, QR flow, and GCR listing.</li>
+            <li>Bookings are not just captured — they are tracked by source.</li>
+            <li>Reviews are tied to real customer actions, not random public noise.</li>
+            <li>The business keeps more ownership over the customer relationship.</li>
+            <li>Each vertical gets a page that fits how that kind of business actually works.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="eyebrow">What you can lead with</div>
+      <h2>Start with the easiest sell, then expand.</h2>
+      <div class="grid-3">
+        <div class="card">
+          <h3>Free or simple page</h3>
+          <p>Give them a better public page first so they see immediate value without a big commitment.</p>
+        </div>
+        <div class="card">
+          <h3>Booking or lead flow</h3>
+          <p>Show how aWavegent helps them capture more revenue, not just look better online.</p>
+        </div>
+        <div class="card">
+          <h3>Automation and reviews later</h3>
+          <p>Once they are in, expand into reminders, verified reviews, source tracking, and repeat-customer flow.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta" id="cta">
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <div class="eyebrow" style="color:#99f6e4;">Main offer</div>
+          <h2>Smart pages, real bookings, better follow-up.</h2>
+          <div class="lead" style="color:#d1d5db;">
+            aWavegent is the business-side system. Gulf Coast Radar is the public discovery side. Together they help local businesses stay updated, capture demand, and turn more clicks into real customers.
+          </div>
+        </div>
+        <div class="card">
+          <h3>Call to action</h3>
+          <p>Pick your niche page, launch your smart profile, and start turning disconnected tools into one cleaner business system.</p>
+          <p><strong>Email:</strong> hello@awavegent.com</p>
+          <p><strong>Phone:</strong> (000) 000-0000</p>
+          <p class="small">Replace this with your actual form, booking link, or contact info.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      aWavegent — smart pages, bookings, SMS automations, verified reviews, and Gulf Coast Radar visibility.
+    </div>
+  </footer>
+</body>
+</html>

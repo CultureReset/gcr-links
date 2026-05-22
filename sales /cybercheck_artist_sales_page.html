@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CyberCheck for Artists</title>
+  <style>
+    :root{
+      --bg:#08111d;
+      --bg2:#0d1828;
+      --card:#122239;
+      --card2:#1b2f4d;
+      --line:rgba(255,255,255,.08);
+      --text:#f4f7fb;
+      --muted:#9fb2c7;
+      --accent:#2de5b7;
+      --accent2:#7ef5d6;
+      --purple:#9a86ff;
+      --pink:#ff78c8;
+      --shadow:0 24px 80px rgba(0,0,0,.42);
+      --radius:24px;
+      --max:1120px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;
+      background:
+        radial-gradient(circle at top right, rgba(154,134,255,.16), transparent 24%),
+        radial-gradient(circle at top left, rgba(45,229,183,.10), transparent 18%),
+        linear-gradient(180deg,#07111b 0%,#0b1623 100%);
+      color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    }
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max);margin:0 auto;padding:0 22px}
+    .nav{
+      position:sticky;top:0;z-index:30;
+      backdrop-filter:blur(14px);
+      background:rgba(7,17,27,.72);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      max-width:var(--max);margin:0 auto;padding:14px 22px;
+      display:flex;align-items:center;justify-content:space-between;gap:18px;
+    }
+    .brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.03em}
+    .logo{
+      width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d;font-size:18px
+    }
+    .brand-name{font-size:24px}
+    .brand-name span{color:var(--accent)}
+    .nav-links{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+    .nav-cta{
+      padding:11px 16px;border-radius:14px;font-weight:800;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d
+    }
+
+    section{padding:72px 0}
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:8px 12px;border-radius:999px;
+      background:rgba(255,255,255,.04);border:1px solid var(--line);
+      color:#e5ddff;font-size:12px;font-weight:900;letter-spacing:.12em;text-transform:uppercase
+    }
+    .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--purple);box-shadow:0 0 12px var(--purple)}
+    h1,h2,h3,h4,p{margin:0}
+    .title{
+      font-size:clamp(38px,6vw,72px);line-height:.95;letter-spacing:-.05em;font-weight:950;
+      max-width:980px;margin-top:18px
+    }
+    .title .accent{color:var(--accent)}
+    .sub{
+      margin-top:18px;font-size:18px;line-height:1.6;color:var(--muted);max-width:820px
+    }
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      min-height:50px;padding:0 18px;border-radius:16px;font-weight:850;font-size:15px
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#06211d}
+    .btn-dark{background:rgba(255,255,255,.04);border:1px solid var(--line);color:#fff}
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)
+    }
+
+    .hero-grid{
+      margin-top:34px;
+      display:grid;grid-template-columns:1.05fr .95fr;gap:22px
+    }
+    .hero-copy-card{padding:26px}
+    .hero-copy-card h3{font-size:32px;line-height:1;letter-spacing:-.04em}
+    .hero-copy-card p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
+    .stat{padding:16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+    .stat strong{display:block;font-size:28px;letter-spacing:-.03em}
+    .stat span{display:block;font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+
+    .artist-ui{padding:20px}
+    .phone{
+      max-width:390px;margin:0 auto;background:#0c1622;border:1px solid var(--line);border-radius:28px;padding:12px
+    }
+    .notch{width:78px;height:20px;border-radius:999px;background:#050b12;margin:0 auto 12px}
+    .screen{border-radius:22px;overflow:hidden;background:#101a26;border:1px solid rgba(255,255,255,.06)}
+    .screen-head{
+      min-height:180px;padding:16px;
+      background:
+        linear-gradient(180deg, rgba(9,11,20,.16), rgba(9,11,20,.78)),
+        url('https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1000&q=80') center/cover;
+    }
+    .pill{
+      display:inline-block;padding:7px 10px;border-radius:999px;background:rgba(154,134,255,.14);
+      color:#ece8ff;border:1px solid rgba(154,134,255,.22);font-size:11px;font-weight:900;letter-spacing:.08em;text-transform:uppercase
+    }
+    .screen-head h4{font-size:28px;line-height:1;letter-spacing:-.03em;margin-top:72px}
+    .screen-head p{margin-top:6px;color:#e3eaf2;font-size:13px}
+    .screen-body{padding:16px}
+    .mini-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .mini{
+      min-height:76px;border-radius:16px;padding:12px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .mini strong{display:block;font-size:13px}
+    .mini span{display:block;margin-top:6px;color:var(--muted);font-size:12px;line-height:1.45}
+    .schedule{
+      margin-top:12px;padding:12px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .gig{padding:10px 0;border-bottom:1px solid var(--line)}
+    .gig:last-child{border-bottom:none}
+    .gig strong{display:block;font-size:13px}
+    .gig span{display:block;margin-top:4px;color:var(--muted);font-size:12px}
+    .action{
+      margin-top:12px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      display:grid;place-items:center;font-weight:900;color:#06211d;font-size:14px
+    }
+
+    .section-header{max-width:760px;margin-bottom:24px}
+    .section-header h2{
+      font-size:clamp(30px,4.5vw,52px);line-height:1;letter-spacing:-.04em;font-weight:950
+    }
+    .section-header p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6}
+
+    .problem-grid,.benefit-grid,.fit-grid,.result-grid,.cta-grid,.feature-grid{
+      display:grid;gap:18px
+    }
+    .problem-grid{grid-template-columns:1fr 1fr}
+    .benefit-grid{grid-template-columns:repeat(3,1fr)}
+    .feature-grid{grid-template-columns:1fr 1fr}
+    .fit-grid{grid-template-columns:repeat(4,1fr)}
+    .result-grid{grid-template-columns:repeat(4,1fr)}
+    .problem-card,.benefit,.fit,.result,.feature{
+      padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .problem-card h3,.benefit h3,.fit h3,.result h3,.feature h3{font-size:22px;letter-spacing:-.03em}
+    .problem-card p,.benefit p,.fit p,.result p,.feature p{
+      margin-top:10px;color:var(--muted);font-size:15px;line-height:1.55
+    }
+    .icon{
+      width:52px;height:52px;border-radius:16px;display:grid;place-items:center;
+      background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);font-size:24px;margin-bottom:14px
+    }
+    .feature-block{
+      display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center
+    }
+    .feature-copy h3{
+      font-size:36px;line-height:1;letter-spacing:-.04em;margin-bottom:14px
+    }
+    .feature-copy p{
+      color:var(--muted);font-size:17px;line-height:1.65
+    }
+    .checklist{display:grid;gap:10px;margin-top:18px}
+    .check{display:flex;gap:10px;align-items:flex-start;color:#e8f0f7;font-size:15px}
+    .check span:first-child{color:var(--accent);font-weight:900}
+
+    .wide{
+      padding:24px;border-radius:28px;background:linear-gradient(180deg, rgba(154,134,255,.10), rgba(154,134,255,.03));
+      border:1px solid rgba(154,134,255,.18)
+    }
+    .wide h3{font-size:34px;line-height:1;letter-spacing:-.04em}
+    .wide p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6;max-width:840px}
+
+    .fit strong,.result strong{display:block;font-size:34px;letter-spacing:-.04em;color:var(--accent)}
+    .fit span,.result span{display:block;margin-top:6px;color:var(--muted);font-size:14px;line-height:1.45}
+
+    .cta-wrap{
+      padding:28px;border-radius:28px;background:
+        radial-gradient(circle at right, rgba(45,229,183,.16), transparent 28%),
+        linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      border:1px solid var(--line);
+      box-shadow:var(--shadow)
+    }
+    .cta-grid{grid-template-columns:1.1fr .9fr;align-items:center}
+    .cta-copy h2{font-size:clamp(30px,4.5vw,52px);line-height:1;letter-spacing:-.04em}
+    .cta-copy p{margin-top:14px;color:var(--muted);font-size:17px;line-height:1.6}
+    .cta-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+    .quote{
+      padding:20px;border-radius:22px;background:rgba(255,255,255,.03);border:1px solid var(--line)
+    }
+    .quote strong{display:block;font-size:18px}
+    .quote p{margin-top:10px;color:var(--muted);font-size:15px;line-height:1.6}
+
+    footer{
+      padding:28px 0 50px;color:var(--muted);font-size:14px
+    }
+    footer .container{
+      border-top:1px solid var(--line);padding-top:18px
+    }
+
+    @media (max-width: 960px){
+      .hero-grid,.problem-grid,.benefit-grid,.feature-block,.feature-grid,.fit-grid,.result-grid,.cta-grid{grid-template-columns:1fr}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .nav-links{display:none}
+    }
+    @media (max-width: 640px){
+      section{padding:56px 0}
+      .container,.nav-inner{padding-left:16px;padding-right:16px}
+      .stats,.benefit-grid,.fit-grid,.result-grid,.feature-grid,.problem-grid,.mini-row{grid-template-columns:1fr}
+      .title{font-size:40px}
+      .feature-copy h3,.wide h3{font-size:30px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo">🎵</div>
+        <div class="brand-name">CYBER<span>CHECK</span></div>
+      </div>
+      <div class="nav-links">
+        <a href="#problem">Problem</a>
+        <a href="#how">How It Works</a>
+        <a href="#venues">Venue Sync</a>
+        <a href="#fits">Who It Fits</a>
+        <a href="#cta">Demo</a>
+      </div>
+      <a class="nav-cta" href="#cta">Book a Demo</a>
+    </div>
+  </nav>
+
+  <section>
+    <div class="container">
+      <div class="eyebrow"><span class="dot"></span> Live profile pages for musicians and artists</div>
+      <h1 class="title">Give every artist a live page that <span class="accent">feeds the venues too.</span></h1>
+      <p class="sub">
+        CyberCheck gives artists a profile page with their schedule, genre, links, and booking info — and that same data can flow into restaurant pages, QR menus, lineup cards, and live music discovery listings automatically.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#cta">See Artist Demo</a>
+        <a class="btn btn-dark" href="#problem">Why It Wins</a>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-copy-card card">
+          <h3>Artists should not have to rebuild themselves for every venue.</h3>
+          <p>
+            Most places just post a name on a flyer or a one-line event note. CyberCheck turns the artist into a real live profile:
+            who they are, what kind of music they play, where they’re playing, how to follow them, and how to book them.
+          </p>
+          <div class="stats">
+            <div class="stat">
+              <strong>1</strong>
+              <span>artist profile used across multiple venues</span>
+            </div>
+            <div class="stat">
+              <strong>0</strong>
+              <span>need to manually retype artist details every week</span>
+            </div>
+            <div class="stat">
+              <strong>Live</strong>
+              <span>schedule, links, and genre stay current from one place</span>
+            </div>
+            <div class="stat">
+              <strong>More</strong>
+              <span>discovery, bookings, tips, follows, and requests</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="artist-ui card">
+          <div class="phone">
+            <div class="notch"></div>
+            <div class="screen">
+              <div class="screen-head">
+                <span class="pill">Playing tonight</span>
+                <h4>Jordan Miller</h4>
+                <p>Acoustic rock • coastal covers • originals</p>
+              </div>
+              <div class="screen-body">
+                <div class="mini-row">
+                  <div class="mini"><strong>Instagram</strong><span>@jordanmillerlive</span></div>
+                  <div class="mini"><strong>Booking</strong><span>Private events + venue sets</span></div>
+                </div>
+                <div class="schedule">
+                  <div class="gig">
+                    <strong>Friday — Harbor House Grill</strong>
+                    <span>7:00 PM – 10:00 PM • Waterfront patio</span>
+                  </div>
+                  <div class="gig">
+                    <strong>Saturday — Bluewater Tavern</strong>
+                    <span>8:00 PM – 11:00 PM • Full evening set</span>
+                  </div>
+                  <div class="gig">
+                    <strong>Sunday — Sunset Deck Sessions</strong>
+                    <span>1:00 PM – 4:00 PM • Brunch acoustic set</span>
+                  </div>
+                </div>
+                <div class="action">View Artist Page</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="problem">
+    <div class="container">
+      <div class="section-header">
+        <h2>The problem with how artists get shown now</h2>
+        <p>
+          Most venues tell people that there is music, but they do not tell them enough about the person actually playing.
+        </p>
+      </div>
+
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>No real artist identity</h3>
+          <p>
+            A restaurant might post “Live music tonight: Jordan Miller,” but the guest still does not know what kind of music that is, whether they want to stay, or where to learn more.
+          </p>
+        </div>
+        <div class="problem-card">
+          <h3>Same info gets rebuilt over and over</h3>
+          <p>
+            Artists and venues keep repeating the same profile details, schedule notes, and link info manually instead of using one live source of truth.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="container">
+      <div class="feature-block">
+        <div class="feature-copy">
+          <div class="eyebrow">How it works</div>
+          <h3>The artist page becomes the live source.</h3>
+          <p>
+            The artist updates their own profile, schedule, links, and venue dates once. Venues can then pull that live information into their lineup cards,
+            restaurant pages, QR menus, and music discovery views.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>Artist controls their own bio, genre, links, and schedule</span></div>
+            <div class="check"><span>✓</span><span>Venue pages can show clickable artist cards</span></div>
+            <div class="check"><span>✓</span><span>Guests can tap the artist from the restaurant QR menu</span></div>
+            <div class="check"><span>✓</span><span>One update can feed multiple venues and listings</span></div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <h3>What the artist page can include</h3>
+          <p>
+            This is more than a schedule page. It can be a live mini hub for the artist.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>Profile photo and bio</span></div>
+            <div class="check"><span>✓</span><span>Genre / music style tags</span></div>
+            <div class="check"><span>✓</span><span>Upcoming schedule and venue list</span></div>
+            <div class="check"><span>✓</span><span>Instagram, Spotify, YouTube, website links</span></div>
+            <div class="check"><span>✓</span><span>Song requests, tips, and booking form</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="venues">
+    <div class="container">
+      <div class="wide">
+        <h3>This makes the venue pages smarter too.</h3>
+        <p>
+          When a guest taps the artist from a restaurant’s QR menu or lineup card, they land on the artist’s live page. That helps the venue promote live music better,
+          helps the artist get more exposure, and makes the whole experience feel more real and up to date.
+        </p>
+      </div>
+
+      <div class="benefit-grid" style="margin-top:22px">
+        <div class="benefit">
+          <div class="icon">🎤</div>
+          <h3>Clickable lineup cards</h3>
+          <p>Each artist in the venue’s lineup can open a live artist page instead of being just a name on a list.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">📍</div>
+          <h3>Venue sync</h3>
+          <p>The artist can appear on multiple restaurant or venue pages without each venue rebuilding the same profile details.</p>
+        </div>
+        <div class="benefit">
+          <div class="icon">🌐</div>
+          <h3>Discovery network</h3>
+          <p>Guests can see where else the artist is playing, what style they do, and whether they want to follow or book them.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="feature-grid">
+        <div class="feature">
+          <h3>Good for the artist</h3>
+          <p>
+            Artists finally get a real live page instead of a weak social bio link. Their schedule, identity, and booking details all live in one place.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>More credibility</span></div>
+            <div class="check"><span>✓</span><span>More visibility across multiple venues</span></div>
+            <div class="check"><span>✓</span><span>Easier booking and follow growth</span></div>
+          </div>
+        </div>
+
+        <div class="feature">
+          <h3>Good for the venue</h3>
+          <p>
+            The venue gets a better guest experience, better live music promotion, and less manual work every week.
+          </p>
+          <div class="checklist">
+            <div class="check"><span>✓</span><span>Guests know who is actually playing</span></div>
+            <div class="check"><span>✓</span><span>Weekly lineup updates are cleaner</span></div>
+            <div class="check"><span>✓</span><span>Restaurant QR menu feels dynamic and current</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fits">
+    <div class="container">
+      <div class="section-header">
+        <h2>Who this fits best</h2>
+        <p>Start with the people who already play live and need a better digital presence.</p>
+      </div>
+
+      <div class="fit-grid">
+        <div class="fit">
+          <strong>01</strong>
+          <span>Solo artists playing restaurants, patios, and bars</span>
+        </div>
+        <div class="fit">
+          <strong>02</strong>
+          <span>Duo acts and small bands rotating across local venues</span>
+        </div>
+        <div class="fit">
+          <strong>03</strong>
+          <span>Venues that want clickable artist cards and smarter lineups</span>
+        </div>
+        <div class="fit">
+          <strong>04</strong>
+          <span>Local music scenes where discovery and cross-venue visibility matter</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <div class="section-header">
+        <h2>What the artist actually gets</h2>
+        <p>Not just a link page. A live profile tied into the local venue network.</p>
+      </div>
+
+      <div class="result-grid">
+        <div class="result">
+          <strong>More</strong>
+          <span>discoverability across venue pages and music listings</span>
+        </div>
+        <div class="result">
+          <strong>Better</strong>
+          <span>control over schedule, links, and public profile</span>
+        </div>
+        <div class="result">
+          <strong>Less</strong>
+          <span>manual re-entry of the same info from venue to venue</span>
+        </div>
+        <div class="result">
+          <strong>Stronger</strong>
+          <span>booking potential, follow growth, and fan connection</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="container">
+      <div class="cta-wrap">
+        <div class="cta-grid">
+          <div class="cta-copy">
+            <div class="eyebrow">Ready to sell it?</div>
+            <h2>Give artists a page that works everywhere they play.</h2>
+            <p>
+              Schedule, profile, music links, booking info, and venue sync — all from one live artist page that feeds the restaurant side too.
+            </p>
+            <div class="cta-actions">
+              <a class="btn btn-primary" href="#">Book a Demo</a>
+              <a class="btn btn-dark" href="#">See Artist Example</a>
+            </div>
+          </div>
+
+          <div class="quote">
+            <strong>The pitch</strong>
+            <p>
+              “We give artists a live page with their profile, schedule, and links — and that same page can feed the restaurant’s lineup cards,
+              QR menus, and live music listings automatically.”
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      CyberCheck for Artists — live artist pages, schedule control, venue sync, clickable lineup cards, and local music discovery.
+    </div>
+  </footer>
+</body>
+</html>
